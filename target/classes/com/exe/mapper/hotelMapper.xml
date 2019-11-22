@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hotelmapper">
+	
+	<!-- hotelUser -->
+	<select id="getReadUserData" parameterType="String" resultType="com.exe.dto.HotelUserDTO">
+		select userId, userName,userPwd,email, birth, tel, addr from hotelUser
+		where userId=#{userId}
+	</select>
+	
+	<insert id="insertUser" parameterType="com.exe.dto.HotelUserDTO">
+		insert into hotelUser (userId, userName, userPwd, email, birth, tel, addr)
+		values (#{userId}, #{userName}, #{userPwd}, #{email}, #{birth}, #{tel}, #{addr})
+	</insert>
+
+	<!-- gallery -->	
+	<select id="galleryGetMaxNum" resultType="int">
+		select nvl(max(galleryIndex),0) from gallery
+	</select>
+	
+	<select id="galleryGetList" resultType="com.exe.dto.GalleryDTO">
+		select galleryIndex, galleryName, content, imageName from gallery
+	</select>
+	
+	<insert id="insertGallery" parameterType="com.exe.dto.GalleryDTO">
+		insert into gallery (galleryIndex, galleryName, content, imageName)
+		values (#{galleryIndex}, #{galleryName}, #{content}, #{imageName})
+	</insert>
+	
+	<!-- review -->
+	<select id="reviewMaxNum" resultType="int">
+		select nvl(max(reviewNum),0) from review
+	</select>
+	
+	<insert id="insertReview" parameterType="com.exe.dto.ReviewDTO">
+		insert into review (reviewNum,name,email,content,created,roomIndex)
+		values (#{reviewNum},#{name},#{email},#{content},sysdate,#{roomIndex})
+	</insert>
+	
+	<select id="getReviewList" parameterType="int" resultType="com.exe.dto.ReviewDTO">
+		select * from review where roomIndex=#{roomIndex} 
+	</select>
+
+	<delete id="deleteReviewData" parameterType="int">
+		delete review where reviewNum=#{reviewNum}
+	</delete>
+	
+	<select id="countReview" resultType="int" parameterType="int">
+		select nvl(count(*),0) from review
+		where roomIndex=#{roomIndex}
+	</select>
+	
+
+</mapper>
