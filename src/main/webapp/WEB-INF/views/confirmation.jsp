@@ -37,6 +37,17 @@
   
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
+  
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+  
+	<style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
 
 </head>
 
@@ -208,8 +219,8 @@
                         <h2>Total:  <span>${total }</span></h2>
                       </div>
 
-                       <a href="#" class="btn btn-solid-border">Browse</a>
-                       <a href="#" class="btn btn-main">Invoice</a>
+                       <!-- <a href="#" class="btn btn-solid-border">Browse</a> -->
+                       <a href="/hotel" class="btn btn-main">H o m e</a>
                   </div>
                 </div>
               </div>

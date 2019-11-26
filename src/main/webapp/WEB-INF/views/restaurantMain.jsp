@@ -12,7 +12,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>ITWill | Restaurant</title>
+  <title>IT WILL | Restaurant</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,6 +38,17 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+  
+	<style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
+  
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
   <style type="text/css">
@@ -50,8 +61,6 @@
  }
   
   </style>
- 
-  
   
 
 </head>
@@ -133,7 +142,7 @@
 				</ul>
 			  </li>
 			  <li class="nav-item active">
-				<a class="nav-link" href="/hotel/">Hotel<span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/hotel">Hotel<span class="sr-only">(current)</span></a>
 			  </li>
 			  
 			  <li class="nav-item active">
@@ -582,7 +591,7 @@
 					<h3 class="mb-4">빠른링크</h3>
 					<ul class="list-unstyled footer-menu mb-0">
 						<li>
-							<a href="/"><i class="fa fa-angle-right"></i>Home</a>
+							<a href="/hotel"><i class="fa fa-angle-right"></i>Home</a>
 						</li>
 
 						<li>
@@ -594,7 +603,7 @@
 						</li>
 	
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>
