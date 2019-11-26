@@ -55,10 +55,6 @@
 		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
 	</beans:bean>
 	
-	<beans:bean id="LessonUserDAO" class="com.exe.dao.LessonUserDAO">
-		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
-	</beans:bean>
-	
 	<!-- template -->
 	<beans:bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg ref="sessionFactory"/>
@@ -74,7 +70,7 @@
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> 
 		<beans:property name="url" value="jdbc:oracle:thin:@192.168.16.24:1521:TestDB"/>
-		<beans:property name="username" value="suzi"/>
+		<beans:property name="username" value="suzi"/> 
 		<beans:property name="password" value="a123"/>
 	</beans:bean>
 	
