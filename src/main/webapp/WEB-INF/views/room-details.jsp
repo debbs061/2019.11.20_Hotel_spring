@@ -3,6 +3,10 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	String children2 = (String)request.getAttribute("children");
+	String adult2 = (String)request.getAttribute("adult");
+	int children = Integer.parseInt(children2);
+	int adult = Integer.parseInt(adult2);
 	
 	int total = 0;
 %>
@@ -221,6 +225,11 @@
 		// 전체 체크박스 해제
 		$("input:checkbox[name='defaultCheck']").prop("checked", false);
 		
+		var adult = document.getElementById("adult").value;
+		var children = document.getElementById("children").value;
+		var checkin= document.getElementById("checkin").value;
+		var checkout = document.getElementById("checkout").value;
+		
 		location.href = "<%=cp%>/booking-step2.action?checkin="+checkin
 			+"&checkout=" + checkout + "&adult=" + adult + "&children="+children
 			+"&total=<%=total%>&optionList2=" + optionList2
@@ -324,7 +333,7 @@
 <!-- Header Close --> 
 
 <div class="main-wrapper ">
-
+<div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
 <section class="overly bg-2">
   <div class="container">
@@ -463,11 +472,11 @@
 			    	<%-- <h6 class="text-white text-uppercase mb-2">${checkout }</h6> --%>
 	          	</div>
 
-			    <div class="form-group col-lg-12  mb-3">
+			    			    <div class="form-group col-lg-12  mb-3">
 			    	<h6 class="text-white text-uppercase mb-2">성인</h6>
 			    	
 			    	<c:if test="${empty adult }">
-				    	<select id="adult" class="form-control custom-select" name="adult" >
+				    	<select id="adult" class="form-control custom-select" value="adult" >
 					        <option selected style="color:black;">성인</option>
 						        <option value="1" style="color:black;">1명</option>
 				                <option value="2" style="color:black;">2명</option>
@@ -477,13 +486,14 @@
 					    </select>
 					</c:if>
 				    <c:if test="${!empty adult}">
-						<select id="adult" class="form-control custom-select" name="adult">
-					        <option selected style="color:black;">${adult }명</option>
-						        <option value="1" style="color:black;">1명</option>
-				                <option value="2" style="color:black;">2명</option>
-				                <option value="3" style="color:black;">3명</option>
-				                <option value="4" style="color:black;">4명</option>
-				                <option value="5" style="color:black;">5명</option>
+						<select id="adult" class="form-control custom-select" value="adult">
+						<% for(int j=1; j<=5; j++) { 
+									if(children==j) {
+								%>
+					    		  	  <option selected style="color:black;">${adult }명</option>
+					    		  	<%} else {%>  
+					        			<option value="<%=j %>" style="color:black;"><%=j %>명</option>
+					        	<% }} %>	
 					    </select>
 					</c:if>
 			    	
@@ -494,7 +504,7 @@
 			    	<h6 class="text-white text-uppercase mb-2">어린이</h6>
 			    	
 			    	<c:if test="${empty children}">
-			    		<select id="children" class="form-control custom-select" name="children">
+			    		<select id="children" class="form-control custom-select" value="children">
 					        <option selected style="color:black;">어린이</option>
 					        	<option value="0" style="color:black;">0명</option>
 						        <option value="1" style="color:black;">1명</option>
@@ -505,14 +515,16 @@
 					    </select>
 					</c:if>
 				    <c:if test="${!empty children }">
-						<select id="children" class="form-control custom-select" name="children">
-					        <option selected style="color:black;">${children }명</option>
-					        	<option value="0" style="color:black;">0명</option>
-						        <option value="1" style="color:black;">1명</option>
-				                <option value="2" style="color:black;">2명</option>
-				                <option value="3" style="color:black;">3명</option>
-				                <option value="4" style="color:black;">4명</option>
-				                <option value="5" style="color:black;">5명</option>
+						<select id="children" class="form-control custom-select" value="children">
+								<% for(int i=0; i<=5; i++) { 
+									if(children==i) {
+								%>
+					    		  	  <option selected style="color:black;">${children }명</option>
+					    		  	<%} else {%>  
+					        			<option value="<%=i %>" style="color:black;"><%=i %>명</option>
+					        	<% }} %>	
+					        		
+					        	
 					    </select>
 					</c:if>
 			    	
