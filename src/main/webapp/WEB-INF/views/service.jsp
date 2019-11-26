@@ -38,6 +38,17 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+  
+	<style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
+  
   <!-- Kakao 톡상담 -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 

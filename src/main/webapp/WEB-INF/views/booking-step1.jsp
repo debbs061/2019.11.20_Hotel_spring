@@ -38,6 +38,17 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+  
+	<style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
 
 
 <script type="text/javascript">
@@ -273,7 +284,7 @@ function listPage(page) {
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">Reservation</h1>
+          <h1 class="text-white py-100">날짜, 인원 선택</h1>
       </div>
     </div>
   </div>
@@ -282,9 +293,9 @@ function listPage(page) {
     <div class="row ">
       <div class="col-lg-12 text-center">
           <div class="page-breadcumb py-2">
-            <a href="#" class="text-white">Home</a>
+            <a href="/hotel" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="#" class="text-white">Reservation</a>
+            <a href="booking-step1.action" class="text-white">Reservation</a>
         </div>
       </div>
     </div>

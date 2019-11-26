@@ -1,18 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="zxx">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description" content="Eden Travel Template">
 
 <meta name="author" content="Themefisher.com">
 
-<title>ITWill | Gym</title>
+<title>IT WILL | Gym</title>
 
 <!-- Mobile Specific Meta-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,6 +48,17 @@
 
 <!-- Main Stylesheet -->
 <link rel="stylesheet" href="/hotel/resources/css/style.css">
+
+<!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+  
+	<style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
 
 </head>
 
@@ -225,8 +236,8 @@
 									</div>
 									<a href="event-single.html"><h3>${dto.title }</h3></a>
 									<div class="event-post-meta mt-2 mb-3">
-										<span><i class="ion-clock"></i>${dto.time }</span>
-										<span><i class="ion-ios-location"></i>${dto.addr }</span>
+										<span><i class="ion-clock"></i>${dto.time }</span> <span><i
+											class="ion-ios-location"></i>${dto.addr }</span>
 									</div>
 									<p>${dto.content }</p>
 								</div>

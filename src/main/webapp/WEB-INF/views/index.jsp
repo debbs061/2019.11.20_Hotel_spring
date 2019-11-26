@@ -37,6 +37,9 @@
   
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
+  
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
 
   <!-- Kakao 톡상담 -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -45,11 +48,19 @@
   <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.css" />
   <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.min.css" />
   
-  <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+  
+	<style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
+  
+  
   <style type="text/css">
       * {
-          box-sizing: border-box;
-          font-family: 'Nanum Myeongjo', serif!important;
+          box-sizing: border-box
       }
       html, body {
           width: 100%;
@@ -114,8 +125,6 @@
 		f.action = "<%=cp %>/hotelSearch.action";
 		f.submit();
 	}
-	
-	
 </script>
 
 </head>
@@ -205,7 +214,7 @@
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
 				  <li><a class="dropdown-item" href="#">Shopping</a></li>
-				  <li><a class="dropdown-item" href="#">Spa</a></li>
+				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
 			  
@@ -357,13 +366,15 @@
 		</div>
 	</div>
 </section>	
+
+
 <section id="about" class="section secondary-bg">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
                 <div class="section-title">
                     <p class="section-subtitle">SPECIAL OFFERS</p>
-                    <h2 class="mb-3">스페셜 오퍼</h2>
+                    <h2 class="mb-3">스페셜 오퍼 </h2>
                     <span class="section-border"></span>
                 </div>
             </div><!-- .col-md-7 close -->
@@ -407,14 +418,14 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
             	<div class="event-box mb-5 position-relative">
-					<img src="/hotel/resources/images/about/about2.jpg" alt="" class="img-fluid w-100" onclick="location.href='restaurantMain.action';">
+					<img src="/hotel/resources/images/about/about2.jpg" alt="" class="img-fluid w-100" onclick="location.href='life-spa.action';">
 					<div class="event-content mt-3">
 						<div class="event-date p-3 text-white">
 							<span class="date font-weight-bold d-block">Members</span> <span>O n l y</span>
 						</div>
 					</div>
 					<div class="event-post-meta mt-2 mb-3">
-						<a href="restaurantMain.action"><h3>호텔 SPA</h3></a>
+						<a href="life-spa.action"><h3>호텔 SPA</h3></a>
 						<span><i class="ion-ios-location"></i>5F SPA시설</span>
 						<span><i class="ion-clock"></i>09:00 ~ 24:00</span>
 					</div>
@@ -427,6 +438,8 @@
      
     </div>
 </section>
+
+
 <!-- Wrapper Start -->
 <section class="about section">
 	<div class="container">
@@ -745,10 +758,6 @@
   
 <!-- 이미지 슬라이드 끝 -->
 
-<div id="image_container">
-<!-- TEST -->
-</div>
-
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
@@ -962,39 +971,6 @@
             ]
         });
       });
-    </script>
-    <script type="text/javascript">
-    window.onload = function(){
-		startLoadFile();
-	};
-	
-	function startLoadFile(){
-		$.ajax({
-			url:'indexImage',
-			type:'GET',
-			dataType:'json',
-			success:function(data){
-				createImage(data)
-			}
-		});
-	}
-	
-	function createImages(objImageInfo){
-		var images = objImageInfo.images;
-		var strDOM = "";
-		
-		for(var i = 0; i < images.length; i++){
-			var image = images[i];
-			
-			strDOM += '<div class="image_panel">';
-			strDOM += '<img src="'+image.url +'">';
-			strDOM += '<p class="title">' + image.title+'</p>';
-			strDOM += '</div>';
-		}
-		
-		var $imageContainer = $("#image_container");
-		$imageContainer.append(strDOM);
-	}
     </script>
   
   </body>

@@ -12,7 +12,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>ITWill | Gym</title>
+  <title>IT WILL | Gym</title>
 
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
@@ -39,6 +39,17 @@
   
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
+  
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+  
+	<style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
 
 </head>
 
@@ -142,7 +153,6 @@
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
 				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
-				  <li><a class="dropdown-item" href="room-list.action">Room-List</a></li>
 				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
 				</ul>
 			  </li>
@@ -171,9 +181,9 @@
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
-				  <li><a class="dropdown-item" href="room-list.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="room-grid.action">Shopping</a></li>
-				   <li><a class="dropdown-item" href="room-grid.action">Spa</a></li>
+				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
+				  <li><a class="dropdown-item" href="#">Shopping</a></li>
+				   <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
 			  
@@ -419,7 +429,7 @@
 					<h3 class="mb-4">빠른링크</h3>
 					<ul class="list-unstyled footer-menu mb-0">
 						<li>
-							<a href="/"><i class="fa fa-angle-right"></i>Home</a>
+							<a href="/hotel"><i class="fa fa-angle-right"></i>Home</a>
 						</li>
 
 						<li>
@@ -431,7 +441,7 @@
 						</li>
 	
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>
