@@ -6,7 +6,10 @@ public class RoomDTO {
 	private String roomType;
 	private int roomSize;
 	private int pricePerNight;
+	private String bedType;
+	private String views;
 	private String roomImage;
+	private String roomInformation;
 	public int getRoomIndex() {
 		return roomIndex;
 	}
@@ -31,12 +34,32 @@ public class RoomDTO {
 	public void setPricePerNight(int pricePerNight) {
 		this.pricePerNight = pricePerNight;
 	}
+	public String getBedType() {
+		return bedType;
+	}
+	public void setBedType(String bedType) {
+		this.bedType = bedType;
+	}
+	public String getViews() {
+		return views;
+	}
+	public void setViews(String views) {
+		this.views = views;
+	}
 	public String getRoomImage() {
 		return roomImage;
 	}
 	public void setRoomImage(String roomImage) {
 		this.roomImage = roomImage;
 	}
+	public String getRoomInformation() {
+		return roomInformation;
+	}
+	public void setRoomInformation(String roomInformation) {
+		this.roomInformation = roomInformation;
+	}
+
 	
 	
+
 }

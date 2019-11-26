@@ -35,11 +35,32 @@
 		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
 	</beans:bean>
 	
+	<beans:bean id="eventDAO" class="com.exe.dao.EventDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	</beans:bean>
+	
+	<beans:bean id="eventReviewDAO" class="com.exe.dao.EventReviewDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	</beans:bean>
+	
+	<beans:bean id="HotelBookingDAO" class="com.exe.dao.HotelBookingDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	</beans:bean>
+	
+ 	<beans:bean id="RoomDAO" class="com.exe.dao.RoomDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	</beans:bean>
+	
+	<beans:bean id="LessonDAO" class="com.exe.dao.LessonDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	</beans:bean>
+	
+	<!-- template -->
 	<beans:bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg ref="sessionFactory"/>
 	</beans:bean>
 	
-	<!-- sessionFactory -->
+	<!-- factory -->
 	<beans:bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"/>
 		<beans:property name="configLocation" value="classpath:/mybatis-config.xml"/>
@@ -53,11 +74,11 @@
 		<beans:property name="password" value="a123"/>
 	</beans:bean>
 	
+	<!-- File Upload -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10240000"/>
 		<beans:property name="maxInMemorySize" value="10240000"/>
 		<beans:property name="defaultEncoding" value="utf-8"/>
 	</beans:bean>
-	
 	
 </beans:beans>

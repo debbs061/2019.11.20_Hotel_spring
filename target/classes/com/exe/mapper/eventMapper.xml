@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="eventmapper">
+
+<insert id="insertEvent" parameterType="com.exe.dto.EventDTO">
+	insert into event (eventIndex,eventTitle,day,time,location,price,content1,content2,savefileName) 
+	values (#{eventIndex},#{eventTitle},#{day},#{time},#{location},#{price},#{content1},#{content2},#{savefileName})
+</insert>
+
+
+<select id="maxNum" resultType="int">
+	select nvl(max(eventIndex),0) from event
+</select>
+
+<select id="getEventCount" parameterType="map" resultType="int">
+	select nvl(count(*),0) from event
+</select>
+
+
+<select id="getEventLists" resultType="com.exe.dto.EventDTO">
+	select eventIndex,eventTitle,day,time,location,price,content1,content2,savefileName from event
+</select>
+
+<select id="getReadEventData" parameterType="int" resultType="com.exe.dto.EventDTO">
+	select eventIndex,eventTitle,day,time,location,price,content1,content2,savefileName from event where eventIndex=#{eventIndex}
+</select>
+
+<update id="updateEventData" parameterType="com.exe.dto.EventDTO">
+	update event set eventTitle=#{eventTitle},day=#{day},time=#{time},location=#{location},price=#{price},content1=#{content1},content2=#{content2},savefileName=#{savefileName}
+	where eventIndex=#{eventIndex}
+</update>
+
+<delete id="deleteEventData" parameterType="int">
+	delete event where eventIndex=#{eventIndex}
+</delete>
+
+
+<!-- Event Review -->
+<select id="reviewMaxNum" resultType="int">
+ 	select nvl(max(eventReviewNum),0) from eventReview
+</select>
+	
+<select id="countReview" resultType="int" parameterType="int">
+ 	select nvl(count(*),0) from eventReview
+ 	where eventIndex=#{eventIndex}
+</select>
+	
+<insert id="insertReview" parameterType="com.exe.dto.EventReviewDTO">
+	insert into eventReview (eventReviewNum,name,email,content,created,eventIndex)
+	values (#{eventReviewNum},#{name},#{email},#{content},sysdate,#{eventIndex})
+</insert>
+	
+<select id="getReviewList" parameterType="int" resultType="com.exe.dto.EventReviewDTO">
+	select * from eventReview where eventIndex=#{eventIndex} 
+</select>
+
+<delete id="deleteReviewData" parameterType="int">
+	delete eventReview where eventReviewNum=#{eventReviewNum}
+</delete>
+	
+
+</mapper>

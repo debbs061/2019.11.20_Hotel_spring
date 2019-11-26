@@ -1,18 +1,42 @@
 package com.exe.dto;
 
 public class HotelBookingDTO {
-	private String bookingId;
+	
+	private int bookingId;
 	private String userId;
 	private int roomIndex;
 	private String checkin;
 	private String checkout;
-	private int adult;
-	private int child;
-	private int option;
-	public String getBookingId() {
+	private String adult;
+	private String children;
+	private String options;
+	private String bookingMessage;
+	
+	
+	public String getBookingMessage() {
+		return bookingMessage;
+	}
+	public void setBookingMessage(String bookingMessage) {
+		this.bookingMessage = bookingMessage;
+	}
+	public String getChildren() {
+		return children;
+	}
+	public void setChildren(String children) {
+		this.children = children;
+	}
+	public String getAdult() {
+		return adult;
+	}
+	public void setAdult(String adult) {
+		this.adult = adult;
+	}
+
+
+	public int getBookingId() {
 		return bookingId;
 	}
-	public void setBookingId(String bookingId) {
+	public void setBookingId(int bookingId) {
 		this.bookingId = bookingId;
 	}
 	public String getUserId() {
@@ -39,24 +63,15 @@ public class HotelBookingDTO {
 	public void setCheckout(String checkout) {
 		this.checkout = checkout;
 	}
-	public int getAdult() {
-		return adult;
+	public String getOptions() {
+		return options;
 	}
-	public void setAdult(int adult) {
-		this.adult = adult;
+	public void setOptions(String options) {
+		this.options = options;
 	}
-	public int getChild() {
-		return child;
-	}
-	public void setChild(int child) {
-		this.child = child;
-	}
-	public int getOption() {
-		return option;
-	}
-	public void setOption(int option) {
-		this.option = option;
-	}
+	
+	
+	
 	
 	
 }

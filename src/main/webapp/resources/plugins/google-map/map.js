@@ -1,8 +1,8 @@
 function initMap() {
         // Styles a map in night mode.
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 40.674, lng: -73.945},
-          zoom: 12,
+          center: {lat: 37.499545, lng: 127.031511},
+          zoom: 16,
           styles: [
             {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
             {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
@@ -84,4 +84,19 @@ function initMap() {
             }
           ]
         });
+        var marker = new google.maps.Marker({
+        	position: {lat: 37.499545, lng: 127.031511}, 
+        	map: map,
+        	title: "IT WILL HOTEL"
+        });
+	   	var infowindow = new google.maps.InfoWindow(
+	   	{
+	   		content: "<h4>IT WILL HOTEL</h4><hr/><p>서울특별시 강남구 테헤란로 15</p>",
+	   		maxWidth: 250
+	   	}
+	   	);
+	   	
+	   	google.maps.event.addListener(marker, 'click', function() {
+	   		infowindow.open(map, marker);
+	   	});
       }

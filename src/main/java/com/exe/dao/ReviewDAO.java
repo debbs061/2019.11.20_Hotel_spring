@@ -27,6 +27,7 @@ public class ReviewDAO {
 	}
 	
 	public List<ReviewDTO> getReviewList(int roomIndex){
+		
 		List<ReviewDTO> lists = new ArrayList<ReviewDTO>();
 		
 		lists = sessionTemplate.selectList("hotelmapper.getReviewList",roomIndex);
@@ -37,15 +38,11 @@ public class ReviewDAO {
 	public void deleteReviewData(int reviewNum) {
 		
 		sessionTemplate.delete("hotelmapper.deleteReviewData",reviewNum);
-		
 	}
 	
 	public int countReview(int roomIndex) {
 		
 		return sessionTemplate.selectOne("hotelmapper.countReview",roomIndex);
-		
 	}
-	
-	
 	
 }

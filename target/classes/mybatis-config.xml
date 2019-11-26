@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
-PUBLIC "-/mybatis.org/DTD Config 3.0//EN"
+PUBLIC "-/mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
-<!-- 지금 쓰는 것은 스프링에서는 사용하지 않아도 된다. 그런데 mybatis를 가지고 다른 
-프레임에 사용할 경우 아래의 configuration을 작성해 줘야 한다. -->
 <configuration>
+
 	<properties>
-		<property name="driver" 
-		value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url" 
-		value="jdbc:oracle:thin:@192.168.16.24:1521:TestDB"/>
+		<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@192.168.16.24:1521:TestDB"/>
 		<property name="username" value="suzi"/>
 		<property name="password" value="a123"/>
 	</properties>
 	
+	<!-- 위에 DB정보를 불러와서 사용, 다른 프레임워크에서 사용하려할때 필요 -->
 	<environments default="development">
 		<environment id="development">
-		<transactionManager type="JDBC"/>
-		
-		<dataSource type="POOLED">
-			<property name="driver" value="${driver}"/>
-			<property name="url" value="#{url}"/>
-			<property name="username" value="${username}"/>
-			<property name="password" value="${password}"/>
-		</dataSource>
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+			</dataSource>
 		</environment>
 	</environments>
 	
-	<!-- 현재 실제로 필요한 것! -->
+	<!-- Sql Mapper / 이 부분이 필요 -->
 	<mappers>
 		<mapper resource="com/exe/mapper/hotelMapper.xml"/>
+		<mapper resource="com/exe/mapper/eventMapper.xml"/>
+		<mapper resource="com/exe/mapper/lessonMapper.xml"/>
 	</mappers>
+
 </configuration>

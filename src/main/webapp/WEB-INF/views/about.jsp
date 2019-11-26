@@ -1,13 +1,10 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,8 +12,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>Eden | Hotel template</title>
-
+  <title>IT WILL | Hotel</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- bootstrap.min css -->
@@ -36,10 +32,13 @@
   <link rel="stylesheet" href="/hotel/resources/plugins/slick-carousel/slick/slick.css">
   <link rel="stylesheet" href="/hotel/resources/plugins/slick-carousel/slick/slick-theme.css">
 
-  <link rel="stylesheet" href="/hotel/resources/https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
   
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
+  
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 </head>
 
@@ -53,25 +52,27 @@
 		<div class="row align-items-center">
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
-					45 Queen's Park Rd, Brighton, BN2 oGJ, UK
+					<b>IT WILL HOTEL</b>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
-							<a href="tel:1881234567 "> <i class="ion-android-call mr-2"></i><span class="text-color">+23-28-12345</span>
-							</a>
-						</li>
-
-						<li class="language ml-3">
-						    <select class="country" name="country">
-						      <option>EN</option>
-						      <option>FR</option>
-						      <option>JA</option>
-						      <option>CA</option>
-						      <option>FR</option>
-						    </select>
+							<c:choose>
+								<c:when test="${empty sessionScope.login.userId }">
+									<span class="text-color">
+										<a href="login.action">로그인</a> / 
+										<a href="signup.action">회원가입</a>
+									</span>
+								</c:when>
+							
+								<c:otherwise>
+									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
+									</span>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
+								</c:otherwise>
+							</c:choose>
 						</li>
 					</ul>
 				</div>
@@ -82,7 +83,7 @@
 
 	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
 		<div class="container">
-		  <a class="navbar-brand" href="index.html"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
+		  <a class="navbar-brand" href="/hotel"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="fa fa-bars"></span>
 		  </button>
@@ -90,70 +91,41 @@
 		  <div class="collapse navbar-collapse" id="navbarsExample09">
 			<ul class="navbar-nav ml-auto">
 			  <li class="nav-item active">
-				<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/hotel">Home <span class="sr-only">(current)</span></a>
 			  </li>
 			  
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown2">
-					<li><a class="dropdown-item" href="about.html">About Us</a></li>
-					<li><a class="dropdown-item" href="service.html">Services</a></li>
-					<li><a class="dropdown-item" href="search.html">Advance Search</a></li>
-					<li><a class="dropdown-item" href="pricing.html">Pricing</a></li>
-					<li><a class="dropdown-item" href="404.html">404 Not found</a></li>
-					<li><a class="dropdown-item" href="contact.html">Contact Us</a></li>
-
-					<li class="dropdown dropdown-submenu dropright">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdown3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gallery</a>
-						<ul class="dropdown-menu" aria-labelledby="dropdown3">
-							<li><a class="dropdown-item" href="gallery-3.html">Gallery 3 Col</a></li>
-							<li><a class="dropdown-item" href="gallery-4.html">Gallery 4 Col</a></li>
-						</ul>
-					</li>
-			  	</ul>
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About Us </a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown02">
+				  <li><a class="dropdown-item" href="about.action">About Us</a></li>
+				  <li><a class="dropdown-item" href="service.action">Services</a></li>
+				  <li><a class="dropdown-item" href="gallery.action">Gallery</a></li>
+				</ul>
 			  </li>
-		
+			  
 			  <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
-				  <li><a class="dropdown-item" href="room-list.html">Room List</a></li>
-				  <li><a class="dropdown-item" href="room-grid.html">Room-grid</a></li>
-				 <li> <a class="dropdown-item" href="room-details.html">Room Details</a></li>
+				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
+				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
 				</ul>
 			  </li>
 
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reservation</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown03">
-				  <li><a class="dropdown-item" href="booking-step1.html">Select Room</a></li>
-				  <li><a class="dropdown-item" href="booking-step2.html">Make Resrvation</a></li>
-				  <li><a class="dropdown-item" href="booking-step3.html">Payment</a></li>
-				  <li> <a class="dropdown-item" href="confirmation.html">Confirmation</a></li>
-				</ul>
+			  <li class="nav-item active">
+				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
 			  </li>
 			  
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Events</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown04">
-				  <li><a class="dropdown-item" href="event-fullwidth.html">Event Fullwidth</a></li>	
-				  <li><a class="dropdown-item" href="event-grid.html">Event Grid</a></li>
-				  <li><a class="dropdown-item" href="event-single.html">Event Details</a></li>
-				</ul>
+			  <li class="nav-item active">
+				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
 			  </li>
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown05">
-				  <li><a class="dropdown-item" href="blog-full-width.html">Blog Full width</a></li>
-				  <li><a class="dropdown-item" href="blog-grid.html">Blog Grid</a></li>
-				  <li><a class="dropdown-item" href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-				  <li><a class="dropdown-item" href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-				  <li><a class="dropdown-item" href="blog-single-right.html">Blog Details Right Sidebar</a></li>
-				  <li><a class="dropdown-item" href="blog-single.html">Blog Details Left Sidebar</a></li>
-				</ul>
+			  
+			  <li class="nav-item active">
+				<a class="nav-link" href="contact.action">Contact Us <span class="sr-only">(current)</span></a>
 			  </li>
+			  
 			</ul>
 			<form class="form-inline my-2 my-md-0 ml-lg-4">
-			  <a href="booking-step1.html" class="btn btn-main">Book Online</a>
+			  <a href="booking-step1.action" class="btn btn-main">Book Online</a>
 			</form>
 		  </div>
 		</div>
@@ -163,11 +135,13 @@
 <!-- Header Close --> 
 
 <div class="main-wrapper ">
+<div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
+
 <section class="overly bg-2">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">About Us</h1>
+          <h1 class="text-white py-100">호텔 소개</h1>
       </div>
     </div>
   </div>
@@ -176,9 +150,9 @@
     <div class="row ">
       <div class="col-lg-12 text-center">
           <div class="page-breadcumb py-2">
-            <a href="#" class="text-white">Home</a>
+            <a href="/hotel" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="#" class="text-white">About Us</a>
+            <a href="about.action" class="text-white">About Us</a>
         </div>
       </div>
     </div>
@@ -219,7 +193,7 @@
                        
                     </ul>
 
-                    <a href="service.html" class="btn btn-main">서비스</a>
+                    <a href="service.action" class="btn btn-main">서비스</a>
                 </div>
             </div>
         </div>
@@ -230,7 +204,7 @@
                
 				<P>삶은 계란과, 그릭 요구르트, 뜨거운 오트밀, 다양한 시리얼과, 머핀 그리고 베이글, 3종류 이상의 잼과 버터, 크림치즈, 땅콩잼, 신선한 과일, 엄선된 국제적 커피와 차, 주스가 제공됩니다.</P>
 				<p>글루텐이 포함되지 않은 아모든 밀크와 두유를 요청하시면 이용 가능합니다. 해당 내용은 예약 시 알려주시면 준비하겠습니다. </p>
-                <a href="room-grid.html" class="btn btn-solid-border mt-4">객실정보</a>
+                <a href="room-grid.action" class="btn btn-solid-border mt-4">객실정보</a>
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -336,7 +310,7 @@
 
         <div class="row mt-5">
             <div class="col-lg-12 text-center">
-                <h6>우리는 높은 퀄리티의 서비스를 제공합니다. 우리의 서비스를 확인하세요 <a href="service.html">서비스</a></h6>
+                <h6>우리는 높은 퀄리티의 서비스를 제공합니다. 우리의 서비스를 확인하세요 <a href="service.action">서비스</a></h6>
             </div>
         </div>
     </div>
@@ -349,13 +323,13 @@
 		<div class="row">
 			<div class="col-lg-3 col-md-6 col-sm-6">
 				<div class="widget footer-widget">
-					<div class="footer-logo footer-title mb-4"><h2>Eden</h2></div>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet pariatur delectus excepturi debitis ad architecto non, sequi minus quo similique.</p>
+					<div class="footer-logo footer-title mb-4"><h3>IT Will</h3></div>
+					<p>한국의 전통미와 현대적인 감각을 겸비하고 있는 세계속의 명문호텔, <br/>아이티윌 호텔은 세계 최고의 어번(urban) 라이프 스타일 호텔로 고객들에게 최고급 서비스를 제공합니다.</p>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-6 mb-md-4 mb-sm-4">
 				<div class="widget footer-widget">
-					<h3 class="mb-4">Address</h3>
+					<h3 class="mb-4">주소</h3>
 					<ul class="list-inline footer-address">
 						<li class="list-inline-item">
 							<i class="ion-android-call"></i>
@@ -363,37 +337,37 @@
 						</li>
 						<li class="list-inline-item">
 							<i class="ion-laptop"></i>
-							  contact@sparta.com
+							  contact@itwillHotel.com
 						</li>
 						<li class="list-inline-item">
 							<i class="ion-ios-location"></i>
-							 St Amsterdam finland,United Stats of AKY16 8PN
+							 서울특별시 테헤란로 15
 						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-6 mb-md-4 mb-sm-4">
 				<div class="widget footer-widget">
-					<h3 class="mb-4">Quick Links</h3>
+					<h3 class="mb-4">빠른링크</h3>
 					<ul class="list-unstyled footer-menu mb-0">
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Home</a>
+							<a href="/hotel"><i class="fa fa-angle-right"></i>Home</a>
 						</li>
 
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Services</a>
+							<a href="service.action"><i class="fa fa-angle-right"></i>Services</a>
 						</li>
 
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Testimonial</a>
+							<a href="gallery.action"><i class="fa fa-angle-right"></i>Gallery</a>
 						</li>
-
+	
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Blog</a>
+							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
-
+						
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Contact</a>
+							<a href="contact.action"><i class="fa fa-angle-right"></i>Contact</a>
 						</li>
 
 					</ul>
@@ -401,16 +375,6 @@
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-6">
 				<div class="widget footer-widget">
-					<h3 class="mb-4">Company</h3>
-
-					<ul class="list-unstyled footer-menu mb-0">
-						<li><a href="#">Term & Conditions </a></li>
-
-						<li><a href="#">Privacy Policy</a></li>
-
-						<li><a href="#">Site Map </a></li>
-					</ul>
-					
 
 					<h4 class="my-4">Follow US</h4>
 
@@ -477,6 +441,21 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
 
     <script src="/hotel/resources/js/script.js"></script>
+    
+    <!-- Kakao 톡상담 -->
+	<script type='text/javascript'>
+	
+	//<![CDATA[
+		// 사용할 앱의 JavaScript 키를 설정해 주세요.
+		Kakao.init('a876d408c7cc2ab22428d910b1de57af');
+		// 카카오톡 채널 1:1채팅 버튼을 생성합니다.
+		Kakao.Channel.createChatButton({
+			container: '#kakao-talk-channel-chat-button',
+			channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
+		});
+	//]]>
+	
+	</script>
 
   </body>
   </html>

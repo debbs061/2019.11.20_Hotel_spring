@@ -8,8 +8,15 @@ public class ReviewDTO {
 	private String content;
 	private String created;
 	private int roomIndex;
+	private int roomNum;
 	
 	
+	public int getRoomNum() {
+		return roomNum;
+	}
+	public void setRoomNum(int roomNum) {
+		this.roomNum = roomNum;
+	}
 	public int getReviewNum() {
 		return reviewNum;
 	}
@@ -40,12 +47,11 @@ public class ReviewDTO {
 	public void setCreated(String created) {
 		this.created = created;
 	}
-	public int getRoomNum() {
+	public int getRoomIndex() {
 		return roomIndex;
 	}
-	public void setRoomNum(int roomIndex) {
+	public void setRoomIndex(int roomIndex) {
 		this.roomIndex = roomIndex;
 	}
-	
 
 }

@@ -1,13 +1,10 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,7 +12,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>Eden | Hotel template</title>
+  <title>IT WILL | Hotel</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,6 +37,9 @@
   
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
+  
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 </head>
 
@@ -53,33 +53,27 @@
 		<div class="row align-items-center">
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
-					<b>IT WILL HOTEL</b> 
+					<b>IT WILL HOTEL</b>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
-						
-						<c:choose>
-						<c:when test="${empty sessionScope.login.userId }">
-							<span class="text-color">
-							<a href="login.action">로그인</a> / 
-							<a href="signup.action">회원가입</a>
-							</span>
-						</c:when>
-					
-						<c:otherwise>
-							<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
-							</span>
-							<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
-						</c:otherwise>
-						
-						</c:choose>
-						
-						
-						
+							<c:choose>
+								<c:when test="${empty sessionScope.login.userId }">
+									<span class="text-color">
+										<a href="login.action">로그인</a> / 
+										<a href="signup.action">회원가입</a>
+									</span>
+								</c:when>
 							
+								<c:otherwise>
+									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
+									</span>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
+								</c:otherwise>
+							</c:choose>
 						</li>
 					</ul>
 				</div>
@@ -110,55 +104,14 @@
 				</ul>
 			  </li>
 			  
-			  <!-- 
-			  <li class="nav-item active">
-				<a class="nav-link" href="about">About Us <span class="sr-only">(current)</span></a>
-			  </li>
-			   -->
-			  
-			  <!-- 
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown2">
-					<li><a class="dropdown-item" href="about.html">About Us</a></li>
-					<li><a class="dropdown-item" href="service.html">Services</a></li>
-					<li><a class="dropdown-item" href="search.html">Advance Search</a></li>
-					<li><a class="dropdown-item" href="pricing.html">Pricing</a></li>
-					<li><a class="dropdown-item" href="404.html">404 Not found</a></li>
-					<li><a class="dropdown-item" href="contact.html">Contact Us</a></li>
-
-					<li class="dropdown dropdown-submenu dropright">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdown3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gallery</a>
-						<ul class="dropdown-menu" aria-labelledby="dropdown3">
-							<li><a class="dropdown-item" href="gallery-3.html">Gallery 3 Col</a></li>
-							<li><a class="dropdown-item" href="gallery-4.html">Gallery 4 Col</a></li>
-						</ul>
-					</li>
-			  	</ul>
-			  </li>
-			   -->
-		
 			  <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
 				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
-				  <li><a class="dropdown-item" href="room-list.action">Room-List</a></li>
 				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
 				</ul>
 			  </li>
 
-			  <!-- 
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reservation</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown03">
-				  <li><a class="dropdown-item" href="booking-step1">Select Room</a></li>
-				  <li><a class="dropdown-item" href="booking-step2">Make Resrvation</a></li>
-				  <li><a class="dropdown-item" href="booking-step3">Payment</a></li>
-				  <li> <a class="dropdown-item" href="confirmation">Confirmation</a></li>
-				</ul>
-			  </li>
-			   -->
-			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
 			  </li>
@@ -183,6 +136,8 @@
 <!-- Header Close --> 
 
 <div class="main-wrapper ">
+<div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
+
 <section class="overly bg-2">
   <div class="container">
     <div class="row">
@@ -225,21 +180,22 @@
         <c:forEach items="${lists }" var="dto">
         	<div class="col-lg-4 mb-4 col-md-6 col-sm-6">
         		<div class="gallery-item ">
-					 <a href="/hotel/resources/images/gallery/1-1.jpg" title="Photo 1">
-						<img src="/hotel/resources/images/gallery/1-1.jpg" alt="" class="img-fluid">
+					 <a href="/hotel/resources/images/gallery/${dto.imageName }" title="Photo ${dto.galleryIndex }">
+						<img src="/hotel/resources/images/gallery/${dto.imageName }" alt="" class="img-fluid">
 					</a>
 
 					<h4 class="mt-3 mb-1">${dto.galleryName }</h4>
 					<p>${dto.content }</p>
 				</div>
         	</div>
-        </c:forEach>	
-        	
+        </c:forEach>
         	
         </div>
-        <div class="row justify-content-center">
-       		<button class="btn btn-main" type="button" onclick="location.href='galleryUpload.action';">등록하기</button>
-       	</div>
+        
+        <div>
+        	<button class="btn btn-main" type="button" onclick="location.href='galleryUpload.action';">등록하기</button>
+        </div>
+        
 	</div>
 </section>
 
@@ -277,7 +233,7 @@
 					<h3 class="mb-4">빠른링크</h3>
 					<ul class="list-unstyled footer-menu mb-0">
 						<li>
-							<a href="/"><i class="fa fa-angle-right"></i>Home</a>
+							<a href="/hotel"><i class="fa fa-angle-right"></i>Home</a>
 						</li>
 
 						<li>
@@ -289,7 +245,7 @@
 						</li>
 	
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>
@@ -367,6 +323,21 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
 
     <script src="/hotel/resources/js/script.js"></script>
+    
+    <!-- Kakao 톡상담 -->
+	<script type='text/javascript'>
+	
+	//<![CDATA[
+		// 사용할 앱의 JavaScript 키를 설정해 주세요.
+		Kakao.init('a876d408c7cc2ab22428d910b1de57af');
+		// 카카오톡 채널 1:1채팅 버튼을 생성합니다.
+		Kakao.Channel.createChatButton({
+			container: '#kakao-talk-channel-chat-button',
+			channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
+		});
+	//]]>
+	
+	</script>
 
   </body>
   </html>

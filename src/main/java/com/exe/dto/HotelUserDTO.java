@@ -11,8 +11,6 @@ public class HotelUserDTO {
 	private String addr;
 	
 	
-	
-	
 	public String getUserId() {
 		return userId;
 	}
