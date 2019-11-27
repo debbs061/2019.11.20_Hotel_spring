@@ -12,7 +12,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Hotel About</title>
+  <title>IT WILL | Restaurant</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- bootstrap.min css -->
@@ -70,15 +70,20 @@
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
+							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
-									<a href="login.action">로그인</a> / 
-									<a href="signup.action">회원가입</a><br/>
+									<span class="text-color">
+										<a href="login.action">로그인</a> / 
+										<a href="signup.action">회원가입</a>
+									</span>
 								</c:when>
 							
 								<c:otherwise>
-									${sessionScope.login.userName }님 안녕하세요:)♥</br>
-									<a href="logout.action">로그아웃</a><br/>
+									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
+									</span>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										<a href="myPage.action">마이페이지</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -91,7 +96,7 @@
 
 	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
 		<div class="container">
-		  <a class="navbar-brand" href="/hotel"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
+		  <a class="navbar-brand" href=""><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="fa fa-bars"></span>
 		  </button>
@@ -110,22 +115,17 @@
 				  <li><a class="dropdown-item" href="gallery.action">Gallery</a></li>
 				</ul>
 			  </li>
-			  
+		
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">다이닝</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
-				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
-				  <li><a class="dropdown-item" href="room-list.action">Room-List</a></li>
-				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
+				  <li><a class="dropdown-item" href="myeong-details.action">명월관</a></li>
+				  <li><a class="dropdown-item" href="델비노 자세히">DEL VINO</a></li>
+				  <li><a class="dropdown-item" href="회림 자세히">회림</a></li>
 				</ul>
 			  </li>
-
 			  <li class="nav-item active">
-				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
-			  </li>
-			  
-			  <li class="nav-item active">
-				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/hotel">Hotel<span class="sr-only">(current)</span></a>
 			  </li>
 			  
 			  <li class="nav-item active">

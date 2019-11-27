@@ -2,7 +2,9 @@ package com.exe.hotel;
 
 import java.util.List;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +18,7 @@ import com.exe.dao.LessonDAO;
 import com.exe.dao.LessonUserDAO;
 import com.exe.dto.LessonDTO;
 import com.exe.dto.LessonUserDTO;
+import com.exe.dto.LoginDTO;
 
 @Controller
 public class GymController {
@@ -42,17 +45,25 @@ public class GymController {
 	}
 	
 	@RequestMapping(value = "/gymList.action", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView gymList(HttpServletRequest request) {
-		
+	public ModelAndView gymList(HttpServletRequest request,HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		List<LessonDTO> lists = dao.getLessonList();
 		
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
+		
+		if(login==null) {
+			mav.setViewName("login");
+			
+			return mav;
+		}
 		
 		mav.setViewName("gymList");
 		mav.addObject("lists", lists);
-		
+		mav.addObject("userId",session.getAttribute("userId"));
+		mav.addObject("userName",session.getAttribute("userName"));
+		mav.addObject("userEmail",session.getAttribute("userEmail"));
 		
 		return mav;
 	}
@@ -60,8 +71,9 @@ public class GymController {
 	@RequestMapping(value = "/gymList_ok.action", method = RequestMethod.POST)
 	public String gymList_ok(HttpServletRequest request,LessonUserDTO dto) {
 		
-		dto.setLessonUserIndex(dao2.lessonGetMaxNum() +1 );
 		dao2.insertLessonUser(dto);
+		
+		dto.setLessonUserIndex(dao2.lessonGetMaxNum() +1);
 		
 		return "redirect:/gym.action"; 
 	}
@@ -69,7 +81,6 @@ public class GymController {
 	
 	@RequestMapping(value = "/modal", method = RequestMethod.GET)
 	public String modal() {
-		
 		
 		return "modal";
 	}

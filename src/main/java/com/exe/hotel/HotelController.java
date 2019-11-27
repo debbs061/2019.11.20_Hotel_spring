@@ -790,6 +790,8 @@ public class HotelController {
         return "index";
     }
 	
+	
+	//Restaurant
 	@RequestMapping(value = "/restaurantMain.action", method = RequestMethod.GET)
 	public String restaurantMain() {
 
@@ -807,6 +809,13 @@ public class HotelController {
 	public String myeongDetails() {
 
 		return "myeong-details";
+	}
+	
+
+	//Spa
+	@RequestMapping(value = "/life-spa.action", method = RequestMethod.GET)
+	public String lifespa() {
+		return "life-spa";
 	}
 
 }

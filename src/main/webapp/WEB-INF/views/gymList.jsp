@@ -3,8 +3,6 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
-	
-	int total = (Integer)request.getAttribute("total");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -52,15 +50,18 @@
 <link rel="stylesheet" href="/hotel/resources/css/style.css">
 
 <!-- font -->
-  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
-  
-	<style type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+
+<!-- Kakao 톡상담 -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<style type="text/css">
 	
 	*:not(i){
 		font-family: 'Noto Serif KR', serif!important;
 	}
 	
-	</style>
+</style>
 
 <script type="text/javascript">
 
@@ -110,10 +111,14 @@ function sendIt(){
 	
 	str = f.className.value;
 	
-	if(str){
-		alert(str);
-		
+	if(str=="강 좌 선 택"){
+		alert("강좌를 선택하세요");
+		f.className.focus();
+		return;
 	}
+
+	alert("등록 완료");
+	
 	
 	f.className.value = str;
 	
@@ -130,7 +135,7 @@ function sendIt(){
 
 	<!-- Header Start -->
 
-<header class="navigation">
+	<header class="navigation">
 <div class="top-header py-2">
 	<div class="container">
 		<div class="row align-items-center">
@@ -143,6 +148,7 @@ function sendIt(){
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
+							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
 									<span class="text-color">
@@ -154,7 +160,8 @@ function sendIt(){
 								<c:otherwise>
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										<a href="myPage.action">마이페이지</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -201,6 +208,16 @@ function sendIt(){
 			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
+			  </li>
+			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown03">
+				  <li><a class="dropdown-item" href="gym">Gym</a></li>
+				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
+				  <li><a class="dropdown-item" href="#">Shopping</a></li>
+				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
+				</ul>
 			  </li>
 			  
 			  <li class="nav-item active">
@@ -297,36 +314,38 @@ function sendIt(){
       <div class="modal-body">
       
        	<div class="input-group mb-3">
-		  	<input type="text" name="lessonUserId" class="form-control" placeholder="아이디" aria-label="아이디" aria-describedby="basic-addon2">
+		  	<input type="text" value="${sessionScope.login.userId }" name="lessonUserId" class="form-control" placeholder="아이디" aria-label="아이디" aria-describedby="basic-addon2">
 		  	<div class="input-group-append">
 		    	
 		  	</div>
 		</div>
 		
 		<div class="input-group mb-3">
-		  	<input type="text" name="lessonUserName" class="form-control" placeholder="성함" aria-label="성함" aria-describedby="basic-addon2">
+		  	<input type="text" value="${sessionScope.login.userName }" name="lessonUserName" class="form-control" placeholder="성함" aria-label="성함" aria-describedby="basic-addon2">
 		  	<div class="input-group-append">
 		    	
 		  	</div>
 		</div>
 		
 		<div class="input-group mb-3">
-		  	<input type="text" name="lessonUserEmail" class="form-control" placeholder="@example.com" aria-label="@이메일.com" aria-describedby="basic-addon2">
+		  	<input type="text" value="${sessionScope.login.userEmail }" name="lessonUserEmail" class="form-control" placeholder="@example.com" aria-label="@이메일.com" aria-describedby="basic-addon2">
 		  	<div class="input-group-append">
 		    	
 		  	</div>
 		</div>
 		
-		
-		<div class="input-group mb-3">
+				<div class="input-group mb-3">
+				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
 		  	<input type="text" name="lessonUserDay" class="form-control" placeholder="YYYY-MM-DD" aria-label="YYYY-MM-DD" aria-describedby="basic-addon2">
-		  	<div class="input-group-append">
+						    <div class="input-group-addon">
+						       <span class="ion-android-calendar"></span>
+						    </div>
 		    	
 		  	</div>
 		</div>
 		
 		
-		<div class="input-group mb-3">
+		<div class="input-group mb-5">
 		  <div class="input-group-prepend">
 		    <label class="input-group-text" for="inputGroupSelect01">강좌</label>
 		  </div>
@@ -360,7 +379,8 @@ function sendIt(){
 			<div class="col-lg-3 col-md-6 col-sm-6">
 				<div class="widget footer-widget">
 					<div class="footer-logo footer-title mb-4"><h3>IT Will</h3></div>
-					<p>한국의 전통미와 현대적인 감각을 겸비하고 있는 세계속의 명문호텔, <br/>아이티윌 호텔은 세계 최고의 어번(urban) 라이프 스타일 호텔로 고객들에게 최고급 서비스를 제공합니다.</p>
+					<p>한국의 전통미와 현대적인 감각을 겸비하고 있는 세계속의 명문호텔, 
+					<br/>아이티윌 호텔은 세계 최고의 어번(urban) 라이프 스타일 호텔로 고객들에게 최고급 서비스를 제공합니다.</p>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-6 mb-md-4 mb-sm-4">
@@ -482,7 +502,8 @@ function sendIt(){
 
 	<!-- Google Map -->
 	<script src="/hotel/resources/plugins/google-map/map.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
 
 	<script src="/hotel/resources/js/script.js"></script>
 	

@@ -76,33 +76,29 @@
 		<div class="row align-items-center">
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
-					<b>IT WILL HOTEL</b> 
+					<b>IT WILL HOTEL</b>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
-						
-						<c:choose>
-						<c:when test="${empty sessionScope.login.userId }">
-							<span class="text-color">
-							<a href="login.action">로그인</a> / 
-							<a href="signup.action">회원가입</a>
-							</span>
-						</c:when>
-					
-						<c:otherwise>
-							<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
-							</span>
-							<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
-						</c:otherwise>
-						
-						</c:choose>
-						
-						
-						
 							
+							<c:choose>
+								<c:when test="${empty sessionScope.login.userId }">
+									<span class="text-color">
+										<a href="login.action">로그인</a> / 
+										<a href="signup.action">회원가입</a>
+									</span>
+								</c:when>
+							
+								<c:otherwise>
+									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
+									</span>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										<a href="myPage.action">마이페이지</a>
+								</c:otherwise>
+							</c:choose>
 						</li>
 					</ul>
 				</div>

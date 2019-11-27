@@ -19,5 +19,4 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 	values (#{lessonUserId},#{lessonUserName},#{lessonUserEmail},#{lessonUserDay},#{className})
 </insert>
 
-
 </mapper>

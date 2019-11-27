@@ -38,8 +38,8 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
-  <!-- font -->
-  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
 	<style type="text/css">
 	
@@ -48,14 +48,10 @@
 	}
 	
 	</style>
-  
-  <!-- Kakao 톡상담 -->
-  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 </head>
 
 <body >
-
 
 <!-- Header Start --> 
 
@@ -166,7 +162,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">이벤트</h1>
+          <h1 class="text-white py-100">마이페이지</h1>
       </div>
     </div>
   </div>
@@ -177,98 +173,76 @@
           <div class="page-breadcumb py-2">
             <a href="/hotel" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="event-single.action?eventIndex=${dto.eventIndex }" class="text-white">Event</a>
+            <a href="myPage.action" class="text-white">My Page</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-
-<div class="page-wrapper event-page">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-lg-8">
-	
-	
-	
-	<!-- 싱글 이벤트 뿌려주기 ===============싱글 이벤트================싱글 이벤트=============싱글 이벤트====================싱글 이벤트============-->
-	
-	<div class="single-event">
-		<img src="/hotel/resources/images/event/${dto.savefileName }" alt="" class="img-fluid w-100">
-
-		<div class="event-content mt-4">
-			<a href="event-single.html"><h2>${dto.eventTitle }</h2></a>
-			<div class="event-post-meta mb-4">
-				<span><i class="ion-calendar"></i>${dto.day }</span>
-				<span><i class="ion-clock"></i>${dto.time }</span>
-				<span><i class="ion-ios-location"></i>${dto.location }</span>
-			</div>
-
-			<p>${dto.content1 }</p>
-			<p>${dto.content2 }</p>
-		</div>
-
-
-
-		<div class="event-comment-form mt-5">
-
-                    <h4 class="mb-4">(${countReview }) 이벤트 후기 :-</h4>
-                  
-					
-                    <c:forEach items="${lists }" var="reviewDto">
-                    <div class="room-details-review-item d-flex mb-5">
-                        <div class="item-content ml-3">
-                            <h3 class="mb-3">${reviewDto.name } - <span>${reviewDto.created }</span></h3>
-                            <p>${reviewDto.content }</p>
-                            
-                    <input type="button" value=" 삭제 " class="btn btn-main"
-					onclick="javascript:location.href=
-					'<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }&eventReviewNum=${reviewDto.eventReviewNum }'"/>
-                            
-                        </div>
+<!-- contact form start -->
+<section class="service-section section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="block">
+                    <div class="section-title">
+                        <p class="section-subtitle">MY PAGE</p>
+                        <h2 class="mb-3">마이페이지</h2>
+                        <span class="section-border"></span>
                     </div>
-					</c:forEach>
-					
-                    
+                </div>
+            </div><!-- .col-md-7 close -->
+        </div>
 
 
-                    <div class="room-review-comment mt-5 pt-5 border-top">
-	                    <h4 class="mb-4">후기 남기기 :- </h4>
-						
-							<form action="eventReview.action?eventIndex=${eventIndex }" method="post">	                     
-							 <div class="form-group">
-	                                <input type="text" name="name" placeholder="이름" class="form-control" value="${sessionScope.login.userName }">
-	                        </div>
-	                        <div class="form-group">
-	                                <input type="text" name="email" placeholder="이메일" class="form-control" value="${sessionScope.login.userEmail }">
-	                        </div>
-	                        <div class="form-group">
-	                                <textarea class="form-control" name="content" placeholder="Message" rows="5"></textarea>
-	                        </div>
-
-	                        <div class="form-group">
-	                            <div class="btn-submit">
-	                                   <button type="submit" class="btn btn-main">작성하기</button>
-	                                   
-	                            </div>
-	                        </div>
-	                    </form>
-	                </div>			
-			
-			 <!-- Reveiw END -->
-			
-		</div>
-	</div>	
-</div>
-
+        <div class="row no-gutters">
+        
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+                    <i class="flaticon-menu text-color"></i>
+                    <h3 class="my-3">회원정보 수정</h3>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 col-sm-12">
+	                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+	                    <i class="flaticon-dishwasher text-color"></i>
+	                    <h3 class="my-3">객실 예약 확인</h3>
+	                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+                    <i class="flaticon-chef text-color"></i>
+                    <h3 class="my-3">레스토랑 예약 확인</h3>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+                    <i class="flaticon-menu text-color"></i>
+                    <h3 class="my-3">헬스장 강좌 예약 확인</h3>
+                </div>
+            </div>
 
 
-		</div>
-	</div>
-</div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+                    <i class="flaticon-dishwasher text-color"></i>
+                    <h3 class="my-3">이벤트 예약 확인</h3>
+                </div>
+            </div>
 
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+                    <i class="flaticon-menu text-color"></i>
+                    <h3 class="my-3">SPA 예약 확인</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
+     
 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
@@ -366,7 +340,6 @@
 		</div>
 	</div>
 </section>
-
 
    
     </div>

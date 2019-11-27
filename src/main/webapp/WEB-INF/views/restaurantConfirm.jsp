@@ -12,7 +12,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>Eden | Hotel Restaurant</title>
+  <title>IT WILL | Restaurant</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,33 +61,29 @@
 		<div class="row align-items-center">
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
-					<b>IT WILL HOTEL</b> 
+					<b>IT WILL HOTEL</b>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
-						
-						<c:choose>
-						<c:when test="${empty sessionScope.login.userId }">
-							<span class="text-color">
-							<a href="login.action">로그인</a> / 
-							<a href="signup.action">회원가입</a>
-							</span>
-						</c:when>
-					
-						<c:otherwise>
-							<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
-							</span>
-							<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
-						</c:otherwise>
-						
-						</c:choose>
-						
-						
-						
 							
+							<c:choose>
+								<c:when test="${empty sessionScope.login.userId }">
+									<span class="text-color">
+										<a href="login.action">로그인</a> / 
+										<a href="signup.action">회원가입</a>
+									</span>
+								</c:when>
+							
+								<c:otherwise>
+									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
+									</span>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										<a href="myPage.action">마이페이지</a>
+								</c:otherwise>
+							</c:choose>
 						</li>
 					</ul>
 				</div>
@@ -98,7 +94,7 @@
 
 	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
 		<div class="container">
-		  <a class="navbar-brand" href="/"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
+		  <a class="navbar-brand" href=""><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="fa fa-bars"></span>
 		  </button>
@@ -106,8 +102,9 @@
 		  <div class="collapse navbar-collapse" id="navbarsExample09">
 			<ul class="navbar-nav ml-auto">
 			  <li class="nav-item active">
-				<a class="nav-link" href="/hotel/restaurantMain.action">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="restaurantMain.action">Home <span class="sr-only">(current)</span></a>
 			  </li>
+			  
 			  <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About Us </a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
@@ -116,62 +113,17 @@
 				  <li><a class="dropdown-item" href="gallery.action">Gallery</a></li>
 				</ul>
 			  </li>
-			  
-			  <!-- 
-			  <li class="nav-item active">
-				<a class="nav-link" href="about">About Us <span class="sr-only">(current)</span></a>
-			  </li>
-			   -->
-			  
-			  <!-- 
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown2">
-					<li><a class="dropdown-item" href="about.html">About Us</a></li>
-					<li><a class="dropdown-item" href="service.html">Services</a></li>
-					<li><a class="dropdown-item" href="search.html">Advance Search</a></li>
-					<li><a class="dropdown-item" href="pricing.html">Pricing</a></li>
-					<li><a class="dropdown-item" href="404.html">404 Not found</a></li>
-					<li><a class="dropdown-item" href="contact.html">Contact Us</a></li>
-
-					<li class="dropdown dropdown-submenu dropright">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdown3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gallery</a>
-						<ul class="dropdown-menu" aria-labelledby="dropdown3">
-							<li><a class="dropdown-item" href="gallery-3.html">Gallery 3 Col</a></li>
-							<li><a class="dropdown-item" href="gallery-4.html">Gallery 4 Col</a></li>
-						</ul>
-					</li>
-			  	</ul>
-			  </li>
-			   -->
 		
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">다이닝</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
-				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
-				  <li><a class="dropdown-item" href="room-list.action">Room-List</a></li>
-				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
+				  <li><a class="dropdown-item" href="myeong-details.action">명월관</a></li>
+				  <li><a class="dropdown-item" href="델비노 자세히">DEL VINO</a></li>
+				  <li><a class="dropdown-item" href="회림 자세히">회림</a></li>
 				</ul>
 			  </li>
-
-			  <!-- 
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reservation</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown03">
-				  <li><a class="dropdown-item" href="booking-step1">Select Room</a></li>
-				  <li><a class="dropdown-item" href="booking-step2">Make Resrvation</a></li>
-				  <li><a class="dropdown-item" href="booking-step3">Payment</a></li>
-				  <li> <a class="dropdown-item" href="confirmation">Confirmation</a></li>
-				</ul>
-			  </li>
-			   -->
-			  
 			  <li class="nav-item active">
-				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
-			  </li>
-			  
-			  <li class="nav-item active">
-				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/hotel">Hotel<span class="sr-only">(current)</span></a>
 			  </li>
 			  
 			  <li class="nav-item active">
