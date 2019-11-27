@@ -32,6 +32,7 @@ import com.exe.dao.HotelBookingDAO;
 import com.exe.dao.HotelUserDAO;
 import com.exe.dao.ReviewDAO;
 import com.exe.dao.RoomDAO;
+import com.exe.dto.EventBookingDTO;
 import com.exe.dto.EventDTO;
 import com.exe.dto.EventReviewDTO;
 import com.exe.dto.GalleryDTO;
@@ -808,5 +809,131 @@ public class HotelController {
 
 		return "myeong-details";
 	}
+	
+	
+
+	//event-request.action
+		@RequestMapping(value = "/event-request.action", 		
+				method= {RequestMethod.GET, RequestMethod.POST})
+		public ModelAndView eventRequest(HttpServletRequest request,
+				HttpServletResponse response, Model model) {
+			
+			ModelAndView mav = new ModelAndView();
+		
+			//1. 이벤트 신청 값 받아내고 
+			String userId = request.getParameter("eventUserId");
+			String userName = request.getParameter("eventUserName");
+			String userRequest  = request.getParameter("eventUserRequest");
+			int eventIndex =Integer.parseInt(request.getParameter("eventIndex"));	
+			
+			//1.아이디+이벤트인덱스로 예약된 내역이 있는지 조회
+			EventBookingDTO dto = eventDao.getReadEventBookingData(userId, eventIndex);
+			
+			if(dto!=null&&!dto.equals(" ")) {
+				
+				mav.setViewName("event-request-confirmed");
+				mav.addObject("dto",dto);
+				mav.addObject("message","이벤트 예약건이 이미 이미존재합니다");
+			
+				return mav;	
+				
+			}
+			
+			//2처음 예약을 할 경우
+			EventBookingDTO ebdto = new EventBookingDTO();
+			
+			ebdto.setEventBookingNum(eventDao.getBookingMaxNum()+1);
+			ebdto.setUserId(userId);
+			ebdto.setUserName(userName);
+			ebdto.setUserRequest(userRequest);
+			ebdto.setEventIndex(eventIndex);
+			eventDao.insertEventBooking(ebdto);
+			
+			EventBookingDTO dto2 = eventDao.getReadEventBookingData(userId, eventIndex);
+			
+			//4.해당 내용 띄우기 출력 jsp로 넘겨주기
+			mav.setViewName("event-request-confirmed");
+			mav.addObject("dto",dto2);
+		
+			return mav;			
+
+		}
+
+		//event-booking-delete.action
+		@RequestMapping(value = "/event-booking-delete.action", 		
+				method= {RequestMethod.GET, RequestMethod.POST})
+		public String eventBookingDelete(HttpServletRequest request) {
+			
+			System.out.println("들어옴");
+			
+			String referer = request.getHeader("Referer");	//접속 경로
+			
+			int eventBookingNum= Integer.parseInt(request.getParameter("eventBookingNum"));
+			System.out.println("eventBookingNum:"+eventBookingNum);
+			eventDao.deleteEventBookingData(eventBookingNum);
+			
+			return "redirect:" + referer;
+			
+		}
+		
+		@RequestMapping(value = "/myPage.action", method = {RequestMethod.GET,RequestMethod.POST})
+		public String myPage() {
+			
+			return "myPage";
+		}
+	
+		
+		//이벤트 체크
+		//eventCheck.action
+		
+		@RequestMapping(value = "/eventCheck.action", method = {RequestMethod.GET,RequestMethod.POST})
+		public ModelAndView eventCheck(
+				HttpServletRequest request,
+				HttpSession session) {
+			
+			ModelAndView mav  = new ModelAndView();
+			
+			// 세션을 가져온다. (가져올 세션이 없다면 생성한다.)
+			
+			 
+			// "USER"로 바인딩된 객체를 돌려준다. ("USER"로 바인딩된 객체가 없다면 null)
+			LoginDTO login = (LoginDTO)session.getAttribute("login");
+		
+			String userId = login.getUserId();
+			
+			
+			
+			System.out.println("userId: " +userId);
+			
+			if(login!= null) {
+			 
+			    // 사용자 정보를 가져올 수 있다.
+				login.getUserId(); // hong
+				login.getUserName(); // 홍길동
+				
+				 userId = login.getUserId();
+				System.out.println("userId: " +userId);
+			}
+			
+		
+			//1.이벤트 참가자이름 : username
+			//2.이벤트 날짜: event - day
+			//3.이벤틀 이름: event = eventTtle 
+			
+			//리스트 이벤트 디티오 
+			
+			List<EventDTO> lists = eventDao.getEventListsByUserId(userId);
+			
+			mav.addObject("elists",lists);
+			mav.setViewName("eventCheck");
+			
+			
+			return mav;
+		}
+		
+	
+	
+
+
 
 }
