@@ -51,36 +51,61 @@ public class GymController {
 		
 		List<LessonDTO> lists = dao.getLessonList();
 		
-		LoginDTO login = (LoginDTO)session.getAttribute("login");
 		
-		if(login==null) {
+		if(session.getAttribute("login")==null) {
+
+			String referer = request.getHeader("Referer");	//�젒�냽 寃쎈줈
+			request.getSession().setAttribute("redirectURI", referer);
+
 			mav.setViewName("login");
-			
 			return mav;
-		}
+			
+		}		
+
 		
 		mav.setViewName("gymList");
+		
 		mav.addObject("lists", lists);
 		mav.addObject("userId",session.getAttribute("userId"));
 		mav.addObject("userName",session.getAttribute("userName"));
 		mav.addObject("userEmail",session.getAttribute("userEmail"));
 		
 		return mav;
+		
 	}
 	
 	@RequestMapping(value = "/gymList_ok.action", method = RequestMethod.POST)
 	public String gymList_ok(HttpServletRequest request,LessonUserDTO dto) {
 		
+		
+		dto.setLessonUserIndex(dao2.lessonGetMaxNum() + 1);
+		
 		dao2.insertLessonUser(dto);
 		
-		dto.setLessonUserIndex(dao2.lessonGetMaxNum() +1);
-		
-		return "redirect:/gym.action"; 
+		return "redirect:/gymCheck.action"; 
 	}
 	
+	@RequestMapping(value = "/gymCheck.action", method = {RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView gymCheck(HttpServletRequest request,LessonUserDTO dto,HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
+		
+		List<LessonUserDTO> lists = dao2.lessonGetList(login.getUserId());
+			
+		mav.addObject("message", "등록된 강좌가 없습니다");
+		
+		mav.addObject("lists", lists);
+		
+		mav.setViewName("gymCheck");
+		
+		return mav;
+	}
 	
 	@RequestMapping(value = "/modal", method = RequestMethod.GET)
 	public String modal() {
+		
 		
 		return "modal";
 	}

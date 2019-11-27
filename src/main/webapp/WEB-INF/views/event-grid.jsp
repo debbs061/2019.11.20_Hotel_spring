@@ -38,6 +38,9 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  
   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
@@ -48,9 +51,6 @@
 	}
 	
 	</style>
-  
-  <!-- Kakao 톡상담 -->
-  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
   <!-- 이미지 슬라이드 -->
   <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.css" />
@@ -209,8 +209,22 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> 
 </section>
+
+<section class="section"  id="gallery-page">
+<div class="container">
+		 <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="section-title">
+                    <p class="section-subtitle">갤러리</p>
+                    <h2 class="mb-3">다양하다 & 즐거웁다</h2>
+                    <p class="mb-4">매일 호텔에서 직접 진행하는 다양한 이벤트 액티비티에 참여하세요.</p>
+                    <span class="section-border"></span>
+                </div>
+            </div><!-- .col-md-7 close -->
+        </div>
+</div>
 
 
 	<!-- 이미지 슬라이드 -->

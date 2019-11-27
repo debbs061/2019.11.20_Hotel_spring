@@ -19,10 +19,16 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 	select nvl(count(*),0) from event
 </select>
 
-
-<select id="getEventLists" resultType="com.exe.dto.EventDTO">
-	select eventIndex,eventTitle,day,time,location,price,content1,content2,savefileName from event
+<select id="getEventLists" resultType="com.exe.dto.EventDTO"> 
+	select eventIndex,eventTitle,day,time,location,price,content1,content2,savefileName from event 
 </select>
+
+<!-- getEventLists ByUserId -->
+<select id="getEventListsByUserId" resultType="com.exe.dto.EventDTO" parameterType="String">
+	select eventIndex,eventTitle,day,time,location,price,content1,content2,savefileName from event where (eventIndex)
+	in (select eventIndex from eventBooking where userId = #{userId})
+</select>
+
 
 <select id="getReadEventData" parameterType="int" resultType="com.exe.dto.EventDTO">
 	select eventIndex,eventTitle,day,time,location,price,content1,content2,savefileName from event where eventIndex=#{eventIndex}
@@ -61,5 +67,25 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 	delete eventReview where eventReviewNum=#{eventReviewNum}
 </delete>
 	
+	
+<!-- EventBooking -->
+<select id="bookingMaxNum" resultType="int">
+ 	select nvl(max(eventBookingNum),0) from eventBooking
+</select>
+
+	
+<insert id="insertBooking" parameterType="com.exe.dto.EventBookingDTO">
+	insert into eventBooking (eventBookingNum,eventIndex,userId,userName,userRequest,eventBookingDate)
+	values (#{eventBookingNum},#{eventIndex},#{userId},#{userName},#{userRequest},sysdate)
+</insert>
+
+<delete id="deleteBookingData" parameterType="int">
+	delete eventBooking where eventBookingNum=#{eventBookingNum} 
+</delete>
+
+<select id="readEventBookingData" parameterType="hashMap" resultType="com.exe.dto.EventBookingDTO">
+	select eventBookingNum,eventIndex,userId,userName,userRequest,eventBookingDate from eventBooking 
+	where userId=#{userId} and eventIndex=#{eventIndex}
+</select>
 
 </mapper>

@@ -6,15 +6,35 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="lessonmapper">
 
 	<select id="lessonMaxNum" resultType="int">
-		select nvl(max(lessonIndex),0) from lesson
+		select
+		nvl(max(lessonIndex),0) from lesson
 	</select>
-	
+
 	<select id="getLessonCount" resultType="int">
-		select nvl(count(*),0) from lesson
+		select nvl(count(*),0)
+		from lesson
 	</select>
-	
+
 	<select id="getLessonList" resultType="com.exe.dto.LessonDTO">
-		select lessonIndex,image,title,trainer,time,addr,content from lesson
+		select
+		lessonIndex,image,title,trainer,time,addr,content from lesson
+	</select>
+
+	<select id="lessonGetMaxNum" resultType="int">
+		select nvl(max(lessonUserIndex),0) from lessonUser
+	</select>
+
+	<insert id="insertLessonUser"
+		parameterType="com.exe.dto.LessonUserDTO">
+		insert into lessonUser
+		(lessonUserIndex,lessonUserId,lessonUserName,lessonUserEmail,lessonUserDay,className)
+		values
+		(#{lessonUserIndex},#{lessonUserId},#{lessonUserName},#{lessonUserEmail},#{lessonUserDay},#{className})
+	</insert>
+
+	<select id="getLessonUserList" resultType="com.exe.dto.LessonUserDTO">
+		select lessonUserIndex,lessonUserId,lessonUserName,lessonUserEmail,lessonUserDay,className
+		from lessonUser where lessonUserId=#{lessonUserId}  
 	</select>
 
 </mapper>

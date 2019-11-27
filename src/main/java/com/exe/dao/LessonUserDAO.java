@@ -1,5 +1,8 @@
 package com.exe.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.exe.dto.LessonUserDTO;
@@ -14,18 +17,27 @@ private SqlSessionTemplate sessionTemplate;
 	}
 	
 	public void insertLessonUser(LessonUserDTO dto) {
-		
-		sessionTemplate.insert("lessonusermapper.insertLessonUser",dto);
-		
+
+		sessionTemplate.insert("lessonmapper.insertLessonUser",dto);
+	
 	}
 	
 	public int lessonGetMaxNum() {
 		
-		
-		
-		return sessionTemplate.selectOne("lessonusermapper.lessonGetMaxNum");
+		return sessionTemplate.selectOne("lessonmapper.lessonGetMaxNum");
 		
 	}
+	
+	public List<LessonUserDTO> lessonGetList(String lessonUserId) {
+		
+		List<LessonUserDTO> lists = new ArrayList<LessonUserDTO>();
+		
+		lists =sessionTemplate.selectList("lessonmapper.getLessonUserList", lessonUserId);
+		
+		return lists;
+		
+	}
+
 	
 	
 	

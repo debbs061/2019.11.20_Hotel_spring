@@ -293,7 +293,7 @@
                                 <li>
                                 
                                 <p><b>스파 시설</b></p>
-                                <p><i class="fa fa-bullseye" aria-hidden="true"></i>개인 라커와 샤워시설을 갖춘 6개의 트리트먼트룸</p>
+                                <p><i class="fa fa-bullseye" aria-hidden="true"></i> 개인 라커와 샤워시설을 갖춘 6개의 트리트먼트룸</p>
                                 </li>
                                 <li>
                                     <p><i class="fa fa-bullseye" aria-hidden="true"></i> 개인 자쿠지를 갖춘 1개의 VIP커플 스위트룸</p>

@@ -12,7 +12,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Hotel</title>
+  <title>IT WILL | Hotel Event-Single</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,22 +43,45 @@
   
 	<style type="text/css">
 	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
+		*:not(i){
+			font-family: 'Noto Serif KR', serif!important;
+		}
 	
 	</style>
   
   <!-- Kakao 톡상담 -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  
+  
+  <!-- 이미지 리사이징 css -->
+  <style type="text/css">
+  
+/* 아래 세 줄이 중요한 스타일임 */
+	div.aspect_1_1 { width: 80px; height: 80px; }
+	div.aspect_4_3 { width: 100px; height: 75px; }
+	div.aspect_4_5 { width: 80px; height: 100px; }
 
+.clearfix:after {
+  	 content: " ";
+   	 visibility: hidden;
+   	 display: block;
+   	 height: 0;
+     clear: both;
+}
+/* 
+.footer {
+  width: 600px; text-align: center; margin-top: 5em;
+}
+ */
+  
+</style>
+  
 </head>
 
 <body >
 
 
 <!-- Header Start --> 
-
 <header class="navigation">
 <div class="top-header py-2">
 	<div class="container">
@@ -208,8 +231,12 @@
 			<p>${dto.content1 }</p>
 			<p>${dto.content2 }</p>
 		</div>
+		
+		
+		<!-- 이벤트 신청 개인 모달 버튼 -->
+		<button type="button" class="btn btn-main" id="myBtn">신청</button>
 
-
+		
 
 		<div class="event-comment-form mt-5">
 
@@ -267,6 +294,8 @@
 		</div>
 	</div>
 </div>
+
+
 
 
 
@@ -367,9 +396,75 @@
 	</div>
 </section>
 
-
    
     </div>
+
+
+
+<div>
+
+
+
+
+  <!-- Modal------------ Modal-------------Modal-------------------     -->
+  
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content 시작-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">이벤트 신청하기</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <div class="modal-body">
+        
+       <div id="modalview2">
+        <!--이벤트 신청서 폼 -->
+        
+       
+  		<div class="form-group">
+    		<label for="exampleInputEmail1">아이디</label>
+    		<input type="email" class="form-control" name="eventUserId" id="eventUserId" value="${sessionScope.login.userId}" aria-describedby="emailHelp" placeholder="Enter email" disabled/>
+  			</div>
+  		<div class="form-group">
+    		<label for="exampleInputPassword1">이름</label>
+   			 <input type="text" class="form-control" name="eventUserName" id="eventUserName" value="${sessionScope.login.userName}" placeholder="이름" disabled/>
+  		</div>
+  
+  		<div class="form-group">
+    		<label for="exampleInputPassword1">요청사항</label>
+    		<textarea class="form-control" rows="3" name="eventUserRequest" id="eventUserRequest" placeholder="요청사항을 50자내로 입력해주세요"></textarea>
+  		</div>
+  		
+  		
+		<div align="center">
+  			<button type="submit" class="btn btn-main" id="btnok">신청하기</button>
+ 	 		<button type="button" class="btn btn-main" data-dismiss="modal">닫기</button>
+ 	 	</div>
+		
+ 	 	
+		</div>
+		
+	
+        <!-- 신청성 양식 끝 -->
+       </div>
+       
+        
+        <!-- 여기까지 숨겨지는 부분 -->
+        
+        <!-- 뿌려지는 부분 -->
+        <div id="listData"></div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+	
+
 
     <!-- 
     Essential Scripts
@@ -410,6 +505,108 @@
 	//]]>
 	
 	</script>
+	
+	
 
-  </body>
-  </html>
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+	
+    $("#myBtn").click(function(){
+    	
+    	if('${sessionScope.login.userName}'.length==0) {
+    		
+    		alert("로그인 후 사용가능합니다")
+    		
+    	}else{
+    		
+    		 $("#myModal").modal();
+    	}
+    });
+});
+
+
+$(document).ready(function(){
+	
+		$("#btnok").click(function(){ 
+				var params = "eventUserId=" + $("#eventUserId").val()
+				+ "&eventUserName=" + $("#eventUserName").val()
+				+ "&eventUserRequest=" + $("#eventUserRequest").val()
+				+ "&eventIndex=" +"${eventIndex}"
+	
+				$.ajax({
+					
+					type:"POST",  
+					url:"<%=cp%>/event-request.action", 
+					data:params,
+					success:function(args){
+						
+							$("#modalview2").hide(function() {
+									$("#listData").html(args);	
+							});
+						
+					},
+				beforeSend:false, 
+				error:function(e) {
+				
+				alert(e.responseText); 
+			}
+		});
+	});
+});
+	     
+
+</script>
+
+<!-- 이미지 사이즈 조절 하기  -->
+
+<script type="text/javascript">
+
+
+window.onload = function() {
+	  var divs = document.querySelectorAll('li > div');
+	  for (var i = 0; i < divs.length; ++i) {
+	    var div = divs[i];
+	    var divAspect = div.offsetHeight / div.offsetWidth;
+	    div.style.overflow = 'hidden';
+	    
+	    var img = div.querySelector('img');
+	    var imgAspect = img.height / img.width;
+
+	    if (imgAspect <= divAspect) {
+	      // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
+	      var imgWidthActual = div.offsetHeight / imgAspect;
+	      var imgWidthToBe = div.offsetHeight / divAspect;
+	      var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2)
+	      img.style.cssText = 'width: auto; height: 100%; margin-left: '
+	                      + marginLeft + 'px;'
+	    } else {
+	      // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
+	      img.style.cssText = 'width: 100%; height: auto; margin-left: 0;';
+	    }
+	  }
+	  
+	  var btn = document.querySelector('#btnToggleOverflow');
+	  btn.onclick = function() {
+	    var val = divs[0].style.overflow == 'hidden' ? 'visible' : 'hidden';
+	    for (var i = 0; i < divs.length; ++i)
+	      divs[i].style.overflow = val;
+	  };
+	};
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

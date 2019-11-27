@@ -1,8 +1,11 @@
+<%@page import="com.exe.dto.LessonUserDTO"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -50,84 +53,20 @@
 <link rel="stylesheet" href="/hotel/resources/css/style.css">
 
 <!-- font -->
-  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
-  
-	<style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
-  
+<link
+	href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean"
+	rel="stylesheet">
+
+<style type="text/css">
+*:not(i) {
+	font-family: 'Noto Serif KR', serif !important;
+}
+
+
+</style>
+
   <!-- Kakao 톡상담 -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-
-<script type="text/javascript">
-
-function sendIt(){
-	
-	var f = document.myForm;
-	
-	str = f.lessonUserId.value;
-	str = str.trim();
-	
-	if(!str){
-		alert("아이디를 입력하세요");
-		f.lessonUserId.focus();
-		return;
-	}
-	f.lessonUserId.value = str;
-	
-	str = f.lessonUserName.value;
-	str = str.trim();
-	
-	if(!str){
-		alert("이름을 입력하세요");
-		f.lessonUserName.focus();
-		return;
-	}
-	f.lessonUserName.value = str;
-	
-	str = f.lessonUserEmail.value;
-	str = str.trim();
-	
-	if(!str){
-		alert("이메일을 입력하세요");
-		f.lessonUserEmail.focus();
-		return;
-	}
-	f.lessonUserEmail.value = str;
-	
-	str = f.lessonUserDay.value;
-	str = str.trim();
-	
-	if(!str){
-		alert("날짜를 입력하세요");
-		f.lessonUserDay.focus();
-		return;
-	}
-	f.lessonUserDay.value = str;
-	
-	str = f.className.value;
-	
-	if(str=="강 좌 선 택"){
-		alert("강좌를 선택하세요");
-		f.className.focus();
-		return;
-	}
-
-	alert("등록 완료");
-	
-	
-	f.className.value = str;
-	
-	f.action = "<%=cp %>/gymList_ok.action";
-	f.submit();
-}
-</script>
-
-
 
 </head>
 
@@ -238,142 +177,97 @@ function sendIt(){
 	<div class="main-wrapper ">
 	<div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
-		<section class="overly bg-2">
+		<!-- MAIN CONTENT -->
+		<section class="main-content section clearfix">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<h1 class="text-white py-100">강좌리스트</h1>
-				</div>
+			<div class="alert alert-success alert-dismissible ed-alert"
+				role="alert">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				예약확인
 			</div>
-		</div>
-
-		<div class="container-fluid page-border-top">
-			<div class="row ">
-				<div class="col-lg-12 text-center">
-					<div class="page-breadcumb py-2">
-						<a href="gym" class="text-white">Home</a> <span><i
-							class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-						<a href="gymList.action" class="text-white">lesson</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		</section>
 
 
-		<div class="page-wrapper event-page">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-lg-8">
 
-						<c:forEach items="${lists }" var="dto">
-							<div class="event-box mb-5 position-relative">
-								<img src="/hotel/resources/images/gym/${dto.image }.jpg" alt=""
-									class="img-fluid w-100">
-								<div class="event-content mt-3">
-									<div class="event-date p-3 text-white">
-										<span class="date font-weight-bold d-block">week</span> <span>day</span>
-									</div>
-									<a href="#"><h3>${dto.title }</h3></a>
-									<div class="event-post-meta mt-2 mb-3">
-										<span><i class="ion-clock"></i>${dto.time }</span>
-										<span><i class="ion-ios-location"></i>${dto.addr }</span>
-									</div>
-									<p>${dto.content }</p>
-								</div>
-								<button type="button" class="btn btn-main" data-toggle="modal" data-target="#exampleModal">
-							  강좌신청
-							</button>
-							</div>
+			<c:choose>
+			
+				<c:when test="${empty lists }">
 							
-						</c:forEach>
+							${message }
+							
+						</c:when>
+
+				<c:otherwise>
+					
+						<c:forEach items="${lists }" var="dto">
+						<div class="border payment-confirm position-relative">
+							<div class="row justify-content-center align-items-center ">
+								<div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
+									<img src="/hotel/resources/images/gym/${dto.className }.jpg"
+										class="img-fluid w-100" alt="confirm img" />
+
+									<!--    <a href="room-details"><h2 class="text-dark mt-3 mb-4">Delux couple</h2></a>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita</p>
+          -->
+								</div>
+
+								<div class="col-md-12 col-sm-12 col-xs-12 col-lg-8">
+									<div class="row ">
+										<div class="col-lg-6 col-md-6 col-sm-6">
+											<div class="ed-cinfirm-detail ">
+												<h3 class="headline">ITWill Hotel 헬스강좌 신청 내역</h3>
+												<ul class="list-unstyled">
+													<li><span>성함:</span> ${dto.lessonUserName }</li>
+													<li><span>날짜:</span> ${dto.lessonUserDay }</li>
+													
+													
+													<c:if test='${dto.className == "yoga" }'>
+													
+													<li><span>강좌명: </span> 요가 클래스</li>										
+													</c:if>
+													
+													<c:if test='${dto.className == "weights1" }'>
+													
+													<li><span>강좌명: </span> 1:1 퍼스널 트레이닝</li>										
+													</c:if>
+													
+													<c:if test='${dto.className == "exercise" }'>
+													
+													<li><span>강좌명: </span> 체력강화 입문반</li>										
+													</c:if>
+													
+												</ul>
+											</div>
+										</div>
+			
 
 
-					</div>
+
+				<div class="col-lg-12 text-center">
+
+
+					<!-- <a href="#" class="btn btn-solid-border">Browse</a> -->
 				</div>
-			</div>
 		</div>
 	</div>
-	
-	
-	<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-  
-  <form action="" name="myForm" method="post">
-  
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">ITWILL GYM 강좌신청</h5>
-        
-        
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      
-       	<div class="input-group mb-3">
-		  	<input type="text" value="${sessionScope.login.userId }" name="lessonUserId" class="form-control" placeholder="아이디" aria-label="아이디" aria-describedby="basic-addon2">
-		  	<div class="input-group-append">
-		    	
-		  	</div>
-		</div>
+	</div>
+	</div>
+	</c:forEach>
+					
+				</c:otherwise>
 		
-		<div class="input-group mb-3">
-		  	<input type="text" value="${sessionScope.login.userName }" name="lessonUserName" class="form-control" placeholder="성함" aria-label="성함" aria-describedby="basic-addon2">
-		  	<div class="input-group-append">
-		    	
-		  	</div>
-		</div>
-		
-		<div class="input-group mb-3">
-		  	<input type="text" value="${sessionScope.login.userEmail }" name="lessonUserEmail" class="form-control" placeholder="@example.com" aria-label="@이메일.com" aria-describedby="basic-addon2">
-		  	<div class="input-group-append">
-		    	
-		  	</div>
-		</div>
-		
-				<div class="input-group mb-3">
-				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-		  	<input type="text" name="lessonUserDay" class="form-control" placeholder="YYYY-MM-DD" aria-label="YYYY-MM-DD" aria-describedby="basic-addon2">
-						    <div class="input-group-addon">
-						       <span class="ion-android-calendar"></span>
-						    </div>
-		    	
-		  	</div>
-		</div>
-		
-		
-		<div class="input-group mb-5">
-		  <div class="input-group-prepend">
-		    <label class="input-group-text" for="inputGroupSelect01">강좌</label>
-		  </div>
-		  <select name="className" class="custom-select" id="inputGroupSelect01">
-		    <option selected>강 좌 선 택</option>
-		    <option value="yoga">요가</option>
-		    <option value="weights1">PT</option>
-		    <option value="exercise">기초체력 입문</option>
-		  </select>
-		</div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-        <button type="button" name="" class="btn btn-main" onclick="sendIt();" >등록</button>
-		
-		</form>
-  
-      </div>
-    </div>
-  </div>
-</div>
+	</c:choose>
 
+
+	</div>
+	</section>
 
 
 
 	<!-- footer Start -->
-	<footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
+<footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3 col-md-6 col-sm-6">
@@ -470,10 +364,7 @@ function sendIt(){
 	</section>
 
 
-
 	</div>
-	
-	
 
 	<!-- 
     Essential Scripts
@@ -505,7 +396,7 @@ function sendIt(){
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
 
 	<script src="/hotel/resources/js/script.js"></script>
-	
+
 	<!-- Kakao 톡상담 -->
 	<script type='text/javascript'>
 	

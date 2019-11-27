@@ -7,14 +7,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="description" content="Eden Travel Template">
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Gym</title>
-
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <title>IT WILL | Hotel</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,7 +55,6 @@
 </head>
 
 <body >
-
 
 <!-- Header Start --> 
 
@@ -162,200 +159,68 @@
 <!-- Header Close --> 
 
 <div class="main-wrapper ">
-<div id="kakao-talk-channel-chat-button" style="position:fixed;right:10px;bottom:0px;z-index:1000;"></div>
-<!-- slider -->
-<section>
-  <div class="hero-slider">
-    
-    <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym1.jpg); ">
+<div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
+
+ <!-- MAIN CONTENT -->
+    <section class="main-content section clearfix">
       <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">
-            <span class="letter-spacing text-white">IT Will Hotel</span>
-            <h1 class="mb-3 text-capitalize">호텔 헬스장</h1>
-            <p class="mb-5">IT Will Hotel은 고객님의 건강을 책임집니다.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym2.jpg); ">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">
-            <span class="letter-spacing text-white">IT Will Hotel</span>
-            <h1 class="mb-3 text-capitalize">호텔 헬스장</h1>
-            <p class="mb-5">IT Will Hotel은 고객님의 건강을 책임집니다.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym3.jpg); ">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">
-             <span class="letter-spacing text-white">IT Will Hotel</span>
-            <h1 class="mb-3 text-capitalize">호텔 헬스장</h1>
-            <p class="mb-5">IT Will Hotel은 고객님의 건강을 책임집니다.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym4.jpg); ">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInRight" data-delay-in=".1">
-             <span class="letter-spacing text-white">IT Will Hotel</span>
-            <h1 class="mb-3 text-capitalize">호텔 헬스장</h1>
-            <p class="mb-5">IT Will Hotel은 고객님의 건강을 책임집니다. </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- /slider -->
-
-
-<!-- Wrapper Start -->
-<section class="about section">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-lg-8 text-center">
-				<div class="section-title">
-					<p class="section-subtitle">Welcome To</p>
-					<h2 class="mb-3">IT WILL HOTEL</h2>
-					<h2 class="mb-3">GYM</h2>
-					<p class="mb-4">체계적인 체력 관리를 위한 기능별 공간과 최상의 휴식을위한
-					공간으로 조성되어 운동과 휴식을 조화롭게 즐기실 수 있는 실내 체육관입니다.</p>
-					<span class="section-border"></span>
-				</div>
-			</div><!-- .col-md-7 close -->
+        <div class="alert alert-success alert-dismissible ed-alert" role="alert">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			예약확인
 		</div>
+       
+       <c:forEach items="${elists }" var="dto">
+        <div class="border payment-confirm position-relative">
+          <div class="row justify-content-center align-items-center ">
+              <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
+                <img src="/hotel/resources/images/event/${dto.savefileName }" class="img-fluid w-100" style="width: 289px; height: 193px;" alt="confirm img"/>
 
-		<div class="row">
-			<div class="col-lg-8 col-md-6">
-				<div class="about-block">
-					<img src="/hotel/resources/images/gym/gym-menu2.jpg" alt="" class="img-fluid shadow-sm">
-					<div class="about-img">
-						<img src="/hotel/resources/images/gym/gym-menu1.jpg" alt="" class="img-fluid">
-					</div>
-				</div>
-			</div>
+              <!--    <a href="room-details"><h2 class="text-dark mt-3 mb-4">Delux couple</h2></a>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita</p>
+          -->     </div>
 
-			<div class="col-lg-4 col-md-6">
-				<div class="about-features">
-					<h3>'글로벌 리더들이 선택한 운동시스템'</h3>
-					<hr>
-					<br>
-					<p>체계적인 체력 관리를 위해 건강 삼당 및 체력 측정결과에 따라 운동프로그램을 제공합니다.<p>
-					<p>국내 유일의 디지털 측정실을 갖추고있으며, 스마트 코칭 시스템을 이용해 차별화된 운동지도 서비스를 제공합니다.</p>
-					<p class="section-subtitle">문의전화 02-123-4567</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<section class="section secondary-bg">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-lg-8 text-center">
-				<div class="section-title">
-					<p class="section-subtitle">Trainer</p>
-					<h2 class="mb-3">트레이너 소개</h2>
-					<p class="mb-4">최고의 트레이너들과 함께 건강과 미용을 챙기세요.
-					</p>
-					<span class="section-border"></span>
-				</div>
-			</div><!-- .col-md-8 close -->
-		</div>
+              <div class="col-md-12 col-sm-12 col-xs-12 col-lg-8">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: 85px;">
+                        <div class="ed-cinfirm-detail" style="width: 300px;">
+                            <h3 class="headline">ITWill Hotel 이벤트 신청 내역</h3>
+                            <ul class="list-unstyled">
+                              <li>
+                                <span>성함:</span>
+                               ${sessionScope.login.userName }
+                              </li>
+                              <li>
+                                <span>날짜:</span>
+                               ${dto.day }
+                              </li>
+                              <li>
+                                <span>이벤트명:</span>
+                               ${dto.eventTitle }
+                              </li>
+                            </ul>
+                        </div>
+                    </div>
 
-		<div class="row">
-		
-			<div class="col-lg-4 col-md-4 col-sm-6">
-				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
-					<img src="/hotel/resources/images/gym/trainer1.jpg" alt="" class="rounded-circle mr-1">
+                    
 
-					<div class="card-body px-5 py-5">
-						<h3>Aiden</h3>
-						<p class="py-3">트레이너 경력 15년 트레이너 Aiden입니다.</p>
-					</div>
-				</div>
-			</div>
-			
-			<div class="col-lg-4 col-md-4 col-sm-6">
-				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
-					<img src="/hotel/resources/images/gym/trainer2.jpg" alt="" class="rounded-circle mr-1">
+                    <div class="col-lg-12 text-center">
+                      
 
-					<div class="card-body px-5 py-5">
-						<h3>Ayaan</h3>
-						<p class="py-3">체조선수출신 트레이너 Ayaan 입니다.</p>
-					</div>
-				</div>
-			</div>
+                       <!-- <a href="#" class="btn btn-solid-border">Browse</a> -->
+                      
+                  </div>
+                </div>
+              </div>
+          </div>
+          </div>
+          </c:forEach>
+      </div>
+    </section>
 
-
-			<div class="col-lg-4 col-md-4 col-sm-6">
-				<div class="card text-center border-0 rounded-1 mb-4 mb-lg-0">
-					<img src="/hotel/resources/images/gym/trainer3.jpg" alt="" class="rounded-circle mr-1">
-
-					<div class="card-body px-5 py-5">
-						<h3>Benjamin</h3>
-						<p class="py-3">요가강사 출신 트레이너 Benjamin 입니다.</p>
-	
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-</section>	
-<section class="blog section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-8 text-center">
-					<div class="section-title">
-						<p class="section-subtitle">Lesson</p>
-						<h2 class="mb-3">강좌소개</h2>
-						<p class="mb-4">개인의 취향과 운동 적성을 고려한 다양한 프로그램을 운영합니다.<br/> 
-						웰빙 라이프를 위한 그룹 엑서사이즈와 힐링을 위한 스페셜 운동 프로그램으로 구성되어있습니다.</p>
-						<span class="section-border"></span>
-					</div>
-				</div><!-- .col-md-7 close -->
-			</div>
-
-			<div class="row">
-			
-			<c:forEach items="${lists }" var="dto">
-				<!-- single blog post -->
-				<article class="col-lg-4 col-md-4 col-sm-6 col-xs-12 clearfix " >
-					<div class="card rounded-0 pb-2 mb-4 mb-lg-0">
-						<div class="media-wrapper">
-							<img src="/hotel/resources/images/gym/${dto.image }.jpg" alt="amazing caves coverimage" class="img-fluid w-100">
-						</div>
-						
-						<div class="card-body px-4 ">
-							<span class='post-meta'><i class="ion-ios-location"></i>${dto.addr }</span>
-							<a href="gymList.action" class="mt-3 d-block mb-4 pb-2"><h3>${dto.title }</h3></a>
-							<span class="text-muted"><i class="fa fa-clock"></i>${dto.time }</span>
-						</div>
-					</div>						
-				</article>
-				<!-- /single blog post -->
-			</c:forEach>
-				
-				
-				<a href="gymList.action" class="btn btn-main">강좌등록</a>
-				
-			</div> <!-- end row -->
-		</div> <!-- end container -->
-</section> <!-- end section -->
-
-
-
+  
 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
@@ -454,7 +319,6 @@
 	</div>
 </section>
 
-
    
     </div>
 
@@ -479,22 +343,24 @@
     
     <!-- Google Map -->
     <script src="/hotel/resources/plugins/google-map/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
 
     <script src="/hotel/resources/js/script.js"></script>
-
-
+    
+    <!-- Kakao 톡상담 -->
 	<script type='text/javascript'>
-  //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('a876d408c7cc2ab22428d910b1de57af');
-    // 카카오톡 채널 1:1채팅 버튼을 생성합니다.
-    Kakao.Channel.createChatButton({
-      container: '#kakao-talk-channel-chat-button',
-      channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
-    });
-  //]]>
-</script>
+	
+	//<![CDATA[
+		// 사용할 앱의 JavaScript 키를 설정해 주세요.
+		Kakao.init('a876d408c7cc2ab22428d910b1de57af');
+		// 카카오톡 채널 1:1채팅 버튼을 생성합니다.
+		Kakao.Channel.createChatButton({
+			container: '#kakao-talk-channel-chat-button',
+			channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
+		});
+	//]]>
+	
+	</script>
+
   </body>
   </html>
-   

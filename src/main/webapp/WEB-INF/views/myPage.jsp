@@ -38,16 +38,19 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
-  <!-- Kakao 톡상담 -->
-  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
 	<style type="text/css">
 	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
+		*:not(i){
+			font-family: 'Noto Serif KR', serif!important;
+		}
 	
 	</style>
+  
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 </head>
 
@@ -218,7 +221,7 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+                <div class="service-box text-center border px-4 py-5" onclick="location.href='gymCheck.action';">
                     <i class="flaticon-menu text-color"></i>
                     <h3 class="my-3">헬스장 강좌 예약 확인</h3>
                 </div>
@@ -226,7 +229,7 @@
 
 
             <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+                <div class="service-box text-center border px-4 py-5" onclick="location.href='eventCheck.action';">
                     <i class="flaticon-dishwasher text-color"></i>
                     <h3 class="my-3">이벤트 예약 확인</h3>
                 </div>
