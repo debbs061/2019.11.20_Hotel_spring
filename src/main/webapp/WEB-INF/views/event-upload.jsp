@@ -11,7 +11,7 @@
 <meta name="description" content="Eden Travel Template">
 <meta name="author" content="Themefisher.com">
 
-<title>IT WILL | Hotel</title>
+<title>IT WILL | Hotel Event-Upload</title>
 
 <!-- Mobile Specific Meta-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,17 +36,6 @@
 
 <!-- Main Stylesheet -->
 <link rel="stylesheet" href="/hotel/resources/css/style.css">
-
-<!-- font -->
-  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
-  
-	<style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
 
 <!-- jquery -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -182,16 +171,13 @@ function inputIdChk() {
 						<li class="top-contact">
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
-									<span class="text-color">
-										<a href="login.action">로그인</a> / 
-										<a href="signup.action">회원가입</a>
-									</span>
+									<a href="login.action">로그인</a> / 
+									<a href="signup.action">회원가입</a><br/>
 								</c:when>
 							
 								<c:otherwise>
-									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
-									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
+									${sessionScope.login.userName }님 안녕하세요:)♥</br>
+									<a href="logout.action">로그아웃</a><br/>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -228,6 +214,7 @@ function inputIdChk() {
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
 				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
+				  <li><a class="dropdown-item" href="room-list.action">Room-List</a></li>
 				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
 				</ul>
 			  </li>
@@ -416,7 +403,7 @@ function inputIdChk() {
 						</li>
 	
 						<li>
-							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>

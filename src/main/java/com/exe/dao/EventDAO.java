@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.exe.dto.EventBookingDTO;
 import com.exe.dto.EventDTO;
+import com.exe.dto.HotelBookingDTO;
 
 public class EventDAO {
 	
@@ -62,4 +64,55 @@ public class EventDAO {
 		
 		sessionTemplate.update("eventmapper.updateData",dto);
 	}
+	
+	
+	//EventBooking=========================== EventBooking===================EventBooking====================EventBooking
+	public int getBookingMaxNum(){
+
+		int maxNum = 0;
+		
+		maxNum = sessionTemplate.selectOne("eventmapper.bookingMaxNum");
+		
+		return maxNum;
+	}
+	
+	public void insertEventBooking(EventBookingDTO dto){
+
+		sessionTemplate.insert("eventmapper.insertBooking",dto);
+	}
+	
+	
+	//개인예약내역 조회하기
+	public EventBookingDTO getReadEventBookingData(String userId,  int eventIndex){
+		
+		HashMap<String, Object> params =
+				new HashMap<String, Object>();
+		
+		params.put("userId", userId);
+		params.put("eventIndex",eventIndex);
+		
+		
+		
+		return sessionTemplate.selectOne("eventmapper.readEventBookingData",params);
+		
+		
+	}
+	
+	public void deleteEventBookingData(int eventBookingNum){
+
+		sessionTemplate.update("eventmapper.deleteBookingData", eventBookingNum);
+	}
+
+	//MyPage Event 예약내역 뽑아내기
+	
+	public List<EventDTO> getEventListsByUserId(String userId) {
+
+		List<EventDTO> lists =
+				sessionTemplate
+				.selectList("eventmapper.getEventListsByUserId",userId);
+
+		return lists; 
+
+	}
+	
 }

@@ -12,7 +12,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Hotel Event-Grid</title>
+  <title>IT WILL | Hotel</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,41 +38,20 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
-  <!-- Kakao 톡상담 -->
-  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
-  <!-- 이미지 슬라이드 -->
-  <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.css" />
-  <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.min.css" />
-   
-  
-  
-    <style type="text/css">
-        * {
-            box-sizing: border-box
-        }
-        html, body {
-            width: 100%;
-           
-        }
-        .glider-contain {	
-            width: 90%;
-            max-width: none;
-            margin: 0 auto;
-        }
-        .glider-slide {
-            min-height: 150px;
-        }
-        .glider-slide img {
-            width: 100%;
-        }
-    </style>
-  
+	<style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
 
 </head>
 
 <body >
-
 
 <!-- Header Start --> 
 
@@ -91,13 +70,16 @@
 						<li class="top-contact">
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
-									<a href="login.action">로그인</a> / 
-									<a href="signup.action">회원가입</a><br/>
+									<span class="text-color">
+										<a href="login.action">로그인</a> / 
+										<a href="signup.action">회원가입</a>
+									</span>
 								</c:when>
 							
 								<c:otherwise>
-									${sessionScope.login.userName }님 안녕하세요:)♥</br>
-									<a href="logout.action">로그아웃</a><br/>
+									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
+									</span>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -134,7 +116,6 @@
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
 				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
-				  <li><a class="dropdown-item" href="room-list.action">Room-List</a></li>
 				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
 				</ul>
 			  </li>
@@ -165,86 +146,67 @@
 <div class="main-wrapper ">
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
-<section class="overly bg-2">
-  <div class="container">
-  
-    <div class="row">
-      <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">이벤트</h1>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid page-border-top">
-    <div class="row ">
-      <div class="col-lg-12 text-center">
-          <div class="page-breadcumb py-2">
-            <a href="/hotel" class="text-white">Home</a>
-            <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="event-grid.action" class="text-white">Event</a>
+ <!-- MAIN CONTENT -->
+    <section class="main-content section clearfix">
+      <div class="container">
+         <div class="alert alert-success alert-dismissible ed-alert" role="alert">
+            <span class="fa fa-check"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            예약확인
         </div>
-      </div>
-    </div>
-  </div>
-  
-  
-</section>
-<div class="container">
-		 <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <div class="section-title">
-                    <p class="section-subtitle">갤러리</p>
-                    <h2 class="mb-3">다양하다 & 즐거웁다</h2>
-                    <p class="mb-4">매일 호텔에서 직접 진행하는 다양한 이벤트 액티비티에 참여하세요.</p>
-                    <span class="section-border"></span>
+       
+       <c:forEach items="${elists }" var="dto">
+        <div class="border payment-confirm position-relative">
+          <div class="row justify-content-center align-items-center ">
+              <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
+                <img src="/hotel/resources/images/event/${dto.savefileName }" class="img-fluid w-100" style="width: 289px; height: 193px;" alt="confirm img"/>
+
+              <!--    <a href="room-details"><h2 class="text-dark mt-3 mb-4">Delux couple</h2></a>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita</p>
+          -->     </div>
+
+              <div class="col-md-12 col-sm-12 col-xs-12 col-lg-8">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: 85px;">
+                        <div class="ed-cinfirm-detail" style="width: 300px;">
+                            <h3 class="headline">ITWill Hotel 이벤트 신청 내역</h3>
+                            <ul class="list-unstyled">
+                              <li>
+                                <span>성함:</span>
+                               ${sessionScope.login.userName }
+                              </li>
+                              <li>
+                                <span>날짜:</span>
+                               ${dto.day }
+                              </li>
+                              <li>
+                                <span>이벤트명:</span>
+                               ${dto.eventTitle }
+                              </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="col-lg-12 text-center">
+                      
+
+                       <!-- <a href="#" class="btn btn-solid-border">Browse</a> -->
+                      
+                  </div>
                 </div>
-            </div><!-- .col-md-7 close -->
-        </div>
-</div>
+              </div>
+          </div>
+          </div>
+          </c:forEach>
+      </div>
+    </section>
 
-
-	<!-- 이미지 슬라이드 -->
-	<div class="glider-contain" style="padding-top: 20px;">
-        <div class="glider">
-         
-         <c:forEach items="${lists }" var="dto1"> 
-             <div class="event-box mb-5 position-relative">
-            
-           		 <a href="event-single.action?eventIndex=${dto1.eventIndex }">
-            		<div>
-            			<img alt="Test" src="/hotel/resources/images/event/${dto1.savefileName}" 
-            			style="padding-right: 5px; width: 300px; height: 250px;">
-            			<div class="event-content mt-3">
-            				<div class="event-date p-3 text-white">
-								<span class="date font-weight-bold d-block">${dto1.day}</span>
-							
-							</div>
-						</div>
-					</div>
-				
-            		<div class="event-post-meta mt-2 mb-3">
-            			<h3>${dto1.eventTitle }</h3>
-						&nbsp;&nbsp;<span><i class="ion-clock"></i>${dto1.time}</span>
-						<span><i class="ion-ios-location"></i>${dto1.location} </span>
-					</div>
-            	
-            	 </a>
-            	</div>
-            </c:forEach> 
-            
-        </div>
-        <button class="glider-prev">&laquo;</button>
-        <button class="glider-next">&raquo;</button>
-        <div id="dots"></div>
-        
- 		<div>
-        	<button class="btn btn-main" type="button" onclick="location.href='event-upload.action';">등록하기</button>
-        </div>
-  </div>
   
-  <!-- 이미지 슬라이드 끝 -->
 
- 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
@@ -291,7 +253,7 @@
 						</li>
 	
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>
@@ -342,7 +304,6 @@
 	</div>
 </section>
 
-
    
     </div>
 
@@ -385,81 +346,6 @@
 	//]]>
 	
 	</script>
-	
-	
-	<!-- 이미지 슬라이드 --> 
-    <script src="/hotel/resources/js/glider.js"></script>
-    <script src="/hotel/resources/js/glider.min.js"></script>
-    <script src="/hotel/resources/js/glider-compat.min.js"></script>
-    <script>
-      window.addEventListener('load',function(){
-        document.querySelector('.glider').addEventListener('glider-slide-visible', function(event){
-            var glider = Glider(this);
-            console.log('Slide Visible %s', event.detail.slide)
-        });
-        document.querySelector('.glider').addEventListener('glider-slide-hidden', function(event){
-            console.log('Slide Hidden %s', event.detail.slide)
-        });
-        document.querySelector('.glider').addEventListener('glider-refresh', function(event){
-            console.log('Refresh')
-        });
-        document.querySelector('.glider').addEventListener('glider-loaded', function(event){
-            console.log('Loaded')
-        });
 
-        window._ = new Glider(document.querySelector('.glider'), {
-            slidesToShow: 1, //'auto',
-            slidesToScroll: 1,
-            itemWidth: 150,
-            draggable: true,
-            scrollLock: false,
-            dots: '#dots',
-            rewind: true,
-            arrows: {
-                prev: '.glider-prev',
-                next: '.glider-next'
-            },
-            responsive: [
-                {
-                    breakpoint: 800,
-                    settings: {
-                        slidesToScroll: 'auto',
-                        itemWidth: 300,
-                        slidesToShow: 'auto',
-                        exactWidth: true
-                    }
-                },
-                {
-                    breakpoint: 700,
-                    settings: {
-                        slidesToScroll: 4,
-                        slidesToShow: 4,
-                        dots: false,
-                        arrows: false,
-                    }
-                },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToScroll: 3,
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 500,
-                    settings: {
-                        slidesToScroll: 2,
-                        slidesToShow: 2,
-                        dots: false,
-                        arrows: false,
-                        scrollLock: true
-                    }
-                }
-            ]
-        });
-      });
-    </script>
-    
-  
   </body>
   </html>
