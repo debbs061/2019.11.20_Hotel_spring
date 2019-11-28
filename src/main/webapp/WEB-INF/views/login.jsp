@@ -89,6 +89,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -241,6 +243,7 @@
                         </div>
                     </div>
                     <p class="section-subtitle">${message }</p>
+                    
                     <button type="button" class="btn btn-main" onclick="location.href='signup.action';">회원가입</button>
                     <button type="button" class="btn btn-main" onclick="sendIt();">로그인</button>
                     <button type="button" class="btn btn-main" onclick="location.href='searchPwd.action';">비밀번호 찾기</button>
@@ -390,6 +393,8 @@
 	//]]>
 	
 	</script>
+	
+	<script src="/hotel/resources/js/weather.js"></script>
 
   </body>
   </html>

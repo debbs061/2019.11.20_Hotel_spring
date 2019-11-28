@@ -48,6 +48,8 @@
 	}
 	
 	</style>
+	
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 </head>
 
@@ -62,6 +64,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -142,6 +146,8 @@
 <!-- Header Close --> 
 
 <div class="main-wrapper ">
+<div id="kakao-talk-channel-chat-button" style="position:fixed;right:10px;bottom:0px;z-index:1000;"></div>
+
  <!-- MAIN CONTENT -->
     <section class="main-content section clearfix">
       <div class="container">
@@ -368,6 +374,20 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
 
     <script src="/hotel/resources/js/script.js"></script>
+    
+    <script type='text/javascript'>
+	  //<![CDATA[
+	    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+	    Kakao.init('a876d408c7cc2ab22428d910b1de57af');
+	    // 카카오톡 채널 1:1채팅 버튼을 생성합니다.
+	    Kakao.Channel.createChatButton({
+	      container: '#kakao-talk-channel-chat-button',
+	      channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
+	    });
+	  //]]>
+	</script>
+
+	<script src="/hotel/resources/js/weather.js"></script>
 
   </body>
   </html>

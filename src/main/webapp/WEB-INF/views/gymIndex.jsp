@@ -68,6 +68,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -276,7 +278,7 @@
 		<div class="row">
 		
 			<div class="col-lg-4 col-md-4 col-sm-6">
-				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
+				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0" style="width: 350px; height: 550px;">
 					<img src="/hotel/resources/images/gym/trainer1.jpg" alt="" class="rounded-circle mr-1">
 
 					<div class="card-body px-5 py-5">
@@ -287,7 +289,7 @@
 			</div>
 			
 			<div class="col-lg-4 col-md-4 col-sm-6">
-				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
+				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0" style="width: 350px; height: 550px;">
 					<img src="/hotel/resources/images/gym/trainer2.jpg" alt="" class="rounded-circle mr-1">
 
 					<div class="card-body px-5 py-5">
@@ -299,7 +301,7 @@
 
 
 			<div class="col-lg-4 col-md-4 col-sm-6">
-				<div class="card text-center border-0 rounded-1 mb-4 mb-lg-0">
+				<div class="card text-center border-0 rounded-1 mb-4 mb-lg-0" style="width: 350px; height: 550px;">
 					<img src="/hotel/resources/images/gym/trainer3.jpg" alt="" class="rounded-circle mr-1">
 
 					<div class="card-body px-5 py-5">
@@ -348,9 +350,10 @@
 			</c:forEach>
 				
 				
-				<a href="gymList.action" class="btn btn-main">강좌등록</a>
-				
 			</div> <!-- end row -->
+			
+			<a href="gymList.action" class="btn btn-main">강좌등록</a>
+			
 		</div> <!-- end container -->
 </section> <!-- end section -->
 
@@ -495,6 +498,9 @@
     });
   //]]>
 </script>
+
+<script src="/hotel/resources/js/weather.js"></script>
+
   </body>
   </html>
    

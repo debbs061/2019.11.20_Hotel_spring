@@ -12,7 +12,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Hotel</title>
+  <title>IT WILL | Spa</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,12 +49,14 @@
 	
 	</style>
 
+<!-- 현재 CSS 겹쳐서 살짝 깨짐... -->
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
 </head>
 
-<body >
+<body>
 
 <!-- Header Start --> 
 
@@ -65,6 +67,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -333,10 +337,8 @@
                         
 	
 </div>
-
-
-
-
+</div>
+</section>
 
 
 
@@ -481,6 +483,8 @@
 	//]]>
 	
 	</script>
+	
+	<script src="/hotel/resources/js/weather.js"></script>
 
   </body>
   </html>

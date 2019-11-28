@@ -69,73 +69,91 @@
 
  	window.onload = function() {
     	
+    	parseWeather();
 		loadPage();
 	} 
+    
+    //날씨
+ 	function parseWeather(){
+ 		loadJSON(function(response){
+ 			
+ 			var jsonData = JSON.parse(response);
+ 			
+ 			var temp = Math.round(jsonData["main"]["temp"]-273.15);
+ 			document.getElementById("todayTemp").innerHTML = "서초구 "+temp + ' ˚C';
+ 			
+ 			var icon = jsonData["weather"][0]["icon"];
+ 			document.getElementById("icon").innerHTML = "<image src='https://openweathermap.org/img/wn/"+icon+".png'>";
+ 		});
+ 	}
+
+ 	function loadJSON(callback){
+ 		
+ 		var url = "https://api.openweathermap.org/data/2.5/weather?q=Seoul,KR&cnt=7&appid=4e843bd1d669f0389af7e25aa1fb2b21";
+ 		var request = new XMLHttpRequest();
+ 		request.overrideMimeType("application/json");
+ 		request.open('GET',url,true);
+ 		
+ 		request.onreadystatechange = function(){
+ 			if(request.readyState == 4 && request.status == "200")
+ 				{
+ 					callback(request.responseText);
+ 				}
+ 		};
+ 		request.send(null);
+ 			
+ 	}
+ 	
+ 	
 	
     
-	$(document).ready(function(){
-	
-		var total;	
-		var optionList = new Array();
-	
-		$('input[name="defaultCheck"]').change(function() {
+ 	$(document).ready(function(){
+ 		
+ 		$('input[id="form-check-input"]').change(function() {
 
-        	var arrList = new Array(); 
-        	var optionList = new Array(); 
-        	var pricePerNight = ${dto.pricePerNight };
-                
-        	$("input[name=defaultCheck]:checked").each(function(i){ 	   
-        	
-        		if(this.value == "30000"){
-        			arrList.push($(this).val());
-        			optionList[optionList.length] = "야외수영장";        
-        	}
-        
-        		if(this.value == "13000"){
-        			arrList.push($(this).val());
-        		//	alert("조식 "+optionList.length);
-        			optionList[optionList.length] = "조식";    		        	
-        		}
-        	
-        		if(this.value == "45000"){
-        			arrList.push($(this).val());
-         			optionList[optionList.length] = "와이너리";
-        		}
-        	
-        		if(this.value == "60000"){
-        			arrList.push($(this).val());
-         			optionList[optionList.length] = "스파";
-        		}
-        	
-        		if(this.value == "23000"){
-        			arrList.push($(this).val());
-         			optionList[optionList.length] = "엑스트라 베드";
-         		}
-        	});
-        
-        	if (arrList=="")
-        		arrList.push(0);
-        
-			$.ajax({
-				type:"POST",  
-				url:"<%=cp%>/room-details_ok.action", 
-				data:{arrList:arrList, pricePerNight:pricePerNight},
-				success:function(args){
-				
-					$("#listData").html(args);
-					 // 초기화된 배열에 다시 담기
-					for(var i=0;i<optionList.length;i++){
-					    optionList2[i]=optionList[i];
-					}
-				},
-				beforeSend:showRequest,
-				error:function(e) {
-				
-					alert(e.responseText); 
-				}
-			}); 
-		});
-	});
+ 	        var arrList = new Array(); // 체크박스 가격들 담음
+ 	        var optionList = new Array();  // 체크박스 옵션들 담음
+ 	        var pricePerNight = ${dto.pricePerNight }; // 1박당 가격
+ 	        
+ 	    	optionList2.splice(0,optionList2.length);
+ 			//delete optionList2[j];
+ 	            
+ 	        $('input[id="form-check-input"]:checked').each(function(i){ 	   
+ 	        	
+ 	        		arrList.push($(this).val());
+ 	        		optionList.push($(this).attr("name"));
+ 	        	
+ 	        });
+ 	        
+ 	        if (arrList=="")
+ 	        	arrList.push(0);        
+ 	        
+ 			$.ajax({
+ 				// 입력창 보내는거니깐 post형태로
+ 				type:"POST",  
+ 				url:"<%=cp%>/room-details_ok.action", 
+ 				data:{arrList:arrList, pricePerNight:pricePerNight},
+ 				success:function(args){
+ 					
+ 					$("#listData").html(args);
+ 					 // 초기화된 배열에 다시 담기
+ 					 
+ 					for(var i=0;i<optionList.length;i++){
+ 					    optionList2[i]=optionList[i];
+ 					}
+ 				},
+ 				beforeSend:showRequest, 
+ 				error:function(e) {
+ 					
+ 					alert(e.responseText); 
+ 				}
+ 			}); // ...end $.ajax
+ 			
+ 			
+ 			
+ 		});
+ 		
+ 	});
 
 	function loadPage() {
 		
@@ -143,7 +161,6 @@
 	    var pricePerNight = ${dto.pricePerNight};
 		
 	    arrList.push(0);
-		
 		var url = "<%=cp%>/room-details_ok.action";
 		
 		$.post(url,
@@ -229,7 +246,7 @@
 		}
 		
 		// 전체 체크박스 해제
-		$("input:checkbox[name='defaultCheck']").prop("checked", false);
+		$("input:checkbox[id='form-check-input']").prop("checked", false);
 		
 		var adult = document.getElementById("adult").value;
 		var children = document.getElementById("children").value;
@@ -257,6 +274,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -387,16 +406,43 @@
 						<img src="/hotel/resources/images/rooms/img${dto.roomIndex }.jpg" alt="" class="img-fluid">
 					</div>
 
+					
 					<div class="room-heading row d-flex mt-3 mb-5">
 						<div class="col-lg-9">
 							<h2 class="mb-0">${dto.roomType}</h2>
-							<h3>Starting from : <span> ${dto.pricePerNight }원</span>/<small>1박</small> </h3>
+							
+							<c:if test="${dto.pricePerNight == 150000 }">
+							<h3>Starting from : <span> 150,000</span> / <small>박</small> </h3>
+							</c:if>
+							
+							<c:if test="${dto.pricePerNight == 200000 }">
+							<h3>Starting from : <span> 200,000</span> / <small>박</small> </h3>
+							</c:if>
+							
+							<c:if test="${dto.pricePerNight == 250000 }">
+							<h3>Starting from : <span> 250,000</span> / <small>박</small> </h3>
+							</c:if>
+							
+							<c:if test="${dto.pricePerNight == 500000 }">
+							<h3>Starting from : <span> 500,000</span> / <small>박</small> </h3>
+							</c:if>
+							
+							<c:if test="${dto.pricePerNight == 1000000 }">
+							<h3>Starting from : <span> 1,000,000</span> / <small>박</small> </h3>
+							</c:if>
+							
+							<c:if test="${dto.pricePerNight == 1200000 }">
+							<h3>Starting from : <span> 1,200,000</span> / <small>박</small> </h3>
+							</c:if>
+							
 						</div>
 
 						<div class="col-lg-3">
 				<!-- 			<a href="booking-step1.action" class="btn btn-main ">예약하기</a> -->
 						</div>
 					</div>
+					
+					
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="mb-5 list-unstyled">
@@ -468,7 +514,7 @@
 			    	<h6 class="text-white text-uppercase mb-2">체크인</h6>
 			    	
 			    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-					<input type="text" class="form-control" placeholder="체크인 날짜" id="checkin" value="${checkin }">
+					<input type="text" class="form-control" placeholder="체크인 날짜" id="checkin" value="${checkin }" autocomplete="off">
 						<div class="input-group-addon">
 							<span class="ion-android-calendar"></span>
 						</div>
@@ -481,7 +527,7 @@
 			    	<h6 class="text-white text-uppercase mb-2">체크아웃</h6>
 			    	
 			    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-					    <input type="text" class="form-control" placeholder="체크아웃 날짜" id="checkout" value="${checkout }">
+					    <input type="text" class="form-control" placeholder="체크아웃 날짜" id="checkout" value="${checkout }" autocomplete="off">
 					    <div class="input-group-addon">
 					       <span class="ion-android-calendar"></span>
 					    </div>
@@ -506,7 +552,7 @@
 				    <c:if test="${!empty adult}">
 						<select id="adult" class="form-control custom-select" value="adult">
 						<% for(int j=1; j<=5; j++) { 
-									if(children==j) {
+									if(adult==j) {
 								%>
 					    		  	  <option selected style="color:black;">${adult }명</option>
 					    		  	<%} else {%>  
@@ -558,7 +604,7 @@
 				 	<h6 class="text-white text-uppercase mb-2">추가 시설</h6>
 			 		<div class="form-check">
 					  <input class="form-check-input" type="checkbox" 
-					  value="30000"  name="defaultCheck" id="A">
+					  value="30000"  name="야외수영장" id="form-check-input">
 					  <label class="form-check-label" for="defaultCheck1">
 					    야외수영장 (+30000)
 					  </label>
@@ -566,7 +612,7 @@
 
 					<div class="form-check">
 					  <input class="form-check-input" type="checkbox" 
-					  	value="13000" name="defaultCheck" id="B">
+					  	value="13000" name="조식" id="form-check-input">
 					  <label class="form-check-label" for="defaultCheck2">
 					    조식 (+13000)
 					  </label>
@@ -574,14 +620,14 @@
 
 					<div class="form-check">
 					  <input class="form-check-input" type="checkbox" 
-					  	value="45000" name="defaultCheck" id="C">
+					  	value="45000" name="와이너리" id="form-check-input">
 					  <label class="form-check-label" for="defaultCheck3">
 					     와이너리 (+45000)
 					  </label>
 					</div>
 					<div class="form-check">
 					  <input class="form-check-input" type="checkbox" 
-					  	value="60000" id="D" name="defaultCheck">
+					  	value="60000" id="form-check-input" name="스파">
 					  <label class="form-check-label" for="defaultCheck5">
 					      스파 (+60000)
 					  </label>
@@ -589,7 +635,7 @@
 
 					<div class="form-check">
 					  <input class="form-check-input" type="checkbox" 
-					  	value="23000" id="E" name="defaultCheck">
+					  	value="23000" id="form-check-input" name="엑스트라베드">
 					  <label class="form-check-label" for="defaultCheck4">
 					      엑스트라 베드 (+23000)
 					  </label>
@@ -817,6 +863,8 @@
 	//]]>
 	
 	</script>
+	
+	<!-- <script src="/hotel/resources/js/weather.js"></script> -->
 
   </body>
   </html>

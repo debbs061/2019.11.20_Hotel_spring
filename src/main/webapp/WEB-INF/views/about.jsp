@@ -64,6 +64,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -480,5 +482,7 @@
 	
 	</script>
 
+    <script src="/hotel/resources/js/weather.js"></script>
+    
   </body>
   </html>

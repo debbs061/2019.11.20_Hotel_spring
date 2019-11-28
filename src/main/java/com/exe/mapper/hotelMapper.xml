@@ -85,13 +85,22 @@ select * from room where roomIndex = #{roomIndex[i]}
 
 <insert id="insertBookingData" parameterType="com.exe.dto.HotelBookingDTO">	
 insert into hotelBooking(bookingId,userId,roomIndex,checkin,checkout,
-adult,children,options,bookingMessage) values(#{bookingId},#{userId},#{roomIndex},#{checkin},
-#{checkout},#{adult},#{children},#{options},#{bookingMessage})	
+adult,children,options,bookingMessage,price) values(#{bookingId},#{userId},#{roomIndex},#{checkin},
+#{checkout},#{adult},#{children},#{options},#{bookingMessage},#{price})	
 </insert>
 
 <select id="intervalDay2"  parameterType="map" resultType="int">
 SELECT trunc(to_date(#{checkout},'yyyy/mm/dd')) 
 - trunc(to_date(#{checkin},'yyyy/mm/dd')) FROM dual
+</select>
+
+<!-- 마이페이지 예약정보 가져오기 -->
+<select id="getReadBookingData" parameterType="String" resultType="com.exe.dto.HotelBookingDTO">
+	select bookingId,userId,roomIndex,to_char(checkin,'yyyy-mm-dd') checkin,
+	to_char(checkout,'yyyy-mm-dd') checkout,adult,children,
+	options,bookingMessage,price
+	from hotelBooking
+	where userId = #{userId}
 </select>
 
 </mapper>

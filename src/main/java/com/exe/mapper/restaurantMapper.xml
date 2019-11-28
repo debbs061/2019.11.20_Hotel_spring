@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="resmapper">
+
+
+<!-- 디테일페이지에 내용띄우기   -->
+<select id="getReadResDetail" parameterType="String" resultType="com.exe.dto.RestaurantDTO">
+	select * from restaurant
+	<![CDATA[
+	where resName=#{resName}
+	]]>
+</select>
+
+
+<!-- 예약인서트 -->
+<insert id="insertResBooking" parameterType="com.exe.dto.RestaurantBookingDTO">
+	insert into resBooking(resName,checkin,time,adult,children,
+	name,phone,email,comments,resBookNo)
+	values(#{resName},#{checkin},#{time},#{adult},#{children},
+	#{name},#{phone},#{email},#{comments},#{resBookNO})
+</insert>
+
+
+<!-- 예약 완료후 셀렉(예약번호로) -->
+<select id="getReadResBooking" parameterType="int" resultType="com.exe.dto.RestaurantBookingDTO">
+	select * from resBooking where resBookNo=#{resBookNo}
+</select>
+
+
+<!--  -->
+
+
+
+
+
+
+
+</mapper>

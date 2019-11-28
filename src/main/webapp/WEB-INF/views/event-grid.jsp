@@ -94,6 +94,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -217,7 +219,7 @@
 		 <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
                 <div class="section-title">
-                    <p class="section-subtitle">갤러리</p>
+                    <p class="section-subtitle">이벤트</p>
                     <h2 class="mb-3">다양하다 & 즐거웁다</h2>
                     <p class="mb-4">매일 호텔에서 직접 진행하는 다양한 이벤트 액티비티에 참여하세요.</p>
                     <span class="section-border"></span>
@@ -265,7 +267,7 @@
         	<button class="btn btn-main" type="button" onclick="location.href='event-upload.action';">등록하기</button>
         </div>
   </div>
-  
+</section>
   <!-- 이미지 슬라이드 끝 -->
 
  
@@ -484,6 +486,7 @@
       });
     </script>
     
+    <script src="/hotel/resources/js/weather.js"></script>
   
   </body>
   </html>

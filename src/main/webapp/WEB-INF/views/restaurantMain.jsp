@@ -38,16 +38,9 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
-  <!-- font -->
+   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
-	<style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
   
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
@@ -55,13 +48,97 @@
   
    .img-fluid2{
  
- max-width:100%;
- height:100%;
+	max-width:100%;
+	height:100%;
  
  }
+  </style>
+  <style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
   
+  
+  <style type="text/css">
+      * {
+          box-sizing: border-box
+      }
+      html, body {
+          width: 100%;
+         
+      }
+      .glider-contain {	
+          width: 90%;
+          max-width: none;
+          margin: 0 auto;
+      }
+      .glider-slide {
+          min-height: 150px;
+      }
+      .glider-slide img {
+          width: 100%;
+      }
   </style>
   
+  <script type="text/javascript">
+  
+  function sendIt() {
+	  
+	  f = document.resBookingMainForm;
+	  
+	  str = f.resName.value;
+		str = str.trim();
+		if(str=='레스토랑'){
+			alert("\n레스토랑을 선택하세요.");
+			f.resName.focus();
+			return;
+		}
+		f.resName.value = str;
+	  
+	 	str = f.checkin.value;
+		str = str.trim();
+		if(!str){
+			alert("\n날짜를 선택하세요.");
+			f.checkin.focus();
+			return;
+		}
+		f.checkin.value = str;
+		
+		str = f.time.value;
+		str = str.trim();
+		if(str=='시간'){
+			alert("\n시간를 선택하세요.");
+			f.time.focus();
+				return;
+		}
+		f.time.value = str;
+		
+		str = f.adult.value;
+		str = str.trim();
+		if(str=='성인'){
+			alert("\n성인 인원을 선택하세요.");
+			f.adult.focus();
+			return;
+		}
+		f.adult.value = str;
+		
+		str = f.children.value;
+		str = str.trim();
+		if(str=='어린이'){
+			alert("\n어린이 인원을 선택하세요.");
+			f.children.focus();
+			return;
+		}
+		f.children.value = str;
+		
+		f.action = "<%=cp %>/resBookingMain.action";
+		f.submit();
+}
+  
+  </script>
 
 </head>
 
@@ -77,6 +154,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -109,7 +188,7 @@
 
 	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
 		<div class="container">
-		  <a class="navbar-brand" href=""><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
+		  <a class="navbar-brand" href="/hotel"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="fa fa-bars"></span>
 		  </button>
@@ -117,7 +196,7 @@
 		  <div class="collapse navbar-collapse" id="navbarsExample09">
 			<ul class="navbar-nav ml-auto">
 			  <li class="nav-item active">
-				<a class="nav-link" href="restaurantMain.action">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/hotel">Home <span class="sr-only">(current)</span></a>
 			  </li>
 			  
 			  <li class="nav-item dropdown">
@@ -128,17 +207,31 @@
 				  <li><a class="dropdown-item" href="gallery.action">Gallery</a></li>
 				</ul>
 			  </li>
-		
+			  
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">다이닝</a>
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
-				  <li><a class="dropdown-item" href="myeong-details.action">명월관</a></li>
-				  <li><a class="dropdown-item" href="델비노 자세히">DEL VINO</a></li>
-				  <li><a class="dropdown-item" href="회림 자세히">회림</a></li>
+				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
+				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
 				</ul>
 			  </li>
+
 			  <li class="nav-item active">
-				<a class="nav-link" href="/hotel">Hotel<span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
+			  </li>
+			  
+			  <li class="nav-item active">
+				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
+			  </li>
+			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown03">
+				  <li><a class="dropdown-item" href="gym">Gym</a></li>
+				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
+				  <li><a class="dropdown-item" href="#">Shopping</a></li>
+				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
+				</ul>
 			  </li>
 			  
 			  <li class="nav-item active">
@@ -218,31 +311,27 @@
 <section class="section-reservation" >
 	<div class="container">
 		<div class="secondary-bg p-5 position-relative">
-			<form action="#" class="reserve-form">
+			<form action="" class="reserve-form" name="resBookingMainForm" method="post">
 				<div class="form-row">
 				
 				<div class="form-group col-md-2">
-				 		<select id="room" class="form-control custom-select">
+				 		<select class="form-control custom-select" name="resName">
 					        <option selected>레스토랑</option>
 						        <option value="명월관">명월관</option>
 				                <option value="DEL VINO">DEL VINO</option>
 				                <option value="회림">회림</option>
 					      </select>
 				    </div>
-				
-				
 				    <div class="form-group col-md-2 col-sm-4">
 				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-						    <input type="text" class="form-control" placeholder="체크인">
+						    <input type="text" class="form-control" placeholder="체크인" name="checkin" autocomplete="off">
 						    <div class="input-group-addon">
 						       <span class="ion-android-calendar"></span>
 						    </div>
 						</div>
 		          	</div>
-		          	
-		          	
 		          	<div class="form-group col-md-2">
-				 		<select id="room" class="form-control custom-select">
+				 		<select id="time" class="form-control custom-select" name="time">
 					        <option selected>시간</option>
 						        <option value="10">10시</option>
 				                <option value="11">11시</option>
@@ -258,12 +347,8 @@
 				                <option value="21">21시</option>
 					      </select>
 				    </div>
-		          	
-		          	
-		          	
-
 				    <div class="form-group col-md-2 ">
-			    		<select id="person" class="form-control custom-select">
+			    		<select id="adult" class="form-control custom-select" name="adult">
 					        <option selected>성인</option>
 						        <option value="1">1명</option>
 				                <option value="2">2명</option>
@@ -272,10 +357,10 @@
 				                <option value="5">5명</option>
 					      </select>
 				    </div>
-
 				    <div class="form-group col-md-2 ">
-			    		<select id="children" class="form-control custom-select">
+			    		<select id="children" class="form-control custom-select" name="children">
 					        <option selected>어린이</option>
+					        	<option value="0">0명</option>
 						        <option value="1">1명</option>
 				                <option value="2">2명</option>
 				                <option value="3">3명</option>
@@ -283,14 +368,8 @@
 				                <option value="5">5명</option>
 					      </select>
 				    </div>
-
 				    <div class="form-group col-md-2">
-				    
-				    <!-- 예약 누르면 위에 입력받은 데이터도 넘겨서 보여줘야함! -->
-				    <!-- 예약을 누르면 이름이랑 핸드폰,이메일,요청사항 적는페이지로 넘어감 -->
-				    <!-- 로그인 안해도 이용가능으로 ?! -->
-				    
-				      <a href="booking-restaurant.action" class="btn btn-main btn-block">예약</a>
+				      <input type="button" value="예&nbsp;&nbsp;&nbsp;&nbsp;약" class="btn btn-main btn-block" onclick="sendIt();">
 				    </div>
 				 </div>
 			</form>
@@ -321,12 +400,12 @@
 		
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
-					<img src="/hotel/resources/images/restaurant/myeongMain.jpg" alt="" class="img-fluid2 card-img-top rounded-0">
+					<img src="/hotel/resources/images/restaurant/mMain.jpg" alt="" class="img-fluid2 card-img-top rounded-0">
 					<div class="card-body px-4 py-5">
 						<a href="myeong-details.action" class="text-dark"></a>
 						<h2>명월관</h2>
 						<p class="py-3">한옥의 멋과 야외가든을 갖춘 명월관은 최상의 한우와 전통 참숯만을 사용하는 숯불갈비 전문점입니다.</p>
-						<a href="myeong-details.action" class="btn btn-solid-border btn-small">자세히</a>
+						<a href="res-details.action?resName=명월관" class="btn btn-solid-border btn-small">자세히</a>
 					</div>
 				</div>
 			</div>
@@ -335,12 +414,12 @@
 			
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
-					<img src="/hotel/resources/images/restaurant/delMain.jpg" alt="" class="img-fluid card-img-top rounded-0">
+					<img src="/hotel/resources/images/restaurant/dMain.jpg" alt="" class="img-fluid card-img-top rounded-0">
 					<div class="card-body px-4 py-5">
-						<a href="room-details.action" class="text-dark"></a>
+						<a href="" class="text-dark"></a>
 						<h2>DEL VINO</h2>
 						<p class="py-3">캐주얼하고 편안한 분위기가 돋보이는 델비노에서 최고의 셰프들이 델비노만의 감각을 담은 모던 이탈리안 퀴진을 선보입니다.</p>
-						<a href="room-details.action" class="btn btn-solid-border btn-small">자세히</a>
+						<a href="res-details.action?resName=DEL VINO" class="btn btn-solid-border btn-small">자세히</a>
 					</div>
 				</div>
 			</div>
@@ -352,12 +431,12 @@
 			
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
-					<img src="/hotel/resources/images/restaurant/dorimMain.jpg" alt="" class="img-fluid card-img-top rounded-0">
+					<img src="/hotel/resources/images/restaurant/hMain.jpg" alt="" class="img-fluid card-img-top rounded-0">
 					<div class="card-body px-4 py-5">
-						<a href="room-details.action" class="text-dark"></a>
+						<a href="" class="text-dark"></a>
 						<h2>회림</h2>
 						<p class="py-3">중국의 전통미와 현대적 감각이 훌륭한 조화를 이루고 스타셰프 'Charlie Jung'조리장이 선보이는 특별한 요리의 세계를 경험해 보세요.</p>
-						<a href="room-details.action" class="btn btn-solid-border btn-small">자세히</a>
+						<a href="res-details.action?resName=회림" class="btn btn-solid-border btn-small">자세히</a>
 					</div>
 				</div>
 			</div>
@@ -365,130 +444,10 @@
 		</div>
 	</div>
 </section>	
-<!-- Content Start -->
-<!-- 
-<section class="testimonial position-relative section">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-5">
-        <div class="section-title ">
-            <p class="section-subtitle text-left">Testimonial</p>
-            <h2 class="mb-4 text-left">Customers Satisfaction</h2>
-            <span class="section-border m-0 mt-4"></span>
-          </div>
-        </div>
 
-      <div class="col-lg-7">
-        <div class="testimonial-carousel p-4">
-            <div>
-              <i class="ion-quote text-color mb-3 d-block"></i>
-              <p class="mb-4">"This Company created an e-commerce site with the tools to make our business a success, with innovative ideas we feel that our site has unique elements that make us stand out from the crowd."</p>
-              <div class="user d-flex">
-                <img src="/hotel/resources/images/avater.jpg" alt="" class="img-fluid  rounded-circle mr-3">
-                <p class="pb-0 mt-2">Rose Ray <span class="d-block">CEO-Themefisher</span></p>
-              </div>
-            </div>
-
-            <div>
-              <i class="ion-quote text-color mb-3 d-block"></i>
-              <p class="mb-4">"This Company created an e-commerce site with the tools to make our business a success, with innovative ideas we feel that our site has unique elements that make us stand out from the crowd."</p>
-             <div class="user d-flex">
-                <img src="/hotel/resources/images/avater.jpg" alt="" class="img-fluid  rounded-circle mr-3">
-                <p class="pb-0 mt-2">Rose Ray <span class="d-block">CEO-Themefisher</span></p>
-              </div>
-            </div>
-
-            <div>
-              <i class="ion-quote text-color mb-3 d-block"></i>
-              <p class="mb-4">"This Company created an e-commerce site with the tools to make our business a success, with innovative ideas we feel that our site has unique elements that make us stand out from the crowd."</p>
-              <div class="user d-flex">
-                <img src="/hotel/resources/images/avater.jpg" alt="" class="img-fluid  rounded-circle mr-3">
-                <p class="pb-0 mt-2">Rose Ray <span class="d-block">CEO-Themefisher</span></p>
-              </div>
-            </div>
-
-            <div>
-              <i class="ion-quote text-color mb-3 d-block"></i>
-              <p class="mb-4">"This Company created an e-commerce site with the tools to make our business a success, with innovative ideas we feel that our site has unique elements that make us stand out from the crowd."</p>
-              <div class="user d-flex">
-                <img src="/hotel/resources/images/avater.jpg" alt="" class="img-fluid rounded-circle mr-3">
-                <p class="pb-0 mt-2">Rose Ray <span class="d-block">CEO-Themefisher</span></p>
-              </div>
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
- -->
  
-<!--
-		Start Blog Section
-		=========================================== -->
-		
-	<!-- 			
-	<section class="blog section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-8 text-center">
-					<div class="section-title">
-						<p class="section-subtitle">Blog news</p>
-						<h2 class="mb-3">Latest Posts From Blog</h2>
-						<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics</p>
-						<span class="section-border"></span>
-					</div>
-				</div>.col-md-7 close
-			</div>
 
-			<div class="row">
-				single blog post
-				<article class="col-lg-4 col-md-4 col-sm-6 col-xs-12 clearfix " >
-					<div class="card rounded-0 pb-2 mb-4 mb-lg-0">
-						<div class="media-wrapper">
-							<img src="/hotel/resources/images/blog/img.jpg" alt="amazing caves coverimage" class="img-fluid w-100">
-						</div>
-						
-						<div class="card-body px-4 ">
-							<span class='post-meta'><i class="ion-android-calendar"></i> 17 May 2019 by admin</span>
-							<a href="single-post" class="mt-3 d-block mb-4 pb-2"><h3>Why choose Sparta Plaza Hotel to travel this summer</h3></a>
-							<span class="text-muted"><i class="fa fa-clock"></i> 2 min Read</span>
-						</div>
-					</div>						
-				</article>
-				/single blog post
 
-				single blog post
-				<article class="col-lg-4 col-md-4 col-sm-6 col-xs-12 clearfix " >
-					<div class="card rounded-0 pb-2 mb-4 mb-lg-0">
-						<div class="media-wrapper">
-							<img src="/hotel/resources/images/blog/img1.jpg" alt="amazing caves coverimage" class="img-fluid w-100">
-						</div>
-						
-						<div class="card-body px-4">
-							<span class='post-meta'><i class="ion-android-calendar"></i> 10 June 2019 by admin</span>
-							<a href="single-post" class="mt-3 d-block mb-4 pb-2"><h3>Top best rooms in the hotel to stay long with family</h3></a>
-							<span class="text-muted"><i class="fa fa-clock"></i> 3 min Read</span>
-						</div>
-					</div>						
-				</article>
-				/single blog post
-
-				single blog post
-				<article class="col-lg-4 col-md-4 col-sm-6 col-xs-12 clearfix " >
-					<div class="card rounded-0 pb-2 mb-4 mb-lg-0">
-						<div class="media-wrapper">
-							<img src="/hotel/resources/images/blog/img2.jpg" alt="amazing caves coverimage" class="img-fluid w-100">
-						</div>
-						
-						<div class="card-body px-4">
-							<span class='post-meta'><i class="ion-android-calendar"></i> 5 Jan 2019 by admin</span>
-							<a href="single-post" class="mt-3 d-block mb-4 pb-2"><h3>Best Marketing Tips for business growth rapidly</h3></a>
-							<span class="text-muted"><i class="fa fa-clock"></i> 5 min Read</span>
-						</div>
-					</div>						
-				</article>
-				/single blog post
- -->
 				<!-- end single blog post -->
 			</div>
 			 <!-- end row -->
@@ -497,61 +456,7 @@
 	</section>
 	<!-- end section -->
 	
-<!-- <section class="gallery-feed">
-	<div class="container-fluid p-0">
-		<div class="row">
-			<div class="gallery-title">
-				<a href="gallery-3.action" class="btn btn-main">Gallery</a>
-			</div>
-		</div>
-		<div class="row no-gutters ">
-			<div class="col-lg-2 col-md-4 col-sm-4">
-				<div class="gallery-item">
-					 <a href="/hotel/resources/images/gallery/1-1.jpg" title="Photo 1">
-						<img src="/hotel/resources/images/gallery/1.jpg" alt="" class="img-fluid w-100">
-					</a>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-4 col-sm-4">
-				<div class="gallery-item">
-					 <a href="/hotel/resources/images/gallery/1-2.jpg" title="Photo 2">
-						<img src="/hotel/resources/images/gallery/2.jpg" alt="" class="img-fluid w-100">
-					</a>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-4 col-sm-4">
-				<div class="gallery-item">
-					<a href="/hotel/resources/images/gallery/1-3.jpg" title="Photo 3">
-						<img src="/hotel/resources/images/gallery/3.jpg" alt="" class="img-fluid w-100">
-					</a>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-4 col-sm-4">
-				<div class="gallery-item">
-					<a href="/hotel/resources/images/gallery/1-4.jpg" title="Photo 2">
-						<img src="/hotel/resources/images/gallery/4.jpg" alt="" class="img-fluid w-100">
-					</a>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-4 col-sm-4">
-				<div class="gallery-item">
-					<a href="/hotel/resources/images/gallery/1-5.jpg" title="Photo 2">
-						<img src="/hotel/resources/images/gallery/5.jpg" alt="" class="img-fluid w-100">
-					</a>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-4 col-sm-4">
-				<div class="gallery-item">
-					<a href="/hotel/resources/images/gallery/1-6.jpg" title="Photo 2">
-						<img src="/hotel/resources/images/gallery/6.jpg" alt="" class="img-fluid w-100">
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
 
- -->
 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
@@ -587,7 +492,7 @@
 					<h3 class="mb-4">빠른링크</h3>
 					<ul class="list-unstyled footer-menu mb-0">
 						<li>
-							<a href="/hotel"><i class="fa fa-angle-right"></i>Home</a>
+							<a href="/"><i class="fa fa-angle-right"></i>Home</a>
 						</li>
 
 						<li>
@@ -599,7 +504,7 @@
 						</li>
 	
 						<li>
-							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>
@@ -678,17 +583,20 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>    
 
     <script src="/hotel/resources/js/script.js"></script>
- <script type='text/javascript'>
-  //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('a876d408c7cc2ab22428d910b1de57af');
-    // 카카오톡 채널 1:1채팅 버튼을 생성합니다.
-    Kakao.Channel.createChatButton({
-      container: '#kakao-talk-channel-chat-button',
-      channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
-    });
-  //]]>
-</script>
+    
+	 <script type='text/javascript'>
+	  //<![CDATA[
+	    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+	    Kakao.init('a876d408c7cc2ab22428d910b1de57af');
+	    // 카카오톡 채널 1:1채팅 버튼을 생성합니다.
+	    Kakao.Channel.createChatButton({
+	      container: '#kakao-talk-channel-chat-button',
+	      channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
+	    });
+	  //]]>
+	</script>
+	
+	<script src="/hotel/resources/js/weather.js"></script>
 
   </body>
   </html>

@@ -65,6 +65,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -209,7 +211,7 @@
             </div>
             
             <div class="col-lg-4 col-md-6 col-sm-12">
-	                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+	                <div class="service-box text-center border px-4 py-5" onclick="location.href='bookingConfirm.action';">
 	                    <i class="flaticon-dishwasher text-color"></i>
 	                    <h3 class="my-3">객실 예약 확인</h3>
 	                </div>
@@ -386,6 +388,8 @@
 	//]]>
 	
 	</script>
+	
+	<script src="/hotel/resources/js/weather.js"></script>
 
   </body>
   </html>

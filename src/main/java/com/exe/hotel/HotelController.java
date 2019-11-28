@@ -5,8 +5,10 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.exe.dao.EventDAO;
@@ -757,40 +760,102 @@ public class HotelController {
 			method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView bookingStep2ok(HttpServletRequest request,
 			HttpServletResponse response) {
+		
+		HttpSession session = request.getSession();
 
+		
+		String card = request.getParameter("card");
+		double price=  Double.parseDouble(request.getParameter("price"));
+
+		int offPrice = 0;
+		int newPrice =0;
+		int off = 0; // %율
+
+		if (card.equals("no")) {
+			off = 0;
+			offPrice = (int)price;
+			newPrice = (int)price;
+		}
+
+		if (card.equals("visa")) {
+			off = 20;
+			newPrice = (int)price;
+			price = price * 0.8;
+			offPrice = (int)price;
+		}
+
+		if (card.equals("master")) {
+			off = 10;
+			newPrice = (int)price;
+			price = price * 0.9;
+			offPrice = (int)price;
+		}
+
+		if (card.equals("american")) {
+			off = 40;
+			newPrice = (int)price;
+			price = price * 0.6;
+			offPrice = (int)price;
+		}
+
+		if (card.equals("maestro")) {
+			off = 30;
+			newPrice = (int)price;
+			price = price * 0.7;
+			offPrice = (int)price;
+		}
+
+		if (card.equals("what")) {
+			off = 30;
+			newPrice = (int)price;
+			price = price * 0.7;
+			offPrice = (int)price;
+		}
+		
 		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("off", off);
+		mav.addObject("newPrice", newPrice);
+		mav.addObject("offPrice", offPrice);
+		
+		String offPrice2 = String.valueOf(offPrice);
+		session.setAttribute("realTotal", offPrice2); // String.toString()
+		
 		mav.setViewName("booking-step2_ok");		
 		return mav;	
 
 	}
 	
-	/*
-	 * @RequestMapping(value = "/booking-step3.action", method =
-	 * {RequestMethod.GET,RequestMethod.POST}) public String bookingstep3() {
-	 * 
-	 * return "booking-step3"; }
-	 */
 	
 	// 결제 완료 페이지
 	@RequestMapping(value = "/confirmation.action", 		
 			method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView confirmation(HttpServletRequest request,
-			HttpServletResponse response,HotelBookingDTO dto) {
+	public String confirmation(HttpServletRequest request,
+			HttpServletResponse response,HotelBookingDTO dto, 
+			RedirectAttributes redirect) {
 
 		HttpSession session = request.getSession();
-		ModelAndView mav = new ModelAndView();
+		
+		String total = request.getParameter("total");
+		
+		if(session.getAttribute("realTotal")!=null) {
+			
+			total = (String)session.getAttribute("realTotal");
+			session.removeAttribute("realTotal");
+			
+		}
 
 		if(session.getAttribute("login")==null) {
 
 			String referer = request.getHeader("Referer");	//접속 경로
 			request.getSession().setAttribute("redirectURI", referer);
-
-			mav.setViewName("login");
-			return mav;
+			return "redirect:/login.action";
 		}		
-
-		mav.setViewName("confirmation");
-
+		
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
+		
+				
+		
 		// hotelbooking 테이블에 insert
 		int bookingNum = hdao.getMaxNum();	    
 
@@ -803,19 +868,93 @@ public class HotelController {
 
 		String dates2[] = dto.getCheckout().split("/");
 		checkout = dates2[2]+"/"+dates2[0]+"/"+dates2[1];
-
+		
 		dto.setBookingMessage(request.getParameter("bookingMessage"));
 		dto.setCheckin(checkin);
 		dto.setCheckout(checkout);
 		dto.setBookingId(bookingNum+1); // 고유값 
+		dto.setPrice(total);
+		dto.setUserId(login.getUserId());
+		
+		
+		System.out.println(login.getUserId()+"값은 이것입니다");		
 		hdao.insertData(dto);
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("dto", dto);
+		map.put("total", total);
+		
+		redirect.addFlashAttribute("res", map);
+	     
+		return "redirect:/confirmation_ok.action";
 
-		// 예약정보 (hotelBookingDTO)
-		mav.addObject("dto", dto);
-		mav.addObject("total", request.getParameter("total"));
-
-		return mav;	
 	}
+	
+	@RequestMapping(value ="/confirmation_ok.action", 		
+			method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView confirmationOk(HttpServletRequest request,
+			HttpServletResponse response)
+		//	,@RequestParam("dto") HotelBookingDTO dto,
+		//	@RequestParam("total") String total) 
+			{
+		
+		HttpSession session = request.getSession();
+		ModelAndView mav = new ModelAndView();
+	
+		mav.setViewName("confirmation");
+		return mav;
+	}
+	
+	//예약확인
+	@RequestMapping(value = "/bookingConfirm.action", method = RequestMethod.GET)
+	public ModelAndView bookingConfirm(HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();		
+		String msg="";
+		
+		if(session.getAttribute("login")==null) {	
+			System.out.println("로그인이 안된상태입니다");
+			String referer = request.getHeader("Referer");	//접속 경로
+			request.getSession().setAttribute("redirectURI", referer);
+			mav.setViewName("login");
+			return mav;
+		}
+		
+		LoginDTO login = (LoginDTO)session.getAttribute("login");		
+		HotelBookingDTO dto;
+		RoomDTO dto2 = null;
+		
+		// 예약정보 (hotelBooking)
+		dto = hdao.getReadBookingData(login.getUserId());
+		
+		// 만약 dto==null 이라면, 예약된 정보가 없습니다 뒤로가기 누르게 하기
+		
+		if(dto!=null) {
+			
+			int roomIndex = dto.getRoomIndex();
+			dto2 = rdao.getReadRoomData(roomIndex);			
+			
+		} else {		
+			msg = "예약된 정보가 없습니다";
+			System.out.println("예약된 정보가 없다는 메세지 넘겨줍니다");
+		}
+		
+		
+		mav.setViewName("bookingConfirm");
+		
+		// 예약정보 (hotelBooking)
+		mav.addObject("dto", dto);
+		
+		// 룸 정보 (room)
+		mav.addObject("dto2", dto2);
+		
+		mav.addObject("msg",msg);
+		return mav;
+	}
+	
 	
 	@RequestMapping(value="/room-list.action", 
 			method= {RequestMethod.GET, RequestMethod.POST})
@@ -904,32 +1043,40 @@ public class HotelController {
 		return "myPage";
 	}
 	
-	
-	//Restaurant
-	@RequestMapping(value = "/restaurantMain.action", method = RequestMethod.GET)
-	public String restaurantMain() {
-
-		return "restaurantMain";
-	}
-	
-	
-	@RequestMapping(value = "/restaurantConfirm.action", method = RequestMethod.GET)
-	public String restaurantConfirm() {
-
-		return "restaurantConfirm";
-	}
-	
-	@RequestMapping(value = "/myeong-details.action", method = RequestMethod.GET)
-	public String myeongDetails() {
-
-		return "myeong-details";
-	}
-	
+	/*
+	 * //Restaurant
+	 * 
+	 * @RequestMapping(value = "/restaurantMain.action", method = RequestMethod.GET)
+	 * public String restaurantMain() {
+	 * 
+	 * return "restaurantMain"; }
+	 * 
+	 * 
+	 * @RequestMapping(value = "/restaurantConfirm.action", method =
+	 * RequestMethod.GET) public String restaurantConfirm() {
+	 * 
+	 * return "restaurantConfirm"; }
+	 * 
+	 * @RequestMapping(value = "/myeong-details.action", method = RequestMethod.GET)
+	 * public String myeongDetails() {
+	 * 
+	 * return "myeong-details"; }
+	 */
 
 	//Spa
 	@RequestMapping(value = "/life-spa.action", method = RequestMethod.GET)
 	public String lifespa() {
 		return "life-spa";
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

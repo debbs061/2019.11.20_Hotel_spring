@@ -97,6 +97,8 @@ function sendIt(){
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -360,6 +362,7 @@ function sendIt(){
 	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
 	<script src="/hotel/resources/js/script.js"></script>
 
+	<script src="/hotel/resources/js/weather.js"></script>
 
 </body>
 </html>

@@ -12,7 +12,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Hotel Event-Single</title>
+  <title>IT WILL | Hotel</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -89,6 +89,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -236,7 +238,7 @@
 		<!-- 이벤트 신청 개인 모달 버튼 -->
 		<button type="button" class="btn btn-main" id="myBtn">신청</button>
 
-		
+		<hr/>
 
 		<div class="event-comment-form mt-5">
 
@@ -596,17 +598,9 @@ window.onload = function() {
 	};
 
 
-
-
-
-
-
-
-
 </script>
 
-
-
+    <script src="/hotel/resources/js/weather.js"></script>
 
 </body>
 </html>

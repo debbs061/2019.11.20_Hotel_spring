@@ -62,6 +62,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -161,18 +163,18 @@
  <!-- MAIN CONTENT -->
     <section class="main-content section clearfix">
       <div class="container">
-         <div class="alert alert-success alert-dismissible ed-alert" role="alert">
-            <span class="fa fa-check"></span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            Congratulation! You are successfully complete your reservation
-        </div>
+        <div class="alert alert-success alert-dismissible ed-alert" role="alert">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			예약이 성공적으로 완료되었습니다.           예약번호 : ${res.dto.bookingId }
+		</div>
        
         <div class="border payment-confirm position-relative">
           <div class="row justify-content-center align-items-center ">
               <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
-                <img src="/hotel/resources/images/rooms/img${dto.roomIndex }.jpg" class="img-fluid w-100" alt="confirm img"/>
+                <img src="/hotel/resources/images/rooms/img${res.dto.roomIndex }.jpg" class="img-fluid w-100" alt="confirm img"/>
 
               <!--    <a href="room-details"><h2 class="text-dark mt-3 mb-4">Delux couple</h2></a>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita</p>
@@ -186,19 +188,19 @@
                             <ul class="list-unstyled">
                               <li>
                                 <span>체크인:</span>
-                               ${dto.checkin }
+                               ${res.dto.checkin }
                               </li>
                               <li>
                                 <span>체크아웃:</span>
-                               ${dto.checkout }
+                               ${res.dto.checkout }
                               </li>
                               <li>
                                 <span>성인:  </span>
-                               ${dto.adult }
+                               ${res.dto.adult }
                               </li>
                               <li>
                                 <span>어린이:</span>
-                               ${dto.children }
+                               ${res.dto.children }
                               </li>
                             </ul>
                         </div>
@@ -228,11 +230,11 @@
 
                     <div class="col-lg-12 text-center">
                       <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
-                        <h2>Total:  <span>${total }</span></h2>
+                        <h2>Total:  <span>${res.total }</span></h2>
                       </div>
 
                        <!-- <a href="#" class="btn btn-solid-border">Browse</a> -->
-                       <a href="/hotel" class="btn btn-main">H o m e</a>
+                       <a href="/hotel" class="btn btn-main">M a i n</a>
                   </div>
                 </div>
               </div>
@@ -240,8 +242,6 @@
           </div>
       </div>
     </section>
-
-  
 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
@@ -382,6 +382,8 @@
 	//]]>
 	
 	</script>
+	
+    <script src="/hotel/resources/js/weather.js"></script>
 
   </body>
   </html>

@@ -65,6 +65,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -204,7 +206,7 @@
 					<img src="/hotel/resources/images/rooms/img1.jpg" alt="" class="img-fluid w-100">
 					<div class="card-body py-5">
 						<h3>스탠다드룸</h3>
-						<h2>15만원 <small>/박</small></h2>
+						<h2>15만원 <small>/ 박</small></h2>
 						<p class="my-4">스탠다드는 가장 일반적이고 저렴하게 이용가능한 객실입니다.</p>
 						<a href="room-details.action?roomIndex=1" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -216,7 +218,7 @@
 					<img src="/hotel/resources/images/rooms/img2.jpg" alt="" class="img-fluid w-100">
 					<div class="card-body py-5">
 						<h3>슈페리어룸</h3>
-						<h2>20만원 <small>/박</small></h2>
+						<h2>20만원 <small>/ 박</small></h2>
 						<p class="my-4">생각보다 넓은 조금 더 넓은 공간과 어메니티를 제공합니다.</p>
 						<a href="room-details.action?roomIndex=2" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -228,7 +230,7 @@
 					<img src="/hotel/resources/images/rooms/img3.jpg" alt="" class="img-fluid w-100">
 					<div class="card-body py-5">
 						<h3>디럭스룸</h3>
-						<h2>25만원 <small>/박</small></h2>
+						<h2>25만원 <small>/ 박</small></h2>
 						<p class="my-4">디럭스 룸에는 발코니가 있어 야경을 즐길 수 있습니다.</p>
 						<a href="room-details.action?roomIndex=3" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -242,7 +244,7 @@
 					<img src="/hotel/resources/images/rooms/img4.jpg" alt="" class="img-fluid w-100">
 					<div class="card-body py-5">
 						<h3>이그제큐티브룸</h3>
-						<h2>50만원 <small>/박</small></h2>
+						<h2>50만원 <small>/ 박</small></h2>
 						<p class="my-4">시원한 전망과 색다론 조식 서비를 제공해드립니다. </p>
 						<a href="room-details.action?roomIndex=4" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -254,7 +256,7 @@
 					<img src="/hotel/resources/images/rooms/img5.jpg" alt="" class="img-fluid w-100">
 					<div class="card-body py-5">
 						<h3>스위트룸</h3>
-						<h2>100만원 <small>/박</small></h2>
+						<h2>100만원 <small>/ 박</small></h2>
 						<p class="my-4">아이티윌 호텔만의 최고급 시설과 서비스를 경험하실 수 있습니다.</p>
 						<a href="room-details.action?roomIndex=5" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -266,7 +268,7 @@
 					<img src="/hotel/resources/images/rooms/img6.jpg" alt="" class="img-fluid w-100">
 					<div class="card-body py-5">
 						<h3>패밀리룸</h3>
-						<h2>120만원 <small>/박</small></h2>
+						<h2>120만원 <small>/ 박</small></h2>
 						<p class="my-4">주방실과 넉넉한 쇼파가 있어 단체 가족여행에 적합합니다.</p>
 						<a href="room-details.action?roomIndex=6" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -442,6 +444,8 @@
 	//]]>
 	
 	</script>
+	
+	<script src="/hotel/resources/js/weather.js"></script>
 
   </body>
   </html>

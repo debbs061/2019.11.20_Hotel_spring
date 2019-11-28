@@ -60,13 +60,50 @@
  window.onload = function() {
  	
 		loadPage();
+		parseWeather();
 		
-		}
+} 
+ 
+ 	//날씨
+ 	function parseWeather(){
+		loadJSON(function(response){
+			
+			var jsonData = JSON.parse(response);
+			
+			var temp = Math.round(jsonData["main"]["temp"]-273.15);
+			document.getElementById("todayTemp").innerHTML = "서초구 "+temp + ' ˚C';
+			
+			var icon = jsonData["weather"][0]["icon"];
+			document.getElementById("icon").innerHTML = "<image src='https://openweathermap.org/img/wn/"+icon+".png'>";
+		});
+	}
+
+	function loadJSON(callback){
+		
+		var url = "https://api.openweathermap.org/data/2.5/weather?q=Seoul,KR&cnt=7&appid=4e843bd1d669f0389af7e25aa1fb2b21";
+		var request = new XMLHttpRequest();
+		request.overrideMimeType("application/json");
+		request.open('GET',url,true);
+		
+		request.onreadystatechange = function(){
+			if(request.readyState == 4 && request.status == "200")
+				{
+					callback(request.responseText);
+				}
+		};
+		request.send(null);
+			
+	}
+	
+	
+	
+ 
  
 	function loadPage() {
 	    var card="no";
 		var url = "<%=cp%>/booking-step2_ok.action";
 		
+		//jQuery로만 ajax를 만들 때 사용
 		$.post(url,
 				{card:card,
 			price:<%=total%>},
@@ -78,60 +115,18 @@
 	}
  
 	$(function() {
-		$("#saveButton").click(function() {				
-			 card = $('#saveButton').attr('name');			
+		$(".list-inline-item").click(function() {						
+			 card = $(this).attr('name');		
+			 
 			$.get("<%=cp%>/booking-step2_ok.action",{card:card,price:<%=total%>},
 					function(args){
 					$("#resultDIV").html(args); 
+					
 				});
 		}); 
 		
 	});
-	
-	$(function() {
-		$("#saveButton2").click(function() {				
-			 card = $('#saveButton2').attr('name');			
-			$.get("<%=cp%>/booking-step2_ok.action",{card:card,price:<%=total%>},
-					function(args){
-					$("#resultDIV").html(args); 
-				});
-		}); 
-		
-	});
-	
-	$(function() {
-		$("#saveButton3").click(function() {				
-			 card = $('#saveButton3').attr('name');		
-			$.get("<%=cp%>/booking-step2_ok.action",{card:card,price:<%=total%>},
-					function(args){
-					$("#resultDIV").html(args); 
-				});
-		}); 
-		
-	});
-	
-	$(function() {
-		$("#saveButton4").click(function() {				
-			 card = $('#saveButton4').attr('name');			
-			$.get("<%=cp%>/booking-step2_ok.action",{card:card,price:<%=total%>},
-					function(args){
-					$("#resultDIV").html(args); 
-				});
-		}); 
-		
-	});
-	
-	$(function() {
-		$("#saveButton5").click(function() {				
-			 card = $('#saveButton5').attr('name');		
-			$.get("<%=cp%>/booking-step2_ok.action",{card:card,price:<%=total%>},
-					function(args){
-					$("#resultDIV").html(args); 
-				});
-		}); 
-		
-	});
-	
+
 	
 	
 	function searchData(checkin,checkout,adult,children,roomIndex,optionList,userId,total,pricePerNight) {
@@ -139,6 +134,7 @@
 		
 		var bookingMessage = $('#bookingForm [name="booking-message"]').val();
 		
+		//optionList 매개변수로 안넘겨줘도 ? 
 		 location.href = "<%=cp%>/confirmation.action?checkin="+checkin
 						+"&checkout=" + checkout + "&adult=" + adult + "&children="+children
 						+"&roomIndex="+ roomIndex + "&options=" + optionList + "&userId=" + userId 
@@ -149,7 +145,7 @@
 
 </head>
 
-<body >
+<body>
 
 <!-- Header Start --> 
 
@@ -160,6 +156,8 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					<span id="icon"></span>
+					<span id="todayTemp"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -326,7 +324,7 @@
                       <li>
                         <span>객실 타입</span>
                         <span>
-                          <img src="/hotel/resources/images/rooms/img${roomIndex }.jpg" alt="image" class="img-fluid">
+                          <img src="/hotel/resources/images/booking/booking-img1.jpg" alt="image" class="img-fluid">
                           ${dto. roomType}
                         </span>
                       </li>
@@ -377,11 +375,11 @@
 
                     <div class="ed-pay-card">
                       <ul class="list-inline">
-                        <li button id="saveButton" name="visa"  class="list-inline-item"><img src="/hotel/resources/images/booking/card1.jpg" alt="image" class="img-fluid"></li></a>
-                       <li button id="saveButton2" name="master" class="list-inline-item"><img src="/hotel/resources/images/booking/card2.jpg" alt="image" class="img-fluid"></li></a>
-                        <li button id="saveButton3" name="american" class="list-inline-item" name="visa"><img src="/hotel/resources/images/booking/card3.jpg" alt="image" class="img-fluid"></li>
-                        <li button id="saveButton4"  name="maestro" class="list-inline-item"><img src="/hotel/resources/images/booking/card4.jpg" alt="image" class="img-fluid"></li>
-                        <li button id="saveButton5" name="what" class="list-inline-item"><img src="/hotel/resources/images/booking/card5.jpg" alt="image" class="img-fluid"></li>
+                        <li button name="visa"  class="list-inline-item"><img src="/hotel/resources/images/booking/card1.jpg" alt="image" class="img-fluid"></li></a>
+                       <li button  name="master" class="list-inline-item"><img src="/hotel/resources/images/booking/card2.jpg" alt="image" class="img-fluid"></li></a>
+                        <li button name="american" class="list-inline-item" ><img src="/hotel/resources/images/booking/card3.jpg" alt="image" class="img-fluid"></li>
+                        <li button  name="maestro" class="list-inline-item"><img src="/hotel/resources/images/booking/card4.jpg" alt="image" class="img-fluid"></li>
+                        <li button name="what" class="list-inline-item"><img src="/hotel/resources/images/booking/card5.jpg" alt="image" class="img-fluid"></li>
                       </ul>
                     </div>
                   </div>
@@ -396,25 +394,24 @@
                       
                         <div class="col-md-6 col-lg-6">
                           <div class="form-group">
-                          <h6>이름:</h6>
+                          이름:
                             <input type="text" class="form-control" value= "${sessionScope.login.userName }" name="name" required >
                           </div>
                           <div class="form-group">
-                          <h6>주소:</h6>
+                          주소:
                             <input type="text" class="form-control" value="${sessionScope.login.addr }" name="address" required>
                           </div>
                           <div class="form-group">
-                          <h6>휴대폰 번호:</h6>
+                          휴대폰 번호:
                             <input type="text" class="form-control" value="${sessionScope.login.tel }" name="tel" required>
                           </div>
                           <div class="form-group">
-                          <h6>이메일:</h6>
+                          이메일:
                             <input type="email" class="form-control" value="${sessionScope.login.userEmail }" name="email" required>
                           </div>
                         </div>
                         
                         <div class="col-lg-12">
-                        <h6>요청사항:</h6>
                           <textarea class="form-control" placeholder="추가 요청사항을 입력해주세요" rows="5"  name="booking-message" required></textarea>
                           <div class="mt-4">
        ．전망은 체크인 당일 사정에 따라 달라질 수 있습니다.<br/>
@@ -575,6 +572,8 @@
 	//]]>
 	
 	</script>
+	
+    <!-- <script src="/hotel/resources/js/weather.js"></script> -->
 
   </body>
   </html>
