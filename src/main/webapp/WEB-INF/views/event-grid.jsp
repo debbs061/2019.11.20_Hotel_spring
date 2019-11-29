@@ -46,8 +46,8 @@
   <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.min.css" />
    
   
-  
-    <style type="text/css">
+<!-- 이미지 슬라이드 Css -->  
+<style type="text/css">
         * {
             box-sizing: border-box
         }
@@ -205,89 +205,74 @@
 
 
 <!-- 이벤트 검색옵션 띄우기 -->
- <!-- MAIN CONTENT -->
-    <div class="section main-content  clearfix" style="padding-top: 0px; padding-bottom: 0px;">
-      <div class="container">
-        <div class="row">
-       		<!-- 이벤트 예약 순서도 띄우기 -->
-
+<!-- MAIN CONTENT -->
+    <div class="section main-content clearfix" style="padding-top: 0px; padding-bottom: 0px;"> <div class="container">
+        <div
+            class="row"><!-- 이벤트 예약 순서도 띄우기 -->
         </div>
-
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="select-room">
-          
-          
-            <!-- CHECK AREA -->
-            <section class="section-reservation2">
-	<div class="container">
-		<div class="gray-bg p-5 position-relative">
-		
-			<!-- 이벤트 Start/End date Form -->
-			<form action="#" class="reserve-form">
-			
-				<div class="form-row">
-				
-				<div class="form-group col-md-2 ">
-				</div>
-				<div class="form-group col-md-2 ">
-				</div>
-				<div class="form-group col-md-2 ">
-				</div>
-				
-				    <div class="form-group col-md-2 col-sm-4">
-				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-				    	
-				    	<!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
-						    <input type="text" class="form-control" 
-						    placeholder="시작일" value="" id="startDate">
-						    <div class="input-group-addon">
-						       <span class="ion-android-calendar"></span>
-						    </div>
-						</div>
-		          	</div>
-
-
-					<div class="form-group col-md-2 col-sm-4">
-				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-						    <input type="text" class="form-control" placeholder="종료일" value=""
-						    	 id="endDate">
-						    <div class="input-group-addon">
-						       <span class="ion-android-calendar"></span>
-						    </div>
-						</div>
-		          	</div>
-		          	
-		          	<!-- form 제출 -->
-		          	<div class="form-group col-md-2">
-				      <input type="button" value="검색하기" 
-				      class="btn btn-main btn-block" id="btnOK">				   
-				    </div>
-				    
-				 </div>
-			</form>
-			
-		</div>
-	</div>
-</section>	
-             
-            </div>
-        </div>
-      </div>
-    </div>
-
-<div class="page-wrapper event-page">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-lg-12">
-				
-				<div id="listData"></div> 
-
-			</div>
-		</div>
-	</div>
-</div>
-
-
+            <div
+                role="tabpanel" class="tab-pane active" id="select-room">
+                <!-- CHECK AREA -->
+                <section class="section-reservation2">
+                    <div class="container">
+                        <div
+                            class="gray-bg p-3 position-relative">
+                            <!-- 이벤트 Start/End date Form -->
+                            <form action="#" class="reserve-form">	
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                    <div class="input-group">
+                                                <!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
+                                                <input type="text" class="form-control" placeholder="이벤트 관련 검색어" value="" id="startDate">
+                                                  
+                                     </div>
+                                    
+                                    
+                                     </div>
+                                     
+                                      <div class="form-group col-md-2">
+                                     </div>
+                                     
+                                     <div class="form-group col-md-2 col-sm-4">
+                                     	<div class="input-group tp-datepicker date" data-provide="datepicker">
+                                                <!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
+                                                <input type="text" class="form-control" placeholder="시작일" value="" id="startDate">
+                                                    <div class="input-group-addon">
+                                                        <span class="ion-android-calendar"></span>
+                                                    </div>
+                                                </div>
+                                      </div>
+                                            <div class="form-group col-md-2 col-sm-4">
+                                                <div class="input-group tp-datepicker date" data-provide="datepicker">
+                                                    <input type="text" class="form-control" placeholder="종료일" value="" id="endDate">
+                                                        <div class="input-group-addon">
+                                                            <span class="ion-android-calendar"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- form 제출 -->
+                                                <div class="form-group col-md-2">
+                                                    <input type="button" value="검색하기" class="btn btn-main btn-block" id="btnOK"></div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="page-wrapper event-page">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div id="listData"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
