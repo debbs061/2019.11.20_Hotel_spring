@@ -4,10 +4,12 @@ function parseWeather(){
 		var jsonData = JSON.parse(response);
 		
 		var temp = Math.round(jsonData["main"]["temp"]-273.15);
-		document.getElementById("todayTemp").innerHTML = "서초구 "+temp + ' ˚C';
+		document.getElementById("todayTemp").innerHTML = +temp + ' ˚C';
 		
 		var icon = jsonData["weather"][0]["icon"];
-		document.getElementById("icon").innerHTML = "<image src='https://openweathermap.org/img/wn/"+icon+".png'>";
+		document.getElementById("icon").innerHTML = "<image src='https://openweathermap.org/img/wn/"+icon+".png' width='35'>";
+		
+		document.getElementById('currentDate').innerHTML = new Date().toISOString().slice(5, 10);
 	});
 }
 

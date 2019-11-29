@@ -8,63 +8,42 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="description" content="Eden Travel Template">
-<meta name="author" content="Themefisher.com">
-
-<title>IT WILL | Hotel</title>
-
-<!-- Mobile Specific Meta-->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- bootstrap.min css -->
-<link rel="stylesheet"	href="/hotel/resources/plugins/bootstrap/css/bootstrap.min.css">
-<!-- Ionic Icon Css -->
-<link rel="stylesheet"	href="/hotel/resources/plugins/Ionicons/css/ionicons.min.css">
-<!-- Flaticon Css -->
-<link rel="stylesheet"	href="/hotel/resources/plugins/flaticon/font/flaticon.css">
-<!-- animate.css -->
-<link rel="stylesheet"	href="/hotel/resources/plugins/animate-css/animate.css">
-<link rel="stylesheet"	href="/hotel/resources/plugins/nice-select/nice-select.css">
-<!-- DATE PICKER -->
-<link href="/hotel/resources/plugins/bootstrap-datepicker-master/bootstrap-datepicker.min.css" type="text/css" rel="stylesheet" />
-<!-- Magnify Popup -->
-<link rel="stylesheet"	href="/hotel/resources/plugins/magnific-popup/dist/magnific-popup.css">
-<!-- Owl Carousel CSS -->
-<link rel="stylesheet"	href="/hotel/resources/plugins/slick-carousel/slick/slick.css">
-<link rel="stylesheet"href="/hotel/resources/plugins/slick-carousel/slick/slick-theme.css">
-
-<link rel="stylesheet"	href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-
-<!-- Main Stylesheet -->
-<link rel="stylesheet" href="/hotel/resources/css/style.css">
-
-<!-- font -->
-  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+  <meta name="description" content="Eden Travel Template">
   
-	<style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
+  <meta name="author" content="Themefisher.com">
 
-<!-- Kakao 톡상담 -->
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <title>IT WILL | Hotel</title>
 
+  <!-- Mobile Specific Meta-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="/hotel/resources/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Ionic Icon Css -->
+  <link rel="stylesheet" href="/hotel/resources/plugins/Ionicons/css/ionicons.min.css">
+  <!-- Flaticon Css -->
+  <link rel="stylesheet" href="/hotel/resources/plugins/flaticon/font/flaticon.css">
+  <!-- animate.css -->
+  <link rel="stylesheet" href="/hotel/resources/plugins/animate-css/animate.css">
+  <link rel="stylesheet" href="/hotel/resources/plugins/nice-select/nice-select.css">
+  <!-- DATE PICKER -->
+  <link href="/hotel/resources/plugins/bootstrap-datepicker-master/bootstrap-datepicker.min.css" type="text/css" rel="stylesheet" />
+  <!-- Magnify Popup -->
+  <link rel="stylesheet" href="/hotel/resources/plugins/magnific-popup/dist/magnific-popup.css">
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="/hotel/resources/plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="/hotel/resources/plugins/slick-carousel/slick/slick-theme.css">
 
-<script type="text/javascript">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/hotel/resources/css/style.css">
+  
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
-function sendIt(){
-	
-	var f = document.myForm;
-	
-	f.action = "<%=cp %>/login.action";
-	f.submit();
-}
-
-</script>
 </head>
-<body>
+
+<body >
 
 <!-- Header Start --> 
 
@@ -75,18 +54,12 @@ function sendIt(){
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<span id="currentDate" style="font-size:12px;"></span>
-					<span style="font-size:12px;">서초구</span>
-					<span id="icon"></span>
-					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
-							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
 									<span class="text-color">
@@ -98,8 +71,7 @@ function sendIt(){
 								<c:otherwise>
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -148,16 +120,6 @@ function sendIt(){
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
 			  </li>
 			  
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown03">
-				  <li><a class="dropdown-item" href="gym">Gym</a></li>
-				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
-				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
-				</ul>
-			  </li>
-			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="contact.action">Contact Us <span class="sr-only">(current)</span></a>
 			  </li>
@@ -173,7 +135,6 @@ function sendIt(){
 
 <!-- Header Close --> 
 
-
 <div class="main-wrapper ">
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
@@ -181,7 +142,7 @@ function sendIt(){
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">Welcome to IT WILL HOTEL</h1>
+          <h1 class="text-white py-100">예약 취소</h1>
       </div>
     </div>
   </div>
@@ -192,46 +153,45 @@ function sendIt(){
           <div class="page-breadcumb py-2">
             <a href="/hotel" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="signupOk.action" class="text-white">Sign Up</a>
+            <a href="/service.action" class="text-white">MyPage</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-	<section class="section">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-lg-8 text-center">
-				<div class="section-title">
-					<p class="section-subtitle">IT WILL HOTEL</p>
-					<h2 class="mb-3">환 영 합 니 다.</h2>
-					<p class="mb-4">회원가입이 완료되었습니다.<br/>
-					아이티윌 호텔 회원으로 가입해 주셔서 감사합니다.</p>
-					<span class="section-border"></span>
-				</div>
-			</div>
-			<!-- .col-md-7 close -->
-		</div>
+<!-- contact form start -->
+<section class="service-section section">
+    <div class="container">
+     
+     	    <!--      <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0"> -->
+               
+<!--                 <img src="/hotel/resources/images/rooms/cancel1.PNG" 
+                class="img-fluid w-100" alt="뜨지 않습니다"/>
+                
+                    <img src="/hotel/resources/images/rooms/cancel2.PNG" 
+                class="img-fluid w-100" alt="뜨지 않습니다"/> -->
+                
+                    <img src="/hotel/resources/images/rooms/reservationCancel.PNG" 
+                class="img-fluid w-100" alt="뜨지 않습니다"/>
+			<%-- 	<h3 class="text-dark mt-3 mb-4" style="text-align: center;">${dto3.roomType }</h3> --%>
+                               
+                    <img src="/hotel/resources/images/rooms/reservationCancel2.PNG" 
+                class="img-fluid w-100" alt="뜨지 않습니다"/>
+            <!--   </div> -->
+            		
+            
+            <br/>  <br/>  <br/>  <br/>  <br/> 
+            <div class="text-center">
+            <a href="<%=cp %>/cancelBooking_ok.action?bookingId=${bookingId}"  class="btn btn-solid-border">취&nbsp;소&nbsp;하&nbsp;기</a>
+     			</div>
+    </div>
+</section>
 
-		<div class="row justify-content-center">
-			<div class="col-lg-7 col-sm-12">
-				<form action="javascript:sendIt();" name="myForm" method="post">
-					<div class="row justify-content-center">
-						<p class="section-subtitle">가입하신 '아이디' 와 '비밀번호' 로 로그인이 가능합니다.</p>
-					</div>
-					<div class="row justify-content-center">
-						<input type="submit" class="btn btn-main" onclick="sendIt();" value="로 그 인" >
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	</section>
-</div>	
-	
-	<!-- footer Start -->
-	<footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
+     	
+
+<!-- footer Start -->
+<footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3 col-md-6 col-sm-6">
@@ -315,7 +275,7 @@ function sendIt(){
 </footer>
 
 
-	<section class="footer-btm secondary-bg py-4">
+<section class="footer-btm secondary-bg py-4" >
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -325,37 +285,37 @@ function sendIt(){
 			</div>
 		</div>
 	</div>
-	</section>
+</section>
 
+   
+    </div>
 
-
-	</div>
-
-	<!-- 
+    <!-- 
     Essential Scripts
     =====================================-->
 
+    
+    <!-- Main jQuery -->
+    <script src="/hotel/resources/plugins/jquery/jquery.js"></script>
+    <!-- Bootstrap 3.1 -->
+    <script src="/hotel/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Owl Carousel -->
+    <script src="/hotel/resources/plugins/slick-carousel/slick/slick.min.js"></script>
+    <script src="/hotel/resources/plugins/nice-select/nice-select.js"></script>
+    <!--  -->
+    <script src="/hotel/resources/plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <!-- Form Validator -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+    <script src="/hotel/resources/plugins/bootstrap-datepicker-master/bootstrap-datepicker.min.js"></script>
+    
+    <!-- Google Map -->
+    <script src="/hotel/resources/plugins/google-map/map.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
 
-	<!-- Main jQuery -->
-	<script src="/hotel/resources/plugins/jquery/jquery.js"></script>
-	<!-- Bootstrap 3.1 -->
-	<script src="/hotel/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<!-- Owl Carousel -->
-	<script src="/hotel/resources/plugins/slick-carousel/slick/slick.min.js"></script>
-	<script src="/hotel/resources/plugins/nice-select/nice-select.js"></script>
-	<!--  -->
-	<script src="/hotel/resources/plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
-	<!-- Form Validator -->
-	<script	src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
-	<script	src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
-	<script	src="/hotel/resources/plugins/bootstrap-datepicker-master/bootstrap-datepicker.min.js"></script>
-
-	<!-- Google Map -->
-	<script src="/hotel/resources/plugins/google-map/map.js"></script>
-	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
-	<script src="/hotel/resources/js/script.js"></script>
-	
-	<!-- Kakao 톡상담 -->
+    <script src="/hotel/resources/js/script.js"></script>
+    
+    <!-- Kakao 톡상담 -->
 	<script type='text/javascript'>
 	
 	//<![CDATA[
@@ -369,9 +329,6 @@ function sendIt(){
 	//]]>
 	
 	</script>
-	
-	<script src="/hotel/resources/js/weather.js"></script>
 
-
-</body>
-</html>
+  </body>
+  </html>

@@ -64,8 +64,11 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="currentDate" style="font-size:12px;"></span>
+					<span style="font-size:12px;">서초구</span>
 					<span id="icon"></span>
-					<span id="todayTemp"></span>
+					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -237,8 +240,6 @@
                        <a href="#" class="btn btn-main">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
                        <a href="#" class="btn btn-main">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
                        <a href="#" class="btn btn-main">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a> -->
-                       
-                       
                        
                   </div>
                 </div>

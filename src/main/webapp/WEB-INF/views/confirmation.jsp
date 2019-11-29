@@ -3,6 +3,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -62,8 +63,11 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="currentDate" style="font-size:12px;"></span>
+					<span style="font-size:12px;">서초구</span>
 					<span id="icon"></span>
-					<span id="todayTemp"></span>
+					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -168,39 +172,39 @@
 				aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
-			예약이 성공적으로 완료되었습니다.           예약번호 : ${res.dto.bookingId }
+			예약이 성공적으로 완료되었습니다.           예약번호 : ${bookingId }
 		</div>
        
         <div class="border payment-confirm position-relative">
           <div class="row justify-content-center align-items-center ">
               <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
-                <img src="/hotel/resources/images/rooms/img${res.dto.roomIndex }.jpg" class="img-fluid w-100" alt="confirm img"/>
+                <img src="/hotel/resources/images/rooms/img${roomIndex }.jpg" class="img-fluid w-100" alt="confirm img"/>
 
               <!--    <a href="room-details"><h2 class="text-dark mt-3 mb-4">Delux couple</h2></a>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita</p>
           -->     </div>
 
               <div class="col-md-12 col-sm-12 col-xs-12 col-lg-8">
-                    <div class="row ">
+                   <div class="row ">
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="ed-cinfirm-detail ">
                             <h3 class="headline">결제가 완료되었습니다</h3>
                             <ul class="list-unstyled">
                               <li>
                                 <span>체크인:</span>
-                               ${res.dto.checkin }
+                               ${checkin }
                               </li>
                               <li>
                                 <span>체크아웃:</span>
-                               ${res.dto.checkout }
+                               ${checkout }
                               </li>
                               <li>
                                 <span>성인:  </span>
-                               ${res.dto.adult }
+                               ${adult }
                               </li>
                               <li>
                                 <span>어린이:</span>
-                               ${res.dto.children }
+                               ${children }
                               </li>
                             </ul>
                         </div>
@@ -230,7 +234,7 @@
 
                     <div class="col-lg-12 text-center">
                       <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
-                        <h2>Total:  <span>${res.total }</span></h2>
+                        <h2>Total:  <span>${total }</span></h2>
                       </div>
 
                        <!-- <a href="#" class="btn btn-solid-border">Browse</a> -->

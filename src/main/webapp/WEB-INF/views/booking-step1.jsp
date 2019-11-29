@@ -123,6 +123,13 @@ function showRequest() {
 		return false;
 	}
 	
+	if (checkin==checkout) {
+		
+		alert("\n체크인 날짜와 체크아웃 날짜가 같을 수 없습니다")
+		$("#checkout").focus;
+		return false;
+	}
+	
 	var chkIn =new Array();
 	chkIn = checkin.split("/");
 	var chkout = new Array();
@@ -208,8 +215,11 @@ function listPage(page) {
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="currentDate" style="font-size:12px;"></span>
+					<span style="font-size:12px;">서초구</span>
 					<span id="icon"></span>
-					<span id="todayTemp"></span>
+					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">

@@ -13,7 +13,21 @@ public class HotelBookingDTO {
 	private String bookingMessage;
 	private String price;
 	
+	private String roomType;
+	private String roomImage;
 	
+	public String getRoomType() {
+		return roomType;
+	}
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
+	}
+	public String getRoomImage() {
+		return roomImage;
+	}
+	public void setRoomImage(String roomImage) {
+		this.roomImage = roomImage;
+	}
 	public String getPrice() {
 		return price;
 	}

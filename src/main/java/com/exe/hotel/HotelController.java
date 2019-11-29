@@ -77,7 +77,7 @@ public class HotelController {
 	HotelBookingDAO hdao;
 	
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.POST})
 	public String index(HttpServletRequest request) {
 
 		List<GalleryDTO> lists= galleryDao.getList();
@@ -87,7 +87,7 @@ public class HotelController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/indexImage", method = RequestMethod.GET)
+	@RequestMapping(value = "/indexImage", method = {RequestMethod.GET,RequestMethod.POST})
 	public String indexImage(HttpServletRequest request) {
 
 		return "indexImage";
@@ -854,8 +854,6 @@ public class HotelController {
 		
 		LoginDTO login = (LoginDTO)session.getAttribute("login");
 		
-				
-		
 		// hotelbooking 테이블에 insert
 		int bookingNum = hdao.getMaxNum();	    
 
@@ -880,28 +878,42 @@ public class HotelController {
 		System.out.println(login.getUserId()+"값은 이것입니다");		
 		hdao.insertData(dto);
 		
-		Map<String, Object> map = new HashMap<String,Object>();
-		map.put("dto", dto);
-		map.put("total", total);
+		redirect.addAttribute("checkin", checkin);
+		redirect.addAttribute("checkout", checkout);
+		redirect.addAttribute("adult", dto.getAdult());
+		redirect.addAttribute("children", dto.getChildren());
+		redirect.addAttribute("bookingId", dto.getBookingId());
+		redirect.addAttribute("roomIndex", dto.getRoomIndex());
+		redirect.addAttribute("total", total);
 		
-		redirect.addFlashAttribute("res", map);
-	     
 		return "redirect:/confirmation_ok.action";
-
 	}
 	
 	@RequestMapping(value ="/confirmation_ok.action", 		
 			method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView confirmationOk(HttpServletRequest request,
-			HttpServletResponse response)
-		//	,@RequestParam("dto") HotelBookingDTO dto,
-		//	@RequestParam("total") String total) 
+			HttpServletResponse response,
+			@RequestParam("checkin") String checkin,
+			@RequestParam("checkout") String checkout,
+			@RequestParam("adult") String adult,
+			@RequestParam("children") String children,
+			@RequestParam("bookingId") String bookingId,
+			@RequestParam("roomIndex") String roomIndex,
+			@RequestParam("total") String total)
 			{
 		
 		HttpSession session = request.getSession();
 		ModelAndView mav = new ModelAndView();
-	
+		
+		mav.addObject("checkin", checkin);
+		mav.addObject("checkout", checkout);
+		mav.addObject("adult", adult);
+		mav.addObject("children", children);
+		mav.addObject("bookingId", bookingId);
+		mav.addObject("roomIndex", roomIndex);
+		mav.addObject("total", total);
 		mav.setViewName("confirmation");
+		
 		return mav;
 	}
 	
@@ -909,50 +921,106 @@ public class HotelController {
 	@RequestMapping(value = "/bookingConfirm.action", method = RequestMethod.GET)
 	public ModelAndView bookingConfirm(HttpServletRequest request,
 			HttpServletResponse response) {
-		
-		
+
+
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();		
 		String msg="";
-		
+
 		if(session.getAttribute("login")==null) {	
-			System.out.println("로그인이 안된상태입니다");
+			//System.out.println("로그인이 안된상태입니다");
 			String referer = request.getHeader("Referer");	//접속 경로
 			request.getSession().setAttribute("redirectURI", referer);
 			mav.setViewName("login");
 			return mav;
 		}
-		
-		LoginDTO login = (LoginDTO)session.getAttribute("login");		
-		HotelBookingDTO dto;
-		RoomDTO dto2 = null;
-		
-		// 예약정보 (hotelBooking)
-		dto = hdao.getReadBookingData(login.getUserId());
-		
-		// 만약 dto==null 이라면, 예약된 정보가 없습니다 뒤로가기 누르게 하기
-		
-		if(dto!=null) {
-			
-			int roomIndex = dto.getRoomIndex();
-			dto2 = rdao.getReadRoomData(roomIndex);			
-			
-		} else {		
+
+		LoginDTO login = (LoginDTO)session.getAttribute("login");	
+		List<RoomDTO> dto2 =  new ArrayList<RoomDTO>();
+
+		// 1. suzy 의 예약정보 (hotelBooking)
+		List<HotelBookingDTO> lists = hdao.getReadBookingData(login.getUserId());
+
+
+		if(lists.isEmpty()) {
+
 			msg = "예약된 정보가 없습니다";
 			System.out.println("예약된 정보가 없다는 메세지 넘겨줍니다");
+
+			mav.setViewName("bookingConfirm");
+			mav.addObject("msg",msg);
+			return mav;
+
 		}
-		
-		
+
+		List<HotelBookingDTO> lists2 = new ArrayList<HotelBookingDTO>();
+
+		// 2. 예약정보에 등록된 roomIndex를 가지고 room테이블에 접근 => roomType, roomImage를 dto에 저장한다
+		int roomIndex;
+		Iterator<HotelBookingDTO> it = lists.iterator();
+
+		while(it.hasNext()) {
+
+			HotelBookingDTO dto = it.next();
+			roomIndex = dto.getRoomIndex(); 
+			//	dto2 = rdao.getRoomLists(roomIndex);	
+			//	예약된 해당 roomIndex의 룸 정보 가지고오기
+			RoomDTO rdto = rdao.getReadRoomData(roomIndex);	
+
+			dto.setRoomImage(rdto.getRoomImage());
+			dto.setRoomType(rdto.getRoomType());		    
+
+			lists2.add(dto);
+		}
 		mav.setViewName("bookingConfirm");
 		
-		// 예약정보 (hotelBooking)
-		mav.addObject("dto", dto);
-		
-		// 룸 정보 (room)
-		mav.addObject("dto2", dto2);
-		
-		mav.addObject("msg",msg);
+		// 예약 + 룸 정보 (room)
+		mav.addObject("lists", lists2);
+
+
 		return mav;
+	}
+
+	@RequestMapping(value = "/cancelBooking.action", method = RequestMethod.GET)
+	public ModelAndView cancelBooking(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value="bookingId") int bookingId) {
+
+
+		ModelAndView mav = new ModelAndView();
+
+		mav.setViewName("cancelBooking");
+		mav.addObject("bookingId", bookingId);
+		return mav;
+
+
+	}
+
+
+
+
+	// cancelBooking_ok.action
+	@RequestMapping(value = "/cancelBooking_ok.action", method = RequestMethod.GET)
+	public String cancelBookingOk(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value="bookingId") int bookingId) {
+
+		hdao.deleteData(bookingId);
+		//mav.setViewName("cancelBooking_ok");
+		//mav.addObject("bookingId", bookingId);
+
+		//	return "redirect:/signupOk.action";
+
+		return "redirect:/cancelBooking_ok2.action";
+	}
+
+	@RequestMapping(value = "/cancelBooking_ok2.action", method = RequestMethod.GET)
+	public String cancelBookingOk2(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		System.out.println("왔습니다요");
+
+		return "cancelBooking_ok";
 	}
 	
 	

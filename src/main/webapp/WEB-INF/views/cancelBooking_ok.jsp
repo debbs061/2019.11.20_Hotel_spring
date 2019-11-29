@@ -37,17 +37,6 @@
 <!-- Main Stylesheet -->
 <link rel="stylesheet" href="/hotel/resources/css/style.css">
 
-<!-- font -->
-  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
-  
-	<style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
-
 <!-- Kakao 톡상담 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
@@ -58,7 +47,7 @@ function sendIt(){
 	
 	var f = document.myForm;
 	
-	f.action = "<%=cp %>/login.action";
+	f.action = "<%=cp %>/";
 	f.submit();
 }
 
@@ -75,18 +64,12 @@ function sendIt(){
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<span id="currentDate" style="font-size:12px;"></span>
-					<span style="font-size:12px;">서초구</span>
-					<span id="icon"></span>
-					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
-							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
 									<span class="text-color">
@@ -98,8 +81,7 @@ function sendIt(){
 								<c:otherwise>
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -146,16 +128,6 @@ function sendIt(){
 			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
-			  </li>
-			  
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown03">
-				  <li><a class="dropdown-item" href="gym">Gym</a></li>
-				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
-				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
-				</ul>
 			  </li>
 			  
 			  <li class="nav-item active">
@@ -205,9 +177,9 @@ function sendIt(){
 			<div class="col-lg-8 text-center">
 				<div class="section-title">
 					<p class="section-subtitle">IT WILL HOTEL</p>
-					<h2 class="mb-3">환 영 합 니 다.</h2>
-					<p class="mb-4">회원가입이 완료되었습니다.<br/>
-					아이티윌 호텔 회원으로 가입해 주셔서 감사합니다.</p>
+					<h2 class="mb-3">완 료 되 었 습 니 다.</h2>
+					<p class="mb-4">예약 취소가 완료되었습니다.<br/>
+					다음에도 다시 이용해주세요.</p>
 					<span class="section-border"></span>
 				</div>
 			</div>
@@ -218,10 +190,9 @@ function sendIt(){
 			<div class="col-lg-7 col-sm-12">
 				<form action="javascript:sendIt();" name="myForm" method="post">
 					<div class="row justify-content-center">
-						<p class="section-subtitle">가입하신 '아이디' 와 '비밀번호' 로 로그인이 가능합니다.</p>
 					</div>
 					<div class="row justify-content-center">
-						<input type="submit" class="btn btn-main" onclick="sendIt();" value="로 그 인" >
+						<input type="submit" class="btn btn-main" onclick="sendIt();" value="메 인 페 이 지 " >
 					</div>
 				</form>
 			</div>
@@ -369,8 +340,6 @@ function sendIt(){
 	//]]>
 	
 	</script>
-	
-	<script src="/hotel/resources/js/weather.js"></script>
 
 
 </body>

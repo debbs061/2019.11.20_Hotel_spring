@@ -61,10 +61,10 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 <select id="getReadBookingOut"  parameterType="map"
 resultType="com.exe.dto.HotelBookingDTO" >
 <![CDATA[
-select roomIndex from room where roomindex not in(
+select roomIndex from room where roomIndex not in(
 select roomIndex from hotelBooking
 where checkout > (select to_date(#{checkin},'mm/dd/yyyy') from dual)
-or checkin < (select to_date(#{checkout},'mm/dd/yyyy') from dual))
+and checkin < (select to_date(#{checkout},'mm/dd/yyyy') from dual))
 	]]>
 </select>
 
@@ -77,6 +77,7 @@ select * from room where roomIndex = #{roomIndex[i]}
 	from room
 	where roomIndex=#{roomIndex}
 </select>
+
 
 <!-- 예약완료관련 sql -->
 <select id="maxHotelNum" resultType="int">
@@ -94,6 +95,8 @@ SELECT trunc(to_date(#{checkout},'yyyy/mm/dd'))
 - trunc(to_date(#{checkin},'yyyy/mm/dd')) FROM dual
 </select>
 
+
+
 <!-- 마이페이지 예약정보 가져오기 -->
 <select id="getReadBookingData" parameterType="String" resultType="com.exe.dto.HotelBookingDTO">
 	select bookingId,userId,roomIndex,to_char(checkin,'yyyy-mm-dd') checkin,
@@ -102,5 +105,11 @@ SELECT trunc(to_date(#{checkout},'yyyy/mm/dd'))
 	from hotelBooking
 	where userId = #{userId}
 </select>
+
+
+<!-- 예약 취소 -->
+<delete id="deleteData" parameterType="int">
+	delete hotelBooking where bookingId=#{bookingId}
+</delete>
 
 </mapper>

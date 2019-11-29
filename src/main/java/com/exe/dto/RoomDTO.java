@@ -10,6 +10,8 @@ public class RoomDTO {
 	private String views;
 	private String roomImage;
 	private String roomInformation;
+	
+	
 	public int getRoomIndex() {
 		return roomIndex;
 	}
