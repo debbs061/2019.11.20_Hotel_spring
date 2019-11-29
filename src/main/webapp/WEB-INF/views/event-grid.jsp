@@ -67,6 +67,7 @@
             width: 100%;
         }
     </style>
+    
   
 
 </head>
@@ -75,7 +76,6 @@
 
 
 <!-- Header Start --> 
-
 <header class="navigation">
 <div class="top-header py-2">
 	<div class="container">
@@ -108,7 +108,7 @@
 	</div>
 </div>
 
-	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
+<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
 		<div class="container">
 		  <a class="navbar-brand" href="/hotel"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
@@ -162,7 +162,7 @@
 
 <!-- Header Close --> 
 
-<div class="main-wrapper ">
+<div class="main-wrapper">
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
 <section class="overly bg-2">
@@ -170,7 +170,7 @@
   
     <div class="row">
       <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">이벤트</h1>
+          <h1 class="text-white py-100">호텔 이벤트</h1>
       </div>
     </div>
   </div>
@@ -193,8 +193,8 @@
 		 <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
                 <div class="section-title">
-                    <p class="section-subtitle">갤러리</p>
-                    <h2 class="mb-3">다양하다 & 즐거웁다</h2>
+                    <p class="section-subtitle"></p>
+                    
                     <p class="mb-4">매일 호텔에서 직접 진행하는 다양한 이벤트 액티비티에 참여하세요.</p>
                     <span class="section-border"></span>
                 </div>
@@ -203,48 +203,91 @@
 </div>
 
 
-	<!-- 이미지 슬라이드 -->
-	<div class="glider-contain" style="padding-top: 20px;">
-        <div class="glider">
-         
-         <c:forEach items="${lists }" var="dto1"> 
-             <div class="event-box mb-5 position-relative">
-            
-           		 <a href="event-single.action?eventIndex=${dto1.eventIndex }">
-            		<div>
-            			<img alt="Test" src="/hotel/resources/images/event/${dto1.savefileName}" 
-            			style="padding-right: 5px; width: 300px; height: 250px;">
-            			<div class="event-content mt-3">
-            				<div class="event-date p-3 text-white">
-								<span class="date font-weight-bold d-block">${dto1.day}</span>
-							
-							</div>
-						</div>
-					</div>
-				
-            		<div class="event-post-meta mt-2 mb-3">
-            			<h3>${dto1.eventTitle }</h3>
-						&nbsp;&nbsp;<span><i class="ion-clock"></i>${dto1.time}</span>
-						<span><i class="ion-ios-location"></i>${dto1.location} </span>
-					</div>
-            	
-            	 </a>
-            	</div>
-            </c:forEach> 
-            
-        </div>
-        <button class="glider-prev">&laquo;</button>
-        <button class="glider-next">&raquo;</button>
-        <div id="dots"></div>
-        
- 		<div>
-        	<button class="btn btn-main" type="button" onclick="location.href='event-upload.action';">등록하기</button>
-        </div>
-  </div>
-  
-  <!-- 이미지 슬라이드 끝 -->
 
- 
+<!-- 이벤트 검색옵션 띄우기 -->
+ <!-- MAIN CONTENT -->
+    <div class="section main-content  clearfix" style="padding-top: 0px; padding-bottom: 0px;">
+      <div class="container">
+        <div class="row">
+       		<!-- 이벤트 예약 순서도 띄우기 -->
+
+        </div>
+
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="select-room">
+          
+          
+            <!-- CHECK AREA -->
+            <section class="section-reservation2">
+	<div class="container">
+		<div class="gray-bg p-5 position-relative">
+		
+			<!-- 이벤트 Start/End date Form -->
+			<form action="#" class="reserve-form">
+			
+				<div class="form-row">
+				
+				<div class="form-group col-md-2 ">
+				</div>
+				<div class="form-group col-md-2 ">
+				</div>
+				<div class="form-group col-md-2 ">
+				</div>
+				
+				    <div class="form-group col-md-2 col-sm-4">
+				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
+				    	
+				    	<!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
+						    <input type="text" class="form-control" 
+						    placeholder="시작일" value="" id="startDate">
+						    <div class="input-group-addon">
+						       <span class="ion-android-calendar"></span>
+						    </div>
+						</div>
+		          	</div>
+
+
+					<div class="form-group col-md-2 col-sm-4">
+				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
+						    <input type="text" class="form-control" placeholder="종료일" value=""
+						    	 id="endDate">
+						    <div class="input-group-addon">
+						       <span class="ion-android-calendar"></span>
+						    </div>
+						</div>
+		          	</div>
+		          	
+		          	<!-- form 제출 -->
+		          	<div class="form-group col-md-2">
+				      <input type="button" value="검색하기" 
+				      class="btn btn-main btn-block" id="btnOK">				   
+				    </div>
+				    
+				 </div>
+			</form>
+			
+		</div>
+	</div>
+</section>	
+             
+            </div>
+        </div>
+      </div>
+    </div>
+
+<div class="page-wrapper event-page">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-12">
+				
+				<div id="listData"></div> 
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
@@ -343,8 +386,12 @@
 </section>
 
 
-   
-    </div>
+</div>
+
+</div>
+
+
+<!--  main-wrapper 끝 -->
 
     <!-- 
     Essential Scripts
@@ -352,6 +399,7 @@
 
     
     <!-- Main jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/hotel/resources/plugins/jquery/jquery.js"></script>
     <!-- Bootstrap 3.1 -->
     <script src="/hotel/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -391,6 +439,136 @@
     <script src="/hotel/resources/js/glider.js"></script>
     <script src="/hotel/resources/js/glider.min.js"></script>
     <script src="/hotel/resources/js/glider-compat.min.js"></script>
+    
+    
+    
+<script type="text/javascript">
+   
+    
+//chrl
+$(function(){
+	
+    listPage(1);
+    	
+});
+
+    
+function listPage(page) {
+	
+		var mode = "mainstart";
+    	var url = "<%=cp%>/event-list.action";
+    	
+    	$.post(url,{mode:mode},function(args) {
+    			
+    		$("#listData").html(args);
+    		
+    	});
+    	
+ }
+    	
+	
+   $(document).ready(function(){
+   	
+   	$("#btnOK").click(function(){
+   		
+   		
+   		var params = "startDate=" + $("#startDate").val()
+   				+ "&endDate=" + $("#endDate").val();
+   		
+   		$.ajax({
+   			
+   			type:"POST",  
+   			url:"<%=cp%>/event-list.action", 
+   			data:params,
+   			success:function(args){
+   					
+   				$("#listData").html(args);
+   			
+   				
+   				
+   			},
+   			beforeSend:showRequest, 
+   			error:function(e) {
+   				
+   				alert(e.responseText); 
+   			}
+   		});
+   		
+   	});
+   	
+   });
+   
+   
+   
+function showRequest(){
+		
+		
+	var startDate = $.trim($("#startDate").val());
+  	var endDate = $.trim($("#endDate").val());
+  	
+   	if(!startDate) {
+   		alert("\n스타트 날짜를 선택하세요");
+   		$("#startDate").focus;
+   		return false;
+   	}
+
+   	if (!endDate) {
+   		alert("\n엔드 날짜를 선택하세요");
+   		$("#endDate").focus;
+   		return false;
+   	}
+   	
+   	var startD =new Array();
+   	startD = startDate.split("/");
+   	var endD = new Array();
+   	endD = endDate.split("/");
+ 	/*
+   	alert(endDate)
+   	alert(startD[0])  //월
+   	alert(startD[1])  //일
+   	alert(startD[2])  //년
+ 	alert(endD[0]) //월
+ 	alert(endD[1]) //일
+ 	alert(endD[2]) //년
+ 	 */	 	
+ 	//년도 비교
+   	if(startD[2]>endD[2]) { 
+   		alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다1");
+   		$("#endDate").focus;
+   		return false;
+   	}
+   	//월 비교
+   	//년도 같지 않고, end의 year 작은 상황에서 
+   	//년도가 같지 않고, end의 yeaer 큰 상황세ㅓ 
+   	if(startD[2]!==endD[2] && startD[2] > endD[2]){
+   		if(startD[0]>endD[0]) {
+   	   		alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다2");
+   	   		$("#endDate").focus;
+   	   		return false;
+   	   	}
+   	}
+   	
+   	if (startD[0]==endD[0]) {
+   		
+   	if(!startD[2]<endD[2])
+   		if(!startD[0]<endD[0])
+   			if(startD[1]>endD[1])  {
+   					alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다3");
+   					$("#endDate").focus;
+   					return false;
+   			}
+   	}
+   				
+   	return true;
+   
+}
+   
+
+</script>
+    
+    
+    
+    <!-- 
     <script>
       window.addEventListener('load',function(){
         document.querySelector('.glider').addEventListener('glider-slide-visible', function(event){
@@ -459,6 +637,7 @@
         });
       });
     </script>
+     -->
     
   
   </body>

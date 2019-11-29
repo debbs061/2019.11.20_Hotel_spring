@@ -93,66 +93,72 @@ $(document).ready(function(){
 });
 
 function showRequest() {
-	
-	var checkin = $.trim($("#checkin").val());
-	var checkout = $.trim($("#checkout").val());
-	var adult = $.trim($("#adult").val());
-	var children = $.trim($("#children").val());
-	
-	if(!checkin) {
-		alert("\n체크인 날짜를 선택하세요");
-		$("#checkin").focus;
-		return false;
+	// adult,children,room	
+		// 사용자가 입력한 데이터를 공백 제거하고 가져오기
+		var checkin = $.trim($("#checkin").val());
+		var checkout = $.trim($("#checkout").val());
+		var adult = $.trim($("#adult").val());
+		var children = $.trim($("#children").val());
+		
+		
+		if(!checkin) {
+			alert("\n체크인 날짜를 선택하세요");
+			$("#checkin").focus;
+			return false;
+		}
+
+		if (!checkout) {
+			alert("\n체크아웃 날짜를 선택하세요");
+			$("#checkout").focus;
+			return false;
+		}
+		
+		// checkout 날짜가 checkin 날짜보다 앞선 경우
+		var chkIn =new Array();
+		chkIn = checkin.split("/");
+		var chkout = new Array();
+		chkout = checkout.split("/");
+		
+		
+		if(chkIn[2]>chkout[2]) {
+			alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
+			$("#checkout").focus;
+			return false;
+		}
+		
+		if(chkIn[0]>chkout[0]) {
+			alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
+			$("#checkout").focus;
+			return false;
+		}
+		
+		if (chkIn[0]==chkout[0]) {
+			
+		if(!chkIn[2]<chkout[2])
+			if(!chkIn[0]<chkout[0])
+				if(chkIn[1]>chkout[1])  {
+						alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
+						$("#checkout").focus;
+						return false;
+				}
+		}
+					
+		if (adult=='성인') {
+			alert("\n인원 수를 선택하세요");
+			$("#adult").focus;
+			return false;
+		}
+		
+	    if (children=='어린이') {
+			alert("\n인원 수를 선택하세요");
+			$("#children").focus;
+			return false;
+		} 
+		
+		// true가 반환되어야만, 서버로 값을 보냄	
+		return true;
 	}
 
-	if (!checkout) {
-		alert("\n체크아웃 날짜를 선택하세요");
-		$("#checkout").focus;
-		return false;
-	}
-	
-	var chkIn =new Array();
-	chkIn = checkin.split("/");
-	var chkout = new Array();
-	chkout = checkout.split("/");
-	
-	if(chkIn[2]>chkout[2]) {
-		alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-		$("#checkout").focus;
-		return false;
-	}
-	
-	if(chkIn[0]>chkout[0]) {
-		alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-		$("#checkout").focus;
-		return false;
-	}
-	
-	if (chkIn[0]==chkout[0]) {
-		
-	if(!chkIn[2]<chkout[2])
-		if(!chkIn[0]<chkout[0])
-			if(chkIn[1]>chkout[1])  {
-					alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-					$("#checkout").focus;
-					return false;
-			}
-	}
-				
-	if (adult=='성인') {
-		alert("\n인원 수를 선택하세요");
-		$("#adult").focus;
-		return false;
-	}
-	
-    if (children=='어린이') {
-		alert("\n인원 수를 선택하세요");
-		$("#children").focus;
-		return false;
-	} 
-    
-	return true;
-}
 
 
 // 상세페이지로 넘어가기
@@ -355,6 +361,7 @@ function listPage(page) {
             <section class="section-reservation2" >
 	<div class="container">
 		<div class="gray-bg p-5 position-relative ">
+		
 			<form action="" class="reserve-form">
 				<div class="form-row justify-content-center">
 	<div class="form-group col-md-2 col-sm-4">

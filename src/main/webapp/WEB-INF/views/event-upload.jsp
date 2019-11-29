@@ -275,10 +275,17 @@ function inputIdChk() {
 						
 						<div class="col-lg-10">
                				<div class="form-group">
-               					<p class="section-subtitle">날 짜</p>
-               					<input class="selector" name="day"  placeholder="날짜를 선택하세요." />
+               					<p class="section-subtitle">Start date</p>
+               					<input class="selector" name="startDate"  placeholder=" 선택하세요." />
             			   </div>
             			</div>
+            			<div class="col-lg-10">
+               				<div class="form-group">
+               					<p class="section-subtitle">End date</p>
+               					<input class="selector" name="endDate"  placeholder="날짜를 선택하세요." />
+            			   </div>
+            			</div>
+              
               
               
 						<div class="col-lg-10">
@@ -293,9 +300,9 @@ function inputIdChk() {
      							altInput: true,
      			   				 altFormat: "F j, Y",
      			    
-  							dateFormat: "Y-m-d",
+  							dateFormat: "m/d/Y",
   							minDate:"today",
-  							maxDate: "2020.12.31"
+  							maxDate: "12.31.2020"
   							});
 
    				 			$("#selector2").flatpickr({

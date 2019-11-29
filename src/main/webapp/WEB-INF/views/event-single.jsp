@@ -42,7 +42,8 @@
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
   
-  <!-- 이미지 리사이징 css -->
+  
+  <!-- 이미지 리사이징 css/수정중 -->
   <style type="text/css">
   
 /* 아래 세 줄이 중요한 스타일임 */
@@ -57,10 +58,7 @@
    	 height: 0;
      clear: both;
 }
-.footer {
-  width: 600px; text-align: center; margin-top: 5em;
-}
-  
+
 </style>
   
 </head>
@@ -181,6 +179,12 @@
 </section>
 
 
+
+
+
+
+
+
 <div class="page-wrapper event-page">
 	<div class="container">
 		<div class="row justify-content-center">
@@ -196,7 +200,7 @@
 		<div class="event-content mt-4">
 			<a href="event-single.html"><h2>${dto.eventTitle }</h2></a>
 			<div class="event-post-meta mb-4">
-				<span><i class="ion-calendar"></i>${dto.day }</span>
+				<span><i class="ion-calendar"></i>${dto.startDate }</span>
 				<span><i class="ion-clock"></i>${dto.time }</span>
 				<span><i class="ion-ios-location"></i>${dto.location }</span>
 			</div>
@@ -272,8 +276,6 @@
 
 
 
-
-    
 
 
 
@@ -374,16 +376,8 @@
 	</div>
 </section>
 
-
-   
     </div>
-
-
-
 <div>
-
-
-
 
   <!-- Modal------------ Modal-------------Modal-------------------     -->
   

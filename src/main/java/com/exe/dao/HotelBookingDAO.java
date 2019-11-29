@@ -73,6 +73,17 @@ public class HotelBookingDAO {
 		return interval;
 	}
 	
+	// userId를 가지고 예약정보 가져오기 (마이페이지용)
+	public HotelBookingDTO getReadBookingData(String userId){
+
+		HotelBookingDTO dto =
+				sessionTemplate
+				.selectOne("hotelmapper.getReadBookingData", userId);
+
+		return dto; 
+
+	}
+	
 }
 
 

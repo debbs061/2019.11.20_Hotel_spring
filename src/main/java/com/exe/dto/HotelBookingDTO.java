@@ -11,8 +11,16 @@ public class HotelBookingDTO {
 	private String children;
 	private String options;
 	private String bookingMessage;
+	private int price;
 	
 	
+	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public String getBookingMessage() {
 		return bookingMessage;
 	}

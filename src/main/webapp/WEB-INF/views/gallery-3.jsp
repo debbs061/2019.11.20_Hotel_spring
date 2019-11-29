@@ -186,22 +186,28 @@
         </div>
 
 
-        <div class="row">
         
+        <!-- 갤러리 사진 뿌려주기 -->
+        <!--  -->
+        <div class="row">
         <c:forEach items="${lists }" var="dto">
+        
+        <!-- 사진이 3개씩 반복됨 -->
         	<div class="col-lg-4 mb-4 col-md-6 col-sm-6">
         		<div class="gallery-item ">
 					 <a href="/hotel/resources/images/gallery/${dto.imageName }" title="Photo ${dto.galleryIndex }">
-						<img src="/hotel/resources/images/gallery/${dto.imageName }" alt="" class="img-fluid">
+						<img src="/hotel/resources/images/gallery/${dto.imageName }" alt="" class="img-fluid" style="width: 339px; height: 203px;">
 					</a>
-
+					
 					<h4 class="mt-3 mb-1">${dto.galleryName }</h4>
 					<p>${dto.content }</p>
+					
 				</div>
         	</div>
+        	 
         </c:forEach>
-        	
         </div>
+      
         
         <div>
         	<button class="btn btn-main" type="button" onclick="location.href='galleryUpload.action';">등록하기</button>
