@@ -93,12 +93,44 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 <select id="getReadEventOut"  parameterType="map"
 resultType="com.exe.dto.EventDTO" >
 <![CDATA[
-select * from event where (eventIndex) 
-in (select eventIndex from event where startDate >= #{startDate}
-and endDate <= #{endDate})
+select eventIndex,eventTitle,startDate,endDate,savefileName,content1,content2,location,price from event where (eventIndex) 
+in (
+select eventIndex from event where (eventIndex) in (
+select eventIndex from event where trunc(to_date(startDate,'mm/dd/yyyy')) <= (select trunc(to_date(#{startDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+and trunc(to_date(endDate,'mm/dd/yyyy')) >= (select trunc(to_date(#{endDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+)
+)
+or (eventIndex)
+in (
+select eventIndex from event where (eventIndex) in (
+select eventIndex from event where trunc(to_date(startDate,'mm/dd/yyyy')) <= (select trunc(to_date(#{startDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+and trunc(to_date(endDate,'mm/dd/yyyy')) <= (select trunc(to_date(#{endDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+and trunc(to_date(startDate,'mm/dd/yyyy')) <= (select trunc(to_date(#{endDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+)
+)
+or (eventIndex)
+in (
+select eventIndex from event where (eventIndex) in (
+select eventIndex from event where trunc(to_date(startDate,'mm/dd/yyyy')) >= (select trunc(to_date(#{startDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+and trunc(to_date(endDate,'mm/dd/yyyy')) >= (select trunc(to_date(#{endDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+and trunc(to_date(endDate,'mm/dd/yyyy')) >= (select trunc(to_date(#{startDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+)
+)
+or (eventIndex)
+in (
+select eventIndex from event where (eventIndex) in (
+select eventIndex from event where trunc(to_date(startDate,'mm/dd/yyyy')) >= (select trunc(to_date(#{startDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+and trunc(to_date(endDate,'mm/dd/yyyy')) <= (select trunc(to_date(#{endDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+)
+)
+or (eventIndex)
+in (
+select eventIndex from event where (eventIndex) in (
+select eventIndex from event where trunc(to_date(endDate,'mm/dd/yyyy')) = (select trunc(to_date(#{startDate,javaType=String,jdbcType=VARCHAR}, 'mm/dd/yyyy')) from dual)
+)
+)
 ]]>
+
 </select>
-
-
 
 </mapper>

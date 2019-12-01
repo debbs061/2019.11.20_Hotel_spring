@@ -4,15 +4,19 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.SimpleEmail;
+import org.apache.ibatis.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -493,10 +498,10 @@ public class HotelController {
 		//넘어오는 날짜 형식 맞춰주기
 		String startDate = dto.getStartDate();
 		String endDate = dto.getEndDate();
-	
+
 		/*
 		String a[] = startDate.split("-");
-		
+
 		System.out.println("startDate:" +startDate);
 
 		if (a[1].charAt(0)=='0') {
@@ -507,7 +512,7 @@ public class HotelController {
 			a[2] = a[2].substring(1);
 		}
 		startDate = a[1] + "-" + a[2];	
-		
+
 		String endDate = dto.getEndDate();
 		String b[] = endDate.split("-");
 		System.out.println("endDate:" +endDate);
@@ -521,9 +526,9 @@ public class HotelController {
 			b[2] = b[2].substring(1);
 		}
 		endDate = b[1] + "-" + b[2];	
-		
-		
-		*/
+
+
+		 */
 
 		dto.setEventIndex(eventDao.getMaxNum() +1);
 		dto.setStartDate(startDate);
@@ -532,7 +537,7 @@ public class HotelController {
 
 		eventDao.insertEvent(dto);
 
-		Path path = Paths.get("D:\\sts-bundle\\work\\HotelWeb\\src\\main\\webapp\\resources\\images\\event");
+		Path path = Paths.get("C:\\sts-bundle\\work\\HotelWeb\\src\\main\\webapp\\resources\\images\\event");
 
 		if(file!=null&&file.getSize()>0) { 
 
@@ -911,27 +916,29 @@ public class HotelController {
 			method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView eventList(HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		
+
 		String mode = request.getParameter("mode");
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		ModelAndView mav = new ModelAndView();
-
 		
+		System.out.println("startDate:"+startDate);
+		System.out.println("endDate:"+endDate);
+
 		if(mode!=null && mode.equals("mainstart")) {
-			
-			
+
+
 			List<EventDTO> originalLists = 
 					eventDao.getEventList();
-			
+
 			mav.setViewName("event-list"); //event-list.jsp로 보내고
 			mav.addObject("mode",mode);
 			mav.addObject("originalLists", originalLists);
-			
+
 			return mav;
-			
+
 		}
-		
+
 		// 1. event 테이블 접근
 		List<EventDTO> availableEventLists =	
 				eventDao.getEventLists(startDate, endDate); //start ~end 기준으로 예약가능한 이벤트 뽑아오기
@@ -939,7 +946,7 @@ public class HotelController {
 		//그전에 이벤트 테이블 수정 
 		mav.setViewName("event-list"); //event-list.jsp로 보내고
 		mav.addObject("availableEventLists", availableEventLists);
-		
+
 		return mav;
 	}
 
@@ -1026,9 +1033,5 @@ public class HotelController {
 		return mav;
 	}	
 
-
-
-
-
-
+	
 }

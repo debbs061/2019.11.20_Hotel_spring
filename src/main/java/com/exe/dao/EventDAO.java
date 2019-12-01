@@ -3,6 +3,7 @@ package com.exe.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -118,19 +119,23 @@ public class EventDAO {
 	//고객이 선택한 날짜(start ~end date) 기반으로 이용 가능한 이벤트 목록 가져오기
 	public List<EventDTO> getEventLists(String startDate, String endDate) {
 
-		HashMap<String, Object> params = 
+		
+		Map<String, Object> mapinfo = 
 				new HashMap<String, Object>();
 
 
-		params.put("startDate", startDate);
-		params.put("endDate", endDate);
+		mapinfo.put("startDate", startDate);
+		mapinfo.put("endDate", endDate);
+
 
 		List<EventDTO> lists =
 				sessionTemplate
-				.selectList("eventmapper.getReadEventOut",params);
+				.selectList("eventmapper.getReadEventOut",mapinfo);
 
 		return lists; 
 
 	}
+	
+
 	
 }
