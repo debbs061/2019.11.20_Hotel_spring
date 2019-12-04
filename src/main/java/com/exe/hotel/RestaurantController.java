@@ -22,7 +22,7 @@ import com.exe.dto.RestaurantDTO;
 public class RestaurantController {
 	
 	@Autowired
-	@Qualifier("RestaurantDAO")
+	//@Qualifier("RestaurantDAO")
 	RestaurantDAO dao;
 	
 	//----------------------------------------------------------------------------

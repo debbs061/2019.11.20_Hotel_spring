@@ -89,7 +89,14 @@
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -225,10 +232,11 @@
         </c:forEach>
         </div>
       
-        
+        <!-- 
         <div>
         	<button class="btn btn-main" type="button" onclick="location.href='galleryUpload.action';">등록하기</button>
         </div>
+         -->
         
 	</div>
 </section>

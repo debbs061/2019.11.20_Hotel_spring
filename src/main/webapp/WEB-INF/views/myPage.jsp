@@ -89,7 +89,14 @@
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -207,7 +214,7 @@
         <div class="row no-gutters">
         
             <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+                <div class="service-box text-center border px-4 py-5" onclick="location.href='userUpdate.action';">
                     <i class="flaticon-menu text-color"></i>
                     <h3 class="my-3">회원정보 수정</h3>
                 </div>

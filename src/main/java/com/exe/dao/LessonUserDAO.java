@@ -38,8 +38,22 @@ private SqlSessionTemplate sessionTemplate;
 		
 	}
 
+	public int getLessonUserCount(String className) {
+		
+		return sessionTemplate.selectOne("lessonmapper.getLessonUserCount", className);
+	}
 	
+	public void deleteLessonUser(int lessonUserIndex) {
+		sessionTemplate.delete("lessonmapper.deleteLessonUser",lessonUserIndex);
+	}
 	
-	
+	public List<LessonUserDTO> getAdminUserList(String ClassName) {
+
+		List<LessonUserDTO> lists = new ArrayList<LessonUserDTO>();
+
+		lists =sessionTemplate.selectList("lessonmapper.getAdminUserList", ClassName);
+
+		return lists;
+	}
 	
 }

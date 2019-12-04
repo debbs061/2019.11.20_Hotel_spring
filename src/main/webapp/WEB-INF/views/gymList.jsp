@@ -166,7 +166,14 @@ function sendIt(){
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -258,7 +265,7 @@ function sendIt(){
 					<div class="page-breadcumb py-2">
 						<a href="gym" class="text-white">Home</a> <span><i
 							class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-						<a href="gymList.action" class="text-white">lesson</a>
+						<a href="gymList.action" class="text-white">Lesson</a>
 					</div>
 				</div>
 			</div>
@@ -341,7 +348,7 @@ function sendIt(){
 		
 				<div class="input-group mb-3">
 				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-		  	<input type="text" name="lessonUserDay" class="form-control" placeholder="YYYY-MM-DD" aria-label="YYYY-MM-DD" aria-describedby="basic-addon2">
+		  	<input type="text" name="lessonUserDay" class="form-control" placeholder="YYYY-MM-DD" aria-label="YYYY-MM-DD" aria-describedby="basic-addon2"  autocomplete="off">
 						    <div class="input-group-addon">
 						       <span class="ion-android-calendar"></span>
 						    </div>

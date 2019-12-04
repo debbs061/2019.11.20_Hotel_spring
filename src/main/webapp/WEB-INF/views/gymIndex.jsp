@@ -92,7 +92,14 @@
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -173,7 +180,7 @@
   <div class="hero-slider">
     
     <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym1.jpg); ">
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/gym/gym1.jpg); ">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">
@@ -185,7 +192,7 @@
       </div>
     </div>
     <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym2.jpg); ">
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/gym/gym2.jpg); ">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">
@@ -197,7 +204,7 @@
       </div>
     </div>
     <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym3.jpg); ">
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/gym/gym3.jpg); ">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">
@@ -209,7 +216,7 @@
       </div>
     </div>
     <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym4.jpg); ">
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/gym/gym4.jpg); ">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInRight" data-delay-in=".1">

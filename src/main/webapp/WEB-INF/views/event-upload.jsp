@@ -198,7 +198,14 @@ function inputIdChk() {
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -317,7 +324,7 @@ function inputIdChk() {
                					 <input class="form-control" name="time" id="selector2" placeholder="시간을 선택하세요." />
             			   </div>
             			</div>
-              
+              			
               			<script type="text/javascript">
              				 $(".selector").flatpickr({ 
      							altInput: true,

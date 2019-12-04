@@ -42,12 +42,12 @@
   
 	<style type="text/css">
 	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
+		*:not(i){
+			font-family: 'Noto Serif KR', serif!important;
+		}
 	
 	</style>
-  
+
 <!-- Kakao 톡상담 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
@@ -58,16 +58,113 @@ function sendIt(){
 	
 	var f = document.myForm;
 	
-	f.action = "<%=cp %>/";
+	str = f.userId.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("아이디를 입력하세요");
+		f.userId.focus();
+		return;
+	}
+	f.userId.value = str;
+	
+	
+	/* if(f.idDuplication.value != "idCheck") {
+		alert("아이디 중복체크 해주세요.");
+		return;
+	} */
+	
+	str = f.userPwd.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("패스워드를 입력하세요");
+		f.userPwd.focus();
+		return;
+	}
+	/* if(str != f.okPwd.value){
+		alert("패스워드가 일치하지 않습니다");
+		f.okPwd.focus();
+		return;
+	} */
+	f.userPwd.value = str;
+	
+	str = f.userName.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("이름을 입력하세요");
+		f.userName.focus();
+		return;
+	}
+	f.userName.value = str;
+	
+	str = f.birth.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("생일을 입력하세요");
+		f.birth.focus();
+		return;
+	}
+	f.birth.value = str;
+	
+	str = f.tel.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("전화번호를 입력하세요");
+		f.tel.focus();
+		return;
+	}
+	f.tel.value = str;
+	
+	str = f.email.value;
+	str = str.trim();
+    if(!str) {
+        alert("\nE-Mail을 입력하세요. ");
+        f.email.focus();
+        return;
+    }
+	f.email.value = str;
+	
+	
+	alert("회원정보 수정이 완료되었습니다. ")
+	
+	f.action = "<%=cp %>/userUpdate_ok.action";
 	f.submit();
 }
+<%-- 
+// 아이디 중복체크 화면 open
+function openIdChk() {
+	var f = document.myForm;
+	
+	if(!f.userId.value){
+		alert("아이디를 입력하세요");
+		f.userId.focus();
+		return;
+	}
+	
+	var id = f.userId.value;	
+	url = "<%=cp %>/itwillbook/id_check.do?id="+id;
+	open(url,"chkForm","width=500, height=300, resizable=no, scrollbars=no");
+}
 
+
+function inputIdChk() {
+	document.myForm.idDuplication.value ="idUncheck";
+	// 아이디 value에 값 입력 시 idDuplication.value가 바로 idUnchek로 바뀜
+}
+
+ --%>
 </script>
+
+
 </head>
 <body>
 
-<!-- Header Start --> 
 
+<!-- Header Start -->
 <header class="navigation">
 <div class="top-header py-2">
 	<div class="container">
@@ -75,18 +172,12 @@ function sendIt(){
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<span id="currentDate" style="font-size:12px;"></span>
-					<span style="font-size:12px;">서초구</span>
-					<span id="icon"></span>
-					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
-							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
 									<span class="text-color">
@@ -107,7 +198,6 @@ function sendIt(){
 										<c:if test="${sessionScope.login.userId eq 'admin'}">
 											<a href="admin.action">관리자</a>
 										</c:if>
-										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -156,16 +246,6 @@ function sendIt(){
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
 			  </li>
 			  
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown03">
-				  <li><a class="dropdown-item" href="gym">Gym</a></li>
-				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
-				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
-				</ul>
-			  </li>
-			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="contact.action">Contact Us <span class="sr-only">(current)</span></a>
 			  </li>
@@ -179,43 +259,18 @@ function sendIt(){
 	</nav>
 </header>
 
-<!-- Header Close --> 
-
-
-<div class="main-wrapper ">
-<div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
-
-<section class="overly bg-2">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">Welcome to IT WILL HOTEL</h1>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid page-border-top">
-    <div class="row ">
-      <div class="col-lg-12 text-center">
-          <div class="page-breadcumb py-2">
-            <a href="/hotel" class="text-white">Home</a>
-            <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="signupOk.action" class="text-white">Sign Up</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+	<!-- Header Close -->
+	
+	<div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
+	
 	<section class="section">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-8 text-center">
 				<div class="section-title">
 					<p class="section-subtitle">IT WILL HOTEL</p>
-					<h2 class="mb-3">완 료 되 었 습 니 다.</h2>
-					<p class="mb-4">예약 취소가 완료되었습니다.<br/>
-					다음에도 다시 이용해주세요.</p>
+					<h2 class="mb-3">회원정보 수정</h2>
+					<p class="mb-4">아이티윌 호텔에 오신것을 환영합니다</p>
 					<span class="section-border"></span>
 				</div>
 			</div>
@@ -224,21 +279,68 @@ function sendIt(){
 
 		<div class="row justify-content-center">
 			<div class="col-lg-7 col-sm-12">
+			
 				<form action="javascript:sendIt();" name="myForm" method="post">
 					<div class="row justify-content-center">
+
+						<div class="col-lg-10">
+							<div class="form-group">
+							<p class="section-subtitle">아 이 디 </p>
+							<input name="userId" type="text" class="form-control" value="${sessionScope.login.userId }" readonly>
+							</div>
+						</div>
+						<div class="col-lg-10">
+							<div class="form-group">
+							<p class="section-subtitle">변 경 할 이    름</p>
+								<input name="userName" type="text" class="form-control" value="${sessionScope.login.userName }" >
+							</div>
+						</div>
+						<div class="col-lg-10">
+							<div class="form-group">
+							<p class="section-subtitle">변 경 할 비 밀 번 호</p>
+								<input name="userPwd" type="password" class="form-control">
+							</div>
+						</div>
+						<div class="col-lg-10">
+							<div class="form-group">
+							<p class="section-subtitle">변 경 할 이 메 일</p>
+								<input name="email" type="text" class="form-control" value="${sessionScope.login.userEmail }">
+							</div>
+						</div>
+
+						<div class="col-lg-10">
+							<div class="form-group">
+							<p class="section-subtitle">변 경 할 생 년 월 일</p>
+								<input name="birth" type="text" class="form-control" value="${sessionScope.login.birth }">
+							</div>
+						</div>
+						<div class="col-lg-10">
+							<div class="form-group">
+							<p class="section-subtitle">변 경 할 주 소</p>
+								<input name="addr" type="text" class="form-control" value="${sessionScope.login.addr }">
+							</div>
+						</div>
+						<div class="col-lg-10">
+							<div class="form-group">
+							<p class="section-subtitle">변 경 할 휴 대 전 화</p>
+								<input name="tel" type="text" class="form-control"	value="${sessionScope.login.tel }">
+							</div>
+						</div>
+							<input type="submit" class="btn btn-main" value="회원정보 수정" >
+							&nbsp;&nbsp;
+							<a href="myPage.action" class="btn btn-main">뒤&nbsp;로&nbsp;가&nbsp;기</a>
+							<!-- <button class="btn btn-main" type="submit" onclick="sendIt();">회 원 가 입</button> -->
+					
 					</div>
-					<div class="row justify-content-center">
-						<input type="submit" class="btn btn-main" onclick="sendIt();" value="메 인 페 이 지 " >
-					</div>
+
 				</form>
 			</div>
 		</div>
 	</div>
 	</section>
-</div>	
-	
-	<!-- footer Start -->
-	<footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
+
+<!-- footer Start -->
+<footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3 col-md-6 col-sm-6">
@@ -376,8 +478,6 @@ function sendIt(){
 	//]]>
 	
 	</script>
-	
-	<script src="/hotel/resources/js/weather.js"></script>
 
 
 </body>

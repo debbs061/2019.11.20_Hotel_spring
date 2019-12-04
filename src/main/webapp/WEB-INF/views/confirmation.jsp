@@ -3,7 +3,6 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
-	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -49,6 +48,9 @@
 	}
 	
 	</style>
+  
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 </head>
 
@@ -87,7 +89,15 @@
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
+										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -167,14 +177,15 @@
  <!-- MAIN CONTENT -->
     <section class="main-content section clearfix">
       <div class="container">
-        <div class="alert alert-success alert-dismissible ed-alert" role="alert">
-			<button type="button" class="close" data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			예약이 성공적으로 완료되었습니다.           예약번호 : ${bookingId }
-		</div>
        
+         <div class="alert alert-success alert-dismissible ed-alert" role="alert">
+            <span class="fa fa-check"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            예약이 성공적으로 완료되었습니다. 예약번호 : ${bookingId }
+        </div>
+
         <div class="border payment-confirm position-relative">
           <div class="row justify-content-center align-items-center ">
               <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
@@ -185,7 +196,7 @@
           -->     </div>
 
               <div class="col-md-12 col-sm-12 col-xs-12 col-lg-8">
-                   <div class="row ">
+                    <div class="row ">
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="ed-cinfirm-detail ">
                             <h3 class="headline">결제가 완료되었습니다</h3>
@@ -237,8 +248,8 @@
                         <h2>Total:  <span>${total }</span></h2>
                       </div>
 
-                       <!-- <a href="#" class="btn btn-solid-border">Browse</a> -->
-                       <a href="/hotel" class="btn btn-main">M a i n</a>
+                       <a href="bookingConfirm.action" class="btn btn-solid-border">예 약 확 인 </a>
+                       <a href="/hotel" class="btn btn-main">메 인 페 이 지 </a>
                   </div>
                 </div>
               </div>
@@ -246,6 +257,8 @@
           </div>
       </div>
     </section>
+
+  
 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">

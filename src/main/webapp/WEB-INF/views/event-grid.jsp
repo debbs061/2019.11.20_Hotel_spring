@@ -7,13 +7,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="description" content="Eden Travel Template">
   
   <meta name="author" content="Themefisher.com">
 
   <title>IT WILL | Hotel</title>
-
+  
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- bootstrap.min css -->
@@ -38,54 +38,155 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
-  <!-- Kakao 톡상담 -->
-  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-  
   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
-  
-	<style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
+
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
   <!-- 이미지 슬라이드 -->
   <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.css" />
   <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.min.css" />
-   
   
-  
-    <style type="text/css">
-        * {
-            box-sizing: border-box
-        }
-        html, body {
-            width: 100%;
-           
-        }
-        .glider-contain {	
-            width: 90%;
-            max-width: none;
-            margin: 0 auto;
-        }
-        .glider-slide {
-            min-height: 150px;
-        }
-        .glider-slide img {
-            width: 100%;
-        }
-    </style>
-  
+
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+	<style type="text/css">
+	
+		*:not(i){
+			font-family: 'Noto Serif KR', serif!important;
+		}
+	
+	</style>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script type="text/javascript">
+
+
+$(function(){
+	
+    listPage(1);
+});
+    
+function listPage(page) {
+	
+		var mode = "mainstart";
+    	var url = "<%=cp%>/event-list.action";
+    	
+    	$.post(url,{mode:mode},function(args) {
+    			
+    		$("#listData").html(args);
+    		
+    	});
+ }
+ 
+
+$(document).ready(function(){
+	
+	$("#btnOK").click(function(){
+		
+		
+		var params = "startDate=" + $("#startDate").val()
+				+ "&endDate=" + $("#endDate").val();
+		
+		$.ajax({
+			
+			type:"POST",  
+			url:"<%=cp%>/event-list.action", 
+			data:params,
+			success:function(args){
+					
+				$("#listData").html(args);
+			
+			},
+			beforeSend:showRequest, 
+			error:function(e) {
+				
+				alert(e.responseText); 
+			}
+		});
+		
+	});
+	
+});
+
+
+function showRequest(){
+		
+		
+	var startDate = $.trim($("#startDate").val());
+	var endDate = $.trim($("#endDate").val());
+	
+	if(!startDate) {
+		alert("\n스타트 날짜를 선택하세요");
+		$("#startDate").focus;
+		return false;
+	}
+
+	if (!endDate) {
+		alert("\n엔드 날짜를 선택하세요");
+		$("#endDate").focus;
+		return false;
+	}
+	
+	var startD =new Array();
+	startD = startDate.split("/");
+	var endD = new Array();
+	endD = endDate.split("/");
+	
+	if(startD[2]>endD[2]) { 
+		alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다1");
+		$("#endDate").focus;
+		return false;
+	}
+	//월 비교
+	//년도 같지 않고, end의 year 작은 상황에서 
+	//년도가 같지 않고, end의 yeaer 큰 상황세ㅓ 
+	if(startD[2]!==endD[2] && startD[2] > endD[2]){
+		if(startD[0]>endD[0]) {
+	   		alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다2");
+	   		$("#endDate").focus;
+	   		return false;
+	   	}
+	}
+	
+	if (startD[0]==endD[0]) {
+		
+	if(!startD[2]<endD[2])
+		if(!startD[0]<endD[0])
+			if(startD[1]>endD[1])  {
+					alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다3");
+					$("#endDate").focus;
+					return false;
+			}
+	}
+				
+	return true;
+
+}
+
+</script>
+
+
+<script>
+
+	//<![CDATA[
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('a876d408c7cc2ab22428d910b1de57af');
+	// 카카오톡 채널 1:1채팅 버튼을 생성합니다.
+	Kakao.Channel.createChatButton({
+		container: '#kakao-talk-channel-chat-button',
+		channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
+	});
+	//]]>
+</script>
 
 </head>
 
-<body >
+<body>
 
 
-<!-- Header Start --> 
+<!-- Header Start -->
 
 <header class="navigation">
 <div class="top-header py-2">
@@ -116,9 +217,12 @@
 							
 								<c:otherwise>
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
-									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> /
 										<a href="myPage.action">마이페이지</a>
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											/<a href="admin.action">관리자</a>
+										</c:if>
+									</span> 
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -129,9 +233,15 @@
 	</div>
 </div>
 
+<div id="image_container" style="display: none;">
+<!-- TEST -->
+<p>테스트</p>
+</div>
+
+
 	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
 		<div class="container">
-		  <a class="navbar-brand" href="/hotel"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
+		  <a class="navbar-brand" href="/hotel" ><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid" ></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="fa fa-bars"></span>
 		  </button>
@@ -195,85 +305,241 @@
 <div class="main-wrapper ">
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
-<section class="overly bg-2">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">이벤트</h1>
-      </div>
-    </div>
-  </div>
+<!-- slider -->
+<section>
 
-  <div class="container-fluid page-border-top">
-    <div class="row ">
-      <div class="col-lg-12 text-center">
-          <div class="page-breadcumb py-2">
-            <a href="/hotel" class="text-white">Home</a>
-            <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="event-grid.action" class="text-white">Event</a>
+  <div class="hero-slider">
+    
+    <!-- slider item -->
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/banner.jpg); ">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">
+            <span class="letter-spacing text-white">IT Will Hotel</span>
+            <h1 class="mb-3 text-capitalize">최고의 품격</h1>
+            <p class="mb-5">IT Will Hotel은 고객님의 품격을 높여드립니다.</p>
+            <a href="room-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
+          </div>
         </div>
       </div>
     </div>
-  </div> 
+    <!-- slider item -->
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/slider-img2.jpg); ">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">
+            <span class="letter-spacing text-white">IT Will Hotel</span>
+            <h1 class="mb-3 text-capitalize">낭만적인 여행</h1>
+            <p class="mb-5">IT Will 호텔에서 잊지 못 할 추억을 만드세요.</p>
+            <a href="room-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- slider item -->
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/banner2.jpg); ">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">
+             <span class="letter-spacing text-white">IT Will Hotel</span>
+            <h1 class="mb-3 text-capitalize">최고의 서비스</h1>
+            <p class="mb-5">최고의 음식과 서비스를 제공해드립니다.</p>
+            <a href="room-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- slider item -->
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/banner3.jpg); ">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInRight" data-delay-in=".1">
+             <span class="letter-spacing text-white">IT Will Hotel</span>
+            <h1 class="mb-3 text-capitalize">다양한 이벤트</h1>
+            <p class="mb-5">IT Will Hotel은 다양한 이벤트를 제공해드립니다. </p>
+            <a href="room-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+<!-- /slider -->
+<section class="section-reservation" >
+	<div class="container" style="padding-top: 0px; padding-bottom: 0px;">
+		<div class="secondary-bg p-5 position-relative">
+			<form name="hotelSearchForm" action="" class="reserve-form" method="post">
+				<div class="form-row">
+                                    <div class="form-group col-md-4">
+                                    <div class="input-group">
+                                        <!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
+                                        <input type="text" class="form-control" placeholder="이벤트 관련 검색어" value="" id="">
+                                                  
+                                     </div>
+                                    
+                                    
+                                     </div>
+                                     
+                                      <div class="form-group col-md-2">
+                                     </div>
+                                     
+                                     <div class="form-group col-md-2 col-sm-4">
+                                     	<div class="input-group tp-datepicker date">
+                                                <!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
+                                                <input type="text" class="form-control" placeholder="시작일" id="startDate" autocomplete="off">
+                                                    <div class="input-group-addon">
+                                                        <span class="ion-android-calendar"></span>
+                                                    </div>
+                                                </div>
+                                      </div>
+                                            <div class="form-group col-md-2 col-sm-4">
+                                                <div class="input-group tp-datepicker date">
+                                                    <input type="text" class="form-control" placeholder="종료일" id="endDate" autocomplete="off">
+                                                        <div class="input-group-addon">
+                                                            <span class="ion-android-calendar"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- form 제출 -->
+                                                <div class="form-group col-md-2">
+                                                    <input type="button" value="검색하기" class="btn btn-main btn-block" id="btnOK"></div>
+                                                </div>
+			</form>
+		</div>
+	</div>
+</section>	
+</div>
 
-<section class="section"  id="gallery-page">
-<div class="container">
-		 <div class="row justify-content-center">
+
+<section id="about" class="section secondary-bg">
+    <div class="container">
+    	
+    	<div class="page-wrapper event-page" style="padding-top: 50px;">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div id="listData"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+    
+    
+    
+        <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
                 <div class="section-title">
-                    <p class="section-subtitle">이벤트</p>
-                    <h2 class="mb-3">다양하다 & 즐거웁다</h2>
-                    <p class="mb-4">매일 호텔에서 직접 진행하는 다양한 이벤트 액티비티에 참여하세요.</p>
+                    <p class="section-subtitle">SPECIAL OFFERS</p>
+                    <h2 class="mb-3">다가오는 이벤트</h2>
                     <span class="section-border"></span>
                 </div>
             </div><!-- .col-md-7 close -->
         </div>
-</div>
 
-
-	<!-- 이미지 슬라이드 -->
-	<div class="glider-contain" style="padding-top: 20px;">
-        <div class="glider">
-         
-         <c:forEach items="${lists }" var="dto1"> 
-             <div class="event-box mb-5 position-relative">
-            
-           		 <a href="event-single.action?eventIndex=${dto1.eventIndex }">
-            		<div>
-            			<img alt="Test" src="/hotel/resources/images/event/${dto1.savefileName}" 
-            			style="padding-right: 5px; width: 300px; height: 250px;">
-            			<div class="event-content mt-3">
-            				<div class="event-date p-3 text-white">
-								<span class="date font-weight-bold d-block">${dto1.day}</span>
-							
-							</div>
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+            	<div class="event-box mb-5 position-relative">
+            	<div id="testSlide"></div>
+					<img src="/hotel/resources/images/gym/gym3.jpg" alt="" class="img-fluid" onclick="location.href='gym';">
+					
+					<div class="event-content mt-3">
+						<div class="event-date p-3 text-white">
+							<span class="date font-weight-bold d-block">Members</span> <span>O n l y</span>
+						</div>
+						
+					</div>
+					<div class="event-post-meta mt-2 mb-3">
+						<a href="gym"><h3>호텔 헬스시설</h3></a>
+						<span><i class="ion-ios-location"></i>4F 헬스장</span>
+						<span><i class="ion-clock"></i>09:00 ~ 18:00 (주말 제외)</span>
+					</div>
+					
+				</div>
+                
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+            	<div class="event-box mb-5 position-relative">
+					<img src="/hotel/resources/images/about/about1.jpg" alt="" class="img-fluid w-100" onclick="location.href='restaurantMain.action';">
+					<div class="event-content mt-3">
+						<div class="event-date p-3 text-white">
+							<span class="date font-weight-bold d-block">Members</span> <span>O n l y</span>
 						</div>
 					</div>
-				
-            		<div class="event-post-meta mt-2 mb-3">
-            			<h3>${dto1.eventTitle }</h3>
-						&nbsp;&nbsp;<span><i class="ion-clock"></i>${dto1.time}</span>
-						<span><i class="ion-ios-location"></i>${dto1.location} </span>
+					<div class="event-post-meta mt-2 mb-3">
+						<a href="restaurantMain.action"><h3>호텔 레스토랑</h3></a>
+						<span><i class="ion-ios-location"></i>B3F 레스토랑</span>
+						<span><i class="ion-clock"></i>09:00 ~ 20:00 (주말 제외)</span>
 					</div>
-            	
-            	 </a>
-            	</div>
-            </c:forEach> 
-            
+				</div>
+                
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+            	<div class="event-box mb-5 position-relative">
+					<img src="/hotel/resources/images/about/about2.jpg" alt="" class="img-fluid w-100" onclick="location.href='life-spa.action';">
+					<div class="event-content mt-3">
+						<div class="event-date p-3 text-white">
+							<span class="date font-weight-bold d-block">Members</span> <span>O n l y</span>
+						</div>
+					</div>
+					<div class="event-post-meta mt-2 mb-3">
+						<a href="life-spa.action"><h3>호텔 SPA</h3></a>
+						<span><i class="ion-ios-location"></i>5F SPA시설</span>
+						<span><i class="ion-clock"></i>09:00 ~ 24:00</span>
+					</div>
+				</div>
+                
+            </div>
+            </div>
         </div>
-        <button class="glider-prev">&laquo;</button>
-        <button class="glider-next">&raquo;</button>
-        <div id="dots"></div>
-        
- 		<div>
-        	<button class="btn btn-main" type="button" onclick="location.href='event-upload.action';">등록하기</button>
-        </div>
-  </div>
+  
 </section>
-  <!-- 이미지 슬라이드 끝 -->
 
- 
+
+<!-- Wrapper Start -->
+<section class="about section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+				<div class="section-title">
+					<p class="section-subtitle">Welcome To</p>
+					<h2 class="mb-3">IT WILL HOTEL</h2>
+					<p class="mb-4">한국의 전통미와 현대적인 감각을 겸비하고 있는 세계속의 명문호텔, 아이티윌 호텔은 세계 최고의 어번(urban) 라이프 스타일 호텔로 고객들에게 최고급 서비스를 제공합니다.</p>
+					<span class="section-border"></span>
+				</div>
+			</div><!-- .col-md-7 close -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8 col-md-6">
+				<div class="about-block">
+					<img src="/hotel/resources/images/rooms/img1.jpg" alt="" class="img-fluid shadow-sm">
+					<div class="about-img">
+						<img src="/hotel/resources/images/rooms/img.jpg" alt="" class="img-fluid">
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+				<div class="about-features">
+					<h2>최고의 & <br>전문적인 서비스</h2>
+					<hr>
+					
+					<ul class="list-unstyled">
+						<li><i class="flaticon-menu"></i>전문가의 서비스</li>
+						<li><i class="flaticon-dishwasher"></i>최상의 서비스</li>
+						<li><i class="flaticon-credit-card"></i>쉬운 예약 & 결제</li>
+						<li><i class="flaticon-restaurant"></i>현대적인 시설</li>
+						<li><i class="flaticon-chef"></i>세계 최고의 요리사</li>
+						<li><i class="flaticon-location-pin"></i>흥미로운 활동</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
@@ -281,7 +547,8 @@
 			<div class="col-lg-3 col-md-6 col-sm-6">
 				<div class="widget footer-widget">
 					<div class="footer-logo footer-title mb-4"><h3>IT Will</h3></div>
-					<p>한국의 전통미와 현대적인 감각을 겸비하고 있는 세계속의 명문호텔, <br/>아이티윌 호텔은 세계 최고의 어번(urban) 라이프 스타일 호텔로 고객들에게 최고급 서비스를 제공합니다.</p>
+					<p>한국의 전통미와 현대적인 감각을 겸비하고 있는 세계속의 명문호텔, 
+					<br/>아이티윌 호텔은 세계 최고의 어번(urban) 라이프 스타일 호텔로 고객들에게 최고급 서비스를 제공합니다.</p>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-6 mb-md-4 mb-sm-4">
@@ -371,17 +638,15 @@
 	</div>
 </section>
 
-
    
-    </div>
-
     <!-- 
     Essential Scripts
     =====================================-->
 
     
     <!-- Main jQuery -->
-    <script src="/hotel/resources/plugins/jquery/jquery.js"></script>
+  	<script type="text/javascript" src="/hotel/resources/plugins/jquery/jquery.js"></script>
+   
     <!-- Bootstrap 3.1 -->
     <script src="/hotel/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!-- Owl Carousel -->
@@ -396,100 +661,10 @@
     
     <!-- Google Map -->
     <script src="/hotel/resources/plugins/google-map/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>    
 
     <script src="/hotel/resources/js/script.js"></script>
-    
-    <!-- Kakao 톡상담 -->
-	<script type='text/javascript'>
-	
-	//<![CDATA[
-		// 사용할 앱의 JavaScript 키를 설정해 주세요.
-		Kakao.init('a876d408c7cc2ab22428d910b1de57af');
-		// 카카오톡 채널 1:1채팅 버튼을 생성합니다.
-		Kakao.Channel.createChatButton({
-			container: '#kakao-talk-channel-chat-button',
-			channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
-		});
-	//]]>
-	
-	</script>
-	
-	
-	<!-- 이미지 슬라이드 --> 
-    <script src="/hotel/resources/js/glider.js"></script>
-    <script src="/hotel/resources/js/glider.min.js"></script>
-    <script src="/hotel/resources/js/glider-compat.min.js"></script>
-    <script>
-      window.addEventListener('load',function(){
-        document.querySelector('.glider').addEventListener('glider-slide-visible', function(event){
-            var glider = Glider(this);
-            console.log('Slide Visible %s', event.detail.slide)
-        });
-        document.querySelector('.glider').addEventListener('glider-slide-hidden', function(event){
-            console.log('Slide Hidden %s', event.detail.slide)
-        });
-        document.querySelector('.glider').addEventListener('glider-refresh', function(event){
-            console.log('Refresh')
-        });
-        document.querySelector('.glider').addEventListener('glider-loaded', function(event){
-            console.log('Loaded')
-        });
 
-        window._ = new Glider(document.querySelector('.glider'), {
-            slidesToShow: 1, //'auto',
-            slidesToScroll: 1,
-            itemWidth: 150,
-            draggable: true,
-            scrollLock: false,
-            dots: '#dots',
-            rewind: true,
-            arrows: {
-                prev: '.glider-prev',
-                next: '.glider-next'
-            },
-            responsive: [
-                {
-                    breakpoint: 800,
-                    settings: {
-                        slidesToScroll: 'auto',
-                        itemWidth: 300,
-                        slidesToShow: 'auto',
-                        exactWidth: true
-                    }
-                },
-                {
-                    breakpoint: 700,
-                    settings: {
-                        slidesToScroll: 4,
-                        slidesToShow: 4,
-                        dots: false,
-                        arrows: false,
-                    }
-                },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToScroll: 3,
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 500,
-                    settings: {
-                        slidesToScroll: 2,
-                        slidesToShow: 2,
-                        dots: false,
-                        arrows: false,
-                        scrollLock: true
-                    }
-                }
-            ]
-        });
-      });
-    </script>
-    
-    <script src="/hotel/resources/js/weather.js"></script>
-  
   </body>
   </html>
+   

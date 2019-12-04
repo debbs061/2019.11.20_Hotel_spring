@@ -105,7 +105,14 @@
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -183,8 +190,9 @@
 	<div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
 		<!-- MAIN CONTENT -->
-		<section class="main-content section clearfix">
+<%-- 		<section class="main-content section clearfix">
 		<div class="container">
+		<!-- 
 			<div class="alert alert-success alert-dismissible ed-alert"
 				role="alert">
 				<button type="button" class="close" data-dismiss="alert"
@@ -193,16 +201,14 @@
 				</button>
 				예약확인
 			</div>
-
+ -->
 
 
 			<c:choose>
 			
 				<c:when test="${empty lists }">
-							
-							${message }
-							
-						</c:when>
+					${message }
+				</c:when>
 
 				<c:otherwise>
 					
@@ -243,6 +249,12 @@
 													<li><span>강좌명: </span> 체력강화 입문반</li>										
 													</c:if>
 													
+													<li>
+														<button class="btn btn-main" 
+														onclick="location.href='gymDelete.action?lessonUserIndex=${dto.lessonUserIndex}';">
+														강좌취소</button>
+													</li>
+													
 												</ul>
 											</div>
 										</div>
@@ -269,9 +281,125 @@
 	</div>
 	</section>
 
+ --%>
 
 
-	<!-- footer Start -->
+
+<!-- MAIN CONTENT -->
+    <section class="main-content section clearfix">
+      <div class="container">
+        <div class="border payment-confirm position-relative">
+        	<div align="center"><h2 class="headline">헬스강좌 예약정보</h2></div>
+        	
+        <c:if test="${!lists.isEmpty() }"> 
+          <div class="row justify-content-center align-items-center ">
+          
+               <!-- 반복문시작 -->
+            <c:forEach var="dto" items="${lists }">
+               <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
+               <br/><br/>
+                <img src="/hotel/resources/images/gym/${dto.className }.jpg" 
+                class="img-fluid w-100" alt="confirm img"/>
+				<h3 class="text-dark mt-3 mb-4" style="text-align: center;">
+					<c:if test='${dto.className == "yoga" }'>
+						요가 클래스
+					</c:if>
+					<c:if test='${dto.className == "weights1" }'>
+						1:1 퍼스널 트레이닝
+					</c:if>
+					<c:if test='${dto.className == "exercise" }'>
+						체력강화 입문반
+					</c:if>
+				</h3>
+              
+               </div>
+               <div class="row " style="padding-left: 50px;">
+               
+                    <div class="col-lg-6 col-md-6 col-sm-6" style="width: 450px;">
+                        <div class="ed-cinfirm-detail">
+
+                          <ul class="list-unstyled" style="line-height: 2.5;">
+                            <li>
+                                <span>연락처:  </span>
+                              	${sessionScope.login.tel }
+                            </li>
+                            <li style="width: 300px;">
+                                <span>이메일:  </span>
+                               	${dto.lessonUserEmail }
+                            </li>
+                            <li>
+                                <span>성함:  </span>
+                             	${dto.lessonUserName }
+                            </li>
+                            <li>
+                                <span>예약날짜:  </span>
+                             	${dto.lessonUserDay }
+                            </li>
+                            <%-- 
+                            <c:if test="${dto3.bookingMessage !=null }">
+                            <li style="display: inline-block; width: 270px;
+                            	white-space: normal; line-height: 1.2; height: 3.6em; 
+                            	word-wrap: break-word;">
+                                <span>요청사항:  </span>
+                           		  ${dto3.bookingMessage }
+                            </li>
+                           </c:if>
+                            --%>
+                          </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-12 text-center">
+                  </div>
+                </div>
+                
+                       <div class="total-amount" style="padding-bottom: 50px;">
+       					<input type="button" onclick="location.href='gymDelete.action?lessonUserIndex=${dto.lessonUserIndex}';"
+                         class="btn btn-solid-border" value="강좌취소"/>
+                       </div>
+                       
+                </c:forEach>
+                </div>
+                
+               <div class="col-lg-12 text-center">
+                      <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
+                        <h2>더 다양한 아이티윌 호텔의 서비스를 즐기세요.</h2>
+                        <br/>
+                        <p>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
+                      </div>
+
+                       <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
+                       <a href="/hotel/" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
+                       <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
+                       <a href="#" class="btn btn-solid-border">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a>
+                       <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
+                       
+               </div>
+               
+               </c:if>
+               
+               <c:choose>
+               <c:when test="${empty lists }">
+               
+                  <div class="col-lg-12 text-center">
+                      <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
+                       	<h5>${message }</h5>
+                      </div>
+                      <%-- <a href="<%=cp %>/myPage.action" class="btn btn-solid-border">뒤&nbsp;로&nbsp;가&nbsp;기</a> --%>
+                  </div>
+               
+               </c:when>
+               </c:choose>
+               
+              </div>
+          </div>
+      </div>
+    </section>
+
+
+
+
+<!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
 		<div class="row">

@@ -13,9 +13,17 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- UserId로 검색 -->
 <select id="getReadUserData" parameterType="String" resultType="com.exe.dto.HotelUserDTO">
-	select userId, userName, userPwd, email, birth, tel, addr from hotelUser
+	select userId, userName, userPwd, email, to_char(birth,'yyyy-mm-dd') birth, tel, addr from hotelUser
 	where userId=#{userId}
 </select>
+
+
+<!-- 회원정보수정 -->
+<update id="updateUserData" parameterType="com.exe.dto.HotelUserDTO">
+	update hotelUser set
+	userName=#{userName}, userPwd=#{userPwd}, email=#{email}, birth=#{birth}, tel=#{tel}, addr=#{addr}
+	where userId=#{userId}
+</update>
 
 
 <!-- gallery -->	
@@ -44,8 +52,8 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 </select>
 	
 <insert id="insertReview" parameterType="com.exe.dto.ReviewDTO">
-	insert into review (reviewNum,name,email,content,created,roomIndex)
-	values (#{reviewNum},#{name},#{email},#{content},sysdate,#{roomIndex})
+	insert into review (reviewNum,name,email,content,created,roomIndex,userId)
+	values (#{reviewNum},#{name},#{email},#{content},sysdate,#{roomIndex},#{userId})
 </insert>
 	
 <select id="getReviewList" parameterType="int" resultType="com.exe.dto.ReviewDTO">
@@ -111,5 +119,27 @@ SELECT trunc(to_date(#{checkout},'yyyy/mm/dd'))
 <delete id="deleteData" parameterType="int">
 	delete hotelBooking where bookingId=#{bookingId}
 </delete>
+
+
+
+<!-- admin 페이지 -->
+<select id="getUserListData" resultType="com.exe.dto.HotelUserDTO">
+	select userId, userName, userPwd, email, birth, tel, addr from hotelUser
+</select>
+
+<delete id="deleteUserData" parameterType="String">
+	delete from hotelUser where userId=#{userId}
+</delete>
+
+<select id="getReadBookingList" resultType="com.exe.dto.HotelBookingDTO" parameterType="int">
+	select bookingId,userId,roomIndex,to_char(checkin,'yy-mm-dd') checkin,to_char(checkout,'yy-mm-dd') checkout,adult,children,options,bookingMessage
+	from hotelBooking
+	where roomIndex=#{roomIndex}
+</select>
+
+<delete id="deleteBookingData" parameterType="int">
+	delete from hotelBooking where bookingId=#{bookingId}
+</delete>
+
 
 </mapper>

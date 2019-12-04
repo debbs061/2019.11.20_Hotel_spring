@@ -35,6 +35,7 @@ import com.exe.dao.HotelBookingDAO;
 import com.exe.dao.HotelUserDAO;
 import com.exe.dao.ReviewDAO;
 import com.exe.dao.RoomDAO;
+import com.exe.dao.SpaDAO;
 import com.exe.dto.EventBookingDTO;
 import com.exe.dto.EventDTO;
 import com.exe.dto.EventReviewDTO;
@@ -45,28 +46,30 @@ import com.exe.dto.LessonUserDTO;
 import com.exe.dto.LoginDTO;
 import com.exe.dto.ReviewDTO;
 import com.exe.dto.RoomDTO;
+import com.exe.dto.SpaDTO;
+import com.exe.util.MyUtil;
 
 @Controller
 public class HotelController {
 	
 	@Autowired
-	@Qualifier("hotelUserDAO")
+//	@Qualifier("hotelUserDAO")
 	HotelUserDAO userDao;
 	
 	@Autowired
-	@Qualifier("galleryDAO")
+//	@Qualifier("galleryDAO")
 	GalleryDAO galleryDao;
 	
 	@Autowired
-	@Qualifier("reviewDAO")
+//	@Qualifier("reviewDAO")
 	ReviewDAO reviewDao;
 	
 	@Autowired
-	@Qualifier("eventDAO")
+//	@Qualifier("eventDAO")
 	EventDAO eventDao;
 	
 	@Autowired
-	@Qualifier("eventReviewDAO")
+//	@Qualifier("eventReviewDAO")
 	EventReviewDAO eventReviewDAO;
 	
 	
@@ -75,6 +78,9 @@ public class HotelController {
 
 	@Autowired
 	HotelBookingDAO hdao;
+	
+	@Autowired
+	SpaDAO spaDAO;
 	
 	
 	@RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.POST})
@@ -240,8 +246,14 @@ public class HotelController {
 	}
 
 	//이미지 등록
-	@RequestMapping(value = "/galleryUpload.action", method = RequestMethod.GET)
-	public String galleryUpload() {
+	@RequestMapping(value = "/galleryUpload.action", method = {RequestMethod.GET,RequestMethod.POST})
+	public String galleryUpload(HttpSession session) {
+		
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
+
+		if(login == null || login.equals("") || !login.getUserId().equals("admin")) {
+			return "404";
+		}
 		
 		return "galleryUpload";
 	}
@@ -276,7 +288,8 @@ public class HotelController {
 		 * .getRealPath("/gallery");
 		 */
 		
-		Path path = Paths.get("D:\\sts-bundle\\work\\HotelWebService\\src\\main\\webapp\\resources\\images\\gallery");
+		//hotelWeb -> HotelWebService
+		Path path = Paths.get("D:\\sts-bundle\\work\\hotelWeb\\src\\main\\webapp\\resources\\images\\gallery");
 		
 		if(file!=null&&file.getSize()>0) { //파일이 있으면
 
@@ -419,6 +432,7 @@ public class HotelController {
 	//Room-details안 review 삭제
 	@RequestMapping(value = "/review-delete.action ", method = {RequestMethod.GET,RequestMethod.POST})
 	public String reviewDelete(HttpSession session,HttpServletRequest request) {
+		
 		String referer = request.getHeader("Referer");
 		
 		int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
@@ -449,6 +463,68 @@ public class HotelController {
 
 		return mav;
 	}
+	
+	//event-grid 화면에서 예약 가능한 이벤트 목록 뽑아내는 작업
+	@RequestMapping(value="/event-list.action", 
+			method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView eventList(HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+
+		String mode = request.getParameter("mode");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		ModelAndView mav = new ModelAndView();
+
+		try {
+
+			if(mode!=null && mode.equals("mainstart")) {
+
+
+				List<EventDTO> originalLists = 
+						eventDao.getEventList();
+
+				mav.setViewName("event-list"); //event-list.jsp로 보내고
+				mav.addObject("mode",mode);
+				mav.addObject("originalLists", originalLists);
+
+				return mav;
+
+			}else{
+
+
+				System.out.println("startDate:"+startDate);
+				System.out.println("endDate:"+endDate);
+				//날짜 위치 변경 
+
+
+				//넘어오는 날짜 형식 맞춰주기
+
+				// 날짜변환
+				String dates[] =  startDate.split("/");       
+				startDate = dates[2]+"/"+dates[0]+"/"+dates[1]; 
+
+				String dates2[] = endDate.split("/");
+				endDate = dates2[2]+"/"+dates2[0]+"/"+dates2[1];
+
+
+				// 1. event 테이블 접근
+				List<EventDTO> availableEventLists =	
+						eventDao.getEventLists(startDate, endDate); //start ~end 기준으로 예약가능한 이벤트 뽑아오기
+				//* eventDB에 데이터 넣을때 이용가능 날짜를 넉넉하게 넣기 현재부터 앞으로 2년까지
+				//그전에 이벤트 테이블 수정 
+				mav.setViewName("event-list"); //event-list.jsp로 보내고
+				mav.addObject("availableEventLists", availableEventLists);
+
+
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+
+		return mav;
+	}
+	
 
 	//이벤트 상세정보
 	@RequestMapping(value = "/event-single.action", method= {RequestMethod.GET,RequestMethod.POST})
@@ -479,9 +555,18 @@ public class HotelController {
 
 	//이벤트 등록
 	@RequestMapping(value = "/event-upload.action", method= {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView eventupload() {
+	public ModelAndView eventupload(HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
+		
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
+
+		if(login == null || login.equals("") || !login.getUserId().equals("admin")) {
+			
+			mav.setViewName("404");
+			return mav;
+		}
+		
 		mav.setViewName("event-upload"); //event-upload.jsp 창에띄어주고
 
 		return mav;
@@ -495,26 +580,24 @@ public class HotelController {
 		MultipartFile file = request.getFile("eventUpload");
 
 		//넘어오는 날짜 형식 맞춰주기
-		String day = dto.getDay();
-		String a[] = day.split("-");
+		String startDate = dto.getStartDate();
+		String endDate = dto.getEndDate();
 
-		if (a[1].charAt(0)=='0') {
-			a[1] = a[1].substring(1);
-		}
+		// 날짜변환
+		String dates[] = dto.getStartDate().split("/");       
+		startDate = dates[2]+"/"+dates[0]+"/"+dates[1]; 
 
-		if (a[2].charAt(0)=='0') {
-			a[2] = a[2].substring(1);
-		}
-
-		day = a[1] + "-" + a[2];	
+		String dates2[] = dto.getEndDate().split("/");
+		endDate = dates2[2]+"/"+dates2[0]+"/"+dates2[1];
 
 		dto.setEventIndex(eventDao.getMaxNum() +1);
-		dto.setDay(day);
+		dto.setStartDate(startDate);
+		dto.setEndDate(endDate);
 		dto.setSavefileName( file.getOriginalFilename());
 
 		eventDao.insertEvent(dto);
 
-		Path path = Paths.get("D:\\sts-bundle\\work\\HotelWebService\\src\\main\\webapp\\resources\\images\\event");
+		Path path = Paths.get("D:\\sts-bundle\\work\\HotelWeb\\src\\main\\webapp\\resources\\images\\event");
 
 		if(file!=null&&file.getSize()>0) { 
 
@@ -584,7 +667,7 @@ public class HotelController {
 		String userId = request.getParameter("eventUserId");
 		String userName = request.getParameter("eventUserName");
 		String userRequest  = request.getParameter("eventUserRequest");
-		int eventIndex =Integer.parseInt(request.getParameter("eventIndex"));	
+		int eventIndex =Integer.parseInt(request.getParameter("eventIndex"));
 
 		//1.아이디+이벤트인덱스로 예약된 내역이 있는지 조회
 		EventBookingDTO dto = eventDao.getReadEventBookingData(userId, eventIndex);
@@ -700,6 +783,48 @@ public class HotelController {
 
 		return mav;
 	}
+	
+
+	@RequestMapping(value="/room-list.action", 
+			method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView roomList(HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+
+		String checkin = request.getParameter("checkin");
+		String checkout = request.getParameter("checkout");
+		ModelAndView mav = new ModelAndView();
+
+		// 1. hotelBooking 테이블 접근
+		List<HotelBookingDTO> lists =	
+				hdao.getRoomLists(checkin, checkout);
+
+		// 2. lists 안의 roomIndex 가져오기
+		int[] roomIndex = new int[6]; 
+		if(!lists.isEmpty()) {
+
+			Iterator<HotelBookingDTO> it = lists.iterator();
+			int i=0;
+			while(it.hasNext()) {
+				HotelBookingDTO dto = it.next();
+				roomIndex[i] = dto.getRoomIndex(); 
+				i++;
+			}
+		}   
+
+		// 3.  예약 안된 roomIndex를 가지고 room테이블에 접근, select							
+		List<RoomDTO> lists2 = rdao.getRoomLists(roomIndex);
+
+		mav.setViewName("room-list");
+		mav.addObject("lists", lists2);
+		//사용자가 입력한 정보 담기
+		mav.addObject("checkin", checkin);
+		mav.addObject("checkout", checkout);
+		mav.addObject("adult", request.getParameter("adult"));
+		mav.addObject("children", request.getParameter("children"));
+
+		return mav;
+	}
+	
 	
 	@RequestMapping(value = "/booking-step2.action", 		
 			method= {RequestMethod.GET, RequestMethod.POST})
@@ -827,34 +952,36 @@ public class HotelController {
 	}
 	
 	
-	// 결제 완료 페이지
-	@RequestMapping(value = "/confirmation.action", 		
+	// payment.action -> confirmation_ok.action -> confirmation.action
+	// 결제 완료 처리- 1 (payment로 최종가격, 결제자 정보 전달)
+	@RequestMapping(value = "/payment.action", 		
 			method= {RequestMethod.GET, RequestMethod.POST})
-	public String confirmation(HttpServletRequest request,
+	public ModelAndView confirmation(HttpServletRequest request,
 			HttpServletResponse response,HotelBookingDTO dto, 
 			RedirectAttributes redirect) {
 
-		HttpSession session = request.getSession();
-		
+		HttpSession session = request.getSession();	
 		String total = request.getParameter("total");
-		
-		if(session.getAttribute("realTotal")!=null) {
-			
+
+		if(session.getAttribute("realTotal")!=null) {			
 			total = (String)session.getAttribute("realTotal");
-			session.removeAttribute("realTotal");
-			
-		}
-
-		if(session.getAttribute("login")==null) {
-
-			String referer = request.getHeader("Referer");	//접속 경로
-			request.getSession().setAttribute("redirectURI", referer);
-			return "redirect:/login.action";
+			session.removeAttribute("realTotal");			
 		}		
-		
+
+		ModelAndView mav = new ModelAndView();		
+
+		if(session.getAttribute("login")==null) {			
+			String referer = request.getHeader("Referer");	//접속 경로
+			request.getSession().setAttribute("redirectURI", referer);			
+
+			mav.setViewName("login");
+			return mav;
+		}		
+
 		LoginDTO login = (LoginDTO)session.getAttribute("login");
-		
-		// hotelbooking 테이블에 insert
+
+
+		// hotelbooking 테이블에 insert하기위해 bookingId가져옴
 		int bookingNum = hdao.getMaxNum();	    
 
 		String checkin = request.getParameter("checkin");
@@ -866,32 +993,82 @@ public class HotelController {
 
 		String dates2[] = dto.getCheckout().split("/");
 		checkout = dates2[2]+"/"+dates2[0]+"/"+dates2[1];
-		
+
 		dto.setBookingMessage(request.getParameter("bookingMessage"));
 		dto.setCheckin(checkin);
 		dto.setCheckout(checkout);
-		dto.setBookingId(bookingNum+1); // 고유값 
-		dto.setPrice(total);
-		dto.setUserId(login.getUserId());
-		
-		
-		System.out.println(login.getUserId()+"값은 이것입니다");		
+		dto.setBookingId(bookingNum+1); // 고유값 				
+
+
+		dto.setPrice(total); // 최종 가격  => 이거 확인되면 지우기
+		dto.setUserId(login.getUserId());		
+
+		System.out.println("체크인: "+dto.getCheckin() + "가격" + dto.getPrice());
+
+		mav.addObject("total", Integer.parseInt(total));
+
+		session.setAttribute("hdto", dto);
+
+		mav.addObject("email", login.getUserEmail());
+		mav.addObject("name", login.getUserName());
+		mav.addObject("phone", login.getTel());
+		mav.addObject("address", login.getAddr());
+
+
+		mav.setViewName("payment");
+		return mav; 		
+
+
+	}
+
+	// 결제 완료 처리- 2. DB에 insert 후 confirmation.action으로 redirect 시키기
+	@RequestMapping(value ="/confirmation_ok.action", 		
+			method= {RequestMethod.GET, RequestMethod.POST})
+	public String confirmationOk(HttpServletRequest request,
+			HttpServletResponse response,
+			HttpSession session,
+			Model model,
+			//			@RequestParam("dto") HotelBookingDTO dto,
+			//			@RequestParam("total") String total,
+			RedirectAttributes redirect) 
+
+	{
+		// 진짜 결제까지 완료된 상황
+		HotelBookingDTO dto = (HotelBookingDTO)session.getAttribute("hdto");
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
+
+		session.removeAttribute("hdto");
+
+		System.out.println("!!!!!!!!! : "+dto.getCheckin() + dto.getCheckout());
+		// hotelbooking 테이블에 insert
 		hdao.insertData(dto);
-		
-		redirect.addAttribute("checkin", checkin);
-		redirect.addAttribute("checkout", checkout);
+
+		redirect.addAttribute("checkin", dto.getCheckin());
+		redirect.addAttribute("checkout", dto.getCheckout());
 		redirect.addAttribute("adult", dto.getAdult());
 		redirect.addAttribute("children", dto.getChildren());
 		redirect.addAttribute("bookingId", dto.getBookingId());
 		redirect.addAttribute("roomIndex", dto.getRoomIndex());
-		redirect.addAttribute("total", total);
-		
-		return "redirect:/confirmation_ok.action";
+		redirect.addAttribute("total", dto.getPrice());
+
+		//			Map<String, Object> map = new HashMap<String,Object>();
+		//			map.put("dto", dto);
+		//			map.put("total", dto.getPrice());
+		//			
+		//			redirect.addFlashAttribute("res", map);
+
+		return "redirect:/confirmation_ok2.action";
+
+		//			return "redirect:/confirmation_ok2.action?checkin="+dto.getCheckin()
+		//			+"&checkout="+dto.getCheckout()+"&adult="+dto.getAdult()+"&children="+dto.getChildren();
 	}
-	
-	@RequestMapping(value ="/confirmation_ok.action", 		
+
+
+
+	// confirmation.jsp 뷰 보여주기 
+	@RequestMapping(value = "/confirmation_ok2.action", 		
 			method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView confirmationOk(HttpServletRequest request,
+	public ModelAndView confirmationOk2(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam("checkin") String checkin,
 			@RequestParam("checkout") String checkout,
@@ -899,12 +1076,10 @@ public class HotelController {
 			@RequestParam("children") String children,
 			@RequestParam("bookingId") String bookingId,
 			@RequestParam("roomIndex") String roomIndex,
-			@RequestParam("total") String total)
-			{
-		
-		HttpSession session = request.getSession();
+			@RequestParam("total") String total) {
+
 		ModelAndView mav = new ModelAndView();
-		
+
 		mav.addObject("checkin", checkin);
 		mav.addObject("checkout", checkout);
 		mav.addObject("adult", adult);
@@ -913,9 +1088,56 @@ public class HotelController {
 		mav.addObject("roomIndex", roomIndex);
 		mav.addObject("total", total);
 		mav.setViewName("confirmation");
+
+		return mav; 
+
+	}
+	
+
+	//My Page
+	@RequestMapping(value = "/myPage.action", method = {RequestMethod.GET,RequestMethod.POST})
+	public String myPage(HttpServletRequest request, HttpSession session, LessonUserDTO dto) {
+		
+		if(session.getAttribute("login")==null) {
+
+			String referer =request.getHeader("Referer");	//접속 경로
+			request.getSession().setAttribute("redirectURI", referer);
+
+			return "login";
+		}
+		
+		return "myPage";
+	}
+	
+	//회원정보수정
+	@RequestMapping(value = "/userUpdate.action", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView userUpdate(HttpSession session, HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(session.getAttribute("login")==null) {
+
+			String referer =request.getHeader("Referer");	//접속 경로
+			request.getSession().setAttribute("redirectURI", referer);
+
+			mav.setViewName("login");
+			return mav;
+		}
+		mav.setViewName("userUpdate");
 		
 		return mav;
 	}
+	
+	@RequestMapping(value = "/userUpdate_ok.action", method = { RequestMethod.GET, RequestMethod.POST })
+	public String userUpdate_ok(HotelUserDTO dto, HttpServletRequest req, HttpServletResponse res,HttpSession session) {
+		
+		session.removeAttribute("login");
+		
+		userDao.updateUserData(dto);
+		
+		return "redirect:/myPage.action";
+	}
+	
 	
 	//예약확인
 	@RequestMapping(value = "/bookingConfirm.action", method = RequestMethod.GET)
@@ -996,9 +1218,6 @@ public class HotelController {
 
 	}
 
-
-
-
 	// cancelBooking_ok.action
 	@RequestMapping(value = "/cancelBooking_ok.action", method = RequestMethod.GET)
 	public String cancelBookingOk(HttpServletRequest request,
@@ -1024,44 +1243,109 @@ public class HotelController {
 	}
 	
 	
-	@RequestMapping(value="/room-list.action", 
-			method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView roomList(HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+	
+	//admin 계정
+	@RequestMapping(value = "/admin.action", method = RequestMethod.GET)
+	public String adminPage(HttpSession session) {
+		
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
 
-		String checkin = request.getParameter("checkin");
-		String checkout = request.getParameter("checkout");
+		if(login == null || login.equals("") || !login.getUserId().equals("admin")) {
+			return "404";
+		}
+
+		return "adminPage";
+	}
+	
+	@RequestMapping(value = "/userAdmin.action", method = RequestMethod.GET)
+	public ModelAndView userAdminPage(HttpSession session) {
+
 		ModelAndView mav = new ModelAndView();
+		
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
 
-		// 1. hotelBooking 테이블 접근
-		List<HotelBookingDTO> lists =	
-				hdao.getRoomLists(checkin, checkout);
-
-		// 2. lists 안의 roomIndex 가져오기
-		int[] roomIndex = new int[6]; 
-		if(!lists.isEmpty()) {
-
-			Iterator<HotelBookingDTO> it = lists.iterator();
-			int i=0;
-			while(it.hasNext()) {
-				HotelBookingDTO dto = it.next();
-				roomIndex[i] = dto.getRoomIndex(); 
-				i++;
-			}
-		}   
-
-		// 3.  예약 안된 roomIndex를 가지고 room테이블에 접근, select							
-		List<RoomDTO> lists2 = rdao.getRoomLists(roomIndex);
-
-		mav.setViewName("room-list");
-		mav.addObject("lists", lists2);
-		//사용자가 입력한 정보 담기
-		mav.addObject("checkin", checkin);
-		mav.addObject("checkout", checkout);
-		mav.addObject("adult", request.getParameter("adult"));
-		mav.addObject("children", request.getParameter("children"));
-
+		if(login == null || login.equals("") || !login.getUserId().equals("admin")) {
+			
+			mav.setViewName("404");
+			
+			return mav;
+		}
+		
+		List<HotelUserDTO> lists = userDao.getUserListData();
+		
+		mav.setViewName("userAdmin");
+		mav.addObject("lists", lists);
+		
 		return mav;
+	}
+	
+	@RequestMapping(value = "/userDelete.action", method = {RequestMethod.GET,RequestMethod.POST})
+	public String userDelete(HttpServletRequest request) {
+		
+		String userId = request.getParameter("userId");
+		
+		if(userId==null) {
+			return "404";
+		}
+		
+		userDao.deleteUserData(userId);
+		
+		return "redirect:userAdmin.action";
+	}
+	
+	@RequestMapping(value = "/roomAdmin.action", method = RequestMethod.GET)
+	public ModelAndView roomAdmin(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
+
+		if(login == null || login.equals("") || !login.getUserId().equals("admin")) {
+			
+			mav.setViewName("404");
+			
+			return mav;
+		}
+		
+		int[] roomIndex = {1,2,3,4,5,6};
+		
+		List<RoomDTO> roomList = rdao.getRoomLists(roomIndex);
+		
+		mav.setViewName("roomAdmin");
+		mav.addObject("roomList", roomList);
+		Map<Integer, List<HotelBookingDTO>> hm = new HashMap<Integer, List<HotelBookingDTO>>();
+	
+		List<HotelBookingDTO> list = hdao.getReadBookingList(1);
+		hm.put(1,list);
+		
+		list = hdao.getReadBookingList(2);
+		hm.put(2,list);
+		
+		list = hdao.getReadBookingList(3);
+		hm.put(3,list);
+		
+		list = hdao.getReadBookingList(4);
+		hm.put(4,list);
+		
+		list = hdao.getReadBookingList(5);
+		hm.put(5,list);
+		
+		list = hdao.getReadBookingList(6);
+		hm.put(6,list);
+		
+		mav.addObject("hm",hm);
+		mav.addObject("message","예약이 없습니다.");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/bookingDelete.action", method = RequestMethod.GET)
+	public String bookingDelete(HttpServletRequest request) {
+		
+		int bookingId = Integer.parseInt(request.getParameter("bookingId"));
+		
+		hdao.deleteBookingData(bookingId);
+		
+		return "redirect:roomAdmin.action";
 	}
 	
 	
@@ -1104,47 +1388,151 @@ public class HotelController {
     }
 	
 	
-	//My Page
-	@RequestMapping(value = "/myPage.action", method = {RequestMethod.GET,RequestMethod.POST})
-	public String myPage(HttpServletRequest request, LessonUserDTO dto) {
-		
-		return "myPage";
-	}
-	
-	/*
-	 * //Restaurant
-	 * 
-	 * @RequestMapping(value = "/restaurantMain.action", method = RequestMethod.GET)
-	 * public String restaurantMain() {
-	 * 
-	 * return "restaurantMain"; }
-	 * 
-	 * 
-	 * @RequestMapping(value = "/restaurantConfirm.action", method =
-	 * RequestMethod.GET) public String restaurantConfirm() {
-	 * 
-	 * return "restaurantConfirm"; }
-	 * 
-	 * @RequestMapping(value = "/myeong-details.action", method = RequestMethod.GET)
-	 * public String myeongDetails() {
-	 * 
-	 * return "myeong-details"; }
-	 */
-
 	//Spa
 	@RequestMapping(value = "/life-spa.action", method = RequestMethod.GET)
 	public String lifespa() {
+		
 		return "life-spa";
 	}
 	
+	@RequestMapping(value = "/spa-upload.action", method = RequestMethod.GET)
+	public String spaupload() {
+
+		return "spa-upload";
+	}
+
+	@RequestMapping(value = "/spa-upload_ok.action", method= {RequestMethod.GET,RequestMethod.POST})
+	public String spaupload_ok(SpaDTO dto, 
+			MultipartHttpServletRequest request, 
+			HttpServletResponse response, String str) {
+
+		MultipartFile file = request.getFile("spaUpload");
+
 	
+		dto.setSpaIndex(spaDAO.getMaxNum() +1);
 	
+		dto.setSavefileName( file.getOriginalFilename());
+
+		spaDAO.insertspa(dto);
+
+		//hotelWeb -> HotelWebService
+		Path path = Paths.get("D:\\sts-bundle\\work\\hotelWeb\\src\\main\\webapp\\resources\\images\\spa");
+
+		if(file!=null&&file.getSize()>0) { 
+
+			try {
+
+				FileOutputStream fos =
+						new FileOutputStream(path+ 
+								"/" + file.getOriginalFilename());
+
+				InputStream is = file.getInputStream();
+
+				byte[] buffer = new byte[512];
+
+				while(true) {
+
+					int data = is.read(buffer,0,buffer.length);
+
+					if(data==-1) {
+						break;
+					}
+					
+					fos.write(buffer,0,data);
+				}
+				
+				is.close();
+				fos.close();
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+		}
+		return "redirect:/life-spa.action";
+	}
+
+	@RequestMapping(value="/Giftcard_KOR.pdf")
+	public ModelAndView download1(Map<String, Object> model1, HttpServletRequest request1,
+			HttpServletResponse response1) throws Exception {
+
+		ModelAndView mav = new ModelAndView();
+
+		MyUtil u = new MyUtil();
+
+		u.render(model1, request1, response1);
+		mav.setViewName("life-spa");
+
+		return mav;	
+	}
+
+	@RequestMapping(value="/spa-booking.action", method = {RequestMethod.GET,RequestMethod.POST})
+	public String spaBooking()  {
+
+		return "spa-booking";	
+	}
 	
-	
-	
-	
-	
-	
+	//spa-request.action
+	@RequestMapping(value = "/spa-request.action", 		
+			method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView spaRequest(SpaDTO dto,HttpServletRequest request,
+			HttpServletResponse response) {
+
+		ModelAndView mav = new ModelAndView();
+
+		String spaDate = request.getParameter("spaDate");	     
+		String spaType = request.getParameter("spaType");	
+		String time = request.getParameter("time");	
+		String adult = request.getParameter("adult");	
+		String phone = request.getParameter("phone");	
+		String email = request.getParameter("email");	
+		String spaUserName = request.getParameter("spaUserName");
+		String spaUserRequest = request.getParameter("spaUserRequest");
+
+		// 날짜변환
+		String dates[] = spaDate.split("/"); 
+		spaDate = dates[2]+"/"+dates[0]+"/"+dates[1]; 
+
+		//spaBooking 테이블에 insert
+		//mav.addObject("spaBookingNum",spaDAO.getBookingMaxNum()+1);
+		mav.addObject("spaDate", spaDate);
+		mav.addObject("dto", dto);
+
+		HttpSession session = request.getSession();
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
+
+		String spaUserId="";
+		if(login!=null) {
+
+			spaUserId = login.getUserId();
+		}
+
+		int spaBookingNum = spaDAO.getBookingMaxNum()+1;
+
+		dto.setSpaUserId(spaUserId);
+		dto.setSpaBookingNum(spaBookingNum);
+		dto.setSpaDate(spaDate);
+		spaDAO.insertspaBooking(dto);		
+
+		// select 부분
+
+		SpaDTO dto1 = spaDAO.getReadspaBookingData(spaUserId,spaBookingNum);
+
+		mav.setViewName("spa-request-confirmed");
+		mav.addObject("dto1", dto1);
+
+		return mav;
+	}
+
+	//spa-booking-delete.action
+	@RequestMapping(value = "/spa-booking-delete.action", 		
+			method= {RequestMethod.GET, RequestMethod.POST})
+	public String spaBookingDelete(HttpServletRequest request) {
+
+		int spaBookingNum= Integer.parseInt(request.getParameter("spaBookingNum"));
+		System.out.println("spaBookingNum:"+spaBookingNum);
+		spaDAO.deletespaBookingData(spaBookingNum);
+
+		return "life-spa";
+	}
 	
 	
 }

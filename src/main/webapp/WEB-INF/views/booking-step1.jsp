@@ -113,20 +113,20 @@ function showRequest() {
 	
 	if(!checkin) {
 		alert("\n체크인 날짜를 선택하세요");
-		$("#checkin").focus;
+		$("#checkin").focus();
 		return false;
 	}
 
 	if (!checkout) {
 		alert("\n체크아웃 날짜를 선택하세요");
-		$("#checkout").focus;
+		$("#checkout").focus();
 		return false;
 	}
 	
 	if (checkin==checkout) {
 		
 		alert("\n체크인 날짜와 체크아웃 날짜가 같을 수 없습니다")
-		$("#checkout").focus;
+		$("#checkout").focus();
 		return false;
 	}
 	
@@ -137,13 +137,13 @@ function showRequest() {
 	
 	if(chkIn[2]>chkout[2]) {
 		alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-		$("#checkout").focus;
+		$("#checkout").focus();
 		return false;
 	}
 	
 	if(chkIn[0]>chkout[0]) {
 		alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-		$("#checkout").focus;
+		$("#checkout").focus();
 		return false;
 	}
 	
@@ -153,20 +153,20 @@ function showRequest() {
 		if(!chkIn[0]<chkout[0])
 			if(chkIn[1]>chkout[1])  {
 					alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-					$("#checkout").focus;
+					$("#checkout").focus();
 					return false;
 			}
 	}
 				
 	if (adult=='성인') {
 		alert("\n인원 수를 선택하세요");
-		$("#adult").focus;
+		$("#adult").focus();
 		return false;
 	}
 	
     if (children=='어린이') {
 		alert("\n인원 수를 선택하세요");
-		$("#children").focus;
+		$("#children").focus();
 		return false;
 	} 
     
@@ -239,7 +239,15 @@ function listPage(page) {
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
+										
 								</c:otherwise>
 							</c:choose>
 						</li>

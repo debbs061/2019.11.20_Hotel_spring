@@ -1,5 +1,7 @@
 package com.exe.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.exe.dto.HotelUserDTO;
@@ -22,5 +24,22 @@ private SqlSessionTemplate sessionTemplate;
 		HotelUserDTO dto = sessionTemplate.selectOne("hotelmapper.getReadUserData",userId);
 		
 		return dto;
+	}
+
+	public void updateUserData(HotelUserDTO dto) {
+		
+		sessionTemplate.update("hotelmapper.updateUserData",dto);
+	}
+
+	public List<HotelUserDTO> getUserListData(){
+		
+		List<HotelUserDTO> list = sessionTemplate.selectList("hotelmapper.getUserListData");
+		
+		return list;
+	}
+	
+	public void deleteUserData(String userId) {
+		
+		sessionTemplate.delete("hotelmapper.deleteUserData",userId);
 	}
 }

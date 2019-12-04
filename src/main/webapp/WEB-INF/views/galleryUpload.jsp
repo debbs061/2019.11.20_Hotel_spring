@@ -121,7 +121,14 @@ function sendIt(){
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -230,10 +237,13 @@ function sendIt(){
 						</div>
 						
 							<input type="file" name="upload"/><br/>
-							<input class="btn btn-main" type="submit" value="전송" onclick="sendIt();"/><br/>
-
+							
 					</div>
-
+					<br/>
+					<p style="text-align: center;">
+					<input class="btn btn-main" type="submit" value="전송"/>
+					<a href="admin.action" class="btn btn-main">뒤&nbsp;로&nbsp;가&nbsp;기</a>
+					</p>
 				</form>
 			</div>
 		</div>

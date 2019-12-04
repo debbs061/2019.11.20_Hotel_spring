@@ -89,5 +89,20 @@ public class HotelBookingDAO {
 
 	}
 	
+	
+
+	public List<HotelBookingDTO> getReadBookingList(int roomIndex) {
+		
+		List<HotelBookingDTO> list = sessionTemplate.selectList("hotelmapper.getReadBookingList",roomIndex);
+		
+		return list;
+	}
+	
+	public void deleteBookingData(int bookingId) {
+		
+		sessionTemplate.delete("hotelmapper.deleteBookingData",bookingId);
+		
+	}
+	
 }
 

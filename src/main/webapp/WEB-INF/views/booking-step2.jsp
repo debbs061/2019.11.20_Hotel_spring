@@ -135,7 +135,7 @@
 		var bookingMessage = $('#bookingForm [name="booking-message"]').val();
 		
 		//optionList 매개변수로 안넘겨줘도 ? 
-		 location.href = "<%=cp%>/confirmation.action?checkin="+checkin
+		 location.href = "<%=cp%>/payment.action?checkin="+checkin
 						+"&checkout=" + checkout + "&adult=" + adult + "&children="+children
 						+"&roomIndex="+ roomIndex + "&options=" + optionList + "&userId=" + userId 
 						+ "&total="+total +"&bookingMessage="+bookingMessage;
@@ -180,7 +180,14 @@
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -327,7 +334,7 @@
                       <li>
                         <span>객실 타입</span>
                         <span>
-                          <img src="/hotel/resources/images/booking/booking-img1.jpg" alt="image" class="img-fluid">
+                          <img src="/hotel/resources/images/rooms/img${dto.roomIndex }.jpg" alt="image" class="img-fluid">
                           ${dto. roomType}
                         </span>
                       </li>

@@ -12,8 +12,9 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Restaurant</title>
-  
+  <title>IT WILL | Hotel</title>
+
+  <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- bootstrap.min css -->
   <link rel="stylesheet" href="/hotel/resources/plugins/bootstrap/css/bootstrap.min.css">
@@ -37,52 +38,20 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
-   <!-- font -->
+  <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
+	<style type="text/css">
+	
+		*:not(i){
+			font-family: 'Noto Serif KR', serif!important;
+		}
+	
+	</style>
   
   <!-- Kakao 톡상담 -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
-  <style type="text/css">
-  .section2 {
-    padding: 100px 0;
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 100px;
-    padding-left: 0px;
-}
-  
-  </style>
-  <style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
-  
-  
-  <style type="text/css">
-      * {
-          box-sizing: border-box
-      }
-      html, body {
-          width: 100%;
-         
-      }
-      .glider-contain {	
-          width: 90%;
-          max-width: none;
-          margin: 0 auto;
-      }
-      .glider-slide {
-          min-height: 150px;
-      }
-      .glider-slide img {
-          width: 100%;
-      }
-  </style>
 </head>
 
 <body >
@@ -96,18 +65,12 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<span id="currentDate" style="font-size:12px;"></span>
-					<span style="font-size:12px;">서초구</span>
-					<span id="icon"></span>
-					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
-							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
 									<span class="text-color">
@@ -176,16 +139,6 @@
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
 			  </li>
 			  
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown03">
-				  <li><a class="dropdown-item" href="gym">Gym</a></li>
-				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
-				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
-				</ul>
-			  </li>
-			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="contact.action">Contact Us <span class="sr-only">(current)</span></a>
 			  </li>
@@ -208,7 +161,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">레스토랑 소개</h1>
+          <h1 class="text-white py-100">객실 예약 정보(Admin)</h1>
       </div>
     </div>
   </div>
@@ -219,7 +172,7 @@
           <div class="page-breadcumb py-2">
             <a href="/hotel" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a class="text-white">About Restaurant</a>
+            <a href="roomAdmin.action" class="text-white">객실 예약 정보(Admin)</a>
         </div>
       </div>
     </div>
@@ -227,98 +180,62 @@
 </section>
 
 <!-- contact form start -->
-
-<section id="about" class="section">
-    <div class="container">
-        <section id="about-page" class="section2" >
+<section class="service-section section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-                <div class="section-title">
-                    <p class="section-subtitle">${dto.info1 }</p>
-                    <h2 class="mb-3"> ${dto.resName }</h2>
-                    <p class="mb-4"> ${dto.info2 }<br/>
-                     ${dto.info3 }<br/>
-                     ${dto.info4 }<br/></p>
-                    <span class="section-border"></span>
+                <div class="block">
+                    <div class="section-title">
+                        <p class="section-subtitle">Booking Information</p>
+                        <h2 class="mb-3">객실 예약 정보(Admin)</h2>
+                        <span class="section-border"></span>
+                    </div>
                 </div>
-            </div>
+            </div><!-- .col-md-7 close -->
         </div>
 
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="mb-5">
-                    <h3 class="text-capitalize mb-3">위치</h3>
-                    <p> ${dto.location }</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="mb-5">
-                    <h3 class="text-capitalize mb-3">운영 시간</h3>
-                    <p> ${dto.time1 }<br/> ${dto.time2 }</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="mb-5">
-                    <h3 class="text-capitalize mb-3">예약 및 문의</h3>
-                    <p> ${dto.reser }</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="mb-5 mb-lg-0">
-                    <h3 class="text-capitalize mb-3">총 좌석수</h3>
-                    <p> ${dto.seat1 }<br/> ${dto.seat2 }</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="mb-5 mb-lg-0">
-                    <h3 class="text-capitalize mb-3">대표 메뉴</h3>
-                    <p> ${dto.menuName1 }</p>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="">
-                    <h3 class="text-capitalize mb-3">추가정보</h3>
-                    <p> ${dto.info5 }<br/>
-                     ${dto.info6 }</p>
-                </div>
-            </div>
-        </div>
+	<c:forEach items="${roomList }" var="room" varStatus="i">
+        <div class="border payment-confirm position-relative">
+	          <div class="row justify-content-center align-items-center ">
+	            <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
+	            	<img src="/hotel/resources/images/rooms/${room.roomImage }.jpg" class="w-100" alt="confirm img"/>
+	          	</div>
+	
+	            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-8">
+	                <div class="row ">
+	                    <div class="col-lg-6 col-md-6 col-sm-6">
+	                        <div class="ed-cinfirm-detail">
+	                          <h3 class="headline">객실 예약 정보</h3>
+	
+	                          <ul class="list-unstyled">
+	                          	<li>
+	                                <span>객실명:  </span>
+	                                ${room.roomType }
+	                            </li>
+	                            <li>
+	                                <span>예약날짜:  </span><br/>
+	                                <c:if test="${empty hm.get(i.count) }">
+	                                	${message }
+	                                </c:if>
+	                                <c:forEach items="${hm.get(i.count) }" var="booking" >
+	                                
+	                                ${booking.checkin } ~ ${booking.checkout } (${booking.userId}) <a href="bookingDelete.action?bookingId=${booking.bookingId }" class="bookingDelete_btn">예약취소</a><br/>
+	                                </c:forEach> 
+	                            </li>
+	                          </ul>
+	                        </div>
+	                    </div>
+	                </div>
+	              </div>
+	         	</div>
+         	</div>
+         </c:forEach>
     </div>
+    <br/>
+    <p style="text-align: center;"><a href="admin.action" class="btn btn-main">뒤&nbsp;로&nbsp;가&nbsp;기</a></p>
 </section>
 
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <img src="/hotel/resources/images/restaurant/${dto.img1 }.jpg" alt="" class="img-fluid">
-            </div>
-            <div class="col-lg-6">
-                <div class="about-content mt-4 mt-lg-0">
-                    <h2 class="mb-3"> ${dto.menuName1 }</h2>
-					<P> ${dto.menuInfo1 }<br/>
-					 ${dto.menuInfo2 }<br/>
-					 ${dto.menuInfo3 }</P>
-					 <a href="res-booking.action?resName=${dto.resName }" class="btn btn-main mt-4">예약하기</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="row align-items-center section pb-0">
-            <div class="col-lg-6 mb-5 mb-lg-0">
-                <h2 class="mb-3"> ${dto.menuName2 }</h2>
-				<P> ${dto.menuInfo4 }<br/>
-				 ${dto.menuInfo5 }<br/>
-				 ${dto.menuInfo6 }<br/>
-				 ${dto.menuInfo7 }</P>
-				 <a href="restaurantMain.action" class="btn btn-solid-border mt-4">메인으로</a>
-            </div>
-            <div class="col-lg-6">
-                <img src="/hotel/resources/images/restaurant/${dto.img2 }.jpg" alt="" class="img-fluid">
-            </div>
-        </div>
-    </div>
-</section>
-
+     
 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
@@ -354,7 +271,7 @@
 					<h3 class="mb-4">빠른링크</h3>
 					<ul class="list-unstyled footer-menu mb-0">
 						<li>
-							<a href="/"><i class="fa fa-angle-right"></i>Home</a>
+							<a href="/hotel"><i class="fa fa-angle-right"></i>Home</a>
 						</li>
 
 						<li>
@@ -366,7 +283,7 @@
 						</li>
 	
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>
@@ -423,7 +340,8 @@
     <!-- 
     Essential Scripts
     =====================================-->
-
+	
+	
     
     <!-- Main jQuery -->
     <script src="/hotel/resources/plugins/jquery/jquery.js"></script>
@@ -460,7 +378,16 @@
 	
 	</script>
 	
-	<script src="/hotel/resources/js/weather.js"></script>
+	<script type="text/javascript">
+		$(".bookingDelete_btn").click(function(){
+			if(confirm("정말 취소 하시겠습니까?")==true){
+				alert("예약이 취소되었습니다.")
+			}
+			else{
+				return;
+			}
+		});
+	</script>
 
   </body>
   </html>

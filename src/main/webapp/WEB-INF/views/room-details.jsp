@@ -189,13 +189,13 @@
 			
 			if(!checkin) {
 				alert("\n체크인 날짜를 선택하세요");
-				$("#checkin").focus;
+				$("#checkin").focus();
 				return false;
 			}
 
 			if (!checkout) {
 				alert("\n체크아웃 날짜를 선택하세요");
-				$("#checkout").focus;
+				$("#checkout").focus();
 				return false;
 			}
 			
@@ -206,13 +206,13 @@
 			
 			if(chkIn[2]>chkout[2]) {
 				alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-				$("#checkout").focus;
+				$("#checkout").focus();
 				return false;
 			}
 			
 			if(chkIn[0]>chkout[0]) {
 				alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-				$("#checkout").focus;
+				$("#checkout").focus();
 				return false;
 			}
 			
@@ -222,23 +222,23 @@
 				if(!chkIn[0]<chkout[0])
 					if(chkIn[1]>chkout[1])  {
 						alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-						$("#checkout").focus;
+						$("#checkout").focus();
 						return false;
 					}
 			}
 						
 			if (adult=='성인') {
 				alert("\n인원 수를 선택하세요");
-				$("#adult").focus;
+				$("#adult").focus();
 				return false;
 			}
 			
 		    if (children=='어린이') {
 				alert("\n인원 수를 선택하세요");
-				$("#children").focus;
+				$("#children").focus();
 				return false;
 			}
-			
+		    
 			location.href = "<%=cp%>/booking-step2.action?checkin="+checkin
 				+"&checkout=" + checkout + "&adult=" + adult + "&children="+children
 				+"&total=<%=total%>&optionList2=" + optionList2
@@ -298,7 +298,14 @@
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -545,11 +552,11 @@
 			    	<c:if test="${empty adult }">
 				    	<select id="adult" class="form-control custom-select" value="adult" >
 					        <option selected style="color:black;">성인</option>
-						        <option value="1" style="color:black;">1명</option>
-				                <option value="2" style="color:black;">2명</option>
-				                <option value="3" style="color:black;">3명</option>
-				                <option value="4" style="color:black;">4명</option>
-				                <option value="5" style="color:black;">5명</option>
+						        <option value="1명" style="color:black;">1명</option>
+				                <option value="2명" style="color:black;">2명</option>
+				                <option value="3명" style="color:black;">3명</option>
+				                <option value="4명" style="color:black;">4명</option>
+				                <option value="5명" style="color:black;">5명</option>
 					    </select>
 					</c:if>
 				    <c:if test="${!empty adult}">
@@ -557,9 +564,9 @@
 						<% for(int j=1; j<=5; j++) { 
 									if(adult==j) {
 								%>
-					    		  	  <option selected style="color:black;">${adult }명</option>
-					    		  	<%} else {%>  
-					        			<option value="<%=j %>" style="color:black;"><%=j %>명</option>
+					    		  		<option selected style="color:black;">${adult }명</option>
+					    		  <%} else {%>  
+					        			<option value="<%=j %>명" style="color:black;"><%=j %>명</option>
 					        	<% }} %>	
 					    </select>
 					</c:if>
@@ -573,12 +580,12 @@
 			    	<c:if test="${empty children}">
 			    		<select id="children" class="form-control custom-select" value="children">
 					        <option selected style="color:black;">어린이</option>
-					        	<option value="0" style="color:black;">0명</option>
-						        <option value="1" style="color:black;">1명</option>
-				                <option value="2" style="color:black;">2명</option>
-				                <option value="3" style="color:black;">3명</option>
-				                <option value="4" style="color:black;">4명</option>
-				                <option value="5" style="color:black;">5명</option>
+					        	<option value="0명" style="color:black;">0명</option>
+						        <option value="1명" style="color:black;">1명</option>
+				                <option value="2명" style="color:black;">2명</option>
+				                <option value="3명" style="color:black;">3명</option>
+				                <option value="4명" style="color:black;">4명</option>
+				                <option value="5명" style="color:black;">5명</option>
 					    </select>
 					</c:if>
 				    <c:if test="${!empty children }">
@@ -588,7 +595,7 @@
 								%>
 					    		  	  <option selected style="color:black;">${children }명</option>
 					    		  	<%} else {%>  
-					        			<option value="<%=i %>" style="color:black;"><%=i %>명</option>
+					        			<option value="<%=i %>명" style="color:black;"><%=i %>명</option>
 					        	<% }} %>	
 					        		
 					        	
@@ -684,13 +691,18 @@
                     <c:forEach items="${lists }" var="dto">
                     <div class="room-details-review-item d-flex mb-5">
                         <div class="item-content ml-3">
-                            <h3 class="mb-3">${dto.name } - <span>${dto.created }</span></h3>
+                            <h3 class="mb-3">${dto.name } - <span>${dto.created }</span>
+                            
+                            <c:if test="${userDTO.userId eq dto.userId }">
+                            <input style="float: right;" type="button" value=" 삭 제 " class="btn btn-solid-border btn-small"
+							onclick="javascript:location.href=
+							'<%=cp%>/review-delete.action?roomIndex=${roomIndex }&reviewNum=${dto.reviewNum }';"/>
+							</c:if>
+							
+						</h3>
                             <p>${dto.content }</p>
-                            
-                    <input type="button" value=" 삭제 " class="btn btn-main"
-					onclick="javascript:location.href=
-					'<%=cp%>/review-delete.action?roomIndex=${roomIndex }&reviewNum=${dto.reviewNum }'"/>
-                            
+                        
+					<hr width="500px;" style="border: solid 1px #EAEAEA;">
                         </div>
                     </div>
 					</c:forEach>
@@ -698,7 +710,7 @@
                     <!-- Reveiw END -->
 
 
-                    <div class="room-review-comment mt-5 pt-5 border-top">
+                    <div class="room-review-comment mt-5 pt-5">
 	                    <h4 class="mb-4">후기 남기기 :- </h4>
 						
 							<form action="review.action?roomIndex=${roomIndex }" method="post">	                     
@@ -711,6 +723,8 @@
 	                        <div class="form-group">
 	                                <textarea class="form-control" name="content" placeholder="Message" rows="5"></textarea>
 	                        </div>
+	                        
+	                        <input type="hidden" name="userId" value="${userDTO.userId }">
 
 	                        <div class="form-group">
 	                            <div class="btn-submit">
