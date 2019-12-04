@@ -178,13 +178,6 @@
   </div>
 </section>
 
-
-
-
-
-
-
-
 <div class="page-wrapper event-page">
 	<div class="container">
 		<div class="row justify-content-center">
@@ -215,7 +208,7 @@
 
 		
 
-		<div class="event-comment-form mt-5">
+		<div class="event-comment-form mt-5 pt-5 border-top"">
 
                     <h4 class="mb-4">(${countReview }) 이벤트 후기 :-</h4>
                   
@@ -267,16 +260,9 @@
 </div>
 
 
-
 		</div>
 	</div>
 </div>
-
-
-
-
-
-
 
 
 <!-- footer Start -->
@@ -379,6 +365,7 @@
     </div>
 <div>
 
+  <!-- 신청 페이지 -->
   <!-- Modal------------ Modal-------------Modal-------------------     -->
   
   <div class="modal fade" id="myModal" role="dialog">
@@ -395,17 +382,55 @@
         
        <div id="modalview2">
         <!--이벤트 신청서 폼 -->
-        
-       
-  		<div class="form-group">
-    		<label for="exampleInputEmail1">아이디</label>
-    		<input type="email" class="form-control" name="eventUserId" id="eventUserId" value="${sessionScope.login.userId}" aria-describedby="emailHelp" placeholder="Enter email" disabled/>
+          <div class="form-row 	align-items-center" style="margin-left: 0px!important;">
+         	 <div class="form-group">
+    			<label for="exampleInputEmail1"><b>신청자 아이디</b></label>
+    			<input type="text" class="form-control" name="eventUserId" id="eventUserId" value="${sessionScope.login.userId}" disabled />
+  			 </div>
+  			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       	 	 <div class="form-group">
+    			<label for="exampleInputEmail1"><b>이름</b></label>
+    			<input type="text" class="form-control" name="eventUserName" id="eventUserName" value="${sessionScope.login.userName}" aria-describedby="emailHelp" placeholder="Enter email" disabled/>
   			</div>
-  		<div class="form-group">
-    		<label for="exampleInputPassword1">이름</label>
-   			 <input type="text" class="form-control" name="eventUserName" id="eventUserName" value="${sessionScope.login.userName}" placeholder="이름" disabled/>
+        </div>
+   
+  	 	<div class="form-group">
+  			<label for="exampleInputEmail1"><b>이벤트 기간: <${dto.startDate }일 ~${dto.endDate }일></b></label>
+  			<div class="input-group tp-datepicker date">
+        	 	<!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
+        		 <input type="text" class="form-control" placeholder="신청일" value="" id="userSelectedDate">
+        			 <div class="input-group-addon">
+           				 <span class="ion-android-calendar"></span>
+           			</div>
+       	   </div>
   		</div>
-  
+  		 
+  	<!-- 인원선택 -->
+  	<label for="exampleInputEmail1"><b>동행인원</b></label>
+       <div class="form-row align-items-center">
+    		<div class="col-auto my-1">
+   	  	 	<label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+     		 <select class="custom-select mr-sm-2" id="companionNumber">
+       		 	<option selected value="없음">없음</option>
+       		 	<option value="1">1명</option>
+       			 <option value="2">2명</option>
+       			 <option value="3">3명</option>
+       			  <option value="4">4명</option>
+       			   <option value="미정">미정</option>
+       			   
+     		 </select>
+    		</div>
+   			<div class="col-auto my-1">
+      			<div class="custom-control custom-checkbox mr-sm-2">
+       			 <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+        			<label class="custom-control-label" for="customControlAutosizing">추가비용 발생에 대한 결제를 동의합니다.</label>
+      			</div>
+   			 </div>
+    		<div class="col-auto my-1">
+     			<!--  <button type="submit" class="btn btn-primary"></button> -->
+    		</div>
+  		</div>
+  		<!-- 요청사항 -->
   		<div class="form-group">
     		<label for="exampleInputPassword1">요청사항</label>
     		<textarea class="form-control" rows="3" name="eventUserRequest" id="eventUserRequest" placeholder="요청사항을 50자내로 입력해주세요"></textarea>
@@ -423,12 +448,13 @@
 	
         <!-- 신청성 양식 끝 -->
        </div>
-       
         
         <!-- 여기까지 숨겨지는 부분 -->
         <!-- 테스트 -->
         <!-- 뿌려지는 부분 -->
+        
         <div id="listData"></div>
+        
         </div>
         <div class="modal-footer">
         </div>
@@ -436,13 +462,10 @@
       
     </div>
   </div>
-	
-
 
     <!-- 
     Essential Scripts
     =====================================-->
-
     
     <!-- Main jQuery -->
     <script src="/hotel/resources/plugins/jquery/jquery.js"></script>
@@ -506,8 +529,10 @@ $(document).ready(function(){
 				var params = "eventUserId=" + $("#eventUserId").val()
 				+ "&eventUserName=" + $("#eventUserName").val()
 				+ "&eventUserRequest=" + $("#eventUserRequest").val()
+				+ "&companionNumber=" +$("#companionNumber").val()
+				+ "&userSelectedDate=" +$("#userSelectedDate").val()
 				+ "&eventIndex=" +"${eventIndex}"
-	
+				
 				$.ajax({
 					
 					type:"POST",  
@@ -520,7 +545,7 @@ $(document).ready(function(){
 							});
 						
 					},
-				beforeSend:false, 
+				beforeSend:showRequest,
 				error:function(e) {
 				
 				alert(e.responseText); 
@@ -529,57 +554,35 @@ $(document).ready(function(){
 	});
 });
 	     
+function showRequest(){
+		
+	var eventUserRequest = $.trim($("#eventUserRequest").val());
+	var companionNumber = $.trim($("#companionNumber").val());
+	var userSelectedDate = $.trim($("#userSelectedDate").val());
+	
+	if(!eventUserRequest) {
+		alert("\n요청사항을 입력하세요");
+		$("#eventUserRequest").focus;
+		return false;
+	}
+
+	if (!companionNumber) {
+		alert("\n동행인을 선택하세요");
+		$("#companionNumber").focus;
+		return false;
+	}
+	
+	if (!userSelectedDate) {
+		alert("\n날짜를 선택하세요");
+		$("#userSelectedDate").focus;
+		return false;
+	}
+	
+	return true;
+
+}
 
 </script>
-
-<!-- 이미지 사이즈 조절 하기  -->
-
-<script type="text/javascript">
-
-
-window.onload = function() {
-	  var divs = document.querySelectorAll('li > div');
-	  for (var i = 0; i < divs.length; ++i) {
-	    var div = divs[i];
-	    var divAspect = div.offsetHeight / div.offsetWidth;
-	    div.style.overflow = 'hidden';
-	    
-	    var img = div.querySelector('img');
-	    var imgAspect = img.height / img.width;
-
-	    if (imgAspect <= divAspect) {
-	      // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
-	      var imgWidthActual = div.offsetHeight / imgAspect;
-	      var imgWidthToBe = div.offsetHeight / divAspect;
-	      var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2)
-	      img.style.cssText = 'width: auto; height: 100%; margin-left: '
-	                      + marginLeft + 'px;'
-	    } else {
-	      // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
-	      img.style.cssText = 'width: 100%; height: auto; margin-left: 0;';
-	    }
-	  }
-	  
-	  var btn = document.querySelector('#btnToggleOverflow');
-	  btn.onclick = function() {
-	    var val = divs[0].style.overflow == 'hidden' ? 'visible' : 'hidden';
-	    for (var i = 0; i < divs.length; ++i)
-	      divs[i].style.overflow = val;
-	  };
-	};
-
-
-
-
-
-
-
-
-
-</script>
-
-
-
 
 </body>
 </html>

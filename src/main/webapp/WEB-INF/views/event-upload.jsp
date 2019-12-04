@@ -316,32 +316,51 @@ function inputIdChk() {
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">위 치</p>
-								<input name="location" type="text" class="form-control" placeholder="">
+								<select name="location" class="form-control">
+									<option selected="selected">Please select ...</option>
+									<option value="야외 테라스" >야외테라스</option>
+									<option value="B1 라벤더홀">B1 라벤더홀 </option>
+									<option value="1F 로즈마리홀">1F 로즈마리홀</option>	
+									<option value="2F 애플민트홀">2F 애플민트홀</option>
+									<option value="3F 체리세이지홀">3F 체리세이지홀</option>
+									<option value="4F 컨벤션홀">4F 컨벤션홀</option>
+								</select>
 							</div>
 						</div>
 
 						<div class="col-lg-10">
 							<div class="form-group">
-							<p class="section-subtitle">가 격</p>
-								<input name="price" type="text" class="form-control" placeholder="가격">
+							<p class="section-subtitle" placeholder="가격">가 격</p>
+								<select name="price" class="form-control">
+									<option selected="selected">Please select ...</option>
+									<option value="이용객 무료" >이용객무료</option>
+									<option value="10000">10000만원</option>
+									<option value="20000">20000만원</option>
+									<option value="30000">30000만원</option>
+									<option value="40000">40000만원</option>
+								</select>
 							</div>
 						</div>
 						<div class="col-lg-10">
 							<div class="form-group">
-							<p class="section-subtitle">내 용1</p>
-								<input name="content1" type="text" class="form-control" placeholder="내용을 입력하세요">
+							<p class="section-subtitle">요약 설명 1</p>
+								<textarea rows="2" name="content1" class="form-control"	placeholder="내용을 입력하세요"> 
+								
+								</textarea>
 							</div>
 						</div>
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">내 용2</p>
-								<input name="content2" type="text" class="form-control"	placeholder="내용을 입력하세요">
+								<textarea rows="4" name="content2" class="form-control"	placeholder="내용을 입력하세요">
+								
+								</textarea>
 							</div>
 						</div>
 						
 						<div class="col-lg-10">
 							<div class="form-group">
-							<p class="section-subtitle">이미지</p>
+							<p class="section-subtitle">이벤트 이미지</p>
 								<input name="eventUpload" type="file" class="form-control"	placeholder="">
 							</div>
 						</div>
@@ -350,7 +369,7 @@ function inputIdChk() {
 						<div class="col-lg-10">
 							<div class="form-group">
 								<p class="section-subtitle">
-									<input type="submit" class="btn btn-main" onclick="sendIt();" value="글올리기" >	
+									<input type="submit" class="btn btn-main" onclick="sendIt();" value="글올리기" placeholder="540 * 394 사이즈">	
 								</p>						
 							</div>
 						</div>

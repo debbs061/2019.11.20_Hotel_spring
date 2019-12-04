@@ -3,10 +3,12 @@ package com.exe.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.exe.dto.EventBookingDTO;
+import com.exe.dto.EventCheckDTO;
 import com.exe.dto.EventDTO;
 import com.exe.dto.HotelBookingDTO;
 
@@ -104,10 +106,9 @@ public class EventDAO {
 	}
 
 	//MyPage Event 예약내역 뽑아내기
-	
-	public List<EventDTO> getEventListsByUserId(String userId) {
+	public List<EventCheckDTO> getEventListsByUserId(String userId) {
 
-		List<EventDTO> lists =
+		List<EventCheckDTO> lists =
 				sessionTemplate
 				.selectList("eventmapper.getEventListsByUserId",userId);
 
@@ -116,14 +117,7 @@ public class EventDAO {
 	}
 	
 	//고객이 선택한 날짜(start ~end date) 기반으로 이용 가능한 이벤트 목록 가져오기
-	public List<EventDTO> getEventLists(String startDate, String endDate) {
-
-		HashMap<String, Object> params = 
-				new HashMap<String, Object>();
-
-
-		params.put("startDate", startDate);
-		params.put("endDate", endDate);
+	public List<EventDTO> getEventLists(Map<String, Object> params) {
 
 		List<EventDTO> lists =
 				sessionTemplate
@@ -132,5 +126,18 @@ public class EventDAO {
 		return lists; 
 
 	}
+	
+	//시작날짜 최신순 3개 데이터 추출
+	public List<EventDTO> getReadEventListByAsc3() {
+
+		List<EventDTO> lists =
+				sessionTemplate
+				.selectList("eventmapper.getReadEventListByAsc3");
+
+		return lists; 
+
+	}
+	
+	
 	
 }

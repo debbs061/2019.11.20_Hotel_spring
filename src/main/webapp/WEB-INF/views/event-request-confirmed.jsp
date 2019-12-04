@@ -26,11 +26,13 @@
 	<ul class="list-group">
  	 <h4 style="text-align: center;">중복된 예약이 있습니다</h4>
   	 <h6>&nbsp;이벤트 이름</h6>
-  	 <li class="list-group-item" style="background-color: #D8D8D8;">예약이름</li>
-     <h6 style="padding: 5px;">이름 </h6>
-     <li class="list-group-item" style="background-color: #D8D8D8;">${dto.userId }</li>
+  	 <li class="list-group-item" style="background-color: #D8D8D8;">${edto.eventTitle }</li>
      <h6 style="padding: 5px;">장소 및 시간</h6>
-     <li class="list-group-item" style="background-color: #D8D8D8;">장소</li>
+     <li class="list-group-item" style="background-color: #D8D8D8;">${edto.location } /${edto.time } </li>
+     <h6 style="padding: 5px;">동행인원</h6>
+     <li class="list-group-item" style="background-color: #D8D8D8;">${dto.companionNumber }</li>
+     <h6 style="padding: 5px;">요청사항</h6>
+     <li class="list-group-item" style="background-color: #D8D8D8;">${dto.userRequest }</li>
      </ul>
      </div>  
      <br/>
@@ -41,12 +43,14 @@
 		<ul class="list-group">
  		 <h4 style="text-align: center;">예약이 확정되었습니다.</h4>
   	 	 <h6>&nbsp;이벤트 이름</h6>
-  	 	 <li class="list-group-item" style="background-color: #D8D8D8;">예약이름</li>
-    	 <h6 style="padding: 5px;">이름 </h6>
-    	 <li class="list-group-item" style="background-color: #D8D8D8;">${dto.userId }</li>
-     	 <h6 style="padding: 5px;">장소 및 시간</h6>
-      	 <li class="list-group-item" style="background-color: #D8D8D8;">장소</li>
-         </ul>
+  	 	 <li class="list-group-item" style="background-color: #D8D8D8;">${edto.eventTitle }</li>
+    	 <h6 style="padding: 5px;">장소 및 시간</h6>
+   		 <li class="list-group-item" style="background-color: #D8D8D8;">${edto.location } /${edto.time } </li>
+         <h6 style="padding: 5px;">동행인원</h6>
+         <li class="list-group-item" style="background-color: #D8D8D8;">${dto.companionNumber }</li>
+         <h6 style="padding: 5px;">요청사항</h6>
+         <li class="list-group-item" style="background-color: #D8D8D8;">${dto.userRequest }</li>
+        </ul>
      </div>  
      <br/>
 </c:otherwise>

@@ -9,7 +9,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="description" content="Eden Travel Template">
-  m
+  
   <meta name="author" content="Themefisher.com">
 
   <title>IT WILL | Hotel</title>
@@ -51,6 +51,15 @@
 	}
 	
 	</style>
+	
+	<script type="text/javascript">
+	function searchData(bookingId) {
+	
+		//	var bookingMessage = $('#bookingForm [name="booking-message"]').val();
+			
+			 location.href = "<%=cp%>/cancelBooking.action?bookingId="+bookingId;
+		}
+	</script>
 
 </head>
 
@@ -65,8 +74,11 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="currentDate" style="font-size:12px;"></span>
+					<span style="font-size:12px;">서초구</span>
 					<span id="icon"></span>
-					<span id="todayTemp"></span>
+					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -86,7 +98,14 @@
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
 										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
-										<a href="myPage.action">마이페이지</a>
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -164,7 +183,7 @@
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
  <!-- MAIN CONTENT -->
-    <section class="main-content section clearfix">
+     <section class="main-content section clearfix">
       <div class="container">
        <!--   <div class="alert alert-success alert-dismissible ed-alert" role="alert">
             <span class="fa fa-check"></span>
@@ -175,62 +194,59 @@
         </div> -->
        
         <div class="border payment-confirm position-relative">
+        
+        	<div align="center"><h2 class="headline">객실 예약정보</h2></div>
+        
+          <c:if test="${lists!=null }"> 
+          
           <div class="row justify-content-center align-items-center ">
-<%--             <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
-                <img src="/hotel/resources/images/rooms/${dto2.roomImage }.jpg" 
-                class="img-fluid w-100" alt="confirm img"/>
-
-                 <a href="room-details"><h2 class="text-dark mt-3 mb-4">${dto2.roomType }</h2></a>
-               
-              </div> --%>
-
-             <!--  <div class="col-md-12 col-sm-12 col-xs-12 col-lg-8"> -->
-                            <c:if test="${dto!=null }">
-               <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
-               
-                <img src="/hotel/resources/images/rooms/${dto2.roomImage }.jpg" 
-                class="img-fluid w-100" alt="confirm img"/>
-				<h3 class="text-dark mt-3 mb-4" style="text-align: center;">${dto2.roomType }</h3>
-               
+          
+          
+               <!-- 반복문시작 -->
+            <c:forEach var="dto3" items="${lists }">
+               <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0" style="padding-right: 30px; height: 350px;">
+               <br/><br/>
+                <img src="/hotel/resources/images/rooms/img${dto3.roomIndex }.jpg" 
+                class="img-fluid w-100" alt="confirm img" style="width: 450px; height: 200px;"/>
+				<h3 class="text-dark mt-3 mb-4" style="text-align: center;">${dto3.roomType }</h3>
+              
               </div>
               
               
                <!-- 안에 글씨 묶음 시작 -->
 
                     <div class="row ">
-                    
-                    <!-- 반복문시작 -->
+                
+    <%--            <a href="<%=cp %>/" class="btn btn-solid-border">예약 취소하기</a> --%>
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="ed-cinfirm-detail ">
-                            <h3 class="headline">예약정보</h3>
                             <ul class="list-unstyled">
                             <li>
                                 <span>예약자 성함: </span>
-                               ${dto.userId}
+                               ${dto3.userId}
                               </li>
                               <li>
                                 <span>체크인: </span>
-                                ${dto.checkin}
+                                ${dto3.checkin}
                               </li>
                               <li>
                                 <span>체크아웃: </span>
-                                ${dto.checkout}
+                                ${dto3.checkout}
                               </li>
                               <li>
                                 <span>성인:  </span>
-                                 ${dto.adult}
+                                 ${dto3.adult}
                               </li>
                               <li>
                                 <span>어린이:</span>
-                                  ${dto.children}
+                                  ${dto3.children}
                               </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6" style="width: 300px;">
                         <div class="ed-cinfirm-detail">
-                   <h3 class="headline">   </h3> <br/>
 
                           <ul class="list-unstyled">
                             <li>
@@ -243,28 +259,31 @@
                                ${sessionScope.login.userEmail }
                             </li>
                                 <li>
-                                <span>가격:  </span>
-                             ${dto.price}
+                                <span>가격 :  </span>
+                             ${dto3.price}
                             </li>
                                 <li>
                                 <span>옵션:  </span>
-                             ${dto.options }
+                             ${dto3.options }
                             </li>
-                            <c:if test="${dto.bookingMessage!=null }">
-                            <li>
+                            <c:if test="${dto3.bookingMessage !=null }">
+                            <li style="display: inline-block; width: 270px;
+                            	white-space: normal; line-height: 1.2; height: 3.6em; 
+                            	word-wrap: break-word;">
                                 <span>요청사항:  </span>
-                             ${dto.bookingMessage }
+                           		  ${dto3.bookingMessage }
                             </li>
                            </c:if>
                           </ul>
                         </div>
                     </div>
                     
-                    <!-- 반복문끝 -->
-                  
+            
+                <%--     </c:forEach>   --%>
+                    
 
                     <div class="col-lg-12 text-center">
-                      <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
+            <%--           <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
                         <h2>예약이 완료되었습니다.</h2>
                         <br/>
                         <p>더 다양한 아이티윌 호텔의 서비스를 즐기세요.
@@ -272,9 +291,35 @@
                       </div>
 
                        <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                       <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
+                       <a href="<%=cp %>/" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
+                       <a href="<%=cp %>/gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
+                       <a href="<%=cp %>" class="btn btn-solid-border">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a>
+  
+                       --%>
+                       
+                  </div>
+                </div>
+                
+                       <div class="total-amount" style="padding-left: 40px; padding-bottom: 50px;">
+       					<input type="button" onclick="searchData(${dto3.bookingId});"
+                                 class="btn btn-solid-border" value="예약 취소하기"/>
+                       </div>
+                       
+                </c:forEach>
+                </div>
+               
+               <div class="col-lg-12 text-center">
+                      <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
+                        <h2>더 다양한 아이티윌 호텔의 서비스를 즐기세요.</h2>
+                        <br/>
+                        <p>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
+                      </div>
+
+                       <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
+                       <a href="/hotel/" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
                        <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
                        <a href="#" class="btn btn-solid-border">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a>
+                       <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
                        
                        <!-- <a href="#" class="btn btn-main">레&nbsp;스&nbsp;토&nbsp;랑</a>
                        <a href="#" class="btn btn-main">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
@@ -284,42 +329,36 @@
                        
                        
                   </div>
-                </div>
+               
                </c:if>
                
-               <c:if test="${dto==null }">
+               <c:choose>
+             <c:when test="${empty lists }">
                
                
                  <div class="col-lg-12 text-center">
                       <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
                        	<h5>${msg }</h5>
                       </div>
-
-                       		<a href="<%=cp %>/myPage.action" class="btn btn-solid-border">뒤&nbsp;로&nbsp;가&nbsp;기</a>  
-                       
-                       
-                       
+                      <%-- <a href="<%=cp %>/myPage.action" class="btn btn-solid-border">뒤&nbsp;로&nbsp;가&nbsp;기</a> --%>
                   </div>
                
+               </c:when>
+               </c:choose>
                
 <%--                
         			<h5>${msg }</h5>
         			<br/>
         			<a href="<%=cp %>/myPage.action" class="btn btn-solid-border">뒤&nbsp;로&nbsp;가&nbsp;기</a>  --%> 
         			       		
-               </c:if>
                 
               </div>
-       
               
-              
-          </div>
           </div>
       </div>
       
           
     </section>
-
   
 
 <!-- footer Start -->

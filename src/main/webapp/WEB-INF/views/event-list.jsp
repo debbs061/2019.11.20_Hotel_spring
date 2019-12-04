@@ -53,16 +53,12 @@
 </head>
 
 <body >
-
-<c:out value="${mode}">
-
-</c:out>			
-			
-<!-- 변수명 listData -->
+	
 <!-- 하나의 이벤트 띄위기 -->
-<div class="row">
+
     <c:choose>
         <c:when test="${mode eq 'mainstart'}">
+            <div class="row">
             <c:forEach items="${originalLists }" var="dto2">
                 <div class="col-lg-6 col-md-6">
                     <div class="event-box mb-5 position-relative">
@@ -71,51 +67,67 @@
                       	</a>                           
                       	 <div class="event-content mt-3">
                                 <div class="event-date p-3 text-white">
-                                    <span class="date font-weight-bold d-block">이벤트날짜</span>
-                                    <span>월</span>
+                                    <span class="date font-weight-bold d-block">${dto2.price }</span>
+                                    
                                 </div>
                                 <a href="event-single.html">
                                     <h3>${dto2.eventTitle }</h3>
                                 </a>
                                 <div class="event-post-meta mt-2 mb-3">
+                                	<span>
+                                		<i class="ion-calendar"></i>${dto2.startDate }~${dto2.endDate }</span>
                                     <span>
                                         <i class="ion-clock"></i>${dto2.time }</span>
                                     <span>
                                         <i class="ion-ios-location"></i>${dto2.location }</span>
+                                     <span>
+                                       &nbsp;<i class="ion-laptop"></i><a href="event-single.action?eventIndex=${dto2.eventIndex}">자세히 보기</a><span>
                                 </div>
                                 <p>${dto2.content1 }</p>
                             </div>
                         </div>
+                       <!-- <div align="left">
+                        	<span>
+                               <i class="ion-calendar"></i>자세히보기>></span>
+                        </div>  --> 
                     </div>
                 </c:forEach>
+            </div>
             </c:when>
             
             <c:otherwise>
-           			 
                 <c:if test="${fn:length(availableEventLists)==0}">
+                 
                     <div align="center">
-                      <H4 style="text-align: center;">해당 날짜에는 예정된 이벤트가 없습니다.</H4>
+                   <!--   <img src="/hotel/resources/images/event/sorry.jpg" alt=" " class="img-fluid w-100"> -->
+                   <H4>검색하신 <b style="color: #ff0000">${startDate }</b> 부터
+                    <b style="color: #ff0000">${endDate }</b> 까지의
+                       </H4>
+                      <H4>해당 날짜에는 예정된 이벤트가 없습니다.</H4>
+                      <h5> <a href="event-grid.action">>>다른 이벤트 보기</a></h5>
                     </div>
+                  
                 </c:if>
+                
                 <c:if test="${fn:length(availableEventLists) > 0 }">
-              		<div>
-                      <H4 style="text-align: center;">아래 이벤트가 있습니다</H4>
-                    </div>
-                    <c:forEach items="${availableEventLists }" var="dto3">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="event-box mb-5 position-relative">
+                 <div class="row">
+                  <c:forEach items="${availableEventLists }" var="dto3">
+                   <div class="col-lg-6 col-md-6">
+                    <div class="event-box mb-5 position-relative">
                       <a href="event-single.action?eventIndex=${dto3.eventIndex}">
                       	<img src="/hotel/resources/images/event/${dto3.savefileName }" alt=" " class="img-fluid w-100">
                       	</a>
                             <div class="event-content mt-3">
                                 <div class="event-date p-3 text-white">
-                                    <span class="date font-weight-bold d-block">이벤트날짜</span>
-                                    <span>월</span>
+                                    <span class="date font-weight-bold d-block">${dto3.price }</span>
+                                   
                                 </div>
                                 
                                     <h3>${dto3.eventTitle }</h3>
                                 
                                 <div class="event-post-meta mt-2 mb-3">
+                                	<span>
+                                		<i class="ion-calendar"></i>${dto3.startDate }~${dto3.endDate }</span>
                                     <span>
                                         <i class="ion-clock"></i>${dto3.time }</span>
                                     <span>
@@ -124,13 +136,13 @@
                                 <p>${dto3.content1 }</p>
                             </div>
                         </div>
-                            </div>
-                        </c:forEach>
+                       </div>
+                      </c:forEach>
+                      </div>
                     </c:if>
                 </c:otherwise>
             </c:choose>
-        </div>
-    
+        
     <!-- Main jQuery -->
     <script src="/hotel/resources/plugins/jquery/jquery.js"></script>
     <!-- Bootstrap 3.1 -->

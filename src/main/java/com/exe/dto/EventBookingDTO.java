@@ -1,5 +1,7 @@
 package com.exe.dto;
 
+
+ 
 public class EventBookingDTO {
 	
 	
@@ -11,7 +13,23 @@ public class EventBookingDTO {
 	private String userRequest;
 	private String eventBookingDate;
 	
-
+	//추가된 컬럼(12월 04일)
+	private String companionNumber;
+	private String userSelectedDate;
+	
+	
+	public String getCompanionNumber() {
+		return companionNumber;
+	}
+	public void setCompanionNumber(String companionNumber) {
+		this.companionNumber = companionNumber;
+	}
+	public String getUserSelectedDate() {
+		return userSelectedDate;
+	}
+	public void setUserSelectedDate(String userSelectedDate) {
+		this.userSelectedDate = userSelectedDate;
+	}
 	public int getEventBookingNum() {
 		return eventBookingNum;
 	}
