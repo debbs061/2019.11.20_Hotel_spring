@@ -59,6 +59,10 @@
 		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
 	</beans:bean>
 	
+	<beans:bean id="SpaDAO" class="com.exe.dao.SpaDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	</beans:bean>
+	
 	<!-- 레스토랑 추가 -->
 	<beans:bean id="RestaurantDAO" class="com.exe.dao.RestaurantDAO">
 		<beans:property name="sessionTemplate" ref="sessionTemplate"/>

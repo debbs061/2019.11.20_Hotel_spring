@@ -227,7 +227,7 @@
 	                </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+                <div class="service-box text-center border px-4 py-5" onclick="location.href='res-myBooking.action';">
                     <i class="flaticon-chef text-color"></i>
                     <h3 class="my-3">레스토랑 예약 확인</h3>
                 </div>

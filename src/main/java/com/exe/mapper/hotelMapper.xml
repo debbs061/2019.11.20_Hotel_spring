@@ -124,7 +124,10 @@ SELECT trunc(to_date(#{checkout},'yyyy/mm/dd'))
 
 <!-- admin 페이지 -->
 <select id="getUserListData" resultType="com.exe.dto.HotelUserDTO">
-	select userId, userName, userPwd, email, birth, tel, addr from hotelUser
+	select userId, userName, userPwd, email, birth, tel, addr from hotelUser 
+<![CDATA[
+	where userId<>'admin'
+]]>
 </select>
 
 <delete id="deleteUserData" parameterType="String">

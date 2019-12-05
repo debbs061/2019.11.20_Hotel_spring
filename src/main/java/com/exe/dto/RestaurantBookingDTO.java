@@ -7,13 +7,14 @@ public class RestaurantBookingDTO {
 	private String resName;
 	private String checkin;
 	private String time;
-	private int adult;
-	private int children;
+	private String adult;
+	private String children;
 	private String name;
 	private String phone;
 	private String email;
 	private String comments;
-	private String resBookNo;
+	private int resBookNo;
+	private String userId;
 	
 	public String getResName() {
 		return resName;
@@ -32,18 +33,6 @@ public class RestaurantBookingDTO {
 	}
 	public void setTime(String time) {
 		this.time = time;
-	}
-	public int getAdult() {
-		return adult;
-	}
-	public void setAdult(int adult) {
-		this.adult = adult;
-	}
-	public int getChildren() {
-		return children;
-	}
-	public void setChildren(int children) {
-		this.children = children;
 	}
 	public String getName() {
 		return name;
@@ -69,12 +58,32 @@ public class RestaurantBookingDTO {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-	public String getResBookNo() {
+	public int getResBookNo() {
 		return resBookNo;
 	}
-	public void setResBookNo(String resBookNo) {
+	public void setResBookNo(int resBookNo) {
 		this.resBookNo = resBookNo;
 	}
+	public String getAdult() {
+		return adult;
+	}
+	public void setAdult(String adult) {
+		this.adult = adult;
+	}
+	public String getChildren() {
+		return children;
+	}
+	public void setChildren(String children) {
+		this.children = children;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	
 	
 	
 	

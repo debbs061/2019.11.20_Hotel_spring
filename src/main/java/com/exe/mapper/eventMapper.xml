@@ -6,8 +6,8 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="eventmapper">
 
 <insert id="insertEvent" parameterType="com.exe.dto.EventDTO">
-	insert into event (eventIndex,eventTitle,startDate,endDate,time,location,price,content1,content2,savefileName) 
-	values (#{eventIndex},#{eventTitle},#{startDate},#{endDate},#{time},#{location},#{price},#{content1},#{content2},#{savefileName})
+	insert into event (eventIndex,eventTitle,startDate,endDate,time,location,price,content1,content2,content3,savefileName) 
+	values (#{eventIndex},#{eventTitle},#{startDate},#{endDate},#{time},#{location},#{price},#{content1},#{content2},#{content3},#{savefileName})
 </insert>
 
 
@@ -20,22 +20,39 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="getEventLists" resultType="com.exe.dto.EventDTO"> 
-	select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,time,location,price,content1,content2,savefileName from event 
+	select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,time,location,price,content1,content2,content3,savefileName from event 
 </select>
 
-<!-- getEventLists ByUserId -->
+<!-- getEventLists ByUserId 
 <select id="getEventListsByUserId" resultType="com.exe.dto.EventDTO" parameterType="String">
-	select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,time,location,price,content1,content2,savefileName from event where (eventIndex)
+	select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,time,location,
+	price,content1,content2,savefileName from event where (eventIndex)
 	in (select eventIndex from eventBooking where userId = #{userId})
+</select>
+-->
+<!-- getEventLists ByUserId  -->
+<select id="getEventListsByUserId" resultType="com.exe.dto.EventCheckDTO" parameterType="String">
+	<![CDATA[
+	select a.eventIndex, a.eventTitle,to_char(a.startDate,'yy-mm-dd') startDate, to_char(a.endDate,'yy-mm-dd') endDate,
+	a.time, a.location, a.price, a.content1, a.savefileName,
+	b.eventBookingNum, b.userRequest, b.eventBookingDate, b.companionNumber ,b.userSelectedDate
+	from event a, eventBooking b
+	where a.eventIndex = b.eventIndex
+	and b.userId = #{userId}
+	]]>
 </select>
 
 
 <select id="getReadEventData" parameterType="int" resultType="com.exe.dto.EventDTO">
-	select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,time,location,price,content1,content2,savefileName from event where eventIndex=#{eventIndex}
+	select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,
+	time,location,price,content1,content2,content3,savefileName from event where eventIndex=#{eventIndex}
 </select>
 
+
 <update id="updateEventData" parameterType="com.exe.dto.EventDTO">
-	update event set eventTitle=#{eventTitle},startDate=#{startDate},endDate=#{endDate},time=#{time},location=#{location},price=#{price},content1=#{content1},content2=#{content2},savefileName=#{savefileName}
+	update event set eventTitle=#{eventTitle},startDate=#{startDate},
+	endDate=#{endDate},time=#{time},location=#{location},price=#{price},
+	content1=#{content1},content2=#{content2},content3=#{content3},savefileName=#{savefileName}
 	where eventIndex=#{eventIndex}
 </update>
 
@@ -75,8 +92,8 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 
 	
 <insert id="insertBooking" parameterType="com.exe.dto.EventBookingDTO">
-	insert into eventBooking (eventBookingNum,eventIndex,userId,userName,userRequest,eventBookingDate)
-	values (#{eventBookingNum},#{eventIndex},#{userId},#{userName},#{userRequest},sysdate)
+	insert into eventBooking (eventBookingNum,eventIndex,userId,userName,userRequest,eventBookingDate,userSelectedDate,companionNumber)
+	values (#{eventBookingNum},#{eventIndex},#{userId},#{userName},#{userRequest},sysdate,#{userSelectedDate},#{companionNumber})
 </insert>
 
 <delete id="deleteBookingData" parameterType="int">
@@ -84,21 +101,28 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 </delete>
 
 <select id="readEventBookingData" parameterType="hashMap" resultType="com.exe.dto.EventBookingDTO">
-	select eventBookingNum,eventIndex,userId,userName,userRequest,eventBookingDate from eventBooking 
+	select eventBookingNum,eventIndex,userId,userName,userRequest,eventBookingDate,userSelectedDate,companionNumber from eventBooking 
 	where userId=#{userId} and eventIndex=#{eventIndex}
 </select>
 
-
 <!-- start~enddate 기반으로 이용 가능한 이벤트 목록 받아오기 -->
-<select id="getReadEventOut"  parameterType="map"
-resultType="com.exe.dto.EventDTO" >
+<select id="getReadEventOut"  parameterType="map" resultType="com.exe.dto.EventDTO" >
 <![CDATA[
-select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,time,location,price,content1,content2,savefileName from event where eventIndex in(
+select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,
+time,location,price,content1,content2,content3,savefileName from event where eventIndex in(
 select eventIndex from event
-where endDate >= (select to_date(#{startDate},'yyyy/mm/dd') from dual)
-and startDate <= (select to_date(#{endDate},'yyyy/mm/dd') from dual))
+where endDate >= (select to_date(#{startDate,javaType=String,jdbcType=VARCHAR},'yyyy/mm/dd') from dual)
+and startDate <= (select to_date(#{endDate,javaType=String,jdbcType=VARCHAR},'yyyy/mm/dd') from dual))
+and eventTitle like '%' || #{searchValue} || '%'
 ]]>
+</select>
 
+<select id="getReadEventListByAsc3" resultType="com.exe.dto.EventDTO">
+<![CDATA[
+select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate
+,time,location,price,content1,content2,content3,savefileName from event
+where rownum <=3 order by startDate asc
+]]>
 </select>
 
 </mapper>

@@ -3,6 +3,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,7 +13,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Restaurant</title>
+  <title>IT WILL | Restaurant </title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,6 +42,13 @@
    <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
+	<style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
   
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
@@ -53,14 +61,6 @@
  
  }
   </style>
-  <style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
-  
   
   <style type="text/css">
       * {
@@ -186,6 +186,7 @@
 										<c:if test="${sessionScope.login.userId eq 'admin'}">
 											<a href="admin.action">관리자</a>
 										</c:if>
+										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -206,7 +207,7 @@
 		  <div class="collapse navbar-collapse" id="navbarsExample09">
 			<ul class="navbar-nav ml-auto">
 			  <li class="nav-item active">
-				<a class="nav-link" href="/hotel">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="restaurantMain.action">Home <span class="sr-only">(current)</span></a>
 			  </li>
 			  
 			  <li class="nav-item dropdown">
@@ -219,16 +220,17 @@
 			  </li>
 			  
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Restaurants</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
-				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
-				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
+				  <li><a class="dropdown-item" href="res-details.action?resName=명월관">명월관</a></li>
+				  <li><a class="dropdown-item" href="res-details.action?resName=DEL VINO">DEL VINO</a></li>
+				  <li><a class="dropdown-item" href="res-details.action?resName=회림">회림</a></li>
 				</ul>
 			  </li>
 
-			  <li class="nav-item active">
+			  <!-- <li class="nav-item active">
 				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
-			  </li>
+			  </li> -->
 			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
@@ -250,7 +252,7 @@
 			  
 			</ul>
 			<form class="form-inline my-2 my-md-0 ml-lg-4">
-			  <a href="booking-step1.action" class="btn btn-main">Book Online</a>
+			  <a href="res-myBooking.action" class="btn btn-main">예&nbsp;약&nbsp;확&nbsp;인</a>
 			</form>
 		  </div>
 		</div>
@@ -502,7 +504,7 @@
 					<h3 class="mb-4">빠른링크</h3>
 					<ul class="list-unstyled footer-menu mb-0">
 						<li>
-							<a href="/"><i class="fa fa-angle-right"></i>Home</a>
+							<a href="/hotel"><i class="fa fa-angle-right"></i>Home</a>
 						</li>
 
 						<li>
@@ -514,7 +516,7 @@
 						</li>
 	
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>
@@ -594,7 +596,7 @@
 
     <script src="/hotel/resources/js/script.js"></script>
     
-	 <script type='text/javascript'>
+	<script type='text/javascript'>
 	  //<![CDATA[
 	    // 사용할 앱의 JavaScript 키를 설정해 주세요.
 	    Kakao.init('a876d408c7cc2ab22428d910b1de57af');

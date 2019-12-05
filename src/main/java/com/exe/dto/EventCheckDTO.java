@@ -1,8 +1,7 @@
 package com.exe.dto;
 
-public class EventDTO {
-
-	private int eventIndex;
+public class EventCheckDTO {
+	
 	private String eventTitle;
 	private String startDate;
 	private String endDate;
@@ -10,23 +9,28 @@ public class EventDTO {
 	private String location;
 	private String price;
 	private String content1;
-	private String content2;
-	private String content3;
-	
-	public String getContent3() {
-		return content3;
-	}
-	public void setContent3(String content3) {
-		this.content3 = content3;
-	}
 	private String savefileName;
 	
+	private int eventBookingNum;
+	private String userRequest;
+	private String eventBookingDate;
 	
-	public int getEventIndex() {
-		return eventIndex;
+	//새로추가된 항목
+	private String companionNumber;
+	private String userSelectedDate;
+	
+	
+	public String getCompanionNumber() {
+		return companionNumber;
 	}
-	public void setEventIndex(int eventIndex) {
-		this.eventIndex = eventIndex;
+	public void setCompanionNumber(String companionNumber) {
+		this.companionNumber = companionNumber;
+	}
+	public String getUserSelectedDate() {
+		return userSelectedDate;
+	}
+	public void setUserSelectedDate(String userSelectedDate) {
+		this.userSelectedDate = userSelectedDate;
 	}
 	public String getEventTitle() {
 		return eventTitle;
@@ -34,7 +38,6 @@ public class EventDTO {
 	public void setEventTitle(String eventTitle) {
 		this.eventTitle = eventTitle;
 	}
-	
 	public String getStartDate() {
 		return startDate;
 	}
@@ -71,17 +74,29 @@ public class EventDTO {
 	public void setContent1(String content1) {
 		this.content1 = content1;
 	}
-	public String getContent2() {
-		return content2;
-	}
-	public void setContent2(String content2) {
-		this.content2 = content2;
-	}
 	public String getSavefileName() {
 		return savefileName;
 	}
 	public void setSavefileName(String savefileName) {
 		this.savefileName = savefileName;
+	}
+	public int getEventBookingNum() {
+		return eventBookingNum;
+	}
+	public void setEventBookingNum(int eventBookingNum) {
+		this.eventBookingNum = eventBookingNum;
+	}
+	public String getUserRequest() {
+		return userRequest;
+	}
+	public void setUserRequest(String userRequest) {
+		this.userRequest = userRequest;
+	}
+	public String getEventBookingDate() {
+		return eventBookingDate;
+	}
+	public void setEventBookingDate(String eventBookingDate) {
+		this.eventBookingDate = eventBookingDate;
 	}
 	
 	

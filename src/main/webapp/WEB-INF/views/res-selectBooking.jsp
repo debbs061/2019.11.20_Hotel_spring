@@ -3,6 +3,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,7 +12,7 @@
 <meta name="description" content="Eden Travel Template">
 <meta name="author" content="Themefisher.com">
 
-<title>IT WILL | Hotel </title>
+<title>IT WILL | Restaurant </title>
 
 <!-- Mobile Specific Meta-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +26,7 @@
 <link rel="stylesheet"	href="/hotel/resources/plugins/animate-css/animate.css">
 <link rel="stylesheet"	href="/hotel/resources/plugins/nice-select/nice-select.css">
 <!-- DATE PICKER -->
-<link	href="/hotel/resources/plugins/bootstrap-datepicker-master/bootstrap-datepicker.min.css" type="text/css" rel="stylesheet" />
+<link href="/hotel/resources/plugins/bootstrap-datepicker-master/bootstrap-datepicker.min.css" type="text/css" rel="stylesheet" />
 <!-- Magnify Popup -->
 <link rel="stylesheet"	href="/hotel/resources/plugins/magnific-popup/dist/magnific-popup.css">
 <!-- Owl Carousel CSS -->
@@ -38,10 +39,7 @@
 <link rel="stylesheet" href="/hotel/resources/css/style.css">
 
 <!-- font -->
-<link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
-
-<!-- Kakao 톡상담 -->
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
 	<style type="text/css">
 	
@@ -51,10 +49,8 @@
 	
 	</style>
 
-<!-- jquery -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- Kakao 톡상담 -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 
 <script type="text/javascript">
@@ -62,106 +58,29 @@
 function sendIt(){
 	
 	var f = document.myForm;
-
-	/*
-	str = f.userId.value;
+	
+	str = f.resBookNo.value;
 	str = str.trim();
-	
- 	if(!str){
-		alert("아이디를 입력하세요");
-		f.userId.focus();
-		return;
-	}
-	f.userId.value = str;
-	
-	
-	/* if(f.idDuplication.value != "idCheck") {
-		alert("아이디 중복체크 해주세요.");
-		return;
-	} 
-	
-	str = f.userPwd.value;
-	str = str.trim();
-	
 	if(!str){
-		alert("패스워드를 입력하세요");
-		f.userPwd.focus();
+		alert("예약번호를 입력하세요");
+		f.resBookNo.focus();
 		return;
 	}
-	/* if(str != f.okPwd.value){
-		alert("패스워드가 일치하지 않습니다");
-		f.okPwd.focus();
-		return;
-	} 
-	f.userPwd.value = str;
+	f.resBookNo.value = str;
 	
-	str = f.userName.value;
+	str = f.phone.value;
 	str = str.trim();
-	
 	if(!str){
-		alert("이름을 입력하세요");
-		f.userName.focus();
+		alert("핸드폰번호를 입력하세요");
+		f.phone.focus();
 		return;
 	}
-	f.userName.value = str;
+	f.phone.value = str;
 	
-	str = f.birth.value;
-	str = str.trim();
-	
-	if(!str){
-		alert("생일을 입력하세요");
-		f.birth.focus();
-		return;
-	}
-	f.birth.value = str;
-	
-	str = f.tel.value;
-	str = str.trim();
-	
-	if(!str){
-		alert("전화번호를 입력하세요");
-		f.tel.focus();
-		return;
-	}
-	f.tel.value = str;
-	
-	str = f.email.value;
-	str = str.trim();
-    if(!str) {
-        alert("\nE-Mail을 입력하세요. ");
-        f.email.focus();
-        return;
-    }
-	f.email.value = str;
-	
-	 */
-	
-	f.action = "<%=cp %>/event-upload_ok.action";
+	f.action = "<%=cp %>/res-checkRes.action";
 	f.submit();
 }
-<%-- 
-// 아이디 중복체크 화면 open
-function openIdChk() {
-	var f = document.myForm;
-	
-	if(!f.userId.value){
-		alert("아이디를 입력하세요");
-		f.userId.focus();
-		return;
-	}
-	
-	var id = f.userId.value;	
-	url = "<%=cp %>/itwillbook/id_check.do?id="+id;
-	open(url,"chkForm","width=500, height=300, resizable=no, scrollbars=no");
-}
 
-
-function inputIdChk() {
-	document.myForm.idDuplication.value ="idUncheck";
-	// 아이디 value에 값 입력 시 idDuplication.value가 바로 idUnchek로 바뀜
-}
-
- --%>
 </script>
 
 
@@ -230,7 +149,7 @@ function inputIdChk() {
 		  <div class="collapse navbar-collapse" id="navbarsExample09">
 			<ul class="navbar-nav ml-auto">
 			  <li class="nav-item active">
-				<a class="nav-link" href="/hotel">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="restaurantMain.action">Home <span class="sr-only">(current)</span></a>
 			  </li>
 			  
 			  <li class="nav-item dropdown">
@@ -243,16 +162,17 @@ function inputIdChk() {
 			  </li>
 			  
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Restaurants</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
-				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
-				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
+				  <li><a class="dropdown-item" href="res-details.action?resName=명월관">명월관</a></li>
+				  <li><a class="dropdown-item" href="res-details.action?resName=DEL VINO">DEL VINO</a></li>
+				  <li><a class="dropdown-item" href="res-details.action?resName=회림">회림</a></li>
 				</ul>
 			  </li>
 
-			  <li class="nav-item active">
+			  <!-- <li class="nav-item active">
 				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
-			  </li>
+			  </li> -->
 			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
@@ -274,7 +194,7 @@ function inputIdChk() {
 			  
 			</ul>
 			<form class="form-inline my-2 my-md-0 ml-lg-4">
-			  <a href="booking-step1.action" class="btn btn-main">Book Online</a>
+			  <a href="res-myBooking.action" class="btn btn-main">예&nbsp;약&nbsp;확&nbsp;인</a>
 			</form>
 		  </div>
 		</div>
@@ -283,147 +203,42 @@ function inputIdChk() {
 
 	<!-- Header Close -->
 	
+	<div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
+	
 	<section class="section">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-8 text-center">
 				<div class="section-title">
 					<p class="section-subtitle">IT WILL HOTEL</p>
-					<h2 class="mb-3"></h2>
-					<p class="mb-4">관리자 페이지</p>
+					<h2 class="mb-3">레스토랑 예약 확인</h2>
+					<p class="mb-4">예약번호와 핸드폰번호를 입력하세요.</p>
 					<span class="section-border"></span>
 				</div>
 			</div>
 			<!-- .col-md-7 close -->
 		</div>
 
-
-		<!--  이벤트 추가하기 -----------이벤트 추가하기-------------이벤트 추가하기------------이벤트 추가하기-->
 		<div class="row justify-content-center">
 			<div class="col-lg-7 col-sm-12">
 			
-				<form action="javascript:sendIt();" name="myForm" method="post" enctype="multipart/form-data">
+				<form action="javascript:sendIt();" name="myForm" method="post">
 					<div class="row justify-content-center">
-					
 
 						<div class="col-lg-10">
 							<div class="form-group">
-							<p class="section-subtitle">제 목</p>
-								<input name="eventTitle" type="text" class="form-control">
-							</div>
-						</div>
-					
-						
-						<div class="col-lg-10">
-               				<div class="form-group">
-               					<p class="section-subtitle">Start date</p>
-               					<input class="selector" name="startDate"  placeholder=" 선택하세요." />
-            			   </div>
-            			</div>
-            			<div class="col-lg-10">
-               				<div class="form-group">
-               					<p class="section-subtitle">End date</p>
-               					<input class="selector" name="endDate"  placeholder="날짜를 선택하세요." />
-            			   </div>
-            			</div>
-              
-              
-              
-						<div class="col-lg-10">
-               				<div class="form-group">
-               					<p class="section-subtitle">시 간</p>
-               					 <input class="form-control" name="time" id="selector2" placeholder="시간을 선택하세요." />
-            			   </div>
-            			</div>
-              
-              			<script type="text/javascript">
-             				 $(".selector").flatpickr({ 
-     							altInput: true,
-     			   				 altFormat: "F j, Y",
-     			    
-  							dateFormat: "m/d/Y",
-  							minDate:"today",
-  							maxDate: "12.31.2020"
-  							});
-
-   				 			$("#selector2").flatpickr({
-   				 	 		 enableTime: true,
-     							 noCalendar: true,
-    				 		dateFormat: "H:i",
-  							});
-   						</script>
-						
-						
-						<div class="col-lg-10">
-							<div class="form-group">
-							<p class="section-subtitle">위 치</p>
-								<select name="location" class="form-control">
-									<option selected="selected">Please select ...</option>
-									<option value="야외 테라스" >야외테라스</option>
-									<option value="B1 라벤더홀">B1 라벤더홀 </option>
-									<option value="1F 로즈마리홀">1F 로즈마리홀</option>	
-									<option value="2F 애플민트홀">2F 애플민트홀</option>
-									<option value="3F 체리세이지홀">3F 체리세이지홀</option>
-									<option value="4F 컨벤션홀">4F 컨벤션홀</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="col-lg-10">
-							<div class="form-group">
-							<p class="section-subtitle" placeholder="가격">가 격</p>
-								<select name="price" class="form-control">
-									<option selected="selected">Please select ...</option>
-									<option value="이용객 무료" >이용객무료</option>
-									<option value="10000">10000만원</option>
-									<option value="20000">20000만원</option>
-									<option value="30000">30000만원</option>
-									<option value="40000">40000만원</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-10">
-							<div class="form-group">
-							<p class="section-subtitle">요약 설명 1</p>
-								<textarea rows="2" name="content1" class="form-control"	placeholder="내용을 입력하세요"> 
-								
-								</textarea>
-							</div>
-						</div>
-						<div class="col-lg-10">
-							<div class="form-group">
-							<p class="section-subtitle">내 용2</p>
-								<textarea rows="4" name="content2" class="form-control"	placeholder="내용을 입력하세요">
-								
-								</textarea>
-							</div>
-						</div>
-						<div class="col-lg-10">
-							<div class="form-group">
-							<p class="section-subtitle">내 용3</p>
-								<textarea rows="4" name="content3" class="form-control"	placeholder="내용을 입력하세요">
-								
-								</textarea>
+							<p class="section-subtitle">예 약 번 호</p>
+								<input name="resBookNo" type="text" class="form-control" placeholder="레스토랑 예약번호 입력">
 							</div>
 						</div>
 						
 						<div class="col-lg-10">
 							<div class="form-group">
-							<p class="section-subtitle">이벤트 이미지</p>
-								<input name="eventUpload" type="file" class="form-control"	placeholder="">
+							<p class="section-subtitle">핸 드 폰</p>
+								<input name="phone" type="text" class="form-control" placeholder="010-0000-0000">
 							</div>
 						</div>
-						
-						
-						<div class="col-lg-10">
-							<div class="form-group">
-								<p class="section-subtitle">
-									<input type="submit" class="btn btn-main" onclick="sendIt();" value="글 올 리 기 " placeholder="540 * 394 사이즈">
-									<a href="admin.action" class="btn btn-main">뒤&nbsp;로&nbsp;가&nbsp;기</a>
-								</p>						
-							</div>
-						</div>
-						
+							<input type="submit" class="btn btn-main" value="레스토랑 예약 확인하기">
 					
 					</div>
 
@@ -433,7 +248,7 @@ function inputIdChk() {
 	</div>
 	</section>
 
-	<!-- footer Start -->
+<!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
 		<div class="row">
@@ -516,6 +331,7 @@ function inputIdChk() {
 		</div>
 	</div>
 </footer>
+
 
 	<section class="footer-btm secondary-bg py-4">
 	<div class="container">

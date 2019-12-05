@@ -1,35 +1,17 @@
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.Map"%>
-<%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 	
+	String adult2 = (String)request.getAttribute("adult");
 	
-	Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+	int children = 0;
+	int adult = 0;
 	
-	Map<String, Object> res = new HashMap<String,Object>();
-	
-	 
-    if(flashMap !=null) {  
-        // flashMap.get("params") 으로 값 받아서 사용
-        res= (Map<String, Object>)flashMap.get("res");  
-       
-    } 
-    
-    String time2 = (String)res.get("time");
-    String adult2 = (String)res.get("adult");
-    String children2 = (String)res.get("children");
-    
-    int time=0, children=0, adult=0;
-	if(time2!=null)
-  	  time = Integer.parseInt(time2);
-	if(children2!=null)
-    	children = Integer.parseInt(children2);
-	if(adult2!=null)
-   	 adult = Integer.parseInt(adult2);
+	if (adult2 != null ){
+	 	adult = Integer.parseInt(adult2);
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -39,8 +21,9 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Restaurant </title>
+  <title>IT WILL | Spa </title>
   
+  <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- bootstrap.min css -->
   <link rel="stylesheet" href="/hotel/resources/plugins/bootstrap/css/bootstrap.min.css">
@@ -66,6 +49,9 @@
   
   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
 	<style type="text/css">
 	
@@ -75,10 +61,7 @@
 	
 	</style>
   
-  <!-- Kakao 톡상담 -->
-  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-  
-  
+  <!-- 
   <style type="text/css">
       * {
           box-sizing: border-box
@@ -99,7 +82,7 @@
           width: 100%;
       }
   </style>
-  
+   
   <style type="text/css">
 	  .section-subtitle413 {
 	  font-size: 14px;
@@ -111,89 +94,96 @@
 	  text-transform: uppercase;
 		}
   </style>
-  
+   -->
   <script type="text/javascript">
   
+/*   function showData() {
+	  
+	  //사용자가 입력한 스파 예약내용 가져오기
+	  
+	  var spaDate = $("#spaDate").val();
+	  var time = $("#time").val();
+	  var adult = $("#adult").val();
+	  var spaType = $("#spaType").val();
+	  var spaUserName = $("#spaUserName").val();
+	  var phone = $("#phone").val();
+	  var email = $("#email").val();
+	  var spaUserRequest = $("#spaUserRequest").val();
+	  
+	  
+	  return true;
+  }
+   */
   
-function sendIt() {
+  function sendIt() {
+	  
+	 // f = document.spaBookingForm;
 	
-var f = document.resBookingForm;
+	  var spaDate = $.trim($("#spaDate").val());
+	  var time = $.trim($("#time").val());
+	  var adult = $.trim($("#adult").val());
+	  var spaUserName = $.trim($("#spaUserName").val());
+	  var phone = $.trim($("#phone").val());
+	  var email= $.trim($("#email").val());
+	  var spaType = $.trim($("#spaType").val());
+	  var spaUserRequest = $.trim($("#spaUserRequest").val());
+	  
+	  
+ 	  if ('${sessionScope.login.userName}'.length == 0) {
+          alert("로그인 후 사용가능합니다")
+          return false;
+      }
+	  if(!spaDate) {
+			alert("\n날짜를 선택하세요!");
+			$("#spaDate").focus();
+			return false;
+	  }
+	  if(spaType=='트리트먼트 타입') {
+			alert("\n트리트먼트 타입을 선택하세요!");
+			$("#spaType").focus();
+			return false;
+	  }
+	  if(time=='시간') {
+			alert("\n시간를 선택하세요!");
+			$("#time").focus();
+			return false;
+	  }
+	  if(adult=='인원') {
+			alert("\n 인원을 선택하세요!");
+			$("#adult").focus();
+			return false;
+	  }
 	
-	str = f.checkin.value;
-	str = str.trim();
-	if(!str){
-		alert("\n날짜를 선택하세요.");
-		f.checkin.focus();
-		return;
-	}
-	f.checkin.value = str;
-	
-	str = f.time.value;
-	str = str.trim();
-	if(str=='시간'){
-		alert("\n시간를 선택하세요.");
-		f.time.focus();
-			return;
-	}
-	f.time.value = str;
-	
-	str = f.adult.value;
-	str = str.trim();
-	if(str=='성인'){
-		alert("\n성인 인원을 선택하세요.");
-		f.adult.focus();
-		return;
-	}
-	f.adult.value = str;
-	
-	str = f.children.value;
-	str = str.trim();
-	if(str=='어린이'){
-		alert("\n어린이 인원을 선택하세요.");
-		f.children.focus();
-		return;
-	}
-	f.children.value = str;
-	
-	str = f.name.value;
-	str = str.trim();
-	if(!str){
-		alert("\n이름을 입력하세요.");
-		f.name.focus();
-		return;
-	}
-	f.name.value = str;
-	
-	str = f.phone.value;
-	str = str.trim();
-	if(!str){
-		alert("\n핸드폰번호를 입력하세요.");
-		f.phone.focus();
-		return;
-	}
-	f.phone.value = str;
-	
-	str = f.email.value;
-	str = str.trim();
-	if(!str){
-		alert("\n이메일을 입력하세요.");
-		f.email.focus();
-		return;
-	}
-	f.email.value = str;
-	
-	f.action = "<%=cp %>/res-BookOk2.action";
-	f.submit();
-	
-	
-	
+	  if(!spaUserName) {
+			alert("\n이름을 입력하세요!");
+			$("#spaUserName").focus();
+			return false;
+	  } 
+	  if(!phone) {
+			alert("\n핸드폰번호를 입력하세요!");
+			$("#phone").focus();
+			return false;
+	  }
+	  if(!email) {
+			alert("\n이메일을 선택하세요!");
+			$("#email").focus();
+			return false;
+	  }
+	  
+	  
+	  location.href = "<%=cp%>/spa-request.action?spaDate="
+			  +spaDate+"&spaType="+spaType+"&time="+time+"&adult="+adult+"&phone="
+			  +phone+"&email="+email+"&spaUserName="+spaUserName + "&spaUserRequest=" + spaUserRequest;
 }
-
+  
+  
   </script>
+  
+  
   
 </head>
 <body >
- 
+
 <!-- Header Start --> 
 
 <header class="navigation">
@@ -235,7 +225,6 @@ var f = document.resBookingForm;
 										<c:if test="${sessionScope.login.userId eq 'admin'}">
 											<a href="admin.action">관리자</a>
 										</c:if>
-										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -256,7 +245,7 @@ var f = document.resBookingForm;
 		  <div class="collapse navbar-collapse" id="navbarsExample09">
 			<ul class="navbar-nav ml-auto">
 			  <li class="nav-item active">
-				<a class="nav-link" href="restaurantMain.action">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/hotel">Home <span class="sr-only">(current)</span></a>
 			  </li>
 			  
 			  <li class="nav-item dropdown">
@@ -269,17 +258,16 @@ var f = document.resBookingForm;
 			  </li>
 			  
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Restaurants</a>
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
-				  <li><a class="dropdown-item" href="res-details.action?resName=명월관">명월관</a></li>
-				  <li><a class="dropdown-item" href="res-details.action?resName=DEL VINO">DEL VINO</a></li>
-				  <li><a class="dropdown-item" href="res-details.action?resName=회림">회림</a></li>
+				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
+				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
 				</ul>
 			  </li>
 
-			  <!-- <li class="nav-item active">
+			  <li class="nav-item active">
 				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
-			  </li> -->
+			  </li>
 			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
@@ -301,7 +289,7 @@ var f = document.resBookingForm;
 			  
 			</ul>
 			<form class="form-inline my-2 my-md-0 ml-lg-4">
-			  <a href="res-myBooking.action" class="btn btn-main">예&nbsp;약&nbsp;확&nbsp;인</a>
+			  <a href="booking-step1.action" class="btn btn-main">Book Online</a>
 			</form>
 		  </div>
 		</div>
@@ -318,7 +306,7 @@ var f = document.resBookingForm;
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">레스토랑 예약</h1>
+          <h1 class="text-white py-100">에비앙스파 예약</h1>
       </div>
     </div>
   </div>
@@ -328,7 +316,7 @@ var f = document.resBookingForm;
           <div class="page-breadcumb py-2">
             <a href="#" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="#" class="text-white">Restaurant Reservation</a>
+            <a href="#" class="text-white">Spa Reservation</a>
         </div>
       </div>
     </div>
@@ -343,15 +331,10 @@ var f = document.resBookingForm;
 	<div class="single-event">
 
 		<div class="event-content mt-4">
-		<form method="post" action="" name="resBookingForm" onsubmit="return false;" class="reserve-form">
-			<c:if test="${empty dto.resName }">
-				<a><h2>${res.resName } 온라인 예약</h2></a>
-				<input type="hidden" id="resName" name="resName" value="${res.resName }">
-			</c:if>
-			<c:if test="${empty res.resName }">
-				<a><h2>${dto.resName } 온라인 예약</h2></a>
-				<input type="hidden" id="resName" name="resName" value="${dto.resName }">
-			</c:if>
+		<form method="post" class="reserve-form" action="" name="spaBookingForm">
+		
+			<a><h2>${dto.spaUserName }&nbsp;온라인예약</h2></a>
+			<input type="hidden" id="spaBookingNum" value="${dto.spaBookingNum }">
 			<br/><br/>
 			<div class="border-top"></div><br/><br/>
 			<div class="event-post-meta mb-4">
@@ -362,104 +345,98 @@ var f = document.resBookingForm;
 						<div class="secondary-bg p-5 position-relative">
 							
 								<div class="form-row">
+								
 								    <div class="form-group col-md-3 col-sm-4">
 								    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-										    <input type="text" class="form-control" placeholder="체크인" id="checkin" name="checkin" value="${res.checkin }">
+										    <input type="text" class="form-control" placeholder="체크인" id="spaDate" 
+										    value="${dto.spaDate }" name="spaDate" autocomplete="off">
 										    <div class="input-group-addon">
 										       <span class="ion-android-calendar"></span>
 										    </div>
 										</div>
 						          	</div>
-						          	
-						          	
-						          	<div class="form-group col-md-3">
-						          	<c:if test="${empty res.time }">
+						          	<div class="form-group col-md-4">
+								    <c:if test="${empty dto.spaType }">
+							    		<select id="spaType" class="form-control custom-select" name="spaType">
+									        <option selected>트리트먼트 타입</option>
+										        <option value="아흐모니 수브리머">아흐모니 수브리머	</option>
+								                <option value="르 미네할르">르 미네할르</option>
+								                <option value="르 프헤슈">르 프헤슈</option>
+								                <option value="프레스티지어스 저니">프레스티지어스 저니</option>
+								                <option value="에비앙 센서리 저니">에비앙 센서리 저니</option>
+									      </select>
+									</c:if>
+									<c:if test="${!empty dto.spaType }">
+							    		<select id="spaType" class="form-control custom-select" name="spaType">
+									        <option selected>${dto.spaType }</option>
+										        <option value="아흐모니 수브리머">아흐모니 수브리머	</option>
+								                <option value="르 미네할르">르 미네할르</option>
+								                <option value="르 프헤슈">르 프헤슈</option>
+								                <option value="프레스티지어스 저니">프레스티지어스 저니</option>
+								                <option value="에비앙 센서리 저니">에비앙 센서리 저니</option>
+									      </select>
+									</c:if>
+								    </div>
+						          	<div class="form-group col-md-2">
+						          	<c:if test="${empty dto.time }">
 								 		<select id="time" class="form-control custom-select" name="time" >
 									        <option selected>시간</option>
-										        <option value="10시">10시</option>
-								                <option value="11시">11시</option>
-								                <option value="12시">12시</option>
-								                <option value="13시">13시</option>
-								                <option value="14시">14시</option>
-								                <option value="15시">15시</option>
-								                <option value="16시">16시</option>
-								                <option value="17시">17시</option>
-								                <option value="18시">18시</option>
-								                <option value="19시">19시</option>
-								                <option value="20시">20시</option>
-								                <option value="21시">21시</option>
+										        <option value="10">10시</option>
+								                <option value="11">11시</option>
+								                <option value="12">12시</option>
+								                <option value="13">13시</option>
+								                <option value="14">14시</option>
+								                <option value="15">15시</option>
+								                <option value="16">16시</option>
+								                <option value="17">17시</option>
+								                <option value="18">18시</option>
+								                <option value="19">19시</option>
+								                <option value="20">20시</option>
+								                <option value="21">21시</option>
 									      </select>
 									  </c:if>
-									  <c:if test="${!empty res.time }">
+									  <c:if test="${!empty dto.time }">
 								 		<select id="time" class="form-control custom-select" name="time" >
-								 			<% for(int i=10; i<=21; i++) { 
-													if(time==i) {
-											%>
-					    		  			  <option selected style="color:black;"><%=time %>시</option>
-					    		  	  
-					    		  			<%} else {%>  
-					    		  			  <option value="<%=i %>" style="color:black;"><%=i %>시</option>
-					        			
-					        				<% }} %>	
+									        <option selected>${dto.time } 시</option>
+										        <option value="10">10시</option>
+								                <option value="11">11시</option>
+								                <option value="12">12시</option>
+								                <option value="13">13시</option>
+								                <option value="14">14시</option>
+								                <option value="15">15시</option>
+								                <option value="16">16시</option>
+								                <option value="17">17시</option>
+								                <option value="18">18시</option>
+								                <option value="19">19시</option>
+								                <option value="20">20시</option>
+								                <option value="21">21시</option>
 									      </select>
 									  </c:if>
 								    </div>
-								    
-								    
-								    <div class="form-group col-md-3 ">
-								    <c:if test="${empty res.adult }">
+								    <div class="form-group col-md-2 ">
+								    <c:if test="${empty dto.adult }">
 							    		<select id="adult" class="form-control custom-select" name="adult">
-									        <option selected>성인</option>
-										        <option value="1명">1명</option>
-								                <option value="2명">2명</option>
-								                <option value="3명">3명</option>
-								                <option value="4명">4명</option>
-								                <option value="5명">5명</option>
+									        <option selected>인원</option>
+										        <option value="1">1명</option>
+								                <option value="2">2명</option>
+								                <option value="3">3명</option>
+								                <option value="4">4명</option>
+								                <option value="5">5명</option>
 									      </select>
 									</c:if>
-									<c:if test="${!empty res.adult }">
+									
+									<c:if test="${!empty dto.adult }">
 							    		<select id="adult" class="form-control custom-select" name="adult">
-												<% for(int j=1; j<=5; j++) { 
-												if(adult==j) {
-													%>
-					    					  	  <option selected style="color:black;"><%=adult %>명</option>
-					    						  	<%} else {%>  
-					        					<option value="<%=j %>" style="color:black;"><%=j %>명</option>
-					        					<% }} %>	
+									        <option selected>${dto.adult }명</option>
+										        <option value="1">1명</option>
+								                <option value="2">2명</option>
+								                <option value="3">3명</option>
+								                <option value="4">4명</option>
+								                <option value="5">5명</option>
 									      </select>
 									</c:if>
 								    </div>
-								    
-								    
-								    
-								    <div class="form-group col-md-3 ">
-								    <c:if test="${empty res.children }">
-							    		<select id="children" class="form-control custom-select" name="children">
-									        <option selected>어린이</option>
-									       		<option value="1명">0명</option>
-										        <option value="1명">1명</option>
-								                <option value="2명">2명</option>
-								                <option value="3명">3명</option>
-								                <option value="4명">4명</option>
-								                <option value="5명">5명</option>
-									      </select>
-									 </c:if>
-									 <c:if test="${!empty res.children }">
-							    		<select id="children" class="form-control custom-select" name="children">
-												<% for(int i=0; i<=5; i++) { 
-												if(children==i) {
-												%>
-					    		 		 	  <option selected style="color:black;"><%=children %>명</option>
-					    		  	  
-					    		 		 	<%} else {%>  
-					    		 	 	
-					        					<option value="<%=i %>" style="color:black;"><%=i %>명</option>
-					        			
-					        				<% }} %>
-									      </select>
-									 </c:if>
-									 
-								    </div>
+								   
 								 </div>
 						</div>
 					</div>
@@ -470,48 +447,45 @@ var f = document.resBookingForm;
 		<div class="event-comment-form mt-5">
 		<div class="border-top"></div><br/><br/>
 		<h3 class="mb-4">예약자 정보</h3>
-			<input type="hidden" id="userId" name="userId" value="${sessionScope.login.userId }"/>
+			
 				<div class="row">
 					<div class="form-group col-lg-12">
 						 <label for="inputname" class="col-sm-4 col-form-label">이름: <a style="color: red;"> *필수</a></label>
-						<input type="text" name="name" id="name" class=" form-control" placeholder="이름" maxlength="20" value="${sessionScope.login.userName }"/>
+						<input type="text" name="spaUserName" id="spaUserName" class=" form-control" placeholder="이름" maxlength="20" value="${sessionScope.login.userName }">
 					</div>
 					<div class="form-group col-lg-12">
 						 <label for="inputname" class="col-sm-4 col-form-label">핸드폰: <a style="color: red;"> *필수</a></label>
-						<input type="text" name="phone" id="phone" class=" form-control" placeholder="010-0000-0000" maxlength="30" value="${sessionScope.login.tel }"/>
+						<input type="text" name="phone" id="phone" class=" form-control" placeholder="01012345678" maxlength="30" value="${sessionScope.login.tel }">
 					</div>
 					<div class="form-group col-lg-12">
 						 <label for="inputname" class="col-sm-4 col-form-label">이메일:  <a style="color: red;"> *필수</a></label>
-						<input type="text" name="email" id="email" class=" form-control" placeholder="이메일" maxlength="50" value="${sessionScope.login.userEmail }"/>
+						<input type="text" name="email" id="email" class=" form-control" placeholder="이메일" maxlength="50" value="${sessionScope.login.userEmail }">
 					</div>
 					<div class="form-group col-lg-12">
-					<label for="inputname" class="col-sm-4 col-form-label">요 청 사 항: </label>
-						<textarea name="comments" id="comments" class=" form-control" rows="6" placeholder="Comment" maxlength="500"></textarea>
+					<label for="inputname" class="col-sm-4 col-form-label">요청사항: </label>
+						<textarea name="spaUserRequest" id="spaUserRequest" class=" form-control" rows="6" placeholder="Comment" maxlength="500"></textarea>
 					</div>
 					<br/><br/>
 					
 					<div class="border-top"></div><br/><br/>
 					<div class="border-top"></div><br/><br/>
 					
-					<h3 class="mb-4" align="center"><br/><br/>고객님께 드리는 안내 말씀</h3>
-					<p>좌석 배치는 사전 예약순으로 마감되며 특정 자리 지정은 불가합니다.<br/>
-					특정 음식에 대한 알레르기가 있다면 사전에 알려주시기 바랍니다.<br/>
-					메뉴에서 보시는 연출용 이미지와 실제로 제공되는 음식의 모양은 차이가 있을 수 있습니다.<br/>
-					메뉴는 레스토랑 상황에 따라 사전 예고 없이 변경 될 수 있는 점 양해 바랍니다.<br/>
-					최종 예약확인을 위해 입력해주신 연락처(전화/문자/이메일)로 연락드리겠습니다.<br/>
-					연락이 되지 않으면 예약이 어려울 수 있습니다.<br/>
-					예약 변경 및 취소 시 레스토랑으로 연락하여주시기 바랍니다.
-					<br/><br/>
+					<h3 class="mb-4" align="center">고객님께 드리는 안내 말씀</h3>
+					<p>16세 미만의 고객의 경우 보호자가 동반한 경우에 한해 스파 이용이 가능합니다. 궁금하신점은 스파 컨시어지에 문의하시기 바랍니다.
+					임산부 또는 수술 이력이나 질환이 있는 고객께서는 스파 서비스 예약 전 의료진에게 먼저 상담받으시길 바라며, 임신 초기 3개월까지는
+					트리트먼트를 권장하지 않습니다.  
 					</p>
 				<div class="border-top"></div><br/><br/>
 					<div class="form-group col-lg-12">
-                        
+                        <input type="checkbox" name="term">
+                        <span class="policy">「고객님께 드리는 안내 말씀」을 읽고 확인하셨습니다.<br/><br/></span>
 							<div class="gallery-title" align="center">
-								<input type="submit" value="예&nbsp;&nbsp;약&nbsp;&nbsp;하&nbsp;&nbsp;기" class="btn btn-main btn-block" onclick="sendIt();">
+								<input type="button" value="예&nbsp;&nbsp;약&nbsp;&nbsp;하&nbsp;&nbsp;기" class="btn btn-main btn-block" onclick="sendIt();">
 								<br/><br/>
 							</div>
+					
 					</div>
-					</div>
+				</div>
 				</div>
 			</form>
 		</div>
@@ -644,10 +618,10 @@ var f = document.resBookingForm;
     
     <!-- Google Map -->
     <script src="/hotel/resources/plugins/google-map/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>    
 
     <script src="/hotel/resources/js/script.js"></script>
-    
+	
     <!-- Kakao 톡상담 -->
 	<script type='text/javascript'>
 	

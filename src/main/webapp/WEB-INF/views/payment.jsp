@@ -9,7 +9,10 @@ String cp = request.getContextPath();
     String phone = (String)request.getAttribute("phone");
     String address = (String)request.getAttribute("address"); 
     String email = (String)request.getAttribute("email");
-    int totalPrice = (Integer)request.getAttribute("total");   
+    int totalPrice = (Integer)request.getAttribute("total");
+    
+    totalPrice = totalPrice/1000;
+    
    // HotelBookingDTO dto = (HotelBookingDTO)request.getAttribute("dto");
     
   //  System.out.println("총가격:"+ dto.getPrice());

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.SimpleEmail;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +36,7 @@ import com.exe.dao.ReviewDAO;
 import com.exe.dao.RoomDAO;
 import com.exe.dao.SpaDAO;
 import com.exe.dto.EventBookingDTO;
+import com.exe.dto.EventCheckDTO;
 import com.exe.dto.EventDTO;
 import com.exe.dto.EventReviewDTO;
 import com.exe.dto.GalleryDTO;
@@ -289,7 +289,7 @@ public class HotelController {
 		 */
 		
 		//hotelWeb -> HotelWebService
-		Path path = Paths.get("D:\\sts-bundle\\work\\hotelWeb\\src\\main\\webapp\\resources\\images\\gallery");
+		Path path = Paths.get("D:\\sts-bundle\\work\\HotelWebService\\src\\main\\webapp\\resources\\images\\gallery");
 		
 		if(file!=null&&file.getSize()>0) { //파일이 있으면
 
@@ -456,9 +456,15 @@ public class HotelController {
 
 		ModelAndView mav = new ModelAndView();
 
+		//전체 데이터 뽑아내기
 		List<EventDTO> lists = eventDao.getEventList();
 
+		//추천 이벤트 3개 뽑아내기
+		List<EventDTO> getReadEventListByAsc3 = 
+				eventDao.getReadEventListByAsc3();
+
 		mav.setViewName("event-grid");
+		mav.addObject("listsRecommend", getReadEventListByAsc3);
 		mav.addObject("lists", lists);
 
 		return mav;
@@ -473,12 +479,13 @@ public class HotelController {
 		String mode = request.getParameter("mode");
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
+		String searchValue = request.getParameter("searchValue");
+
 		ModelAndView mav = new ModelAndView();
 
 		try {
-
+			//1.검색어 + 날짜 검색 없이 들어온 경우
 			if(mode!=null && mode.equals("mainstart")) {
-
 
 				List<EventDTO> originalLists = 
 						eventDao.getEventList();
@@ -492,29 +499,29 @@ public class HotelController {
 			}else{
 
 
-				System.out.println("startDate:"+startDate);
-				System.out.println("endDate:"+endDate);
-				//날짜 위치 변경 
-
-
+				//2. 검색하고 들어온 경우
 				//넘어오는 날짜 형식 맞춰주기
-
-				// 날짜변환
 				String dates[] =  startDate.split("/");       
 				startDate = dates[2]+"/"+dates[0]+"/"+dates[1]; 
 
 				String dates2[] = endDate.split("/");
 				endDate = dates2[2]+"/"+dates2[0]+"/"+dates2[1];
 
+				Map<String, Object> params = 
+						new HashMap<String, Object>();
 
-				// 1. event 테이블 접근
+				params.put("startDate", startDate);
+				params.put("endDate", endDate);
+				params.put("searchValue", searchValue);
+
+				//2-1. event 테이블 접근
 				List<EventDTO> availableEventLists =	
-						eventDao.getEventLists(startDate, endDate); //start ~end 기준으로 예약가능한 이벤트 뽑아오기
-				//* eventDB에 데이터 넣을때 이용가능 날짜를 넉넉하게 넣기 현재부터 앞으로 2년까지
-				//그전에 이벤트 테이블 수정 
-				mav.setViewName("event-list"); //event-list.jsp로 보내고
-				mav.addObject("availableEventLists", availableEventLists);
+						eventDao.getEventLists(params); //start ~end 기준으로 예약가능한 이벤트 뽑아오기
 
+				mav.addObject("startDate",startDate);
+				mav.addObject("endDate",endDate);
+				mav.addObject("availableEventLists", availableEventLists);
+				mav.setViewName("event-list"); 
 
 			}
 
@@ -526,7 +533,7 @@ public class HotelController {
 	}
 	
 
-	//이벤트 상세정보
+	//이벤트 싱글(1개의 이벤트 띄워주기)
 	@RequestMapping(value = "/event-single.action", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView eventsingle(
 			HttpServletRequest request) throws Exception{
@@ -536,8 +543,10 @@ public class HotelController {
 
 		int eventIndex = Integer.parseInt(request.getParameter("eventIndex"));
 
-		EventDTO dto = eventDao.getReadEventData(eventIndex);//eventIndex에 해당하는 하나의 데이터 뽑아내고
-
+		EventDTO dto = eventDao.getReadEventData(eventIndex);
+		dto.setContent1(dto.getContent1().replace("\n", "<br/>"));
+		dto.setContent2(dto.getContent2().replace("\n", "<br/>"));
+		dto.setContent3(dto.getContent3().replace("\n", "<br/>"));
 		mav.setViewName("event-single");
 		mav.addObject("dto",dto);
 
@@ -555,18 +564,9 @@ public class HotelController {
 
 	//이벤트 등록
 	@RequestMapping(value = "/event-upload.action", method= {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView eventupload(HttpSession session) {
+	public ModelAndView eventupload() {
 
 		ModelAndView mav = new ModelAndView();
-		
-		LoginDTO login = (LoginDTO)session.getAttribute("login");
-
-		if(login == null || login.equals("") || !login.getUserId().equals("admin")) {
-			
-			mav.setViewName("404");
-			return mav;
-		}
-		
 		mav.setViewName("event-upload"); //event-upload.jsp 창에띄어주고
 
 		return mav;
@@ -630,7 +630,7 @@ public class HotelController {
 		}
 		return "redirect:/event-grid.action";
 	}
-
+		
 	//이벤트 리뷰
 	@RequestMapping(value = "/eventReview.action", method = {RequestMethod.GET,RequestMethod.POST})
 	public String eventReview(EventReviewDTO dto,HttpServletRequest request) {
@@ -655,7 +655,7 @@ public class HotelController {
 		return "redirect:event-single.action?eventIndex=" + eventIndex;
 	}
 	
-	//event-request.action
+	//유저가 이벤트 신청함
 	@RequestMapping(value = "/event-request.action", 		
 			method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView eventRequest(HttpServletRequest request,
@@ -667,21 +667,33 @@ public class HotelController {
 		String userId = request.getParameter("eventUserId");
 		String userName = request.getParameter("eventUserName");
 		String userRequest  = request.getParameter("eventUserRequest");
-		int eventIndex =Integer.parseInt(request.getParameter("eventIndex"));
 
-		//1.아이디+이벤트인덱스로 예약된 내역이 있는지 조회
+		String companionNumber = request.getParameter("companionNumber");
+		String userSelectedDate = request.getParameter("userSelectedDate");
+
+		String dates[] = userSelectedDate.split("/"); 
+		userSelectedDate = dates[2]+"/"+dates[0]+"/"+dates[1]; 
+
+
+		int eventIndex =Integer.parseInt(request.getParameter("eventIndex"));	
+
+		//아이디+이벤트인덱스로 예약된 내역이 있는지 조회
 		EventBookingDTO dto = eventDao.getReadEventBookingData(userId, eventIndex);
 
+		//1.유저가 이미 예약한 예약건이 있는경우
 		if(dto!=null&&!dto.equals(" ")) {
+
+			EventDTO edto = eventDao.getReadEventData(eventIndex);
 
 			mav.setViewName("event-request-confirmed");
 			mav.addObject("dto",dto);
 			mav.addObject("message","이벤트 예약건이 이미 이미존재합니다");
+			mav.addObject("edto",edto);
+			return mav;	
 
-			return mav;
 		}
 
-		//2처음 예약을 할 경우
+		//2.유저가 해당 이벤트를 처음 예약을 할 경우
 		EventBookingDTO ebdto = new EventBookingDTO();
 
 		ebdto.setEventBookingNum(eventDao.getBookingMaxNum()+1);
@@ -689,36 +701,35 @@ public class HotelController {
 		ebdto.setUserName(userName);
 		ebdto.setUserRequest(userRequest);
 		ebdto.setEventIndex(eventIndex);
+		ebdto.setCompanionNumber(companionNumber);
+		ebdto.setUserSelectedDate(userSelectedDate);
 		eventDao.insertEventBooking(ebdto);
 
 		EventBookingDTO dto2 = eventDao.getReadEventBookingData(userId, eventIndex);
 
-		//4.해당 내용 띄우기 출력 jsp로 넘겨주기
+		//eventIndex 기반으로 이벤트 정보 불러오고
+		EventDTO edto = eventDao.getReadEventData(eventIndex);
+
 		mav.setViewName("event-request-confirmed");
 		mav.addObject("dto",dto2);
+		mav.addObject("edto",edto);
+		return mav;			
 
-		return mav;
 	}
 
-	//event-booking-delete.action
+	//이벤트 예약 취소
 	@RequestMapping(value = "/event-booking-delete.action", 		
 			method= {RequestMethod.GET, RequestMethod.POST})
 	public String eventBookingDelete(HttpServletRequest request) {
 
-		//System.out.println("들어옴");
-
-		String referer = request.getHeader("Referer");	//접속 경로
-
+		String referer = request.getHeader("Referer");	
 		int eventBookingNum= Integer.parseInt(request.getParameter("eventBookingNum"));
-		//System.out.println("eventBookingNum:"+eventBookingNum);
 		eventDao.deleteEventBookingData(eventBookingNum);
-
 		return "redirect:" + referer;
+
 	}
 	
-	//이벤트 체크
-	//eventCheck.action
-
+	//이벤트 예약확인하기
 	@RequestMapping(value = "/eventCheck.action", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView eventCheck(
 			HttpServletRequest request,
@@ -726,32 +737,19 @@ public class HotelController {
 
 		ModelAndView mav  = new ModelAndView();
 
-		// 세션을 가져온다. (가져올 세션이 없다면 생성한다.)
-
-		// "USER"로 바인딩된 객체를 돌려준다. ("USER"로 바인딩된 객체가 없다면 null)
-		LoginDTO login = (LoginDTO)session.getAttribute("login");
-
-		String userId = login.getUserId();
-
-		//System.out.println("userId: " +userId);
-
-		if(login!= null) {
-
-			// 사용자 정보를 가져올 수 있다.
-			login.getUserId(); // hong
-			login.getUserName(); // 홍길동
-
-			userId = login.getUserId();
-			//System.out.println("userId: " +userId);
+		//1.로그인이 안되어 있다면 >> 로그인 창으로 유도.
+		if(session.getAttribute("login")==null) {	
+			String referer = request.getHeader("Referer");	
+			request.getSession().setAttribute("redirectURI", referer);
+			mav.setViewName("login");
+			return mav;
 		}
 
-		//1.이벤트 참가자이름 : username
-		//2.이벤트 날짜: event - day
-		//3.이벤틀 이름: event = eventTtle 
+		//2.로그인성공 + userId 기반으로 이벤트 정보 불러오고
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
+		String userId = login.getUserId();
 
-		//리스트 이벤트 디티오 
-
-		List<EventDTO> lists = eventDao.getEventListsByUserId(userId);
+		List<EventCheckDTO> lists = eventDao.getEventListsByUserId(userId);
 
 		mav.addObject("elists",lists);
 		mav.setViewName("eventCheck");
@@ -850,7 +848,7 @@ public class HotelController {
 
 		int interval = hdao.getInterval2(checkin,checkout);	     
 
-		int optionTotal = interval *  total;	
+		int optionTotal = interval *  total;
 
 		String [] optionList = request.getParameterValues("optionList2");
 		ModelAndView mav = new ModelAndView();
@@ -1390,9 +1388,16 @@ public class HotelController {
 	
 	//Spa
 	@RequestMapping(value = "/life-spa.action", method = RequestMethod.GET)
-	public String lifespa() {
-		
-		return "life-spa";
+	public ModelAndView lifespa() {
+
+		ModelAndView mav = new ModelAndView();
+
+		List<SpaDTO> lists = spaDAO.getSpaList();
+
+		mav.setViewName("life-spa");
+		mav.addObject("lists", lists);
+
+		return mav;
 	}
 	
 	@RequestMapping(value = "/spa-upload.action", method = RequestMethod.GET)
@@ -1416,7 +1421,7 @@ public class HotelController {
 		spaDAO.insertspa(dto);
 
 		//hotelWeb -> HotelWebService
-		Path path = Paths.get("D:\\sts-bundle\\work\\hotelWeb\\src\\main\\webapp\\resources\\images\\spa");
+		Path path = Paths.get("D:\\sts-bundle\\work\\HotelWebService\\src\\main\\webapp\\resources\\images\\spa");
 
 		if(file!=null&&file.getSize()>0) { 
 
@@ -1461,13 +1466,13 @@ public class HotelController {
 		u.render(model1, request1, response1);
 		mav.setViewName("life-spa");
 
-		return mav;	
+		return mav;
 	}
-
+	
 	@RequestMapping(value="/spa-booking.action", method = {RequestMethod.GET,RequestMethod.POST})
 	public String spaBooking()  {
 
-		return "spa-booking";	
+		return "spa-booking";
 	}
 	
 	//spa-request.action

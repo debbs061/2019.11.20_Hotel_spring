@@ -12,16 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
-<!-- font -->
-  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
-  
-	<style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
+
 
 </head>
 <body>
@@ -35,11 +26,13 @@
 	<ul class="list-group">
  	 <h4 style="text-align: center;">중복된 예약이 있습니다</h4>
   	 <h6>&nbsp;이벤트 이름</h6>
-  	 <li class="list-group-item" style="background-color: #D8D8D8;">예약이름</li>
-     <h6 style="padding: 5px;">이름 </h6>
-     <li class="list-group-item" style="background-color: #D8D8D8;">${dto.userId }</li>
+  	 <li class="list-group-item" style="background-color: #faf2d7;">${edto.eventTitle }</li>
      <h6 style="padding: 5px;">장소 및 시간</h6>
-     <li class="list-group-item" style="background-color: #D8D8D8;">장소</li>
+     <li class="list-group-item" style="background-color: #faf2d7;">${edto.location } /${edto.time } </li>
+     <h6 style="padding: 5px;">동행인원</h6>
+     <li class="list-group-item" style="background-color: #faf2d7;">${dto.companionNumber }</li>
+     <h6 style="padding: 5px;">요청사항</h6>
+     <li class="list-group-item" style="background-color: #faf2d7;">${dto.userRequest }</li>
      </ul>
      </div>  
      <br/>
@@ -50,30 +43,26 @@
 		<ul class="list-group">
  		 <h4 style="text-align: center;">예약이 확정되었습니다.</h4>
   	 	 <h6>&nbsp;이벤트 이름</h6>
-  	 	 <li class="list-group-item" style="background-color: #D8D8D8;">예약이름</li>
-    	 <h6 style="padding: 5px;">이름 </h6>
-    	 <li class="list-group-item" style="background-color: #D8D8D8;">${dto.userId }</li>
-     	 <h6 style="padding: 5px;">장소 및 시간</h6>
-      	 <li class="list-group-item" style="background-color: #D8D8D8;">장소</li>
-         </ul>
+  	 	 <li class="list-group-item" style="background-color: #faf2d7;">${edto.eventTitle }</li>
+    	 <h6 style="padding: 5px;">장소 및 시간</h6>
+   		 <li class="list-group-item" style="background-color: #faf2d7;">${edto.location } /${edto.time } </li>
+         <h6 style="padding: 5px;">동행인원</h6>
+         <li class="list-group-item" style="background-color: #faf2d7;">${dto.companionNumber }</li>
+         <h6 style="padding: 5px;">요청사항</h6>
+         <li class="list-group-item" style="background-color: #faf2d7;">${dto.userRequest }</li>
+        </ul>
      </div>  
      <br/>
 </c:otherwise>
 </c:choose>
- 
 
 
 </div>
  
 <div align="center">
 	<a class="btn btn-main" href="event-booking-delete.action?eventBookingNum=${dto.eventBookingNum }" role="button">예약 취소</a>
-	<!--  <a class="btn btn-main" href="event-booking-delete.action?eventBookingNum=${dto.eventBookingNum }" role="button">수정</a>  -->
 	<button type="button" class="btn btn-main" data-dismiss="modal">닫기</button>
 </div>	
-
-
-
-
 
 </body>
 </html>

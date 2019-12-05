@@ -3,6 +3,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,7 +13,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Restaurant</title>
+  <title>IT WILL | Restaurant </title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,6 +42,14 @@
    <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
+	<style type="text/css">
+	
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
+	
+	</style>
+	
   <!-- Kakao 톡상담 -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
@@ -58,14 +67,6 @@
   
   
   </style>
-  <style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
-  
   
   <style type="text/css">
       * {
@@ -133,6 +134,7 @@
 										<c:if test="${sessionScope.login.userId eq 'admin'}">
 											<a href="admin.action">관리자</a>
 										</c:if>
+										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -153,7 +155,7 @@
 		  <div class="collapse navbar-collapse" id="navbarsExample09">
 			<ul class="navbar-nav ml-auto">
 			  <li class="nav-item active">
-				<a class="nav-link" href="/hotel">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="restaurantMain.action">Home <span class="sr-only">(current)</span></a>
 			  </li>
 			  
 			  <li class="nav-item dropdown">
@@ -166,16 +168,17 @@
 			  </li>
 			  
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Restaurants</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
-				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
-				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
+				  <li><a class="dropdown-item" href="res-details.action?resName=명월관">명월관</a></li>
+				  <li><a class="dropdown-item" href="res-details.action?resName=DEL VINO">DEL VINO</a></li>
+				  <li><a class="dropdown-item" href="res-details.action?resName=회림">회림</a></li>
 				</ul>
 			  </li>
 
-			  <li class="nav-item active">
+			  <!-- <li class="nav-item active">
 				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
-			  </li>
+			  </li> -->
 			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
@@ -197,7 +200,7 @@
 			  
 			</ul>
 			<form class="form-inline my-2 my-md-0 ml-lg-4">
-			  <a href="booking-step1.action" class="btn btn-main">Book Online</a>
+			  <a href="res-myBooking.action" class="btn btn-main">예&nbsp;약&nbsp;확&nbsp;인</a>
 			</form>
 		  </div>
 		</div>
@@ -209,10 +212,33 @@
 <div class="main-wrapper ">
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
+<section class="overly bg-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+          <h1 class="text-white py-100">레스토랑 예약 완료</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid page-border-top">
+    <div class="row ">
+      <div class="col-lg-12 text-center">
+          <div class="page-breadcumb py-2">
+            <a href="/hotel" class="text-white">Home</a>
+            <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
+            <a class="text-white">About Restaurant</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
  <!-- MAIN CONTENT -->
     <section class="main-content section clearfix">
       <div class="container">
         <div class="border payment-confirm position-relative">
+        
           <div class="row justify-content-center align-items-center ">
               <div class="col-md-12 col-sm-12 col-xs-12 col-lg-8">
                     <div class="row ">
@@ -221,24 +247,24 @@
                             <h3 class="headline">예약번호: ${dto.resBookNo }</h3>
                             <ul class="list-unstyled">
                             <li>
-                                <span>레스토랑: </span>
+                                <span>레&nbsp;스&nbsp;토&nbsp;랑: </span>
                                 ${dto.resName }
                             </li>
                               <li>
-                                <span>예약 날짜: </span>
+                                <span>예&nbsp;약&nbsp;날&nbsp;짜: </span>
                                 ${dto.checkin }
                               </li>
                               <li>
-                                <span>예약시간: </span>
-                               ${dto.time } 시
+                                <span>예&nbsp;약&nbsp;시&nbsp;간: </span>
+                               ${dto.time }
                               </li>
                               <li>
-                                <span>성인:  </span>
-                               ${dto.adult } 명
+                                <span>성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인:  </span>
+                               ${dto.adult }
                               </li>
                               <li>
-                                <span>어린이:</span>
-                               ${dto.children } 명
+                                <span>어&nbsp;&nbsp;린&nbsp;&nbsp;이:</span>
+                               ${dto.children }
                               </li>
                             </ul>
                         </div>
@@ -249,18 +275,25 @@
                            <h3 class="headline">예약정보</h3>
 
                           <ul class="list-unstyled">
+                         	<li>
+                                <span>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름:  </span>
+                                ${dto.name }
+                            </li>
                             <li>
-                                <span>연락처:  </span>
+                                <span>연&nbsp;&nbsp;&nbsp;락&nbsp;&nbsp;&nbsp;처:  </span>
                                 ${dto.phone }
                             </li>
 
                              <li>
-                                <span>이메일:  </span>
+                                <span>이&nbsp;&nbsp;&nbsp;메&nbsp;&nbsp;&nbsp;일:  </span>
                                 ${dto.email }
                             </li>
                             <li>
-                                <span>요청사항:  </span>
-                                ${dto.comments }
+                                <span>요&nbsp;청&nbsp;사&nbsp;항:  </span>
+                               	<c:if test="${empty dto.comments }">
+                               		요청사항이 없습니다.
+                                </c:if>
+                             	${dto.comments }
                             </li>
                           </ul>
                         </div>
@@ -275,11 +308,10 @@
                       </div>
 
                        <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                       <a href="/hotel/" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
-                       <a href="#" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
-                       <a href="#" class="btn btn-solid-border">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a>
-                       <a href="#" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
-                       <a href="#" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
+                       <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
+                       <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
+                       <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
+                       <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
                   </div>
                 </div>
               </div>
@@ -323,7 +355,7 @@
 					<h3 class="mb-4">빠른링크</h3>
 					<ul class="list-unstyled footer-menu mb-0">
 						<li>
-							<a href="/"><i class="fa fa-angle-right"></i>Home</a>
+							<a href="/hotel"><i class="fa fa-angle-right"></i>Home</a>
 						</li>
 
 						<li>
@@ -335,7 +367,7 @@
 						</li>
 	
 						<li>
-							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>
@@ -428,8 +460,8 @@
 	//]]>
 	
 	</script>
-    
-    <script src="/hotel/resources/js/weather.js"></script>
+	
+	<script src="/hotel/resources/js/weather.js"></script>
 
   </body>
   </html>

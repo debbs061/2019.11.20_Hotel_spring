@@ -1,20 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="description" content="Eden Travel Template">
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Hotel </title>
-
+  <title>IT WILL | Spa </title>
+  
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- bootstrap.min css -->
@@ -52,9 +52,9 @@
 	}
 	
 	</style>
-
+  
+  
 </head>
-
 <body >
 
 <!-- Header Start --> 
@@ -170,30 +170,27 @@
 	</nav>
 </header>
 
+
 <!-- Header Close --> 
 
 <div class="main-wrapper ">
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
 <section class="overly bg-2">
-<!-- 검정 배경 시작 -->
-   
-   <!-- 하나의 컨테이너 시작-->
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">이벤트 예약확인</h1>
+          <h1 class="text-white py-100">에비앙스파 예약확인</h1>
       </div>
     </div>
   </div>
-
   <div class="container-fluid page-border-top">
     <div class="row ">
       <div class="col-lg-12 text-center">
           <div class="page-breadcumb py-2">
-            <a href="/hotel" class="text-white">Home</a>
+            <a href="#" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="eventCheck.action" class="text-white">Event</a>
+            <a href="#" class="text-white">Spa Reservation Confirmed</a>
         </div>
       </div>
     </div>
@@ -201,136 +198,87 @@
 </section>
 
 
+<div class="page-wrapper event-page">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+	<div class="single-event">
+
+		<div class="event-content mt-4">
+		<form method="post" action="" name="spaBookingForm">
+		
+			<a><h2><i class="fa fa-users" aria-hidden="true"></i> ${dto.spaUserName }&nbsp;회원님 스파 예약 정보</h2></a>
+			
+            <hr style="border: 2px solid silver;" width="100%">
+
+		<div class="event-comment-form mt-5">
+		
+		<h3 class="mb-4">상세 예약 정보</h3>
+			
+				<div class="row">
+				<div class="form-group col-lg-12">
+						 <label for="inputname" class="col-sm-4 col-form-label">예약번호: Spa - ${dto.spaBookingNum}</label>
+					</div>
+					<div class="form-group col-lg-12">
+						 <label for="inputname" class="col-sm-4 col-form-label">이름 : ${dto.spaUserName}</label>
+					</div>
+					
+					<div class="form-group col-lg-12">
+						 <label for="inputname" class="col-sm-4 col-form-label">코스 : ${dto.spaType}</label>
+					</div>
+					<div class="form-group col-lg-12">
+						 <label for="inputname" class="col-sm-4 col-form-label">이용일자 : ${dto.spaDate} </label>
+					</div>
+					<div class="form-group col-lg-12">
+						 <label for="inputname" class="col-sm-4 col-form-label">시간 : ${dto.time}:00</label>
+					</div>
+					<div class="form-group col-lg-12">
+						 <label for="inputname" class="col-sm-4 col-form-label">인원 : ${dto.adult} 명</label>
+					</div>
+					<div class="form-group col-lg-12">
+						 <label for="inputname" class="col-sm-4 col-form-label">핸드폰 : ${dto.phone }</label>
+					</div>
+					<div class="form-group col-lg-12">
+						 <label for="inputname" class="col-sm-4 col-form-label">이메일 : ${dto.email }</label>
+					</div>
+					<div class="form-group col-lg-12">
+					<label for="inputname" class="col-sm-4 col-form-label">요청사항: </label>
+						<textarea name="spaUserRequest" id="spaUserRequest" class=" form-control" rows="6"  maxlength="500" >${dto.spaUserRequest}</textarea>
+					</div>
+					
+					<br/><br/>
+					
+					<div class="border-top"></div><br/><br/>
+					<div class="border-top"></div><br/><br/>
+					
+					<h3 class="mb-4" align="center">고객님께 드리는 안내 말씀</h3>
+					<p>저희 스파 시설을 충분히 즐기며 긴장을 완화 시키실 수 있도록 트리트먼트 예약 30분 전에 미리 방문 바랍니다.
+					혹여 늦으실 경우 다음 고객 예약으로 고객님의 트리트먼트 시간이 단축되므로 양해 부탁드립니다.
+					부득이한 사정으로 스파 예약 취소 및 변경을 원하는 경우 이용일 기준 24시간 전에 알려주시기 바라며 사전에 취소하지 
+					않는 경우 100%의 취소 수수료가 발생합니다.
+					</p>
+				<div class="border-top"></div><br/><br/>
+					<div class="form-group col-lg-12">
+							<div class="gallery-title" align="center">
+								  <div align="center" style="padding-top: 30px;">
+                                        <a href="spa-booking-delete.action?spaBookingNum=${dto.spaBookingNum }" class="btn btn-small">예약취소</a>
+                                        <a href="life-spa.action"  class="btn btn-small"  >확인</a></div>
+                                    </div>
+							
+								<br/><br/>
+							</div>
+					
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+		</div>
+	</div>
+</div>
 
 
- <!-- MAIN CONTENT -->
-    <section class="main-content section clearfix">
-      <div class="container">
-        
-       <c:forEach items="${elists }" var="dto">
-        <div class="border payment-confirm position-relative">
-          <div class="row justify-content-center align-items-center ">
-              <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
-                <img src="/hotel/resources/images/event/${dto.savefileName }" 
-                class="img-fluid w-100" style="width: 289px; height: 193px;" alt="confirm img"/>
-
-              <!--    <a href="room-details"><h2 class="text-dark mt-3 mb-4">Delux couple</h2></a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita</p>
-          -->   </div>
-
-              <div class="col-md-12 col-sm-12 col-xs-12 col-lg-8">
-              		<div class="row">
-              		<div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: 85px;">
-                        <div class="ed-cinfirm-detail" style="width: 300px;">
-                            <h3 class="headline">${dto.eventTitle }</h3>
-                        </div>
-                    </div>
-              		
-              		</div>
-                    <div class="row ">
-                    
-                      <div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: 85px;">
-                        <div class="ed-cinfirm-detail" style="width: 300px;">
-                            <ul class="list-unstyled">
-                              <li>
-                                <span>성함:</span>
-                               ${sessionScope.login.userName }
-                              </li>
-                              <li>
-                                <span>동행인원:</span>
-                             	${dto.companionNumber }
-                              </li>
-                               <li>
-                                <span>예약일자: </span>
-                          	   ${dto.userSelectedDate }
-                              
-                              </li>
-                              <li>
-                                <span>장소: </span>
-                                ${dto.location }
-                              </li>
-                              <li>
-                              </li>
-                              <li>
-                              </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="ed-cinfirm-detail">
-                          <ul class="list-unstyled">
-                            <li>
-                                <span>연락처:  </span>
-                              ${sessionScope.login.tel }
-                            </li>
-                             <li>
-                                <span>이메일:  </span>
-                               ${sessionScope.login.userEmail }
-                            </li>
-                             <li>
-                                <span>가격:  </span>
-                                ${dto.price}
-                            </li>
-                             <li>
-                                <span>요청사항:  </span>
-                               	 ${dto.userRequest }
-                            </li>
-                            
-                            <li>
-                            </li>
-                             <li>
-                            </li>
-                           
-                          </ul>
-                        </div>
-                    </div>
-                    
-           </div>
-                   
-                <!-- 1개의 이벤트 내역 출력 종료 -->
-              </div>
-               <div class="total-amount" style="padding-left: 40px; padding-bottom: 50px;">
-       				<button type="button" id="btnOK" class="btn btn-solid-border" value="${dto.eventBookingNum}" >예약취소하기</button>
-                </div>
-              
-          </div>
-          </div>
-          
-          </c:forEach>
-          		
- 				<div class="col-lg-12 text-center">
- 				<c:if test="${fn:length(elists) > 0 }">
-                      <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
-                        <h2>더 다양한 아이티윌 호텔의 서비스를 즐기세요.</h2>
-                        <br/>
-                </c:if>
-                <c:if test="${fn:length(elists) == 0 }">
-                	<div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
-                        <h2>예약이 존재하지 않습니다.</h2>
-                        <br/>
-                </c:if>
-                        <p>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
-                      </div>
-
-                       <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                       <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
-                       <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
-                       <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
-                       <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
-                       <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
-                       <!-- <a href="#" class="btn btn-main">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                       <a href="#" class="btn btn-main">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
-                       <a href="#" class="btn btn-main">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
-                       <a href="#" class="btn btn-main">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a> -->
-                       
-                       
-                  </div>
-
-      </div>
-    </section>
-
-  
 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
@@ -473,41 +421,6 @@
 	</script>
 	
 	<script src="/hotel/resources/js/weather.js"></script>
-	
-	<script type="text/javascript">
-	
-	$(document).ready(function(){
-		
-		$("#btnOK").click(function(){
-			
-			var currentLocation = window.location;
-			
-			var eventBookingNum ="eventBookingNum="+ $("#btnOK").val();
-				
-			$.ajax({
-				
-				type:"POST",  
-				url:"<%=cp%>/event-booking-delete.action", 
-				data:eventBookingNum,
-				success:function(args){
-						
-					alert("삭제완료");
-					
-					location.reload();
-					
-				},
-				beforeSend:false, 
-				error:function(e) {
-					
-					alert(e.responseText); 
-				}
-			});
-			
-		});
-		
-	});
-	
-	</script>
 
   </body>
   </html>

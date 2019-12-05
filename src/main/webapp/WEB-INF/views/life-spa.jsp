@@ -458,95 +458,114 @@
    </div>
 
 <div class="page-wrapper event-page">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-lg-8">
-				<div class="event-box mb-5 position-relative">
-	
-
-	<div class="event-content mt-3">
-		
-		<b><h2>아이티윌 에비앙스파</h2></b></a>
-		<div class="event-post-meta mt-2 mb-3" style="padding-top: 30px;">
-			<span><i class="ion-clock"></i>운영시간 : 9.00 Am - 9.00 Pm</span>
-			<span><i class="ion-ios-location"></i>장소 : 3층 에비앙 스파</span>
-		</div>
-		<p style="line-height: 200%;">아이티윌 에비앙스파는 고상하고 순결한 에비앙 산의 이미지에서 영감을 얻은 자연 본연의 훼손되지 않은 휴식처입니다.
-고급스럽고 감각적인 소재, 자연채광과 환상적인 서울의 전망이 어우러진 에비앙스파는 심신의 재충전을 위한 기대 이상의 여행으로 고객님을 초대합니다.</p>
-	</div>
-	<br/><br/>
-<hr style="border: 2px solid silver;" width="100%">
-
-
- <div class="row align-items-center" style="padding-top: 50px;">
-            <div class="col-lg-6">
-                <img src="/hotel/resources/images/spa/spa7.JPG" alt="" class="img-fluid" style="width:100%; height: 100%;">
-            </div>
-            <div class="col-lg-6">
-                <div class="about-content mt-4 mt-lg-0">
-                    <h4 class="mb-3"><span>바쁜 도시의 일상을 떠난 온전한 힐링</span></h4>
-                    
-					<p style="line-height: 200%;">오롯이 심신의 건강을 고려한 활력 있는 다중감각 공간으로서, 에비앙스파 서울은 편안하고 여유로운 환경에서 프리미엄 수분공급이라는 독특한 경험을 제공해 드립니다.
-
-물의 순환을 모방한 트리트먼트 코스는 모든 감각을 자극하기 위한 물의 모든 상태를 경험하실 수 있도록 해드립니다.
-
-에비앙스파는 에비앙 물에 투영된 4가지 경험 (Celestial, Mineral, Precious, Vitalizing)을 통해 자연의 기적을 불러 일으키는 코스로 구성이 되어 있습니다.
-
- </p>
-                
-             
-                </div>
-            </div>
-        </div>
-<div class="row align-items-center" style="padding-top: 50px;">
-
-<div class="col-lg-6">
-                        <ul class="list-unstyled" style="padding-top: 50px;">
-                      
-                                <li>
-                                
-                                <p><b>스파 시설</b></p>
-                                <p><i class="fa fa-bullseye" aria-hidden="true"></i> 개인 라커와 샤워시설을 갖춘 6개의 트리트먼트룸</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-bullseye" aria-hidden="true"></i> 개인 자쿠지를 갖춘 1개의 VIP커플 스위트룸</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-bullseye" aria-hidden="true"></i> 휴게라운지와 에비앙 아쿠아 바</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-bullseye" aria-hidden="true"></i> 건식,습식 사우나,자쿠지,풀</p>
-                                </li>
-                                <li style="padding-top: 10px;">
-                               <p> <h6>요금과 트리트먼트는 사전 통보없이 변경될수 있으며, 모든 요금에 10%세금이 포함되어있습니다.</h6></p>
-                           </li>
-                            </ul>
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="event-box mb-5 position-relative">
+                                        <div class="event-content mt-3">
+                                            <b>
+                                                <h2>아이티윌 에비앙스파</h2>
+                                            </b>
+                                        </a>
+                                        <div class="event-post-meta mt-2 mb-3" style="padding-top: 30px;">
+                                            <span>
+                                                <i class="ion-clock"></i>운영시간 : 9.00 Am - 9.00 Pm</span>
+                                            <span>
+                                                <i class="ion-ios-location"></i>장소 : 3층 에비앙 스파</span>
+                                        </div>
+                                        <p style="line-height: 200%;">아이티윌 에비앙스파는 고상하고 순결한 에비앙 산의 이미지에서 영감을 얻은 자연 본연의 훼손되지 않은 휴식처입니다.
+                                            고급스럽고 감각적인 소재, 자연채광과 환상적인 서울의 전망이 어우러진 에비앙스파는 심신의 재충전을 위한 기대 이상의 여행으로 고객님을 초대합니다.</p>
+                                    </div>
+                                    <br/><br/>
+                                    <hr style="border: 2px solid silver;" width="100%">
+                                    <div class="row align-items-center" style="padding-top: 50px;">
+                                        <div class="col-lg-6">
+                                            <img src="/hotel/resources/images/spa/spa7.JPG" alt="" class="img-fluid" style="width:100%; height: 100%;">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="about-content mt-4 mt-lg-0">
+                                                <h4 class="mb-3">
+                                                    <span>바쁜 도시의 일상을 떠난 온전한 힐링</span>
+                                                </h4>
+                                                <p style="line-height: 200%;">오롯이 심신의 건강을 고려한 활력 있는 다중감각 공간으로서, 에비앙스파 서울은 편안하고 여유로운 환경에서 프리미엄 수분공급이라는 독특한 경험을 제공해 드립니다.
+                                                    
+                                                    물의 순환을 모방한 트리트먼트 코스는 모든 감각을 자극하기 위한 물의 모든 상태를 경험하실 수 있도록 해드립니다.
+                                                    
+                                                    에비앙스파는 에비앙 물에 투영된 4가지 경험 (Celestial, Mineral, Precious, Vitalizing)을 통해 자연의 기적을 불러 일으키는 코스로 구성이 되어 있습니다.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 스파타입정보  -->
+                                    <div class="row align-items-center" style="padding-top: 50px;" align="left">
+                                        <c:forEach items="${lists }" var="dto">
+                                            <div class="col-lg-6" style="padding-top: 10px;">
+                                                <img src="/hotel/resources/images/spa/${dto.savefileName}" alt="" class="img-fluid" style="width:80%; height: 80%;">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="about-content mt-4 mt-lg-0">
+                                                    <h3>${dto.spaType }</h3>
+                                                    <div class="event-post-meta mt-2 mb-3">
+                                                        <span>
+                                                            <i class="ion-clock"></i>${dto.time }</span>
+                                                        <span>
+                                                            <i class="fa fa-bullseye"></i>${dto.price }</span>
+                                                    </div>
+                                                    <p>${dto.content }</p>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                    <div align="center" style="padding-top: 30px;">
+                                        <a href="Giftcard_KOR.pdf" class="btn btn-small">선 불 카 드 </a>
+                                        <a href="spa-booking.action"  class="btn btn-small"  >예 약 하 기 </a></div>
+                                    </div>
+                                    <!-- 스파타입정보끝 -->
+                                    <div class="row align-items-center" style="padding-top: 50px;">
+                                        <div class="col-lg-6">
+                                            <ul class="list-unstyled" style="padding-top: 50px;">
+                                                <li>
+                                                    <h4 class="mb-3">
+                                                        <span>스파 시설</span>
+                                                    </h4>
+                                                    <p>
+                                                        <i class="fa fa-bullseye" aria-hidden="true"></i>개인 라커와 샤워시설을 갖춘 6개의 트리트먼트룸</p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <i class="fa fa-bullseye" aria-hidden="true"></i>
+                                                      	개인 자쿠지를 갖춘 1개의 VIP커플 스위트룸</p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <i class="fa fa-bullseye" aria-hidden="true"></i>
+                                                        휴게라운지와 에비앙 아쿠아 바</p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <i class="fa fa-bullseye" aria-hidden="true"></i>
+                                                        건식,습식 사우나,자쿠지,풀</p>
+                                                </li>
+                                                <li style="padding-top: 10px;">
+                                                    <p>
+                                                        <h6>요금과 트리트먼트는 사전 통보없이 변경될수 있으며, 모든 요금에 10%세금이 포함되어있습니다.</h6>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <img src="/hotel/resources/images/spa/spa6.JPG" alt="" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    <div style="padding-top: 20px;"></div>
+                                    <br/><br/>
+                                    <hr style="border: 2px solid silver;" width="100%">
+                                </div>
                             </div>
-                            <div class="col-lg-6">
-                             <img src="/hotel/resources/images/spa/spa6.JPG" alt="" class="img-fluid" >
+                        </div>
+                    </div>
                 </div>
-            </div>
-                            
-                              <div style="padding-top: 20px;">
-                        
-
-				 <a href="Giftcard_KOR.pdf" class="btn btn-small" title="다운로드">선불카드</a>
-	             <a href="Evian_Spa_Program_KOR.pdf" class="btn btn-small" title="다운로드">프로그램</a>
-			
-	       </div >
-	       <br/><br/>
-	           <hr style="border: 2px solid silver;" width="100%" >
-      </div>
-   </div>
-
-</div>
-                        
-</div>
-   
-                        
-	
-</div>
-</div>
+			</div>
 </section>
 
 
