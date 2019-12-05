@@ -225,10 +225,17 @@
 						<p> ${dto.content1 }</p>
 						<blockquote class="quote-post position-relative">
 							<p>
+<<<<<<< HEAD
 							${dto.content3 }	
 							</p>
 						</blockquote>
 						<p>${dto.content2 }</p>
+=======
+							${dto.content2 }	
+							</p>
+						</blockquote>
+						<p>${dto.content3 }</p>
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 					</div>
 					<!-- 이벤트 신청 개인 모달 버튼 -->
 				<div style="padding-bottom: 10px;">

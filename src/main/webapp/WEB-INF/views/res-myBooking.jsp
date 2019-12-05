@@ -282,7 +282,11 @@
                        <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
                        <a href="/hotel/" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
                        <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
+<<<<<<< HEAD
                        <a href="#" class="btn btn-solid-border">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a>
+=======
+                       <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
                        <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
                   </div>
                </c:if>
@@ -293,6 +297,10 @@
                       <div class="total-amount border-bottom border-top py-4 mt-4 mb-4">
                        	<h5>${msg }</h5>
                       </div>
+<<<<<<< HEAD
+=======
+                      <a href="myPage.action" class="btn btn-solid-border">뒤&nbsp;로&nbsp;가&nbsp;기</a>
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
                   </div>
                </c:when>
                </c:choose>

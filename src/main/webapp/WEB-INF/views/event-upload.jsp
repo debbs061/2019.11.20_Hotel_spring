@@ -418,7 +418,12 @@ function inputIdChk() {
 						<div class="col-lg-10">
 							<div class="form-group">
 								<p class="section-subtitle">
+<<<<<<< HEAD
 									<input type="submit" class="btn btn-main" onclick="sendIt();" value="글올리기" placeholder="540 * 394 사이즈">	
+=======
+									<input type="submit" class="btn btn-main" onclick="sendIt();" value="글 올 리 기 " placeholder="540 * 394 사이즈">
+									<a href="admin.action" class="btn btn-main">뒤&nbsp;로&nbsp;가&nbsp;기</a>
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 								</p>						
 							</div>
 						</div>

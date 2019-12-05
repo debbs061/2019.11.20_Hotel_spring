@@ -331,7 +331,11 @@
 	<div class="single-event">
 
 		<div class="event-content mt-4">
+<<<<<<< HEAD
 		<form method="post" action="" name="spaBookingForm">
+=======
+		<form method="post" class="reserve-form" action="" name="spaBookingForm">
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 		
 			<a><h2>${dto.spaUserName }&nbsp;온라인예약</h2></a>
 			<input type="hidden" id="spaBookingNum" value="${dto.spaBookingNum }">

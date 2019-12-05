@@ -256,6 +256,7 @@
                               </li>
                               <li>
                                 <span>예&nbsp;약&nbsp;시&nbsp;간: </span>
+<<<<<<< HEAD
                                ${dto.time }시
                               </li>
                               <li>
@@ -265,6 +266,17 @@
                               <li>
                                 <span>어&nbsp;&nbsp;린&nbsp;&nbsp;이:</span>
                                ${dto.children }명
+=======
+                               ${dto.time }
+                              </li>
+                              <li>
+                                <span>성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인:  </span>
+                               ${dto.adult }
+                              </li>
+                              <li>
+                                <span>어&nbsp;&nbsp;린&nbsp;&nbsp;이:</span>
+                               ${dto.children }
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
                               </li>
                             </ul>
                         </div>
@@ -308,11 +320,18 @@
                       </div>
 
                        <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
+<<<<<<< HEAD
                        <a href="/hotel/" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
                        <a href="#" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
                        <a href="#" class="btn btn-solid-border">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a>
                        <a href="#" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
                        <a href="#" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
+=======
+                       <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
+                       <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
+                       <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
+                       <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
                   </div>
                 </div>
               </div>

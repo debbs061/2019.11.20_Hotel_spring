@@ -13,11 +13,16 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- UserId로 검색 -->
 <select id="getReadUserData" parameterType="String" resultType="com.exe.dto.HotelUserDTO">
+<<<<<<< HEAD
 	select userId, userName, userPwd, email, to_char(birth,'yyyy-mm-dd') birth, tel, addr from hotelUser
+=======
+	select userId, userName, userPwd, email, birth, tel, addr from hotelUser
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 	where userId=#{userId}
 </select>
 
 
+<<<<<<< HEAD
 <!-- 회원정보수정 -->
 <update id="updateUserData" parameterType="com.exe.dto.HotelUserDTO">
 	update hotelUser set
@@ -26,6 +31,8 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 </update>
 
 
+=======
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 <!-- gallery -->	
 <select id="galleryGetMaxNum" resultType="int">
 	select nvl(max(galleryIndex),0) from gallery
@@ -52,8 +59,13 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 </select>
 	
 <insert id="insertReview" parameterType="com.exe.dto.ReviewDTO">
+<<<<<<< HEAD
 	insert into review (reviewNum,name,email,content,created,roomIndex,userId)
 	values (#{reviewNum},#{name},#{email},#{content},sysdate,#{roomIndex},#{userId})
+=======
+	insert into review (reviewNum,name,email,content,created,roomIndex)
+	values (#{reviewNum},#{name},#{email},#{content},sysdate,#{roomIndex})
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 </insert>
 	
 <select id="getReviewList" parameterType="int" resultType="com.exe.dto.ReviewDTO">
@@ -69,10 +81,17 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 <select id="getReadBookingOut"  parameterType="map"
 resultType="com.exe.dto.HotelBookingDTO" >
 <![CDATA[
+<<<<<<< HEAD
 select roomIndex from room where roomIndex not in(
 select roomIndex from hotelBooking
 where checkout > (select to_date(#{checkin},'mm/dd/yyyy') from dual)
 and checkin < (select to_date(#{checkout},'mm/dd/yyyy') from dual))
+=======
+select roomIndex from room where roomindex not in(
+select roomIndex from hotelBooking
+where checkout > (select to_date(#{checkin},'mm/dd/yyyy') from dual)
+or checkin < (select to_date(#{checkout},'mm/dd/yyyy') from dual))
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 	]]>
 </select>
 
@@ -86,7 +105,10 @@ select * from room where roomIndex = #{roomIndex[i]}
 	where roomIndex=#{roomIndex}
 </select>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 <!-- 예약완료관련 sql -->
 <select id="maxHotelNum" resultType="int">
 	select nvl(max(bookingId),0) from hotelBooking
@@ -94,8 +116,13 @@ select * from room where roomIndex = #{roomIndex[i]}
 
 <insert id="insertBookingData" parameterType="com.exe.dto.HotelBookingDTO">	
 insert into hotelBooking(bookingId,userId,roomIndex,checkin,checkout,
+<<<<<<< HEAD
 adult,children,options,bookingMessage,price) values(#{bookingId},#{userId},#{roomIndex},#{checkin},
 #{checkout},#{adult},#{children},#{options},#{bookingMessage},#{price})	
+=======
+adult,children,options,bookingMessage) values(#{bookingId},#{userId},#{roomIndex},#{checkin},
+#{checkout},#{adult},#{children},#{options},#{bookingMessage})	
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 </insert>
 
 <select id="intervalDay2"  parameterType="map" resultType="int">
@@ -103,6 +130,7 @@ SELECT trunc(to_date(#{checkout},'yyyy/mm/dd'))
 - trunc(to_date(#{checkin},'yyyy/mm/dd')) FROM dual
 </select>
 
+<<<<<<< HEAD
 
 
 <!-- 마이페이지 예약정보 가져오기 -->
@@ -145,4 +173,6 @@ SELECT trunc(to_date(#{checkout},'yyyy/mm/dd'))
 </delete>
 
 
+=======
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 </mapper>

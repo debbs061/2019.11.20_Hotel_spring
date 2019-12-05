@@ -16,6 +16,7 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getLessonList" resultType="com.exe.dto.LessonDTO">
 		select lessonIndex,image,title,trainer,time,addr,content from lesson
 	</select>
+<<<<<<< HEAD
 	
 	<select id="getLessonUserList" resultType="com.exe.dto.LessonUserDTO" parameterType="String">
 		select lessonUserIndex,lessonUserId,lessonUserName,lessonUserEmail,lessonUserDay,className
@@ -48,4 +49,7 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 		(#{lessonUserIndex},#{lessonUserId},#{lessonUserName},#{lessonUserEmail},#{lessonUserDay},#{className})
 	</insert>
 	
+=======
+
+>>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 </mapper>
