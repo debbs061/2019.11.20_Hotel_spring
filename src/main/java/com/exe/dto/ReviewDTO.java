@@ -10,6 +10,14 @@ public class ReviewDTO {
 	private int roomIndex;
 	private int roomNum;
 	
+	private String userId;
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	
 	public int getRoomNum() {
 		return roomNum;

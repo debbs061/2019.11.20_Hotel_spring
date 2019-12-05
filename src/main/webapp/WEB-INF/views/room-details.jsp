@@ -3,7 +3,17 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	String children2 = (String)request.getAttribute("children");
+	String adult2 = (String)request.getAttribute("adult");
 	
+	int children = 0;
+	int adult = 0;
+	
+	if(children2 != null){
+		children = Integer.parseInt(children2);}
+	if (adult2 != null ){
+	 	adult = Integer.parseInt(adult2);
+	}
 	int total = 0;
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -59,73 +69,91 @@
 
  	window.onload = function() {
     	
+    	parseWeather();
 		loadPage();
 	} 
+    
+    //날씨
+ 	function parseWeather(){
+ 		loadJSON(function(response){
+ 			
+ 			var jsonData = JSON.parse(response);
+ 			
+ 			var temp = Math.round(jsonData["main"]["temp"]-273.15);
+ 			document.getElementById("todayTemp").innerHTML = "서초구 "+temp + ' ˚C';
+ 			
+ 			var icon = jsonData["weather"][0]["icon"];
+ 			document.getElementById("icon").innerHTML = "<image src='https://openweathermap.org/img/wn/"+icon+".png'>";
+ 		});
+ 	}
+
+ 	function loadJSON(callback){
+ 		
+ 		var url = "https://api.openweathermap.org/data/2.5/weather?q=Seoul,KR&cnt=7&appid=4e843bd1d669f0389af7e25aa1fb2b21";
+ 		var request = new XMLHttpRequest();
+ 		request.overrideMimeType("application/json");
+ 		request.open('GET',url,true);
+ 		
+ 		request.onreadystatechange = function(){
+ 			if(request.readyState == 4 && request.status == "200")
+ 				{
+ 					callback(request.responseText);
+ 				}
+ 		};
+ 		request.send(null);
+ 			
+ 	}
+ 	
+ 	
 	
     
-	$(document).ready(function(){
-	
-		var total;	
-		var optionList = new Array();
-	
-		$('input[name="defaultCheck"]').change(function() {
+ 	$(document).ready(function(){
+ 		
+ 		$('input[id="form-check-input"]').change(function() {
 
-        	var arrList = new Array(); 
-        	var optionList = new Array(); 
-        	var pricePerNight = ${dto.pricePerNight };
-                
-        	$("input[name=defaultCheck]:checked").each(function(i){ 	   
-        	
-        		if(this.value == "30000"){
-        			arrList.push($(this).val());
-        			optionList[optionList.length] = "야외수영장";        
-        	}
-        
-        		if(this.value == "13000"){
-        			arrList.push($(this).val());
-        		//	alert("조식 "+optionList.length);
-        			optionList[optionList.length] = "조식";    		        	
-        		}
-        	
-        		if(this.value == "45000"){
-        			arrList.push($(this).val());
-         			optionList[optionList.length] = "와이너리";
-        		}
-        	
-        		if(this.value == "60000"){
-        			arrList.push($(this).val());
-         			optionList[optionList.length] = "스파";
-        		}
-        	
-        		if(this.value == "23000"){
-        			arrList.push($(this).val());
-         			optionList[optionList.length] = "엑스트라 베드";
-         		}
-        	});
-        
-        	if (arrList=="")
-        		arrList.push(0);
-        
-			$.ajax({
-				type:"POST",  
-				url:"<%=cp%>/room-details_ok.action", 
-				data:{arrList:arrList, pricePerNight:pricePerNight},
-				success:function(args){
-				
-					$("#listData").html(args);
-					 // 초기화된 배열에 다시 담기
-					for(var i=0;i<optionList.length;i++){
-					    optionList2[i]=optionList[i];
-					}
-				},
-				beforeSend:showRequest,
-				error:function(e) {
-				
-					alert(e.responseText); 
-				}
-			}); 
-		});
-	});
+ 	        var arrList = new Array(); // 체크박스 가격들 담음
+ 	        var optionList = new Array();  // 체크박스 옵션들 담음
+ 	        var pricePerNight = ${dto.pricePerNight }; // 1박당 가격
+ 	        
+ 	    	optionList2.splice(0,optionList2.length);
+ 			//delete optionList2[j];
+ 	            
+ 	        $('input[id="form-check-input"]:checked').each(function(i){ 	   
+ 	        	
+ 	        		arrList.push($(this).val());
+ 	        		optionList.push($(this).attr("name"));
+ 	        	
+ 	        });
+ 	        
+ 	        if (arrList=="")
+ 	        	arrList.push(0);        
+ 	        
+ 			$.ajax({
+ 				// 입력창 보내는거니깐 post형태로
+ 				type:"POST",  
+ 				url:"<%=cp%>/room-details_ok.action", 
+ 				data:{arrList:arrList, pricePerNight:pricePerNight},
+ 				success:function(args){
+ 					
+ 					$("#listData").html(args);
+ 					 // 초기화된 배열에 다시 담기
+ 					 
+ 					for(var i=0;i<optionList.length;i++){
+ 					    optionList2[i]=optionList[i];
+ 					}
+ 				},
+ 				beforeSend:showRequest, 
+ 				error:function(e) {
+ 					
+ 					alert(e.responseText); 
+ 				}
+ 			}); // ...end $.ajax
+ 			
+ 			
+ 			
+ 		});
+ 		
+ 	});
 
 	function loadPage() {
 		
@@ -133,7 +161,6 @@
 	    var pricePerNight = ${dto.pricePerNight};
 		
 	    arrList.push(0);
-		
 		var url = "<%=cp%>/room-details_ok.action";
 		
 		$.post(url,
@@ -162,13 +189,13 @@
 			
 			if(!checkin) {
 				alert("\n체크인 날짜를 선택하세요");
-				$("#checkin").focus;
+				$("#checkin").focus();
 				return false;
 			}
 
 			if (!checkout) {
 				alert("\n체크아웃 날짜를 선택하세요");
-				$("#checkout").focus;
+				$("#checkout").focus();
 				return false;
 			}
 			
@@ -179,13 +206,13 @@
 			
 			if(chkIn[2]>chkout[2]) {
 				alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-				$("#checkout").focus;
+				$("#checkout").focus();
 				return false;
 			}
 			
 			if(chkIn[0]>chkout[0]) {
 				alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-				$("#checkout").focus;
+				$("#checkout").focus();
 				return false;
 			}
 			
@@ -195,23 +222,23 @@
 				if(!chkIn[0]<chkout[0])
 					if(chkIn[1]>chkout[1])  {
 						alert("\n체크인 날짜보다 이전 날짜를 선택할 수 없습니다");
-						$("#checkout").focus;
+						$("#checkout").focus();
 						return false;
 					}
 			}
 						
 			if (adult=='성인') {
 				alert("\n인원 수를 선택하세요");
-				$("#adult").focus;
+				$("#adult").focus();
 				return false;
 			}
 			
 		    if (children=='어린이') {
 				alert("\n인원 수를 선택하세요");
-				$("#children").focus;
+				$("#children").focus();
 				return false;
 			}
-			
+		    
 			location.href = "<%=cp%>/booking-step2.action?checkin="+checkin
 				+"&checkout=" + checkout + "&adult=" + adult + "&children="+children
 				+"&total=<%=total%>&optionList2=" + optionList2
@@ -219,7 +246,12 @@
 		}
 		
 		// 전체 체크박스 해제
-		$("input:checkbox[name='defaultCheck']").prop("checked", false);
+		$("input:checkbox[id='form-check-input']").prop("checked", false);
+		
+		var adult = document.getElementById("adult").value;
+		var children = document.getElementById("children").value;
+		var checkin= document.getElementById("checkin").value;
+		var checkout = document.getElementById("checkout").value;
 		
 		location.href = "<%=cp%>/booking-step2.action?checkin="+checkin
 			+"&checkout=" + checkout + "&adult=" + adult + "&children="+children
@@ -242,12 +274,18 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="currentDate" style="font-size:12px;"></span>
+					<span style="font-size:12px;">서초구</span>
+					<span id="icon"></span>
+					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
+							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
 									<span class="text-color">
@@ -259,7 +297,15 @@
 								<c:otherwise>
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -272,7 +318,7 @@
 
 	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
 		<div class="container">
-		  <a class="navbar-brand" href="/hotel/"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
+		  <a class="navbar-brand" href="/hotel"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="fa fa-bars"></span>
 		  </button>
@@ -280,7 +326,7 @@
 		  <div class="collapse navbar-collapse" id="navbarsExample09">
 			<ul class="navbar-nav ml-auto">
 			  <li class="nav-item active">
-				<a class="nav-link" href="/hotel/">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/hotel">Home <span class="sr-only">(current)</span></a>
 			  </li>
 			  
 			  <li class="nav-item dropdown">
@@ -288,7 +334,7 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
 				  <li><a class="dropdown-item" href="about.action">About Us</a></li>
 				  <li><a class="dropdown-item" href="service.action">Services</a></li>
-				  <li><a class="dropdown-item" href="gallery-3.action">Gallery</a></li>
+				  <li><a class="dropdown-item" href="gallery.action">Gallery</a></li>
 				</ul>
 			  </li>
 			  
@@ -308,6 +354,16 @@
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
 			  </li>
 			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown03">
+				  <li><a class="dropdown-item" href="gym">Gym</a></li>
+				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
+				  <li><a class="dropdown-item" href="#">Shopping</a></li>
+				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
+				</ul>
+			  </li>
+			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="contact.action">Contact Us <span class="sr-only">(current)</span></a>
 			  </li>
@@ -324,7 +380,7 @@
 <!-- Header Close --> 
 
 <div class="main-wrapper ">
-
+<div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
 <section class="overly bg-2">
   <div class="container">
@@ -360,16 +416,43 @@
 						<img src="/hotel/resources/images/rooms/img${dto.roomIndex }.jpg" alt="" class="img-fluid">
 					</div>
 
+					
 					<div class="room-heading row d-flex mt-3 mb-5">
 						<div class="col-lg-9">
 							<h2 class="mb-0">${dto.roomType}</h2>
-							<h3>Starting from : <span> ${dto.pricePerNight }원</span>/<small>1박</small> </h3>
+							
+							<c:if test="${dto.pricePerNight == 150000 }">
+							<h3>Starting from : <span> 150,000</span> / <small>박</small> </h3>
+							</c:if>
+							
+							<c:if test="${dto.pricePerNight == 200000 }">
+							<h3>Starting from : <span> 200,000</span> / <small>박</small> </h3>
+							</c:if>
+							
+							<c:if test="${dto.pricePerNight == 250000 }">
+							<h3>Starting from : <span> 250,000</span> / <small>박</small> </h3>
+							</c:if>
+							
+							<c:if test="${dto.pricePerNight == 500000 }">
+							<h3>Starting from : <span> 500,000</span> / <small>박</small> </h3>
+							</c:if>
+							
+							<c:if test="${dto.pricePerNight == 1000000 }">
+							<h3>Starting from : <span> 1,000,000</span> / <small>박</small> </h3>
+							</c:if>
+							
+							<c:if test="${dto.pricePerNight == 1200000 }">
+							<h3>Starting from : <span> 1,200,000</span> / <small>박</small> </h3>
+							</c:if>
+							
 						</div>
 
 						<div class="col-lg-3">
 				<!-- 			<a href="booking-step1.action" class="btn btn-main ">예약하기</a> -->
 						</div>
 					</div>
+					
+					
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="mb-5 list-unstyled">
@@ -441,7 +524,7 @@
 			    	<h6 class="text-white text-uppercase mb-2">체크인</h6>
 			    	
 			    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-					<input type="text" class="form-control" placeholder="체크인 날짜" id="checkin" value="${checkin }">
+					<input type="text" class="form-control" placeholder="체크인 날짜" id="checkin" value="${checkin }" autocomplete="off">
 						<div class="input-group-addon">
 							<span class="ion-android-calendar"></span>
 						</div>
@@ -454,7 +537,7 @@
 			    	<h6 class="text-white text-uppercase mb-2">체크아웃</h6>
 			    	
 			    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-					    <input type="text" class="form-control" placeholder="체크아웃 날짜" id="checkout" value="${checkout }">
+					    <input type="text" class="form-control" placeholder="체크아웃 날짜" id="checkout" value="${checkout }" autocomplete="off">
 					    <div class="input-group-addon">
 					       <span class="ion-android-calendar"></span>
 					    </div>
@@ -463,27 +546,28 @@
 			    	<%-- <h6 class="text-white text-uppercase mb-2">${checkout }</h6> --%>
 	          	</div>
 
-			    <div class="form-group col-lg-12  mb-3">
+			    			    <div class="form-group col-lg-12  mb-3">
 			    	<h6 class="text-white text-uppercase mb-2">성인</h6>
 			    	
 			    	<c:if test="${empty adult }">
-				    	<select id="adult" class="form-control custom-select" name="adult" >
+				    	<select id="adult" class="form-control custom-select" value="adult" >
 					        <option selected style="color:black;">성인</option>
-						        <option value="1" style="color:black;">1명</option>
-				                <option value="2" style="color:black;">2명</option>
-				                <option value="3" style="color:black;">3명</option>
-				                <option value="4" style="color:black;">4명</option>
-				                <option value="5" style="color:black;">5명</option>
+						        <option value="1명" style="color:black;">1명</option>
+				                <option value="2명" style="color:black;">2명</option>
+				                <option value="3명" style="color:black;">3명</option>
+				                <option value="4명" style="color:black;">4명</option>
+				                <option value="5명" style="color:black;">5명</option>
 					    </select>
 					</c:if>
 				    <c:if test="${!empty adult}">
-						<select id="adult" class="form-control custom-select" name="adult">
-					        <option selected style="color:black;">${adult }명</option>
-						        <option value="1" style="color:black;">1명</option>
-				                <option value="2" style="color:black;">2명</option>
-				                <option value="3" style="color:black;">3명</option>
-				                <option value="4" style="color:black;">4명</option>
-				                <option value="5" style="color:black;">5명</option>
+						<select id="adult" class="form-control custom-select" value="adult">
+						<% for(int j=1; j<=5; j++) { 
+									if(adult==j) {
+								%>
+					    		  		<option selected style="color:black;">${adult }명</option>
+					    		  <%} else {%>  
+					        			<option value="<%=j %>명" style="color:black;"><%=j %>명</option>
+					        	<% }} %>	
 					    </select>
 					</c:if>
 			    	
@@ -494,25 +578,27 @@
 			    	<h6 class="text-white text-uppercase mb-2">어린이</h6>
 			    	
 			    	<c:if test="${empty children}">
-			    		<select id="children" class="form-control custom-select" name="children">
+			    		<select id="children" class="form-control custom-select" value="children">
 					        <option selected style="color:black;">어린이</option>
-					        	<option value="0" style="color:black;">0명</option>
-						        <option value="1" style="color:black;">1명</option>
-				                <option value="2" style="color:black;">2명</option>
-				                <option value="3" style="color:black;">3명</option>
-				                <option value="4" style="color:black;">4명</option>
-				                <option value="5" style="color:black;">5명</option>
+					        	<option value="0명" style="color:black;">0명</option>
+						        <option value="1명" style="color:black;">1명</option>
+				                <option value="2명" style="color:black;">2명</option>
+				                <option value="3명" style="color:black;">3명</option>
+				                <option value="4명" style="color:black;">4명</option>
+				                <option value="5명" style="color:black;">5명</option>
 					    </select>
 					</c:if>
 				    <c:if test="${!empty children }">
-						<select id="children" class="form-control custom-select" name="children">
-					        <option selected style="color:black;">${children }명</option>
-					        	<option value="0" style="color:black;">0명</option>
-						        <option value="1" style="color:black;">1명</option>
-				                <option value="2" style="color:black;">2명</option>
-				                <option value="3" style="color:black;">3명</option>
-				                <option value="4" style="color:black;">4명</option>
-				                <option value="5" style="color:black;">5명</option>
+						<select id="children" class="form-control custom-select" value="children">
+								<% for(int i=0; i<=5; i++) { 
+									if(children==i) {
+								%>
+					    		  	  <option selected style="color:black;">${children }명</option>
+					    		  	<%} else {%>  
+					        			<option value="<%=i %>명" style="color:black;"><%=i %>명</option>
+					        	<% }} %>	
+					        		
+					        	
 					    </select>
 					</c:if>
 			    	
@@ -528,7 +614,7 @@
 				 	<h6 class="text-white text-uppercase mb-2">추가 시설</h6>
 			 		<div class="form-check">
 					  <input class="form-check-input" type="checkbox" 
-					  value="30000"  name="defaultCheck" id="A">
+					  value="30000"  name="야외수영장" id="form-check-input">
 					  <label class="form-check-label" for="defaultCheck1">
 					    야외수영장 (+30000)
 					  </label>
@@ -536,7 +622,7 @@
 
 					<div class="form-check">
 					  <input class="form-check-input" type="checkbox" 
-					  	value="13000" name="defaultCheck" id="B">
+					  	value="13000" name="조식" id="form-check-input">
 					  <label class="form-check-label" for="defaultCheck2">
 					    조식 (+13000)
 					  </label>
@@ -544,14 +630,14 @@
 
 					<div class="form-check">
 					  <input class="form-check-input" type="checkbox" 
-					  	value="45000" name="defaultCheck" id="C">
+					  	value="45000" name="와이너리" id="form-check-input">
 					  <label class="form-check-label" for="defaultCheck3">
 					     와이너리 (+45000)
 					  </label>
 					</div>
 					<div class="form-check">
 					  <input class="form-check-input" type="checkbox" 
-					  	value="60000" id="D" name="defaultCheck">
+					  	value="60000" id="form-check-input" name="스파">
 					  <label class="form-check-label" for="defaultCheck5">
 					      스파 (+60000)
 					  </label>
@@ -559,7 +645,7 @@
 
 					<div class="form-check">
 					  <input class="form-check-input" type="checkbox" 
-					  	value="23000" id="E" name="defaultCheck">
+					  	value="23000" id="form-check-input" name="엑스트라베드">
 					  <label class="form-check-label" for="defaultCheck4">
 					      엑스트라 베드 (+23000)
 					  </label>
@@ -605,13 +691,18 @@
                     <c:forEach items="${lists }" var="dto">
                     <div class="room-details-review-item d-flex mb-5">
                         <div class="item-content ml-3">
-                            <h3 class="mb-3">${dto.name } - <span>${dto.created }</span></h3>
+                            <h3 class="mb-3">${dto.name } - <span>${dto.created }</span>
+                            
+                            <c:if test="${userDTO.userId eq dto.userId }">
+                            <input style="float: right;" type="button" value=" 삭 제 " class="btn btn-solid-border btn-small"
+							onclick="javascript:location.href=
+							'<%=cp%>/review-delete.action?roomIndex=${roomIndex }&reviewNum=${dto.reviewNum }';"/>
+							</c:if>
+							
+						</h3>
                             <p>${dto.content }</p>
-                            
-                    <input type="button" value=" 삭제 " class="btn btn-main"
-					onclick="javascript:location.href=
-					'<%=cp%>/review-delete.action?roomIndex=${roomIndex }&reviewNum=${dto.reviewNum }'"/>
-                            
+                        
+					<hr width="500px;" style="border: solid 1px #EAEAEA;">
                         </div>
                     </div>
 					</c:forEach>
@@ -619,7 +710,7 @@
                     <!-- Reveiw END -->
 
 
-                    <div class="room-review-comment mt-5 pt-5 border-top">
+                    <div class="room-review-comment mt-5 pt-5">
 	                    <h4 class="mb-4">후기 남기기 :- </h4>
 						
 							<form action="review.action?roomIndex=${roomIndex }" method="post">	                     
@@ -632,6 +723,8 @@
 	                        <div class="form-group">
 	                                <textarea class="form-control" name="content" placeholder="Message" rows="5"></textarea>
 	                        </div>
+	                        
+	                        <input type="hidden" name="userId" value="${userDTO.userId }">
 
 	                        <div class="form-group">
 	                            <div class="btn-submit">
@@ -787,6 +880,8 @@
 	//]]>
 	
 	</script>
+	
+	<!-- <script src="/hotel/resources/js/weather.js"></script> -->
 
   </body>
   </html>

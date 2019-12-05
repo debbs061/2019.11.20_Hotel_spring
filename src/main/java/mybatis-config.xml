@@ -30,6 +30,8 @@ PUBLIC "-/mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/exe/mapper/hotelMapper.xml"/>
 		<mapper resource="com/exe/mapper/eventMapper.xml"/>
 		<mapper resource="com/exe/mapper/lessonMapper.xml"/>
+		<mapper resource="com/exe/mapper/restaurantMapper.xml"/>
+		<mapper resource="com/exe/mapper/spaMapper.xml"/>
 	</mappers>
 
 </configuration>

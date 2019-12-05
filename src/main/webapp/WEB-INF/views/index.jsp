@@ -141,6 +141,11 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="currentDate" style="font-size:12px;"></span>
+					<span style="font-size:12px;">서초구</span>
+					<span id="icon"></span>
+					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -159,7 +164,16 @@
 								<c:otherwise>
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
+										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -303,7 +317,7 @@
 					
 				    <div class="form-group col-md-2 col-sm-4">
 				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-						    <input type="text" class="form-control" placeholder="체크인" name="checkin">
+						    <input type="text" class="form-control" placeholder="체크인" name="checkin" autocomplete="off">
 						    <div class="input-group-addon">
 						       <span class="ion-android-calendar"></span>
 						    </div>
@@ -312,7 +326,7 @@
 		          	
 		          	<div class="form-group col-md-2 col-sm-4">
 				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-						    <input type="text" class="form-control" placeholder="체크아웃" name="checkout">
+						    <input type="text" class="form-control" placeholder="체크아웃" name="checkout" autocomplete="off">
 						    <div class="input-group-addon">
 						       <span class="ion-android-calendar"></span>
 						    </div>
@@ -505,7 +519,7 @@
 
 					<div class="card-body px-4 py-5">
 						<a href="room-details.action?roomIndex=1" class="text-dark"><h3>스탠다드룸</h3></a>
-						<h2>15만원 <small>/박</small></h2>
+						<h2>15만원 <small>/ 박</small></h2>
 						<p class="py-3">스탠다드는 가장 일반적이고 저렴하게 이용가능한 객실입니다.</p>
 						<a href="room-details.action?roomIndex=1" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -518,7 +532,7 @@
 
 					<div class="card-body px-4 py-5">
 						<a href="room-details.action?roomIndex=2" class="text-dark"><h3>슈페리어룸</h3></a>
-						<h2>20만원 <small>/박</small></h2>
+						<h2>20만원 <small>/ 박</small></h2>
 						<p class="py-3">생각보다 넓은 조금 더 넓은 공간과 어메니티를 제공합니다.</p>
 						<a href="room-details.action?roomIndex=2" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -533,7 +547,7 @@
 
 					<div class="card-body px-4 py-5">
 						<a href="room-details.action?roomIndex=3" class="text-dark"><h3>디럭스룸</h3></a>
-						<h2>25만원 <small>/박</small></h2>
+						<h2>25만원 <small>/ 박</small></h2>
 						<p class="py-3">디럭스 룸에는 발코니가 있어 야경을 즐길 수 있습니다.</p>
 						<a href="room-details.action?roomIndex=3" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -550,7 +564,7 @@
 
 					<div class="card-body px-4 py-5">
 						<a href="room-details.action?roomIndex=4" class="text-dark"><h3>이그제큐티브룸</h3></a>
-						<h2>50만원 <small>/박</small></h2>
+						<h2>50만원 <small>/ 박</small></h2>
 						<p class="py-3">시원한 전망과 색다론 조식 서비를 제공해드립니다.</p>
 						<a href="room-details.action?roomIndex=4" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -563,7 +577,7 @@
 
 					<div class="card-body px-4 py-5">
 						<a href="room-details.action?roomIndex=5" class="text-dark"><h3>스위트룸</h3></a>
-						<h2>100만원 <small>/박</small></h2>
+						<h2>100만원 <small>/ 박</small></h2>
 						<p class="py-3">아이티윌 호텔만의 최고급 시설과 서비스를 경험하실 수 있습니다.</p>
 						<a href="room-details.action?roomIndex=5" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -578,7 +592,7 @@
 
 					<div class="card-body px-4 py-5">
 						<a href="room-details.action?roomIndex=6" class="text-dark"><h3>패밀리룸</h3></a>
-						<h2>120만원 <small>/박</small></h2>
+						<h2>120만원 <small>/ 박</small></h2>
 						<p class="py-3">주방실과 넉넉한 쇼파가 있어 단체 가족여행에 적합합니다.</p>
 						<a href="room-details.action?roomIndex=6" class="btn btn-solid-border btn-small">상세정보</a>
 						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
@@ -972,6 +986,9 @@
         });
       });
     </script>
+    
+    <script src="/hotel/resources/js/weather.js"></script>
+  
   
   </body>
   </html>

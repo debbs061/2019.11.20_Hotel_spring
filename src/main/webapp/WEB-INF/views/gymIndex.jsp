@@ -50,6 +50,9 @@
 	}
 	
 	</style>
+	
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 </head>
 
@@ -64,33 +67,41 @@
 		<div class="row align-items-center">
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
-					<b>IT WILL HOTEL</b> 
+					<b>IT WILL HOTEL</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="currentDate" style="font-size:12px;"></span>
+					<span style="font-size:12px;">서초구</span>
+					<span id="icon"></span>
+					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
-						
-						<c:choose>
-						<c:when test="${empty sessionScope.login.userId }">
-							<span class="text-color">
-							<a href="login.action">로그인</a> / 
-							<a href="signup.action">회원가입</a>
-							</span>
-						</c:when>
-					
-						<c:otherwise>
-							<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
-							</span>
-							<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
-						</c:otherwise>
-						
-						</c:choose>
-						
-						
-						
 							
+							<c:choose>
+								<c:when test="${empty sessionScope.login.userId }">
+									<span class="text-color">
+										<a href="login.action">로그인</a> / 
+										<a href="signup.action">회원가입</a>
+									</span>
+								</c:when>
+							
+								<c:otherwise>
+									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
+									</span>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
+								</c:otherwise>
+							</c:choose>
 						</li>
 					</ul>
 				</div>
@@ -121,34 +132,6 @@
 				</ul>
 			  </li>
 			  
-			  <!-- 
-			  <li class="nav-item active">
-				<a class="nav-link" href="about">About Us <span class="sr-only">(current)</span></a>
-			  </li>
-			   -->
-			  
-			  <!-- 
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown2">
-					<li><a class="dropdown-item" href="about.html">About Us</a></li>
-					<li><a class="dropdown-item" href="service.html">Services</a></li>
-					<li><a class="dropdown-item" href="search.html">Advance Search</a></li>
-					<li><a class="dropdown-item" href="pricing.html">Pricing</a></li>
-					<li><a class="dropdown-item" href="404.html">404 Not found</a></li>
-					<li><a class="dropdown-item" href="contact.html">Contact Us</a></li>
-
-					<li class="dropdown dropdown-submenu dropright">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdown3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gallery</a>
-						<ul class="dropdown-menu" aria-labelledby="dropdown3">
-							<li><a class="dropdown-item" href="gallery-3.html">Gallery 3 Col</a></li>
-							<li><a class="dropdown-item" href="gallery-4.html">Gallery 4 Col</a></li>
-						</ul>
-					</li>
-			  	</ul>
-			  </li>
-			   -->
-		
 			  <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
@@ -157,18 +140,6 @@
 				</ul>
 			  </li>
 
-			  <!-- 
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reservation</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown03">
-				  <li><a class="dropdown-item" href="booking-step1">Select Room</a></li>
-				  <li><a class="dropdown-item" href="booking-step2">Make Resrvation</a></li>
-				  <li><a class="dropdown-item" href="booking-step3">Payment</a></li>
-				  <li> <a class="dropdown-item" href="confirmation">Confirmation</a></li>
-				</ul>
-			  </li>
-			   -->
-			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
 			  </li>
@@ -178,12 +149,12 @@
 			  </li>
 			  
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
-				<ul class="dropdown-menu" aria-labelledby="dropdown02">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
 				  <li><a class="dropdown-item" href="#">Shopping</a></li>
-				   <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
+				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
 			  
@@ -209,7 +180,7 @@
   <div class="hero-slider">
     
     <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym1.jpg); ">
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/gym/gym1.jpg); ">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">
@@ -221,7 +192,7 @@
       </div>
     </div>
     <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym2.jpg); ">
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/gym/gym2.jpg); ">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">
@@ -233,7 +204,7 @@
       </div>
     </div>
     <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym3.jpg); ">
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/gym/gym3.jpg); ">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">
@@ -245,7 +216,7 @@
       </div>
     </div>
     <!-- slider item -->
-    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/gym4.jpg); ">
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/gym/gym4.jpg); ">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInRight" data-delay-in=".1">
@@ -315,22 +286,24 @@
 		</div>
 
 		<div class="row">
+		
 			<div class="col-lg-4 col-md-4 col-sm-6">
-				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
-					<img src="/hotel/resources/images/gym/trainer1.jpg" alt="" class="img-fluid  rounded-circle mr-1"></a>
+				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0" style="width: 350px; height: 550px;">
+					<img src="/hotel/resources/images/gym/trainer1.jpg" alt="" class="rounded-circle mr-1">
 
-					<div class="card-body px-4 py-5">
-						<h3>Aiden
+					<div class="card-body px-5 py-5">
+						<h3>Aiden</h3>
 						<p class="py-3">트레이너 경력 15년 트레이너 Aiden입니다.</p>
 					</div>
 				</div>
 			</div>
+			
 			<div class="col-lg-4 col-md-4 col-sm-6">
-				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
-					<img src="/hotel/resources/images/gym/trainer2.jpg" alt="" class="img-fluid  rounded-circle mr-1"></a>
+				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0" style="width: 350px; height: 550px;">
+					<img src="/hotel/resources/images/gym/trainer2.jpg" alt="" class="rounded-circle mr-1">
 
-					<div class="card-body px-4 py-5">
-						<h3>Ayaan
+					<div class="card-body px-5 py-5">
+						<h3>Ayaan</h3>
 						<p class="py-3">체조선수출신 트레이너 Ayaan 입니다.</p>
 					</div>
 				</div>
@@ -338,11 +311,11 @@
 
 
 			<div class="col-lg-4 col-md-4 col-sm-6">
-				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
-					<img src="/hotel/resources/images/gym/trainer3.jpg" alt="" class="img-fluid  rounded-circle mr-1"></a>
+				<div class="card text-center border-0 rounded-1 mb-4 mb-lg-0" style="width: 350px; height: 550px;">
+					<img src="/hotel/resources/images/gym/trainer3.jpg" alt="" class="rounded-circle mr-1">
 
-					<div class="card-body px-4 py-5">
-						<h3>Benjamin
+					<div class="card-body px-5 py-5">
+						<h3>Benjamin</h3>
 						<p class="py-3">요가강사 출신 트레이너 Benjamin 입니다.</p>
 	
 					</div>
@@ -359,7 +332,8 @@
 					<div class="section-title">
 						<p class="section-subtitle">Lesson</p>
 						<h2 class="mb-3">강좌소개</h2>
-						<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics</p>
+						<p class="mb-4">개인의 취향과 운동 적성을 고려한 다양한 프로그램을 운영합니다.<br/> 
+						웰빙 라이프를 위한 그룹 엑서사이즈와 힐링을 위한 스페셜 운동 프로그램으로 구성되어있습니다.</p>
 						<span class="section-border"></span>
 					</div>
 				</div><!-- .col-md-7 close -->
@@ -377,7 +351,7 @@
 						
 						<div class="card-body px-4 ">
 							<span class='post-meta'><i class="ion-ios-location"></i>${dto.addr }</span>
-							<a href="single-post.html" class="mt-3 d-block mb-4 pb-2"><h3>${dto.title }</h3></a>
+							<a href="gymList.action" class="mt-3 d-block mb-4 pb-2"><h3>${dto.title }</h3></a>
 							<span class="text-muted"><i class="fa fa-clock"></i>${dto.time }</span>
 						</div>
 					</div>						
@@ -386,9 +360,10 @@
 			</c:forEach>
 				
 				
-				<a href="gymList.action" class="btn btn-main">강좌등록</a>
-				
 			</div> <!-- end row -->
+			
+			<a href="gymList.action" class="btn btn-main">강좌등록</a>
+			
 		</div> <!-- end container -->
 </section> <!-- end section -->
 
@@ -447,6 +422,7 @@
 						<li>
 							<a href="contact.action"><i class="fa fa-angle-right"></i>Contact</a>
 						</li>
+
 					</ul>
 				</div>
 			</div>
@@ -532,6 +508,9 @@
     });
   //]]>
 </script>
+
+<script src="/hotel/resources/js/weather.js"></script>
+
   </body>
   </html>
    

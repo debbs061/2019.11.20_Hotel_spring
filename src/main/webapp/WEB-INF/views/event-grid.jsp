@@ -7,13 +7,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="description" content="Eden Travel Template">
   
   <meta name="author" content="Themefisher.com">
 
   <title>IT WILL | Hotel</title>
-
+  
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- bootstrap.min css -->
@@ -48,44 +48,21 @@
 	}
 	
 	</style>
-  
+
   <!-- Kakao 톡상담 -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
   <!-- 이미지 슬라이드 -->
-  <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.css" />
-  <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.min.css" />
-   
-  
-  
-    <style type="text/css">
-        * {
-            box-sizing: border-box
-        }
-        html, body {
-            width: 100%;
-           
-        }
-        .glider-contain {	
-            width: 90%;
-            max-width: none;
-            margin: 0 auto;
-        }
-        .glider-slide {
-            min-height: 150px;
-        }
-        .glider-slide img {
-            width: 100%;
-        }
-    </style>
+
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
 
 </head>
 
-<body >
+<body>
 
 
-<!-- Header Start --> 
+<!-- Header Start -->
 
 <header class="navigation">
 <div class="top-header py-2">
@@ -94,12 +71,18 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="currentDate" style="font-size:12px;"></span>
+					<span style="font-size:12px;">서초구</span>
+					<span id="icon"></span>
+					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
+							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
 									<span class="text-color">
@@ -111,7 +94,16 @@
 								<c:otherwise>
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
+										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -121,6 +113,12 @@
 		</div>
 	</div>
 </div>
+
+<div id="image_container" style="display: none;">
+<!-- TEST -->
+<p>테스트</p>
+</div>
+
 
 	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
 		<div class="container">
@@ -160,6 +158,16 @@
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
 			  </li>
 			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown03">
+				  <li><a class="dropdown-item" href="gym">Gym</a></li>
+				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
+				  <li><a class="dropdown-item" href="#">Shopping</a></li>
+				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
+				</ul>
+			  </li>
+			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="contact.action">Contact Us <span class="sr-only">(current)</span></a>
 			  </li>
@@ -178,22 +186,60 @@
 <div class="main-wrapper ">
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
-<section class="overly bg-2">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">이벤트</h1>
+<!-- slider -->
+<section>
+
+  <div class="hero-slider">
+    
+    <!-- slider item -->
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/event-banner1.jpg); ">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">
+            <span class="letter-spacing text-white">Hotel Event</span>
+            <h1 class="mb-3 text-capitalize">신나는 이벤트</h1>
+            <p class="mb-5">모두가 참여할 수 있는 이벤트</p>
+            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="container-fluid page-border-top">
-    <div class="row ">
-      <div class="col-lg-12 text-center">
-          <div class="page-breadcumb py-2">
-            <a href="/hotel" class="text-white">Home</a>
-            <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="event-grid.action" class="text-white">Event</a>
+    <!-- slider item -->
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/event-banner2.jpg); ">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">
+            <span class="letter-spacing text-white">Hotel Event</span>
+            <h1 class="mb-3 text-capitalize">낭만적인 모임</h1>
+            <p class="mb-5">잊지 못 할 추억을 만드세요.</p>
+            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- slider item -->
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/event-banner3.jpg); ">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">
+             <span class="letter-spacing text-white">Hotel Event</span>
+            <h1 class="mb-3 text-capitalize">최고의 서비스</h1>
+            <p class="mb-5">최고의 음식과 서비스를 제공해드립니다.</p>
+            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- slider item -->
+    <div class="hero-slider-item bg-cover hero-section" style="background: url(/hotel/resources/images/slider/event-banner4.jpg); ">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center" data-duration-in=".3" data-animation-in="fadeInRight" data-delay-in=".1">
+             <span class="letter-spacing text-white">Hotel Event</span>
+            <h1 class="mb-3 text-capitalize">다양한 이벤트</h1>
+            <p class="mb-5">다양한 이벤트를 제공해드립니다. </p>
+            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
+          </div>
         </div>
       </div>
     </div>
@@ -201,48 +247,184 @@
 </section>
 
 
-	<!-- 이미지 슬라이드 -->
-	<div class="glider-contain" style="padding-top: 20px;">
-        <div class="glider">
-         
-         <c:forEach items="${lists }" var="dto1"> 
-             <div class="event-box mb-5 position-relative">
-            
-           		 <a href="event-single.action?eventIndex=${dto1.eventIndex }">
-            		<div>
-            			<img alt="Test" src="/hotel/resources/images/event/${dto1.savefileName}" 
-            			style="padding-right: 5px; width: 300px; height: 250px;">
-            			<div class="event-content mt-3">
-            				<div class="event-date p-3 text-white">
-								<span class="date font-weight-bold d-block">${dto1.day}</span>
-							
-							</div>
-						</div>
-					</div>
-				
-            		<div class="event-post-meta mt-2 mb-3">
-            			<h3>${dto1.eventTitle }</h3>
-						&nbsp;&nbsp;<span><i class="ion-clock"></i>${dto1.time}</span>
-						<span><i class="ion-ios-location"></i>${dto1.location} </span>
-					</div>
-            	
-            	 </a>
-            	</div>
-            </c:forEach> 
-            
-        </div>
-        <button class="glider-prev">&laquo;</button>
-        <button class="glider-next">&raquo;</button>
-        <div id="dots"></div>
-        
- 		<div>
-        	<button class="btn btn-main" type="button" onclick="location.href='event-upload.action';">등록하기</button>
-        </div>
-  </div>
-  
-  <!-- 이미지 슬라이드 끝 -->
+<!-- /slider -->
 
+<section class="section-reservation" >
+	<div class="container" style="padding-top: 0px; padding-bottom: 0px;">
+		<div class="secondary-bg p-5 position-relative">
+			<form name="hotelSearchForm" action="" class="reserve-form" method="post">
+					<div class="form-row justify-content-center">
+                                    <div class="form-group col-md-4">
+                                    <div class="input-group">
+                                                <!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
+                                                <input type="text" class="form-control" placeholder="이벤트 관련 검색어" value="" id="searchValue">
+                                                  
+                                     </div>
+                                     </div>
+                                     
+                                      <div class="form-group col-md-2">
+                                     </div>
+                                     
+                                     <div class="form-group col-md-2 col-sm-4">
+                                     	<div class="input-group tp-datepicker date">
+                                                <!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
+                                                <input type="text" class="form-control" placeholder="시작일" value="" id="startDate">
+                                                    <div class="input-group-addon">
+                                                        <span class="ion-android-calendar"></span>
+                                                    </div>
+                                                </div>
+                                      </div>
+                                            <div class="form-group col-md-2 col-sm-4">
+                                                <div class="input-group tp-datepicker date">
+                                                    <input type="text" class="form-control" placeholder="종료일" value="" id="endDate">
+                                                        <div class="input-group-addon">
+                                                            <span class="ion-android-calendar"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- form 제출 -->
+                                                <div class="form-group col-md-2">
+                                                    <input type="button" value="검색하기" class="btn btn-main btn-block" id="btnOK"></div>
+                                                </div>
+			</form>
+		</div>
+	</div>
+</section>	
+
+
+<section id="about" class="section secondary-bg">
+    <div class="container">
+    
+    	<!-- WELCOME MENTS -->
+	
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+				<div class="section-title">
+					<p class="section-subtitle">Welcome To</p>
+					<h2 class="mb-3">호텔 이벤트</h2>
+					<p class="mb-4">IT WILL 호텔에서 준비한 특별한 이벤트, 서울 최고의 어번(urban) 라이프 스타일 호텔로 다양하고 신나는 이벤트를 제공합니다.</p>
+					<span class="section-border"></span>
+				</div>
+			</div><!-- .col-md-7 close -->
+		</div>
+    	
+    	<!-- 검색된 이벤트 뿌려주기 -->
+    	<div class="page-wrapper event-page" style="padding-top: 50px;">
+                   
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div id="listData"></div>
+                            </div>
+                        </div>
+                    </div>
+      		</div>
+      </div>
+</section>
+
+
+<!-- Wrapper Start -->
+<section class="about section">
+	<div class="container">
+	<div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="section-title">
+                    <p class="section-subtitle">SPECIAL OFFERS</p>
+                    <h2 class="mb-3">다가오는 이벤트</h2>
+                    <span class="section-border"></span>
+                </div>
+            </div><!-- .col-md-7 close -->
+        </div>
+	
+		<div class="row">
+		
+		<c:forEach items="${listsRecommend}" var="dto">
+		
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
+					<a href="event-single.action?eventIndex=${dto.eventIndex }"><img src="/hotel/resources/images/event/${dto.savefileName }" alt="" class="img-fluid card-img-top rounded-0"></a>
+
+					<div class="card-body px-4 py-5">
+						<a href="event-single.action?eventIndex=${dto.eventIndex}" class="text-dark"><h3>${dto.eventTitle}</h3></a>
+						<h2>${dto.price } <small>/인</small></h2>
+						<p class="py-3">${dto.content1 }</p>
+						<a href="event-single.action?eventIndex=${dto.eventIndex}" class="btn btn-main btn-small">상세정보</a>
+					</div>
+				</div>
+			</div>
+	</c:forEach>
+		</div>
+	</div>
+</section>
+
+<!-- 
+<section class="section secondary-bg">
+	<div class="container">
+		
+		
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+				<div class="section-title">
+					<p class="section-subtitle">Luxurious</p>
+					<h2 class="mb-3">카테고리 이벤트 추천</h2>
+					<p class="mb-4">원하는 이벤트 카테고리 클릭시>> 해당 카테고리내의 이벤트 출력 // 총3개까지만 //ajax</p>	
+					<span class="section-border"></span>
+				</div>
+			</div>
+		</div>
+		
  
+		<div class="row">
+		
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
+					<a href="room-details.action?roomIndex=1"><img src="/hotel/resources/images/rooms/img1.jpg" alt="" class="img-fluid card-img-top rounded-0"></a>
+
+					<div class="card-body px-4 py-5">
+						<a href="room-details.action?roomIndex=1" class="text-dark"><h3>스탠다드룸</h3></a>
+						<h2>15만원 <small>/박</small></h2>
+						<p class="py-3">스탠다드는 가장 일반적이고 저렴하게 이용가능한 객실입니다.</p>
+						<a href="room-details.action?roomIndex=1" class="btn btn-solid-border btn-small">상세정보</a>
+						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
+					<a href="room-details.action?roomIndex=2"><img src="/hotel/resources/images/rooms/img2.jpg" alt="" class="img-fluid card-img-top rounded-0"></a>
+
+					<div class="card-body px-4 py-5">
+						<a href="room-details.action?roomIndex=2" class="text-dark"><h3>슈페리어룸</h3></a>
+						<h2>20만원 <small>/박</small></h2>
+						<p class="py-3">생각보다 넓은 조금 더 넓은 공간과 어메니티를 제공합니다.</p>
+						<a href="room-details.action?roomIndex=2" class="btn btn-solid-border btn-small">상세정보</a>
+						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
+					<a href="room-details.action?roomIndex=3"><img src="/hotel/resources/images/rooms/img3.jpg" alt="" class="img-fluid card-img-top rounded-0"></a>
+
+					<div class="card-body px-4 py-5">
+						<a href="room-details.action?roomIndex=3" class="text-dark"><h3>디럭스룸</h3></a>
+						<h2>25만원 <small>/박</small></h2>
+						<p class="py-3">디럭스 룸에는 발코니가 있어 야경을 즐길 수 있습니다.</p>
+						<a href="room-details.action?roomIndex=3" class="btn btn-solid-border btn-small">상세정보</a>
+						<a href="booking-step1.action" class="btn btn-main btn-small">예약하기</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		
+	</div>
+</section>	
+
+ -->
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
@@ -340,17 +522,14 @@
 	</div>
 </section>
 
-
    
-    </div>
-
     <!-- 
     Essential Scripts
     =====================================-->
 
     
     <!-- Main jQuery -->
-    <script src="/hotel/resources/plugins/jquery/jquery.js"></script>
+	<script src="/hotel/resources/plugins/jquery/jquery.js"></script>
     <!-- Bootstrap 3.1 -->
     <script src="/hotel/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!-- Owl Carousel -->
@@ -365,7 +544,7 @@
     
     <!-- Google Map -->
     <script src="/hotel/resources/plugins/google-map/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>    
 
     <script src="/hotel/resources/js/script.js"></script>
     
@@ -384,80 +563,122 @@
 	
 	</script>
 	
-	
-	<!-- 이미지 슬라이드 --> 
-    <script src="/hotel/resources/js/glider.js"></script>
-    <script src="/hotel/resources/js/glider.min.js"></script>
-    <script src="/hotel/resources/js/glider-compat.min.js"></script>
-    <script>
-      window.addEventListener('load',function(){
-        document.querySelector('.glider').addEventListener('glider-slide-visible', function(event){
-            var glider = Glider(this);
-            console.log('Slide Visible %s', event.detail.slide)
-        });
-        document.querySelector('.glider').addEventListener('glider-slide-hidden', function(event){
-            console.log('Slide Hidden %s', event.detail.slide)
-        });
-        document.querySelector('.glider').addEventListener('glider-refresh', function(event){
-            console.log('Refresh')
-        });
-        document.querySelector('.glider').addEventListener('glider-loaded', function(event){
-            console.log('Loaded')
-        });
-
-        window._ = new Glider(document.querySelector('.glider'), {
-            slidesToShow: 1, //'auto',
-            slidesToScroll: 1,
-            itemWidth: 150,
-            draggable: true,
-            scrollLock: false,
-            dots: '#dots',
-            rewind: true,
-            arrows: {
-                prev: '.glider-prev',
-                next: '.glider-next'
-            },
-            responsive: [
-                {
-                    breakpoint: 800,
-                    settings: {
-                        slidesToScroll: 'auto',
-                        itemWidth: 300,
-                        slidesToShow: 'auto',
-                        exactWidth: true
-                    }
-                },
-                {
-                    breakpoint: 700,
-                    settings: {
-                        slidesToScroll: 4,
-                        slidesToShow: 4,
-                        dots: false,
-                        arrows: false,
-                    }
-                },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToScroll: 3,
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 500,
-                    settings: {
-                        slidesToScroll: 2,
-                        slidesToShow: 2,
-                        dots: false,
-                        arrows: false,
-                        scrollLock: true
-                    }
-                }
-            ]
-        });
-      });
-    </script>
+	<script src="/hotel/resources/js/weather.js"></script>
     
-  
+<script type="text/javascript">
+
+
+$(function(){
+	
+    listPage(1);
+    	
+});
+
+
+
+$(function listPage() {
+		var mode = "mainstart";
+    	var url = "<%=cp%>/event-list.action";
+    	
+    	$.post(url,{mode:mode},function(args) {
+    			
+    		$("#listData").html(args);
+    		
+    	});
+ });
+
+
+
+$(document).ready(function(){
+	
+	$("#btnOK").click(function(){
+		
+		
+		var params = "startDate=" + $("#startDate").val()
+				+ "&endDate=" + $("#endDate").val()
+				+ "&searchValue=" + $("#searchValue").val();
+		
+		$.ajax({
+			
+			type:"POST",  
+			url:"<%=cp%>/event-list.action", 
+			data:params,
+			success:function(args){
+					
+				$("#listData").html(args);
+			
+				
+				
+			},
+			beforeSend:showRequest, 
+			error:function(e) {
+				
+				alert(e.responseText); 
+			}
+		});
+		
+	});
+	
+});
+
+
+function showRequest(){
+		
+		
+	var startDate = $.trim($("#startDate").val());
+	var endDate = $.trim($("#endDate").val());
+	
+	if(!startDate) {
+		alert("\n시작일 날짜를 선택하세요");
+		$("#startDate").focus;
+		return false;
+	}
+
+	if (!endDate) {
+		alert("\n종료일 날짜를 선택하세요");
+		$("#endDate").focus;
+		return false;
+	}
+	
+	var startD =new Array();
+	startD = startDate.split("/");
+	var endD = new Array();
+	endD = endDate.split("/");
+	
+	if(startD[2]>endD[2]) { 
+		alert("\n시작일 날짜보다 이전 날짜를 선택할 수 없습니다1");
+		$("#endDate").focus;
+		return false;
+	}
+	//월 비교
+	//년도 같지 않고, end의 year 작은 상황에서 
+	//년도가 같지 않고, end의 yeaer 큰 상황세ㅓ 
+	if(startD[2]!==endD[2] && startD[2] > endD[2]){
+		if(startD[0]>endD[0]) {
+	   		alert("\n시작일 날짜보다 이전 날짜를 선택할 수 없습니다2");
+	   		$("#endDate").focus;
+	   		return false;
+	   	}
+	}
+	
+	if (startD[0]==endD[0]) {
+		
+	if(!startD[2]<endD[2])
+		if(!startD[0]<endD[0])
+			if(startD[1]>endD[1])  {
+					alert("\n시작일 날짜보다 이전 날짜를 선택할 수 없습니다3");
+					$("#endDate").focus;
+					return false;
+			}
+	}
+				
+	return true;
+
+}
+
+
+</script>
+
   </body>
   </html>
+   

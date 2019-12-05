@@ -1,11 +1,13 @@
 package com.exe.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.exe.dto.HotelBookingDTO;
+import com.exe.dto.RoomDTO;
 
 public class HotelBookingDAO {
 
@@ -13,6 +15,7 @@ public class HotelBookingDAO {
 
 	public void setSessionTemplate(SqlSessionTemplate sessionTemplate)
 			throws Exception {
+		
 		this.sessionTemplate = sessionTemplate;
 
 	} 
@@ -40,11 +43,15 @@ public class HotelBookingDAO {
 		return lists; 
 
 	}
-
-	public List<HotelBookingDTO> getLists() {
-		List<HotelBookingDTO> lists =  
-				sessionTemplate.selectList("hotelmapper.getLists");
-
+	
+	 //userId를 가지고 예약정보 가져오기 (마이페이지용)
+	public  List<HotelBookingDTO> getReadBookingData(String userId){
+		
+		
+		List<HotelBookingDTO> lists  =
+				sessionTemplate
+				.selectList("hotelmapper.getReadBookingData", userId);
+		
 		return lists; 
 
 	}
@@ -73,38 +80,29 @@ public class HotelBookingDAO {
 		return interval;
 	}
 	
+	
+	
+	public void deleteData(int bookingId){
+		
+		sessionTemplate
+			.update("hotelmapper.deleteData",bookingId);
+
+	}
+	
+	
+
+	public List<HotelBookingDTO> getReadBookingList(int roomIndex) {
+		
+		List<HotelBookingDTO> list = sessionTemplate.selectList("hotelmapper.getReadBookingList",roomIndex);
+		
+		return list;
+	}
+	
+	public void deleteBookingData(int bookingId) {
+		
+		sessionTemplate.delete("hotelmapper.deleteBookingData",bookingId);
+		
+	}
+	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

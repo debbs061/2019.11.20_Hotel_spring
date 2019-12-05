@@ -158,6 +158,26 @@ function inputIdChk() {
  --%>
 </script>
 
+<script type="text/JavaScript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+	<script type="text/javascript">
+
+		function openDaumZipAddress() {
+
+			new daum.Postcode({
+
+				oncomplete:function(data) {
+
+					jQuery("#address").val(data.address);
+
+					jQuery("#address").focus();
+
+					console.log(data);
+				}
+			}).open();
+		}
+
+	</script>
 
 </head>
 <body>
@@ -171,12 +191,18 @@ function inputIdChk() {
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="currentDate" style="font-size:12px;"></span>
+					<span style="font-size:12px;">서초구</span>
+					<span id="icon"></span>
+					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
+							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
 									<span class="text-color">
@@ -188,7 +214,15 @@ function inputIdChk() {
 								<c:otherwise>
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -235,6 +269,16 @@ function inputIdChk() {
 			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
+			  </li>
+			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown03">
+				  <li><a class="dropdown-item" href="gym">Gym</a></li>
+				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
+				  <li><a class="dropdown-item" href="#">Shopping</a></li>
+				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
+				</ul>
 			  </li>
 			  
 			  <li class="nav-item active">
@@ -305,10 +349,16 @@ function inputIdChk() {
 								<input name="birth" type="text" class="form-control" placeholder="YYYY-MM-DD">
 							</div>
 						</div>
-						<div class="col-lg-10">
+						<div class="col-lg-7">
 							<div class="form-group">
-							<p class="section-subtitle">주    소</p>
-								<input name="addr" type="text" class="form-control" placeholder="주소를 입력해주세요">
+							<p class="section-subtitle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주    소</p>
+								<input name="addr" id="address" type="text" class="form-control" placeholder="주소를 입력해주세요">
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<p class="section-subtitle">&nbsp;</p>
+								<input type="button" class="btn btn-main" value="주소찾기" onclick="openDaumZipAddress();">
 							</div>
 						</div>
 						<div class="col-lg-10">
@@ -317,7 +367,7 @@ function inputIdChk() {
 								<input name="tel" type="text" class="form-control"	placeholder="전화번호 입력">
 							</div>
 						</div>
-							<input type="submit" class="btn btn-main" onclick="sendIt();" value="회 원 가 입" >
+							<input type="submit" class="btn btn-main" value="회 원 가 입" >
 							<!-- <button class="btn btn-main" type="submit" onclick="sendIt();">회 원 가 입</button> -->
 					
 					</div>
@@ -467,6 +517,8 @@ function inputIdChk() {
 	//]]>
 	
 	</script>
+	
+	<script src="/hotel/resources/js/weather.js"></script>
 
 
 </body>

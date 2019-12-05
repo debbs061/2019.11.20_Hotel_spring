@@ -16,7 +16,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>Eden | Hotel template</title>
+  <title>IT WILL | Hotel</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,6 +41,18 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
+  
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+  
+	<style type="text/css">
+	
+		*:not(i){
+			font-family: 'Noto Serif KR', serif!important;
+		}
+	
+	</style>
+  
 	<style type="text/css">
 		
 	#modal {

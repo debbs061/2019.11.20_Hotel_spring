@@ -4,12 +4,21 @@ public class EventDTO {
 
 	private int eventIndex;
 	private String eventTitle;
-	private String day;
+	private String startDate;
+	private String endDate;
 	private String time;
 	private String location;
 	private String price;
 	private String content1;
 	private String content2;
+	private String content3;
+	
+	public String getContent3() {
+		return content3;
+	}
+	public void setContent3(String content3) {
+		this.content3 = content3;
+	}
 	private String savefileName;
 	
 	
@@ -25,11 +34,18 @@ public class EventDTO {
 	public void setEventTitle(String eventTitle) {
 		this.eventTitle = eventTitle;
 	}
-	public String getDay() {
-		return day;
+	
+	public String getStartDate() {
+		return startDate;
 	}
-	public void setDay(String day) {
-		this.day = day;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 	public String getTime() {
 		return time;
