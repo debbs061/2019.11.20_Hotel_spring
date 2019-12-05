@@ -11,6 +11,14 @@ public class EventDTO {
 	private String price;
 	private String content1;
 	private String content2;
+	private String content3;
+	
+	public String getContent3() {
+		return content3;
+	}
+	public void setContent3(String content3) {
+		this.content3 = content3;
+	}
 	private String savefileName;
 	
 	

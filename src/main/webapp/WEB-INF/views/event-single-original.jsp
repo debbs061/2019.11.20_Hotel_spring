@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -8,12 +7,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="description" content="Eden Travel Template">
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Hotel</title>
+  <title>IT WILL | Hotel Event-Single</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,23 +38,14 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
-  <!-- font -->
-  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
-	<style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
-
 </head>
 
 <body >
 
 <!-- Header Start --> 
-
 <header class="navigation">
 <div class="top-header py-2">
 	<div class="container">
@@ -71,16 +61,13 @@
 						<li class="top-contact">
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
-									<span class="text-color">
-										<a href="login.action">로그인</a> / 
-										<a href="signup.action">회원가입</a>
-									</span>
+									<a href="login.action">로그인</a> / 
+									<a href="signup.action">회원가입</a><br/>
 								</c:when>
 							
 								<c:otherwise>
-									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
-									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
+									${sessionScope.login.userName }님 안녕하세요:)♥</br>
+									<a href="logout.action">로그아웃</a><br/>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -117,6 +104,7 @@
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
 				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
+				  <li><a class="dropdown-item" href="room-list.action">Room-List</a></li>
 				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
 				</ul>
 			  </li>
@@ -148,13 +136,10 @@
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
 <section class="overly bg-2">
-<!-- 검정 배경 시작 -->
-   
-   <!-- 하나의 컨테이너 시작-->
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">이벤트 예약확인</h1>
+          <h1 class="text-white py-100">이벤트</h1>
       </div>
     </div>
   </div>
@@ -163,146 +148,96 @@
     <div class="row ">
       <div class="col-lg-12 text-center">
           <div class="page-breadcumb py-2">
-            <a href="#" class="text-white">Home</a>
+            <a href="/hotel" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="#" class="text-white">Event</a>
+            <a href="event-single.action?eventIndex=${dto.eventIndex }" class="text-white">Event</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<div class="page-wrapper event-page">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+	
+	<!-- 싱글 이벤트 뿌려주기 ===============싱글 이벤트================싱글 이벤트=============싱글 이벤트====================싱글 이벤트============-->
+	
+	<div class="single-event">
+		<img src="/hotel/resources/images/event/${dto.savefileName }" alt="" class="img-fluid w-100">
 
+		<div class="event-content mt-4">
+			<a href="event-single.html"><h2>${dto.eventTitle }</h2></a>
+			<div class="event-post-meta mb-4">
+				<span><i class="ion-calendar"></i>${dto.startDate }</span>
+				<span><i class="ion-clock"></i>${dto.time }</span>
+				<span><i class="ion-ios-location"></i>${dto.location }</span>
+			</div>
 
+			<p>${dto.content1 }</p>
+			<p>${dto.content2 }</p>
+		</div>
+		
+		
+		<!-- 이벤트 신청 개인 모달 버튼 -->
+		<button type="button" class="btn btn-main" id="myBtn">신청</button>
 
- <!-- MAIN CONTENT -->
-    <section class="main-content section clearfix">
-      <div class="container">
-        
-       <c:forEach items="${elists }" var="dto">
-        <div class="border payment-confirm position-relative">
-          <div class="row justify-content-center align-items-center ">
-              <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
-                <img src="/hotel/resources/images/event/${dto.savefileName }" 
-                class="img-fluid w-100" style="width: 289px; height: 193px;" alt="confirm img"/>
+		
 
-              <!--    <a href="room-details"><h2 class="text-dark mt-3 mb-4">Delux couple</h2></a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita</p>
-          -->   </div>
+		<div class="event-comment-form mt-5 pt-5 border-top"">
 
-              <div class="col-md-12 col-sm-12 col-xs-12 col-lg-8">
-              		<div class="row">
-              		<div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: 85px;">
-                        <div class="ed-cinfirm-detail" style="width: 300px;">
-                            <h3 class="headline">${dto.eventTitle }</h3>
-                        </div>
-                    </div>
-              		
-              		</div>
-                    <div class="row ">
-                    
-                      <div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: 85px;">
-                        <div class="ed-cinfirm-detail" style="width: 300px;">
-                            <ul class="list-unstyled">
-                              <li>
-                                <span>성함:</span>
-                               ${sessionScope.login.userName }
-                              </li>
-                              <li>
-                                <span>동행인원:</span>
-                             	${dto.companionNumber }
-                              </li>
-                               <li>
-                                <span>예약일자: </span>
-                          	   ${dto.userSelectedDate }
-                              
-                              </li>
-                              <li>
-                                <span>장소: </span>
-                                ${dto.location }
-                              </li>
-                              <li>
-                              </li>
-                              <li>
-                              </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="ed-cinfirm-detail">
-                          <ul class="list-unstyled">
-                            <li>
-                                <span>연락처:  </span>
-                              ${sessionScope.login.tel }
-                            </li>
-                             <li>
-                                <span>이메일:  </span>
-                               ${sessionScope.login.userEmail }
-                            </li>
-                             <li>
-                                <span>가격:  </span>
-                                ${dto.price}
-                            </li>
-                             <li>
-                                <span>요청사항:  </span>
-                               	 ${dto.userRequest }
-                            </li>
+                    <h4 class="mb-4">이벤트 후기 총:${countReview }개의 후기가 있습니다 </h4>
+                  
+                    <c:forEach items="${lists }" var="reviewDto">
+                    <div class="room-details-review-item d-flex mb-5 border-top">
+                        <div class="item-content ml-3">
+                            <h3 class="mb-3">제목:${reviewDto.name } - <span>${reviewDto.created }</span></h3>
+                            <p>${reviewDto.content }</p>
                             
-                            <li>
-                            </li>
-                             <li>
-                            </li>
-                           
-                          </ul>
+                    <input type="button" value=" 삭제 " class="btn btn-main"
+					onclick="javascript:location.href=
+					'<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }&eventReviewNum=${reviewDto.eventReviewNum }'"/>
+                            
                         </div>
                     </div>
-                    
-           </div>
-                   
-                <!-- 1개의 이벤트 내역 출력 종료 -->
-              </div>
-               <div class="total-amount" style="padding-left: 40px; padding-bottom: 50px;">
-       				<button type="button" id="btnOK" class="btn btn-solid-border" value="${dto.eventBookingNum}" >예약취소하기</button>
-                </div>
-              
-          </div>
-          </div>
-          
-          </c:forEach>
-          		
- 				<div class="col-lg-12 text-center">
- 				<c:if test="${fn:length(elists) > 0 }">
-                      <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
-                        <h2>예약이 완료되었습니다.</h2>
-                        <br/>
-                </c:if>
-                <c:if test="${fn:length(elists) == 0 }">
-                	<div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
-                        <h2>예약이 존재하지 않습니다.</h2>
-                        <br/>
-                </c:if>
-                        <p>더 다양한 아이티윌 호텔의 서비스를 즐기세요.
-                        <br/>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
-                      </div>
+					</c:forEach>
+					
 
-                       <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                       <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
-                       <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
-                       <a href="#" class="btn btn-solid-border">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a>
-                       <a href="/hotel/event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
-                       <!-- <a href="#" class="btn btn-main">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                       <a href="#" class="btn btn-main">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
-                       <a href="#" class="btn btn-main">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
-                       <a href="#" class="btn btn-main">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a> -->
-                       
-                       
-                  </div>          
+                    <div class="room-review-comment mt-5 pt-5 border-top">
+	                    <h4 class="mb-4">후기 남기기 :- </h4>
+						
+							<form action="eventReview.action?eventIndex=${eventIndex }" method="post">	                     
+							 <div class="form-group">
+	                                <input type="text" name="name" placeholder="이름" class="form-control" value="${sessionScope.login.userName }">
+	                        </div>
+	                        <div class="form-group">
+	                                <input type="text" name="email" placeholder="이메일" class="form-control" value="${sessionScope.login.userEmail }">
+	                        </div>
+	                        <div class="form-group">
+	                                <textarea class="form-control" name="content" placeholder="Message" rows="5"></textarea>
+	                        </div>
 
-      </div>
-    </section>
+	                        <div class="form-group">
+	                            <div class="btn-submit">
+	                                   <button type="submit" class="btn btn-main">작성하기</button>
+	                                   
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>			
+			
+			 <!-- Reveiw END -->
+			
+		</div>
+	</div>	
+</div>
 
-  
+
+		</div>
+	</div>
+</div>
+
 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
@@ -350,7 +285,7 @@
 						</li>
 	
 						<li>
-							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>
@@ -401,13 +336,110 @@
 	</div>
 </section>
 
-   
     </div>
+<div>
+
+  <!-- 신청 페이지 -->
+  <!-- Modal------------ Modal-------------Modal-------------------     -->
+  
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content 시작-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">이벤트 신청하기</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <div class="modal-body">
+        
+       <div id="modalview2">
+        <!--이벤트 신청서 폼 -->
+          <div class="form-row 	align-items-center" style="margin-left: 0px!important;">
+         	 <div class="form-group">
+    			<label for="exampleInputEmail1"><b>신청자 아이디</b></label>
+    			<input type="text" class="form-control" name="eventUserId" id="eventUserId" value="${sessionScope.login.userId}" disabled />
+  			 </div>
+  			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       	 	 <div class="form-group">
+    			<label for="exampleInputEmail1"><b>이름</b></label>
+    			<input type="text" class="form-control" name="eventUserName" id="eventUserName" value="${sessionScope.login.userName}" aria-describedby="emailHelp" placeholder="Enter email" disabled/>
+  			</div>
+        </div>
+   
+  	 	<div class="form-group">
+  			<label for="exampleInputEmail1"><b>이벤트 기간: <${dto.startDate }일 ~${dto.endDate }일></b></label>
+  			<div class="input-group tp-datepicker date">
+        	 	<!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
+        		 <input type="text" class="form-control" placeholder="신청일" value="" id="userSelectedDate">
+        			 <div class="input-group-addon">
+           				 <span class="ion-android-calendar"></span>
+           			</div>
+       	   </div>
+  		</div>
+  		 
+  	<!-- 인원선택 -->
+  	<label for="exampleInputEmail1"><b>동행인원</b></label>
+       <div class="form-row align-items-center">
+    		<div class="col-auto my-1">
+   	  	 	<label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+     		 <select class="custom-select mr-sm-2" id="companionNumber">
+       		 	<option selected value="없음">없음</option>
+       		 	<option value="1">1명</option>
+       			 <option value="2">2명</option>
+       			 <option value="3">3명</option>
+       			  <option value="4">4명</option>
+       			   <option value="미정">미정</option>
+       			   
+     		 </select>
+    		</div>
+   			<div class="col-auto my-1">
+      			<div class="custom-control custom-checkbox mr-sm-2">
+       			 <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+        			<label class="custom-control-label" for="customControlAutosizing">추가비용 발생에 대한 결제를 동의합니다.</label>
+      			</div>
+   			 </div>
+    		<div class="col-auto my-1">
+     			<!--  <button type="submit" class="btn btn-primary"></button> -->
+    		</div>
+  		</div>
+  		<!-- 요청사항 -->
+  		<div class="form-group">
+    		<label for="exampleInputPassword1">요청사항</label>
+    		<textarea class="form-control" rows="3" name="eventUserRequest" id="eventUserRequest" placeholder="요청사항을 50자내로 입력해주세요"></textarea>
+  		</div>
+  		
+  		
+		<div align="center">
+  			<button type="submit" class="btn btn-main" id="btnok">신청하기</button>
+ 	 		<button type="button" class="btn btn-main" data-dismiss="modal">닫기</button>
+ 	 	</div>
+		
+ 	 	
+		</div>
+		
+	
+        <!-- 신청성 양식 끝 -->
+       </div>
+        
+        <!-- 여기까지 숨겨지는 부분 -->
+        <!-- 테스트 -->
+        <!-- 뿌려지는 부분 -->
+        
+        <div id="listData"></div>
+        
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
     <!-- 
     Essential Scripts
     =====================================-->
-
     
     <!-- Main jQuery -->
     <script src="/hotel/resources/plugins/jquery/jquery.js"></script>
@@ -443,58 +475,88 @@
 	//]]>
 	
 	</script>
-	<script type="text/javascript">
 	
 	
+
+<script type="text/javascript">
+
+
+$(document).ready(function(){
 	
+    $("#myBtn").click(function(){
+    	
+    	if('${sessionScope.login.userName}'.length==0) {
+    		
+    		alert("로그인 후 사용가능합니다")
+    		
+    	}else{
+    		
+    		 $("#myModal").modal();
+    	}
+    });
+});
+
+
+$(document).ready(function(){
 	
-	
-	$(document).ready(function(){
-		
-		$("#btnOK").click(function(){
-			
-			var currentLocation = window.location;
-			
-			var eventBookingNum ="eventBookingNum="+ $("#btnOK").val();
+		$("#btnok").click(function(){ 
+				var params = "eventUserId=" + $("#eventUserId").val()
+				+ "&eventUserName=" + $("#eventUserName").val()
+				+ "&eventUserRequest=" + $("#eventUserRequest").val()
+				+ "&companionNumber=" +$("#companionNumber").val()
+				+ "&userSelectedDate=" +$("#userSelectedDate").val()
+				+ "&eventIndex=" +"${eventIndex}"
 				
-			$.ajax({
-				
-				type:"POST",  
-				url:"<%=cp%>/event-booking-delete.action", 
-				data:eventBookingNum,
-				success:function(args){
+				$.ajax({
+					
+					type:"POST",  
+					url:"<%=cp%>/event-request.action", 
+					data:params,
+					success:function(args){
 						
-					alert("삭제완료")
-					
-					location.reload();
-					
-				},
-				beforeSend:false, 
+							$("#modalview2").hide(function() {
+									$("#listData").html(args);	
+							});
+						
+					},
+				beforeSend:showRequest,
 				error:function(e) {
-					
-					alert(e.responseText); 
-				}
-			});
-			
+				
+				alert(e.responseText); 
+			}
 		});
-		
 	});
+});
+	     
+function showRequest(){
+		
+	var eventUserRequest = $.trim($("#eventUserRequest").val());
+	var companionNumber = $.trim($("#companionNumber").val());
+	var userSelectedDate = $.trim($("#userSelectedDate").val());
+	
+	if(!eventUserRequest) {
+		alert("\n요청사항을 입력하세요");
+		$("#eventUserRequest").focus;
+		return false;
+	}
 
+	if (!companionNumber) {
+		alert("\n동행인을 선택하세요");
+		$("#companionNumber").focus;
+		return false;
+	}
 	
+	if (!userSelectedDate) {
+		alert("\n날짜를 선택하세요");
+		$("#userSelectedDate").focus;
+		return false;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	</script>
+	return true;
 
-  </body>
-  </html>
+}
+
+</script>
+
+</body>
+</html>

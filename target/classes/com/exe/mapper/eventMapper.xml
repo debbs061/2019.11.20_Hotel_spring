@@ -6,8 +6,8 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="eventmapper">
 
 <insert id="insertEvent" parameterType="com.exe.dto.EventDTO">
-	insert into event (eventIndex,eventTitle,startDate,endDate,time,location,price,content1,content2,savefileName) 
-	values (#{eventIndex},#{eventTitle},#{startDate},#{endDate},#{time},#{location},#{price},#{content1},#{content2},#{savefileName})
+	insert into event (eventIndex,eventTitle,startDate,endDate,time,location,price,content1,content2,content3,savefileName) 
+	values (#{eventIndex},#{eventTitle},#{startDate},#{endDate},#{time},#{location},#{price},#{content1},#{content2},#{content3},#{savefileName})
 </insert>
 
 
@@ -20,7 +20,7 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="getEventLists" resultType="com.exe.dto.EventDTO"> 
-	select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,time,location,price,content1,content2,savefileName from event 
+	select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,time,location,price,content1,content2,content3,savefileName from event 
 </select>
 
 <!-- getEventLists ByUserId 
@@ -45,14 +45,14 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="getReadEventData" parameterType="int" resultType="com.exe.dto.EventDTO">
 	select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,
-	time,location,price,content1,content2,savefileName from event where eventIndex=#{eventIndex}
+	time,location,price,content1,content2,content3,savefileName from event where eventIndex=#{eventIndex}
 </select>
 
 
 <update id="updateEventData" parameterType="com.exe.dto.EventDTO">
 	update event set eventTitle=#{eventTitle},startDate=#{startDate},
 	endDate=#{endDate},time=#{time},location=#{location},price=#{price},
-	content1=#{content1},content2=#{content2},savefileName=#{savefileName}
+	content1=#{content1},content2=#{content2},content3=#{content3},savefileName=#{savefileName}
 	where eventIndex=#{eventIndex}
 </update>
 
@@ -109,7 +109,7 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 <select id="getReadEventOut"  parameterType="map" resultType="com.exe.dto.EventDTO" >
 <![CDATA[
 select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,
-time,location,price,content1,content2,savefileName from event where eventIndex in(
+time,location,price,content1,content2,content3,savefileName from event where eventIndex in(
 select eventIndex from event
 where endDate >= (select to_date(#{startDate,javaType=String,jdbcType=VARCHAR},'yyyy/mm/dd') from dual)
 and startDate <= (select to_date(#{endDate,javaType=String,jdbcType=VARCHAR},'yyyy/mm/dd') from dual))
@@ -120,7 +120,7 @@ and eventTitle like '%' || #{searchValue} || '%'
 <select id="getReadEventListByAsc3" resultType="com.exe.dto.EventDTO">
 <![CDATA[
 select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate
-,time,location,price,content1,content2,savefileName from event
+,time,location,price,content1,content2,content3,savefileName from event
 where rownum <=3 order by startDate asc
 ]]>
 </select>

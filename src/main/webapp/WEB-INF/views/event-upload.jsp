@@ -357,6 +357,14 @@ function inputIdChk() {
 								</textarea>
 							</div>
 						</div>
+						<div class="col-lg-10">
+							<div class="form-group">
+							<p class="section-subtitle">내 용3</p>
+								<textarea rows="4" name="content3" class="form-control"	placeholder="내용을 입력하세요">
+								
+								</textarea>
+							</div>
+						</div>
 						
 						<div class="col-lg-10">
 							<div class="form-group">
