@@ -249,7 +249,8 @@
 										</h4>
 										<div class="time"><span>${reviewDto.created }</span></div>
 										<a class="comment-button" href="javascript:location.href=
-					'<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }&eventReviewNum=${reviewDto.eventReviewNum }'"><i class="tf-ion-chatbubbles"></i>삭제</a>
+									'<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }&eventReviewNum=${reviewDto.eventReviewNum }'">
+									<i class="tf-ion-chatbubbles"></i>삭제</a>
 									</div>
 									<p>
 									${reviewDto.content }

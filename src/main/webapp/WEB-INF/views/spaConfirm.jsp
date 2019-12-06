@@ -7,12 +7,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="description" content="Eden Travel Template">
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Hotel</title>
+  <title>IT WILL | Spa</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,26 +38,24 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  
   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
 	<style type="text/css">
 	
-		*:not(i){
-			font-family: 'Noto Serif KR', serif!important;
-		}
+	*:not(i){
+		font-family: 'Noto Serif KR', serif!important;
+	}
 	
 	</style>
-  
-  <!-- Kakao 톡상담 -->
-  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-
+	
 </head>
-
-<body >
-
-<!-- Header Start --> 
-
+    <body>
+    
+<!-- Header Start -->
 <header class="navigation">
 <div class="top-header py-2">
 	<div class="container">
@@ -168,96 +166,116 @@
 	</nav>
 </header>
 
+
 <!-- Header Close --> 
 
 <div class="main-wrapper ">
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
-<section class="overly bg-2">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-          <h1 class="text-white py-100">마이페이지</h1>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid page-border-top">
-    <div class="row ">
-      <div class="col-lg-12 text-center">
-          <div class="page-breadcumb py-2">
-            <a href="/hotel" class="text-white">Home</a>
-            <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="myPage.action" class="text-white">My Page</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- contact form start -->
-<section class="service-section section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <div class="block">
-                    <div class="section-title">
-                        <p class="section-subtitle">MY PAGE</p>
-                        <h2 class="mb-3">마이페이지</h2>
-                        <span class="section-border"></span>
+            <!-- MAIN CONTENT -->
+            <section class="main-content section clearfix">
+                <div class="container">
+                    <div class="border payment-confirm position-relative">
+                        <div align="center">
+                            <h2 class="headline">SPA 예약정보</h2>
+                        </div>
+                        <c:if test="${lists!=null }">
+                            <div class="row justify-content-center align-items-center ">
+                                <c:forEach var="dto" items="${lists }">
+                                    <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0" style="padding-right: 30px; height: 350px;">
+                                        <br/><br/>
+                                        <img src="/hotel/resources/images/spa/${dto.savefileName }" class="img-fluid w-100" alt="confirm img" style="width: 450px; height: 200px;"/>
+                                        <h3 class="text-dark mt-3 mb-4" style="text-align: center;">${dto.spaType }</h3>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="ed-cinfirm-detail ">
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <span>예약번호:
+                                                        </span>
+                                                        ${dto.spaBookingNum}
+                                                    </li>
+                                                    <li>
+                                                        <span>예약자 성함:
+                                                        </span>
+                                                        ${dto.spaUserName}
+                                                    </li>
+                                                    <li>
+                                                        <span>이용일자:
+                                                        </span>
+                                                        ${dto.spaDate}&nbsp;&nbsp;${dto.time }시
+                                                    </li>
+                                                    <li>
+                                                        <span>인원:
+                                                        </span>
+                                                        ${dto.adult} 명
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6" style="width: 300px;">
+                                            <div class="ed-cinfirm-detail">
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <span>연락처:
+                                                        </span>
+                                                        ${sessionScope.login.tel }
+                                                    </li>
+                                                    <li>
+                                                        <span>이메일:
+                                                        </span>
+                                                        ${sessionScope.login.userEmail }
+                                                    </li>
+                                                    <c:if test="${dto.spaUserRequest !=null }">
+                                                        <li style="display: inline-block; width: 270px;
+                                                         white-space: normal; line-height: 1.2; height: 3.6em;
+                                                         word-wrap: break-word;">
+                                                            <span>요청사항:
+                                                            </span>
+                                                            ${dto.spaUserRequest }
+                                                        </li>
+                                                    </c:if>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 text-center"></div>
+                                    </div>
+                                    <div class="total-amount" style="padding-left: 40px; padding-bottom: 50px;">
+                                    <br/><br/>
+                                        <a href="spa-booking-delete.action?spaBookingNum=${dto.spaBookingNum }" class="btn btn-solid-border">예약취소</a>
+                                    </div>
+                                    <br/><br/>
+                                </c:forEach>
+                            </div>
+                            <div class="col-lg-12 text-center">
+                                <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
+                                    <h2>더 다양한 아이티윌 호텔의 서비스를 즐기세요.</h2>
+                                    <br/>
+                                    <p>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
+                                </div>
+                                <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
+                                <a href="/hotel/" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
+                                <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
+                                <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
+                                <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
+                            </div>
+                        </c:if>
+                        <c:choose>
+                            <c:when test="${empty lists }">
+                                <div class="col-lg-12 text-center">
+                                    <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
+                                    <br/>
+                                        <h5>예약 내역이 없습니다.</h5>
+                                        <br/>
+                                    </div>
+                                </div>
+                            </c:when>
+                        </c:choose>
                     </div>
                 </div>
-            </div><!-- .col-md-7 close -->
-        </div>
-
-
-        <div class="row no-gutters">
-        
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="service-box text-center border px-4 py-5" onclick="location.href='userUpdate.action';">
-                    <i class="flaticon-menu text-color"></i>
-                    <h3 class="my-3">회원정보 수정</h3>
-                </div>
             </div>
-            
-            <div class="col-lg-4 col-md-6 col-sm-12">
-	                <div class="service-box text-center border px-4 py-5" onclick="location.href='bookingConfirm.action';">
-	                    <i class="flaticon-dishwasher text-color"></i>
-	                    <h3 class="my-3">객실 예약 확인</h3>
-	                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="service-box text-center border px-4 py-5" onclick="location.href='res-myBooking.action';">
-                    <i class="flaticon-chef text-color"></i>
-                    <h3 class="my-3">레스토랑 예약 확인</h3>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="service-box text-center border px-4 py-5" onclick="location.href='gymCheck.action';">
-                    <i class="flaticon-menu text-color"></i>
-                    <h3 class="my-3">헬스장 강좌 예약 확인</h3>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="service-box text-center border px-4 py-5" onclick="location.href='eventCheck.action';">
-                    <i class="flaticon-dishwasher text-color"></i>
-                    <h3 class="my-3">이벤트 예약 확인</h3>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="service-box text-center border px-4 py-5" onclick="location.href='spaConfirm.action';">
-                    <i class="flaticon-menu text-color"></i>
-                    <h3 class="my-3">SPA 예약 확인</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-     
+        </section>
 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
@@ -380,10 +398,10 @@
     
     <!-- Google Map -->
     <script src="/hotel/resources/plugins/google-map/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>    
 
     <script src="/hotel/resources/js/script.js"></script>
-    
+	
     <!-- Kakao 톡상담 -->
 	<script type='text/javascript'>
 	

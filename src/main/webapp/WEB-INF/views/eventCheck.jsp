@@ -301,7 +301,7 @@
           		
  				<div class="col-lg-12 text-center">
  				<c:if test="${fn:length(elists) > 0 }">
-                      <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
+                    <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
                         <h2>더 다양한 아이티윌 호텔의 서비스를 즐기세요.</h2>
                         <br/>
                 </c:if>
@@ -311,7 +311,7 @@
                         <br/>
                 </c:if>
                         <p>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
-                      </div>
+                    </div>
 
                        <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
                        <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>

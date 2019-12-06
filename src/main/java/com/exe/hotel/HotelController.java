@@ -47,7 +47,6 @@ import com.exe.dto.LoginDTO;
 import com.exe.dto.ReviewDTO;
 import com.exe.dto.RoomDTO;
 import com.exe.dto.SpaDTO;
-import com.exe.util.MyUtil;
 
 @Controller
 public class HotelController {
@@ -1413,14 +1412,12 @@ public class HotelController {
 
 		MultipartFile file = request.getFile("spaUpload");
 
-	
 		dto.setSpaIndex(spaDAO.getMaxNum() +1);
 	
 		dto.setSavefileName( file.getOriginalFilename());
 
 		spaDAO.insertspa(dto);
 
-		//hotelWeb -> HotelWebService
 		Path path = Paths.get("D:\\sts-bundle\\work\\HotelWebService\\src\\main\\webapp\\resources\\images\\spa");
 
 		if(file!=null&&file.getSize()>0) { 
@@ -1442,10 +1439,10 @@ public class HotelController {
 					if(data==-1) {
 						break;
 					}
-					
+
 					fos.write(buffer,0,data);
 				}
-				
+
 				is.close();
 				fos.close();
 			} catch (Exception e) {
@@ -1455,20 +1452,6 @@ public class HotelController {
 		return "redirect:/life-spa.action";
 	}
 
-	@RequestMapping(value="/Giftcard_KOR.pdf")
-	public ModelAndView download1(Map<String, Object> model1, HttpServletRequest request1,
-			HttpServletResponse response1) throws Exception {
-
-		ModelAndView mav = new ModelAndView();
-
-		MyUtil u = new MyUtil();
-
-		u.render(model1, request1, response1);
-		mav.setViewName("life-spa");
-
-		return mav;
-	}
-	
 	@RequestMapping(value="/spa-booking.action", method = {RequestMethod.GET,RequestMethod.POST})
 	public String spaBooking()  {
 
@@ -1487,16 +1470,13 @@ public class HotelController {
 		String spaType = request.getParameter("spaType");	
 		String time = request.getParameter("time");	
 		String adult = request.getParameter("adult");	
-		String phone = request.getParameter("phone");	
-		String email = request.getParameter("email");	
-		String spaUserName = request.getParameter("spaUserName");
 		String spaUserRequest = request.getParameter("spaUserRequest");
-
+		String savefileName=request.getParameter("savefileName");
+		String price = request.getParameter("price");
 		// 날짜변환
 		String dates[] = spaDate.split("/"); 
 		spaDate = dates[2]+"/"+dates[0]+"/"+dates[1]; 
 
-		//spaBooking 테이블에 insert
 		//mav.addObject("spaBookingNum",spaDAO.getBookingMaxNum()+1);
 		mav.addObject("spaDate", spaDate);
 		mav.addObject("dto", dto);
@@ -1505,25 +1485,66 @@ public class HotelController {
 		LoginDTO login = (LoginDTO)session.getAttribute("login");
 
 		String spaUserId="";
+		String spaUserName="";
+		String phone="";
+		String email="";
+
 		if(login!=null) {
 
 			spaUserId = login.getUserId();
+			spaUserName = login.getUserName();
+			phone = login.getTel();
+			email = login.getUserEmail();
 		}
 
-		int spaBookingNum = spaDAO.getBookingMaxNum()+1;
+		//spaBooking 테이블에 insert
+
+		int spaBookingNum = spaDAO.getBookingMaxNum()+1001;
+
+		//dto.setPrice(spaDAO.getReadPrice(spaType));
+		dto.setSavefileName(spaDAO.getReadSaveFileName(spaType));
+
+		System.out.println("savefileName:"+spaDAO.getReadSaveFileName(spaType));
 
 		dto.setSpaUserId(spaUserId);
+		dto.setSpaUserName(spaUserName);
+		dto.setPhone(phone);
+		dto.setEmail(email);
 		dto.setSpaBookingNum(spaBookingNum);
 		dto.setSpaDate(spaDate);
 		spaDAO.insertspaBooking(dto);		
 
 		// select 부분
 
-		SpaDTO dto1 = spaDAO.getReadspaBookingData(spaUserId,spaBookingNum);
+		//SpaDTO dto1 = spaDAO.getReadspaBookingData(spaUserId,spaBookingNum);
 
-		mav.setViewName("spa-request-confirmed");
-		mav.addObject("dto1", dto1);
+		List<SpaDTO> lists = spaDAO.getSpaBookingList(spaUserId);
 
+		mav.addObject("lists", lists);
+		mav.setViewName("spaConfirm");
+
+		return mav;
+	}
+	
+	@RequestMapping(value="/spaConfirm.action", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView spaConfirm(HttpServletRequest request,HttpServletResponse response)  {
+
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		LoginDTO login = (LoginDTO)session.getAttribute("login");
+		SpaDTO dto = new SpaDTO();
+		String spaUserId="";
+		
+		if(login!=null) {
+			
+			spaUserId = login.getUserId();
+		}
+		dto.setSpaUserId(spaUserId);
+		
+		List<SpaDTO>lists = spaDAO.getSpaBookingList(spaUserId);
+		mav.addObject("lists", lists);
+		mav.setViewName("spaConfirm");
+		
 		return mav;
 	}
 
@@ -1533,10 +1554,10 @@ public class HotelController {
 	public String spaBookingDelete(HttpServletRequest request) {
 
 		int spaBookingNum= Integer.parseInt(request.getParameter("spaBookingNum"));
-		System.out.println("spaBookingNum:"+spaBookingNum);
+
 		spaDAO.deletespaBookingData(spaBookingNum);
 
-		return "life-spa";
+		return "redirect:/spaConfirm.action";
 	}
 	
 	

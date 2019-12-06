@@ -153,7 +153,7 @@
 			$("#adult").focus();
 			return false;
 	  }
-	
+	  /* 
 	  if(!spaUserName) {
 			alert("\n이름을 입력하세요!");
 			$("#spaUserName").focus();
@@ -169,11 +169,14 @@
 			$("#email").focus();
 			return false;
 	  }
-	  
-	  
+	   */
+	  <%-- 
 	  location.href = "<%=cp%>/spa-request.action?spaDate="
 			  +spaDate+"&spaType="+spaType+"&time="+time+"&adult="+adult+"&phone="
 			  +phone+"&email="+email+"&spaUserName="+spaUserName + "&spaUserRequest=" + spaUserRequest;
+	   --%>
+	  location.href = "<%=cp%>/spa-request.action?spaDate="
+		  +spaDate+"&spaType="+spaType+"&time="+time+"&adult="+adult+"&spaUserRequest=" + spaUserRequest;
 }
   
   
@@ -314,9 +317,9 @@
     <div class="row ">
       <div class="col-lg-12 text-center">
           <div class="page-breadcumb py-2">
-            <a href="#" class="text-white">Home</a>
+            <a href="life-spa.action" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="#" class="text-white">Spa Reservation</a>
+            <a href="spa-booking.action" class="text-white">Spa Reservation</a>
         </div>
       </div>
     </div>
@@ -345,7 +348,6 @@
 						<div class="secondary-bg p-5 position-relative">
 							
 								<div class="form-row">
-								
 								    <div class="form-group col-md-3 col-sm-4">
 								    	<div class="input-group tp-datepicker date" data-provide="datepicker">
 										    <input type="text" class="form-control" placeholder="체크인" id="spaDate" 
@@ -355,10 +357,10 @@
 										    </div>
 										</div>
 						          	</div>
-						          	<div class="form-group col-md-4">
+						          		    <div class="form-group col-md-3 ">
 								    <c:if test="${empty dto.spaType }">
 							    		<select id="spaType" class="form-control custom-select" name="spaType">
-									        <option selected>트리트먼트 타입</option>
+									        <option selected>트리트먼트 코스</option>
 										        <option value="아흐모니 수브리머">아흐모니 수브리머	</option>
 								                <option value="르 미네할르">르 미네할르</option>
 								                <option value="르 프헤슈">르 프헤슈</option>
@@ -377,7 +379,7 @@
 									      </select>
 									</c:if>
 								    </div>
-						          	<div class="form-group col-md-2">
+						          	<div class="form-group col-md-3">
 						          	<c:if test="${empty dto.time }">
 								 		<select id="time" class="form-control custom-select" name="time" >
 									        <option selected>시간</option>
@@ -413,7 +415,7 @@
 									      </select>
 									  </c:if>
 								    </div>
-								    <div class="form-group col-md-2 ">
+								    <div class="form-group col-md-3 ">
 								    <c:if test="${empty dto.adult }">
 							    		<select id="adult" class="form-control custom-select" name="adult">
 									        <option selected>인원</option>
@@ -424,6 +426,7 @@
 								                <option value="5">5명</option>
 									      </select>
 									</c:if>
+									
 									
 									<c:if test="${!empty dto.adult }">
 							    		<select id="adult" class="form-control custom-select" name="adult">
@@ -450,42 +453,48 @@
 			
 				<div class="row">
 					<div class="form-group col-lg-12">
-						 <label for="inputname" class="col-sm-4 col-form-label">이름: <a style="color: red;"> *필수</a></label>
-						<input type="text" name="spaUserName" id="spaUserName" class=" form-control" placeholder="이름" maxlength="20" value="${sessionScope.login.userName }">
+						<label for="inputname" class="col-sm-4 col-form-label">이름: </label>
+						<div name="spaUserName" id="spaUserName" class=" form-control" maxlength="20" >
+						${sessionScope.login.userName }</div>
 					</div>
 					<div class="form-group col-lg-12">
-						 <label for="inputname" class="col-sm-4 col-form-label">핸드폰: <a style="color: red;"> *필수</a></label>
-						<input type="text" name="phone" id="phone" class=" form-control" placeholder="01012345678" maxlength="30" value="${sessionScope.login.tel }">
+						<label for="inputname" class="col-sm-4 col-form-label">연락처: </label>
+						<div name="phone" id="phone" class=" form-control"  maxlength="30" >
+						${sessionScope.login.tel }</div>
 					</div>
 					<div class="form-group col-lg-12">
-						 <label for="inputname" class="col-sm-4 col-form-label">이메일:  <a style="color: red;"> *필수</a></label>
-						<input type="text" name="email" id="email" class=" form-control" placeholder="이메일" maxlength="50" value="${sessionScope.login.userEmail }">
+						<label for="inputname" class="col-sm-4 col-form-label">이메일:  </label>
+						<div name="email" id="email" class=" form-control" maxlength="50">
+						${sessionScope.login.userEmail }</div>
 					</div>
 					<div class="form-group col-lg-12">
-					<label for="inputname" class="col-sm-4 col-form-label">요청사항: </label>
-						<textarea name="spaUserRequest" id="spaUserRequest" class=" form-control" rows="6" placeholder="Comment" maxlength="500"></textarea>
+						<label for="inputname" class="col-sm-4 col-form-label">요청사항: </label>
+						<textarea name="spaUserRequest" id="spaUserRequest" class=" form-control" rows="3" placeholder="Comment" maxlength="500"></textarea>
 					</div>
-					<br/><br/>
+					<br/><br/><br/><br/>
 					
-					<div class="border-top"></div><br/><br/>
-					<div class="border-top"></div><br/><br/>
-					
-					<h3 class="mb-4" align="center">고객님께 드리는 안내 말씀</h3>
-					<p>16세 미만의 고객의 경우 보호자가 동반한 경우에 한해 스파 이용이 가능합니다. 궁금하신점은 스파 컨시어지에 문의하시기 바랍니다.
-					임산부 또는 수술 이력이나 질환이 있는 고객께서는 스파 서비스 예약 전 의료진에게 먼저 상담받으시길 바라며, 임신 초기 3개월까지는
-					트리트먼트를 권장하지 않습니다.  
-					</p>
-				<div class="border-top"></div><br/><br/>
-					<div class="form-group col-lg-12">
-                        <input type="checkbox" name="term">
-                        <span class="policy">「고객님께 드리는 안내 말씀」을 읽고 확인하셨습니다.<br/><br/></span>
-							<div class="gallery-title" align="center">
-								<input type="button" value="예&nbsp;&nbsp;약&nbsp;&nbsp;하&nbsp;&nbsp;기" class="btn btn-main btn-block" onclick="sendIt();">
-								<br/><br/>
+					<div>
+					<br/>
+						<h3 class="mb-4" align="center">고객님께 드리는 안내 말씀</h3>
+						<p>16세 미만의 고객의 경우 보호자가 동반한 경우에 한해 스파 이용이 가능합니다. 궁금하신점은 스파 컨시어지에 문의하시기 바랍니다.
+						임산부 또는 수술 이력이나 질환이 있는 고객께서는 스파 서비스 예약 전 의료진에게 먼저 상담받으시길 바라며, 임신 초기 3개월까지는
+						트리트먼트를 권장하지 않습니다.  
+						</p>
+						<p>저희 스파 시설을 충분히 즐기며 긴장을 완화 시키실 수 있도록 트리트먼트 예약 30분 전에 미리 방문 바랍니다.
+						혹여 늦으실 경우 다음 고객 예약으로 고객님의 트리트먼트 시간이 단축되므로 양해 부탁드립니다.
+						부득이한 사정으로 스파 예약 취소 및 변경을 원하는 경우 이용일 기준 24시간 전에 알려주시기 바라며 사전에 취소하지 
+						않는 경우 100%의 취소 수수료가 발생합니다.</p>
+						
+						<div class="form-group col-lg-12">
+	                      <!--    <input type="checkbox" name="term">
+	                       <span class="policy">「고객님께 드리는 안내 말씀」을 읽고 확인하셨습니다.<br/><br/></span> -->
+								<div class="gallery-title" align="center">
+									<input type="button" value="예&nbsp;&nbsp;약&nbsp;&nbsp;하&nbsp;&nbsp;기" class="btn btn-main btn-block" onclick="sendIt();">
+									<br/><br/>
+								</div>
 							</div>
-					
+						</div>
 					</div>
-				</div>
 				</div>
 			</form>
 		</div>

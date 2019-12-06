@@ -333,7 +333,7 @@
                </c:if>
                
                <c:choose>
-             <c:when test="${empty lists }">
+               <c:when test="${empty lists }">
                
                
                  <div class="col-lg-12 text-center">
