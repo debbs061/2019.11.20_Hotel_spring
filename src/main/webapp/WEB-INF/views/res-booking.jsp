@@ -364,11 +364,7 @@ var f = document.resBookingForm;
 								<div class="form-row">
 								    <div class="form-group col-md-3 col-sm-4">
 								    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-<<<<<<< HEAD
-										    <input type="text" class="form-control" placeholder="체크인" id="checkin" name="checkin" value="${res.checkin }" autocomplete="off">
-=======
 										    <input type="text" class="form-control" placeholder="체크인" id="checkin" name="checkin" value="${res.checkin }">
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 										    <div class="input-group-addon">
 										       <span class="ion-android-calendar"></span>
 										    </div>
@@ -380,20 +376,6 @@ var f = document.resBookingForm;
 						          	<c:if test="${empty res.time }">
 								 		<select id="time" class="form-control custom-select" name="time" >
 									        <option selected>시간</option>
-<<<<<<< HEAD
-										        <option value="10">10시</option>
-								                <option value="11">11시</option>
-								                <option value="12">12시</option>
-								                <option value="13">13시</option>
-								                <option value="14">14시</option>
-								                <option value="15">15시</option>
-								                <option value="16">16시</option>
-								                <option value="17">17시</option>
-								                <option value="18">18시</option>
-								                <option value="19">19시</option>
-								                <option value="20">20시</option>
-								                <option value="21">21시</option>
-=======
 										        <option value="10시">10시</option>
 								                <option value="11시">11시</option>
 								                <option value="12시">12시</option>
@@ -406,7 +388,6 @@ var f = document.resBookingForm;
 								                <option value="19시">19시</option>
 								                <option value="20시">20시</option>
 								                <option value="21시">21시</option>
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 									      </select>
 									  </c:if>
 									  <c:if test="${!empty res.time }">
@@ -429,19 +410,11 @@ var f = document.resBookingForm;
 								    <c:if test="${empty res.adult }">
 							    		<select id="adult" class="form-control custom-select" name="adult">
 									        <option selected>성인</option>
-<<<<<<< HEAD
-										        <option value="1">1명</option>
-								                <option value="2">2명</option>
-								                <option value="3">3명</option>
-								                <option value="4">4명</option>
-								                <option value="5">5명</option>
-=======
 										        <option value="1명">1명</option>
 								                <option value="2명">2명</option>
 								                <option value="3명">3명</option>
 								                <option value="4명">4명</option>
 								                <option value="5명">5명</option>
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 									      </select>
 									</c:if>
 									<c:if test="${!empty res.adult }">
@@ -463,21 +436,12 @@ var f = document.resBookingForm;
 								    <c:if test="${empty res.children }">
 							    		<select id="children" class="form-control custom-select" name="children">
 									        <option selected>어린이</option>
-<<<<<<< HEAD
-									       		<option value="0">0명</option>
-										        <option value="1">1명</option>
-								                <option value="2">2명</option>
-								                <option value="3">3명</option>
-								                <option value="4">4명</option>
-								                <option value="5">5명</option>
-=======
 									       		<option value="1명">0명</option>
 										        <option value="1명">1명</option>
 								                <option value="2명">2명</option>
 								                <option value="3명">3명</option>
 								                <option value="4명">4명</option>
 								                <option value="5명">5명</option>
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 									      </select>
 									 </c:if>
 									 <c:if test="${!empty res.children }">
@@ -503,11 +467,7 @@ var f = document.resBookingForm;
 				</div>
 			</div>
 
-<<<<<<< HEAD
-	<div class="event-comment-form mt-5">
-=======
 		<div class="event-comment-form mt-5">
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 		<div class="border-top"></div><br/><br/>
 		<h3 class="mb-4">예약자 정보</h3>
 			<input type="hidden" id="userId" name="userId" value="${sessionScope.login.userId }"/>
@@ -550,14 +510,8 @@ var f = document.resBookingForm;
 								<input type="submit" value="예&nbsp;&nbsp;약&nbsp;&nbsp;하&nbsp;&nbsp;기" class="btn btn-main btn-block" onclick="sendIt();">
 								<br/><br/>
 							</div>
-<<<<<<< HEAD
-					
-					</div>
-				</div>
-=======
 					</div>
 					</div>
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 				</div>
 			</form>
 		</div>

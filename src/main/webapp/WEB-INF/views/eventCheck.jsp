@@ -302,11 +302,7 @@
  				<div class="col-lg-12 text-center">
  				<c:if test="${fn:length(elists) > 0 }">
                       <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
-<<<<<<< HEAD
-                        <h2>예약이 완료되었습니다.</h2>
-=======
                         <h2>더 다양한 아이티윌 호텔의 서비스를 즐기세요.</h2>
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
                         <br/>
                 </c:if>
                 <c:if test="${fn:length(elists) == 0 }">
@@ -314,36 +310,22 @@
                         <h2>예약이 존재하지 않습니다.</h2>
                         <br/>
                 </c:if>
-<<<<<<< HEAD
-                        <p>더 다양한 아이티윌 호텔의 서비스를 즐기세요.
-                        <br/>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
-=======
                         <p>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
                       </div>
 
                        <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
                        <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
                        <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
-<<<<<<< HEAD
-                       <a href="#" class="btn btn-solid-border">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a>
-                       <a href="/hotel/event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
-=======
                        <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
                        <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
                        <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
                        <!-- <a href="#" class="btn btn-main">레&nbsp;스&nbsp;토&nbsp;랑</a>
                        <a href="#" class="btn btn-main">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
                        <a href="#" class="btn btn-main">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
                        <a href="#" class="btn btn-main">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a> -->
                        
                        
-<<<<<<< HEAD
-                  </div>          
-=======
                   </div>
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 
       </div>
     </section>

@@ -6,13 +6,8 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="eventmapper">
 
 <insert id="insertEvent" parameterType="com.exe.dto.EventDTO">
-<<<<<<< HEAD
 	insert into event (eventIndex,eventTitle,startDate,endDate,time,location,price,content1,content2,content3,savefileName) 
 	values (#{eventIndex},#{eventTitle},#{startDate},#{endDate},#{time},#{location},#{price},#{content1},#{content2},#{content3},#{savefileName})
-=======
-	insert into event (eventIndex,eventTitle,day,time,location,price,content1,content2,savefileName) 
-	values (#{eventIndex},#{eventTitle},#{day},#{time},#{location},#{price},#{content1},#{content2},#{savefileName})
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 </insert>
 
 
@@ -24,7 +19,6 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 	select nvl(count(*),0) from event
 </select>
 
-<<<<<<< HEAD
 <select id="getEventLists" resultType="com.exe.dto.EventDTO"> 
 	select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(endDate,'yy-mm-dd') endDate,time,location,price,content1,content2,content3,savefileName from event 
 </select>
@@ -59,19 +53,6 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 	update event set eventTitle=#{eventTitle},startDate=#{startDate},
 	endDate=#{endDate},time=#{time},location=#{location},price=#{price},
 	content1=#{content1},content2=#{content2},content3=#{content3},savefileName=#{savefileName}
-=======
-
-<select id="getEventLists" resultType="com.exe.dto.EventDTO">
-	select eventIndex,eventTitle,day,time,location,price,content1,content2,savefileName from event
-</select>
-
-<select id="getReadEventData" parameterType="int" resultType="com.exe.dto.EventDTO">
-	select eventIndex,eventTitle,day,time,location,price,content1,content2,savefileName from event where eventIndex=#{eventIndex}
-</select>
-
-<update id="updateEventData" parameterType="com.exe.dto.EventDTO">
-	update event set eventTitle=#{eventTitle},day=#{day},time=#{time},location=#{location},price=#{price},content1=#{content1},content2=#{content2},savefileName=#{savefileName}
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 	where eventIndex=#{eventIndex}
 </update>
 
@@ -103,7 +84,6 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 	delete eventReview where eventReviewNum=#{eventReviewNum}
 </delete>
 	
-<<<<<<< HEAD
 	
 <!-- EventBooking -->
 <select id="bookingMaxNum" resultType="int">
@@ -144,7 +124,5 @@ select eventIndex,eventTitle,to_char(startDate,'yy-mm-dd') startDate,to_char(end
 where rownum <=3 order by startDate asc
 ]]>
 </select>
-=======
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 
 </mapper>
