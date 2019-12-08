@@ -16,12 +16,10 @@
 
 </head>
 <body>
-
 <div class="container">
 
  <c:choose>
  <c:when test="${not empty message}">
-	
 	<div>
 	<ul class="list-group">
  	 <h4 style="text-align: center;">중복된 예약이 있습니다</h4>
@@ -36,7 +34,6 @@
      </ul>
      </div>  
      <br/>
- 
 </c:when>
 <c:otherwise>
 	<div>
@@ -60,9 +57,12 @@
 </div>
  
 <div align="center">
+	<a class="btn btn-main" href="eventCheck.action" role="button">예약 확인</a>
+	<a class="btn btn-main" href="javascript:location.href='<%=cp %>/event-request.action?userId=${sessionScope.login.userId }&eventIndex=${eventIndex }'"  role="button">다른 예약</a>
 	<a class="btn btn-main" href="event-booking-delete.action?eventBookingNum=${dto.eventBookingNum }" role="button">예약 취소</a>
 	<button type="button" class="btn btn-main" data-dismiss="modal">닫기</button>
 </div>	
 
 </body>
 </html>
+

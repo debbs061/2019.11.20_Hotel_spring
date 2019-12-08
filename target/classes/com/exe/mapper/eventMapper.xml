@@ -60,7 +60,6 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 	delete event where eventIndex=#{eventIndex}
 </delete>
 
-
 <!-- Event Review -->
 <select id="reviewMaxNum" resultType="int">
  	select nvl(max(eventReviewNum),0) from eventReview

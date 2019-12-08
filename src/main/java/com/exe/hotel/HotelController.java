@@ -594,40 +594,46 @@ public class HotelController {
 	//유저가 이벤트 신청함
 	@RequestMapping(value = "/event-request.action", 		
 			method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView eventRequest(HttpServletRequest request,
+	public ModelAndView eventRequestOk(HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-
+		
 		ModelAndView mav = new ModelAndView();
-
-		//1. 이벤트 신청 값 받아내고 
+ 
 		String userId = request.getParameter("eventUserId");
-		String userName = request.getParameter("eventUserName");
-		String userRequest  = request.getParameter("eventUserRequest");
-
-		String companionNumber = request.getParameter("companionNumber");
-		String userSelectedDate = request.getParameter("userSelectedDate");
-
-		String dates[] = userSelectedDate.split("/"); 
-		userSelectedDate = dates[2]+"/"+dates[0]+"/"+dates[1]; 
-
-
 		int eventIndex =Integer.parseInt(request.getParameter("eventIndex"));	
+		String userRequest  = request.getParameter("eventUserRequest");
+		System.out.println("userRequest:"+userRequest);
 
 		//아이디+이벤트인덱스로 예약된 내역이 있는지 조회
 		EventBookingDTO dto = eventDao.getReadEventBookingData(userId, eventIndex);
-
+		
 		//1.유저가 이미 예약한 예약건이 있는경우
 		if(dto!=null&&!dto.equals(" ")) {
-
+			System.out.println("11111");
 			EventDTO edto = eventDao.getReadEventData(eventIndex);
 
 			mav.setViewName("event-request-confirmed");
 			mav.addObject("dto",dto);
 			mav.addObject("message","이벤트 예약건이 이미 이미존재합니다");
 			mav.addObject("edto",edto);
+			mav.addObject("eventIndex",eventIndex);
 			return mav;	
 
-		}
+		}else if((dto==null||dto.equals(""))
+				&&(userRequest==null||userRequest.equals(""))){
+			System.out.println("2222");
+			return null;	
+			
+		}else {
+			System.out.println("3333");
+		//기존 예약건이 없는 경우 ==신규로 예약을 만들고자 하는 경우
+		String userName = request.getParameter("eventUserName");
+
+		String companionNumber = request.getParameter("companionNumber");
+		String userSelectedDate = request.getParameter("userSelectedDate");
+
+		String dates[] = userSelectedDate.split("/"); 
+		userSelectedDate = dates[2]+"/"+dates[0]+"/"+dates[1]; 
 
 		//2.유저가 해당 이벤트를 처음 예약을 할 경우
 		EventBookingDTO ebdto = new EventBookingDTO();
@@ -650,7 +656,7 @@ public class HotelController {
 		mav.addObject("dto",dto2);
 		mav.addObject("edto",edto);
 		return mav;			
-
+		}
 	}
 
 	//이벤트 예약 취소
