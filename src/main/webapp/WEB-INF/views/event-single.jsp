@@ -213,7 +213,7 @@
 										<c:set var="userId" value="${reviewDto.userId }"/>
 										<c:if test="${sessionScope.login.userId eq userId}">
 										<a class="comment-button" href="javascript:location.href='<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }
-										&eventReviewNum=${reviewDto.eventReviewNum }'"><i class="tf-ion-chatbubbles"></i>삭제</a>
+										&eventReviewNum=${reviewDto.eventReviewNum }'" onclick="return confirm('후기를 삭제하시겠습니까?')"><i class="tf-ion-chatbubbles" ></i>삭제</a>
 										</c:if>
 									</div>
 									<p>
@@ -505,8 +505,14 @@
 $(document).ready(function(){
 	$("#reviewName,#eventEmail,#eventText,#reviewSubmit").click(function(){
 		if('${sessionScope.login.userName}'.length==0){
-			alert("로그인후 사용 가능합니다")
-			event.preventDefault();
+			
+			var answer = window.confirm("로그인 후 사용가능합니다. \n로그인창으로 이동하시겠습니까?")
+    		if(answer){   
+    			location.href='login.action';
+    			event.preventDefault();
+    		}else{
+    			event.preventDefault();
+    		}
 		}
 	})
 });
@@ -528,11 +534,11 @@ $(document).ready(function(){
     $("#myBtn").click(function(){
     	
     	if('${sessionScope.login.userName}'.length==0) {
-    		
-    		alert("로그인 후 사용가능합니다")
-    		
+    		var answer = window.confirm("로그인 후 사용가능합니다. \n로그인창으로 이동하시겠습니까?")
+    		if(answer){   
+    			location.href='login.action';
+    		}
     	}else{
-    		
     		 $("#myModal").modal();
     	}
     });
