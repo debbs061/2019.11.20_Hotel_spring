@@ -464,7 +464,7 @@
 				data:eventBookingNum,
 				success:function(args){
 						
-					alert("삭제완료")
+					alert("이벤트가 취소되었습니다.")
 					
 					location.reload();
 					

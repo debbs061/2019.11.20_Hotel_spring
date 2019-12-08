@@ -72,8 +72,8 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 </select>
 	
 <insert id="insertReview" parameterType="com.exe.dto.EventReviewDTO">
-	insert into eventReview (eventReviewNum,name,email,content,created,eventIndex)
-	values (#{eventReviewNum},#{name},#{email},#{content},sysdate,#{eventIndex})
+	insert into eventReview (eventReviewNum,userId,name,email,content,created,eventIndex)
+	values (#{eventReviewNum},#{userId},#{name},#{email},#{content},sysdate,#{eventIndex})
 </insert>
 	
 <select id="getReviewList" parameterType="int" resultType="com.exe.dto.EventReviewDTO">

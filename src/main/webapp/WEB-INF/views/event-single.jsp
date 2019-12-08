@@ -210,8 +210,11 @@
 											<a href="#">${reviewDto.name }</a>
 										</h4>
 										<div class="time"><span>${reviewDto.created }</span></div>
-										<a class="comment-button" href="javascript:location.href=
-					'<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }&eventReviewNum=${reviewDto.eventReviewNum }'"><i class="tf-ion-chatbubbles"></i>삭제</a>
+										<c:set var="userId" value="${reviewDto.userId }"/>
+										<c:if test="${sessionScope.login.userId eq userId}">
+										<a class="comment-button" href="javascript:location.href='<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }
+										&eventReviewNum=${reviewDto.eventReviewNum }'"><i class="tf-ion-chatbubbles"></i>삭제</a>
+										</c:if>
 									</div>
 									<p>
 									${reviewDto.content }
@@ -223,26 +226,28 @@
 						</ul>
 					</div>
 					</c:if>
+					<!-- 후기 작성 -->
 					<div class="post-comments-form mt-5">
 						<h3 class="pb-3 mb-3 text-capitalize">소중한 후기를 남겨주세요</h3>
 						<form action="eventReview.action?eventIndex=${eventIndex }" method="post">	
 							<div class="row">
 								<div class="col-lg-6 form-group">
 									<!-- Name -->
-									<input type="text" name="name" id="name" class=" form-control" placeholder="이름" maxlength="100" value="${sessionScope.login.userName }">
+									<input type="text" name="name" id="reviewName" class=" form-control" placeholder="이름" maxlength="100" value="${sessionScope.login.userName }"  style="background-color: #ffffff;" readonly="readonly"/>
 								</div>
 								<div class="col-lg-6 form-group">
 									<!-- Email -->
-									<input type="email" name="email" id="email" class=" form-control" placeholder="이메일" maxlength="100"
-									 value="${sessionScope.login.userEmail }">
+									<input type="text" name="email" id="eventEmail" class=" form-control" placeholder="이메일" maxlength="100"
+									 value="${sessionScope.login.userEmail }"  style=" background-color: #ffffff;" readonly="readonly"/>
+									<input type="hidden" name="userId" value="${sessionScope.login.userId }"/>
 								</div>
 								<!-- Comment -->
 								<div class="form-group col-lg-12">
-									<textarea name="content" id="text" class=" form-control" rows="6" placeholder="소중한 후기를 남겨주세요" maxlength="400"></textarea>
+									<textarea name="content" id="eventText" class=" form-control" rows="6" placeholder="소중한 후기를 남겨주세요" maxlength="400"></textarea>
 								</div>
 								<!-- Send Button -->
 								<div class="form-group col-lg-12">
-									<button type="submit" class="btn btn-main ">
+									<button type="submit" class="btn btn-main" id="reviewSubmit">
 										작성하기
 									</button>
 								</div>
@@ -497,6 +502,26 @@
 
 <script type="text/javascript">
 
+$(document).ready(function(){
+	$("#reviewName,#eventEmail,#eventText,#reviewSubmit").click(function(){
+		if('${sessionScope.login.userName}'.length==0){
+			alert("로그인후 사용 가능합니다")
+			event.preventDefault();
+		}
+	})
+});
+	
+	
+$(document).ready(function(){
+	$("#reviewSubmit").click(function(){
+	if('${sessionScope.login.userName}'.length > 0){
+		 if($.trim($("#eventText").val())==""){
+			alert("내용을 입력해 주세요")
+			event.preventDefault();
+		}
+	}
+})
+});
 
 $(document).ready(function(){
 	

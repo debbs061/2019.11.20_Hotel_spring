@@ -186,7 +186,6 @@
             <span class="letter-spacing text-white">Hotel Event</span>
             <h1 class="mb-3 text-capitalize">신나는 이벤트</h1>
             <p class="mb-5">모두가 참여할 수 있는 이벤트</p>
-            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
           </div>
         </div>
       </div>
@@ -199,7 +198,6 @@
             <span class="letter-spacing text-white">Hotel Event</span>
             <h1 class="mb-3 text-capitalize">낭만적인 모임</h1>
             <p class="mb-5">잊지 못 할 추억을 만드세요.</p>
-            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
           </div>
         </div>
       </div>
@@ -212,7 +210,6 @@
              <span class="letter-spacing text-white">Hotel Event</span>
             <h1 class="mb-3 text-capitalize">최고의 서비스</h1>
             <p class="mb-5">최고의 음식과 서비스를 제공해드립니다.</p>
-            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
           </div>
         </div>
       </div>
@@ -225,7 +222,6 @@
              <span class="letter-spacing text-white">Hotel Event</span>
             <h1 class="mb-3 text-capitalize">다양한 이벤트</h1>
             <p class="mb-5">다양한 이벤트를 제공해드립니다. </p>
-            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
           </div>
         </div>
       </div>
@@ -277,7 +273,6 @@
 		</div>
 	</div>
 </section>	
-
 
 <section id="about" class="section secondary-bg">
     <div class="container">

@@ -66,10 +66,12 @@
                       	<img src="/hotel/resources/images/event/${dto2.savefileName}" alt="" class="img-fluid w-100">
                       	</a>                           
                       	 <div class="event-content mt-3">
+                               <!--  
                                 <div class="event-date p-3 text-white">
                                     <span class="date font-weight-bold d-block">${dto2.price }</span>
                                     
                                 </div>
+                                -->
                                 <a href="event-single.html">
                                     <h3>${dto2.eventTitle }</h3>
                                 </a>
@@ -81,7 +83,7 @@
                                     <span>
                                         <i class="ion-ios-location"></i>${dto2.location }</span>
                                      <span>
-                                       &nbsp;<i class="ion-laptop"></i><a href="event-single.action?eventIndex=${dto2.eventIndex}">자세히 보기</a><span>
+                                       &nbsp;<i class="ion-laptop"></i><a href="event-single.action?eventIndex=${dto2.eventIndex}">자세히 보기</a></span>
                                 </div>
                                 <p>${dto2.content1 }</p>
                             </div>
@@ -118,11 +120,12 @@
                       	<img src="/hotel/resources/images/event/${dto3.savefileName }" alt=" " class="img-fluid w-100">
                       	</a>
                             <div class="event-content mt-3">
+                            <!-- 
                                 <div class="event-date p-3 text-white">
                                     <span class="date font-weight-bold d-block">${dto3.price }</span>
                                    
                                 </div>
-                                
+                                 -->
                                     <h3>${dto3.eventTitle }</h3>
                                 
                                 <div class="event-post-meta mt-2 mb-3">
@@ -132,6 +135,8 @@
                                         <i class="ion-clock"></i>${dto3.time }</span>
                                     <span>
                                         <i class="ion-ios-location"></i>${dto3.location }</span>
+                                        <span>
+                                       &nbsp;<i class="ion-laptop"></i><a href="event-single.action?eventIndex=${dto2.eventIndex}">자세히 보기</a></span>
                                 </div>
                                 <p>${dto3.content1 }</p>
                             </div>

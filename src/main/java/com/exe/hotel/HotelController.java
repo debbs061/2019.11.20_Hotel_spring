@@ -477,7 +477,7 @@ public class HotelController {
 
 		//이벤트 관련 리뷰 처리
 		int countReview = eventReviewDAO.countReview(eventIndex);
-
+		
 		List<EventReviewDTO> lists = eventReviewDAO.getReviewList(eventIndex);
 
 		mav.addObject("lists",lists);
@@ -559,11 +559,21 @@ public class HotelController {
 	//이벤트 리뷰
 	@RequestMapping(value = "/eventReview.action", method = {RequestMethod.GET,RequestMethod.POST})
 	public String eventReview(EventReviewDTO dto,HttpServletRequest request) {
-
+		/*
+		System.out.println("evenReview.action 들어옴");
+		System.out.println("getEventIndex:"+dto.getEventIndex());
+		System.out.println("getEventReviewNum:"+dto.getEventReviewNum());
+		System.out.println("getName:"+dto.getName());
+		System.out.println("getUserId:"+dto.getUserId());
+		System.out.println("getEmail:"+dto.getEmail());
+		System.out.println("getCreated:"+dto.getCreated());
+		System.out.println("getContent:"+dto.getContent());
+		*/
 		dto.setEventReviewNum(eventReviewDAO.reviewMaxNum()+1); //EventReviewNum 순서대로 증가시키기
+		
 
 		eventReviewDAO.insertReviewData(dto);
-
+		
 		return "redirect:event-single.action?eventIndex="+dto.getEventIndex();
 	}
 

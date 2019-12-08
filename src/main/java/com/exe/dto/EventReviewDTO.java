@@ -4,12 +4,21 @@ public class EventReviewDTO {
 	
 	private int eventReviewNum; 
 	private int eventIndex;
+	private String userId;
 	private String name;
 	private String email;
 	private String content;
 	private String created;
 	
-
+	
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	public int getEventReviewNum() {
 		return eventReviewNum;
 	}
