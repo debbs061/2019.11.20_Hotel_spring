@@ -6,12 +6,20 @@ public class RoomDTO {
 	private String roomType;
 	private int roomSize;
 	private int pricePerNight;
+	private String pricePerNight2;
 	private String bedType;
 	private String views;
 	private String roomImage;
 	private String roomInformation;
 	
 	
+	
+	public String getPricePerNight2() {
+		return pricePerNight2;
+	}
+	public void setPricePerNight2(String pricePerNight2) {
+		this.pricePerNight2 = pricePerNight2;
+	}
 	public int getRoomIndex() {
 		return roomIndex;
 	}

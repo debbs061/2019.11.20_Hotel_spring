@@ -53,6 +53,9 @@
 	
 	</style>
 
+	
+
+
 </head>
 
 <body >
@@ -291,7 +294,7 @@
                 <!-- 1개의 이벤트 내역 출력 종료 -->
               </div>
                <div class="total-amount" style="padding-left: 40px; padding-bottom: 50px;">
-       				<button type="button" id="btnOK" class="btn btn-solid-border" value="${dto.eventBookingNum}" >예약취소하기</button>
+       				<button type="button" class="btn btn-solid-border"  name="${dto.eventBookingNum}" >예약취소하기</button>
                 </div>
               
           </div>
@@ -472,26 +475,18 @@
 	
 	</script>
 	
-	<script src="/hotel/resources/js/weather.js"></script>
-	
 	<script type="text/javascript">
 	
-	$(document).ready(function(){
-		
-		$("#btnOK").click(function(){
-			
+	$(document).ready(function() {    
+		$('button').click(function(){
 			var currentLocation = window.location;
-			
-			var eventBookingNum ="eventBookingNum="+ $("#btnOK").val();
-				
+			var eventBookingNum ="eventBookingNum="+ $(this).attr('name');
 			$.ajax({
-				
 				type:"POST",  
 				url:"<%=cp%>/event-booking-delete.action", 
 				data:eventBookingNum,
 				success:function(args){
 						
-					alert("삭제완료");
 					
 					location.reload();
 					
@@ -508,6 +503,10 @@
 	});
 	
 	</script>
+	
+	
+	<script src="/hotel/resources/js/weather.js"></script>
+	
 
   </body>
   </html>

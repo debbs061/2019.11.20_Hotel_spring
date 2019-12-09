@@ -1,5 +1,6 @@
 package com.exe.dao;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +52,8 @@ public class HotelBookingDAO {
 		List<HotelBookingDTO> lists  =
 				sessionTemplate
 				.selectList("hotelmapper.getReadBookingData", userId);
+		
+
 		
 		return lists; 
 

@@ -437,7 +437,7 @@ function listPage(page) {
 						<% for(int j=1; j<=5; j++) { 
 									if(adult==j) {
 								%>
-					    		  	  <option selected style="color:black;">${adult }명</option>
+					    		  	  <option selected style="color:black;" value="<%=adult%>">${adult }명</option>
 					    		  	<%} else {%>  
 					        			<option value="<%=j %>" style="color:black;"><%=j %>명</option>
 					        	<% }} %>	
@@ -462,7 +462,7 @@ function listPage(page) {
 								<% for(int i=0; i<=5; i++) { 
 									if(children==i) {
 								%>
-					    		  	  <option selected style="color:black;">${children }명</option>
+					    		  	  <option selected style="color:black;" value="<%=children%>">${children }명</option>
 					    		  	<%} else {%>  
 					        			<option value="<%=i %>" style="color:black;"><%=i %>명</option>
 					        	<% }} %>	

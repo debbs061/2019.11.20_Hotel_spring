@@ -182,6 +182,7 @@
 		//room-details로 바로 들어왔을경우
 		if(checkin==""){
 			
+			
 			var checkin = $.trim($("#checkin").val());
 			var checkout = $.trim($("#checkout").val());
 			var adult = $.trim($("#adult").val());
@@ -247,6 +248,7 @@
 		
 		// 전체 체크박스 해제
 		$("input:checkbox[id='form-check-input']").prop("checked", false);
+		
 		
 		var adult = document.getElementById("adult").value;
 		var children = document.getElementById("children").value;

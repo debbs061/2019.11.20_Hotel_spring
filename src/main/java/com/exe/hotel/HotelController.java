@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -405,8 +406,10 @@ public class HotelController {
 		}		
 
 		mav.setViewName("room-details_ok");		
-
-		mav.addObject("arr", total+pricePerNight);
+		
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		mav.addObject("arr", formatter.format(total+pricePerNight));
+		
 
 		session.setAttribute("total",total+pricePerNight); 
 
@@ -835,6 +838,8 @@ public class HotelController {
 		if(session.getAttribute("total")!=null) {			
 			total = (Integer)session.getAttribute("total");
 		}
+		
+
 
 		String checkin = request.getParameter("checkin");
 		String checkout = request.getParameter("checkout");	     
@@ -859,6 +864,8 @@ public class HotelController {
 		int roomIndex = Integer.parseInt(request.getParameter("roomIndex"));
 		RoomDTO dto = rdao.getReadRoomData(roomIndex);
 
+		
+		
 		//사용자가 입력한 정보 그대로 담기
 		mav.addObject("checkin", request.getParameter("checkin"));
 		mav.addObject("checkout", request.getParameter("checkout"));
@@ -936,10 +943,11 @@ public class HotelController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
+		DecimalFormat formatter = new DecimalFormat("###,###");
 		
 		mav.addObject("off", off);
-		mav.addObject("newPrice", newPrice);
-		mav.addObject("offPrice", offPrice);
+		mav.addObject("newPrice", formatter.format(newPrice));
+		mav.addObject("offPrice", formatter.format(offPrice));
 		
 		String offPrice2 = String.valueOf(offPrice);
 		session.setAttribute("realTotal", offPrice2); // String.toString()
@@ -1026,8 +1034,6 @@ public class HotelController {
 			HttpServletResponse response,
 			HttpSession session,
 			Model model,
-			//			@RequestParam("dto") HotelBookingDTO dto,
-			//			@RequestParam("total") String total,
 			RedirectAttributes redirect) 
 
 	{
@@ -1036,9 +1042,16 @@ public class HotelController {
 		LoginDTO login = (LoginDTO)session.getAttribute("login");
 
 		session.removeAttribute("hdto");
+		
+		DecimalFormat formatter = new DecimalFormat("###,###");
+				
 
-		System.out.println("!!!!!!!!! : "+dto.getCheckin() + dto.getCheckout());
+		
+		System.out.println("!!!!!!!!! : "+dto.getPrice());
+		//dto.setPrice(formatter.format(dto.getPrice()));
 		// hotelbooking 테이블에 insert
+		
+		
 		hdao.insertData(dto);
 
 		redirect.addAttribute("checkin", dto.getCheckin());
@@ -1077,14 +1090,16 @@ public class HotelController {
 			@RequestParam("total") String total) {
 
 		ModelAndView mav = new ModelAndView();
-
+		
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		
 		mav.addObject("checkin", checkin);
 		mav.addObject("checkout", checkout);
 		mav.addObject("adult", adult);
 		mav.addObject("children", children);
 		mav.addObject("bookingId", bookingId);
 		mav.addObject("roomIndex", roomIndex);
-		mav.addObject("total", total);
+		mav.addObject("total", formatter.format(Integer.parseInt(total)));
 		mav.setViewName("confirmation");
 
 		return mav; 
@@ -1172,6 +1187,8 @@ public class HotelController {
 			return mav;
 
 		}
+		
+		DecimalFormat formatter = new DecimalFormat("###,###");
 
 		List<HotelBookingDTO> lists2 = new ArrayList<HotelBookingDTO>();
 
@@ -1182,6 +1199,10 @@ public class HotelController {
 		while(it.hasNext()) {
 
 			HotelBookingDTO dto = it.next();
+			
+			// , 찍기
+			dto.setPrice(formatter.format(Integer.parseInt(dto.getPrice())));
+			
 			roomIndex = dto.getRoomIndex(); 
 			//	dto2 = rdao.getRoomLists(roomIndex);	
 			//	예약된 해당 roomIndex의 룸 정보 가지고오기

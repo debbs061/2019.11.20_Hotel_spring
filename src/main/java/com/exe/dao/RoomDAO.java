@@ -1,5 +1,6 @@
 package com.exe.dao;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,8 @@ public class RoomDAO {
 	public List<RoomDTO> getRoomLists(int[] roomIndex){
 		
 		List<RoomDTO> lists=new ArrayList<RoomDTO>();
+
+		DecimalFormat formatter = new DecimalFormat("###,###");
 		
 		for (int i=0; i<roomIndex.length; i++) {
 			
@@ -41,9 +44,14 @@ public class RoomDAO {
 			RoomDTO dto  =
 					sessionTemplate
 					.selectOne("hotelmapper.getRoomLists",roomIndex[i]);
+			
+			
+
 		
-		if(dto != null)
+		if(dto != null) {
+			dto.setPricePerNight2(formatter.format(dto.getPricePerNight()));
 				lists.add(dto);
+		}
 			
 		}
 		
@@ -53,10 +61,12 @@ public class RoomDAO {
 	
 	public RoomDTO getReadRoomData(int roomIndex){
 		
+		
 		RoomDTO dto =
 				sessionTemplate
 				.selectOne("hotelmapper.getReadRoomData", roomIndex);
 		
+				
 		return dto; 
 	}
 

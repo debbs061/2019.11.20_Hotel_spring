@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -73,7 +74,11 @@
 					<div class="col-lg-6 ">
 						<div class="room-info pl-5">
 							<h3>${dto.roomType }</h3>
-							<h2>KRW ${dto. pricePerNight } <small>/1박</small></h2>
+							
+			
+		
+							
+							<h2>KRW ${dto. pricePerNight2}<small>/1박</small></h2>
 
 							<ul class="list-unstyled py-4">
 								<li><span>침대타입 :</span>${dto.bedType }</li>
