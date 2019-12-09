@@ -174,7 +174,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -241,7 +240,7 @@
                        
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input name="userId" type="text" class="form-control" placeholder="아이디">
+                                <input name="userId" type="text" class="form-control" placeholder="아이디" autocomplete="off">
                             </div>
                         </div>
                      </div>

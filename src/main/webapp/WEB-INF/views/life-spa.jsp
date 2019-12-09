@@ -38,6 +38,9 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  
   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
@@ -352,7 +355,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -506,7 +508,6 @@
                                             <b>
                                                 <h2>아이티윌 에비앙스파</h2>
                                             </b>
-                                        </a>
                                         <div class="event-post-meta mt-2 mb-3" style="padding-top: 30px;">
                                             <span>
                                                 <i class="ion-clock"></i>운영시간 : 9.00 Am - 9.00 Pm</span>
@@ -537,7 +538,6 @@
                                         </div>
                                     </div>
                                     <br/><br/>
-                                    <hr color="silver" width="100%">
                                      <br/><br/>
                                     <div class="event-content mt-3">
                                     <h2>트리트먼트 코스</h2>

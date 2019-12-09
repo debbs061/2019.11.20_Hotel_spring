@@ -301,7 +301,6 @@ function listPage(page) {
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -367,7 +366,7 @@ function listPage(page) {
                           <span class="ed-step-fill"></span>
                         </span>
                         <span class="ed-step-bar"></span>
-                        <span class="ed-step-text">1 Select Room</span>
+                        <span class="ed-step-text">1. 날짜, 인원 선택</span>
                       </a>
                     </li>
                     <li role="presentation">
@@ -375,7 +374,7 @@ function listPage(page) {
                         <span class="ed-step">
                           <span class="ed-step-fill"></span>
                         </span>
-                        <span class="ed-step-text">2 Your Details</span>
+                        <span class="ed-step-text">2. 고객 정보 작성</span>
                       </a>
                     </li>
                     <li role="presentation">
@@ -384,7 +383,7 @@ function listPage(page) {
                           <span class="ed-step-fill"></span>
                         </span>
                         <span class="ed-step-bar"></span>
-                        <span class="ed-step-text">3 Payment</span>
+                        <span class="ed-step-text">3. 결제</span>
                       </a>
                     </li>
                   </ul>

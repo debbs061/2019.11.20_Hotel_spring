@@ -91,58 +91,64 @@
 	</div>
 
 	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
-	<div class="container">
-		<a class="navbar-brand" href="/hotel"><img
-			src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarsExample09" aria-controls="navbarsExample09"
-			aria-expanded="false" aria-label="Toggle navigation">
+		<div class="container">
+		  <a class="navbar-brand" href="/hotel"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="fa fa-bars"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarsExample09">
+		  </button>
+	  
+		  <div class="collapse navbar-collapse" id="navbarsExample09">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active"><a class="nav-link" href="/hotel">Home
-						<span class="sr-only">(current)</span>
-				</a></li>
+			  <li class="nav-item active">
+				<a class="nav-link" href="/hotel">Home <span class="sr-only">(current)</span></a>
+			  </li>
+			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About Us </a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown02">
+				  <li><a class="dropdown-item" href="about.action">About Us</a></li>
+				  <li><a class="dropdown-item" href="service.action">Services</a></li>
+				  <li><a class="dropdown-item" href="gallery.action">Gallery</a></li>
+				</ul>
+			  </li>
+			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown02">
+				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
+				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
+				</ul>
+			  </li>
 
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="dropdown02"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About
-						Us </a>
-					<ul class="dropdown-menu" aria-labelledby="dropdown02">
-						<li><a class="dropdown-item" href="about.action">About Us</a></li>
-						<li><a class="dropdown-item" href="service.action">Services</a></li>
-						<li><a class="dropdown-item" href="gallery.action">Gallery</a></li>
-					</ul></li>
-
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="dropdown02"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
-					<ul class="dropdown-menu" aria-labelledby="dropdown02">
-						<li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
-						<li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
-					</ul></li>
-
-				<li class="nav-item active"><a class="nav-link"
-					href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
-				</li>
-
-				<li class="nav-item active"><a class="nav-link"
-					href="event-grid.action">Events <span class="sr-only">(current)</span></a>
-				</li>
-
-				<li class="nav-item active"><a class="nav-link"
-					href="contact.action">Contact Us <span class="sr-only">(current)</span></a>
-				</li>
-
+			  <li class="nav-item active">
+				<a class="nav-link" href="booking-step1.action">Reservation <span class="sr-only">(current)</span></a>
+			  </li>
+			  
+			  <li class="nav-item active">
+				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
+			  </li>
+			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown03">
+				  <li><a class="dropdown-item" href="gym">Gym</a></li>
+				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
+				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
+				</ul>
+			  </li>
+			  
+			  <li class="nav-item active">
+				<a class="nav-link" href="contact.action">Contact Us <span class="sr-only">(current)</span></a>
+			  </li>
+			  
 			</ul>
 			<form class="form-inline my-2 my-md-0 ml-lg-4">
-				<a href="booking-step1.action" class="btn btn-main">Book Online</a>
+			  <a href="booking-step1.action" class="btn btn-main">Book Online</a>
 			</form>
+		  </div>
 		</div>
-	</div>
-	</nav> </header>
+	</nav>
+</header>
 
 	<!-- Header Close -->
 

@@ -148,7 +148,7 @@ public class HotelController {
 		HotelUserDTO dto2 = userDao.getReadUserData(userId);
 		
 		String redirectURI = (String)session.getAttribute("redirectURI");
-		//System.out.println(redirectURI);
+		System.out.println(redirectURI);
 		
 		if(dto2==null || !dto2.getUserPwd().equals(userPwd)) {
 			
@@ -169,6 +169,20 @@ public class HotelController {
 		
 		session.setAttribute("login", login);
 		
+		if(redirectURI.equals("http://192.168.16.15:8080/hotel/signup.action") || 
+			redirectURI.equals("http://192.168.16.15:8080/hotel/signupOk.action")) {
+			
+			List<GalleryDTO> lists= galleryDao.getList();
+			
+			request.setAttribute("lists",lists );
+			
+			redirectURI = "http://192.168.16.15:8080/hotel";
+			
+			mav.setView(new RedirectView(redirectURI,true));
+			
+			return mav;
+		}
+		
 		mav.setView(new RedirectView(redirectURI,true));
 		
 		return mav;
@@ -181,6 +195,11 @@ public class HotelController {
 		String referer = request.getHeader("Referer");	//접속 경로
 		
 		session.removeAttribute("login");
+		
+		if(referer.equals("http://192.168.16.15:8080/hotel/login_ok.action")) {
+			
+			return "redirect:/";
+		}
 		
 		return "redirect:" + referer;
 	}
@@ -1131,6 +1150,17 @@ public class HotelController {
 		session.removeAttribute("login");
 		
 		userDao.updateUserData(dto);
+		
+		LoginDTO login = new LoginDTO();
+		
+		login.setUserId(dto.getUserId());
+		login.setUserName(dto.getUserName());
+		login.setUserEmail(dto.getEmail());
+		login.setTel(dto.getTel());
+		login.setBirth(dto.getBirth());
+		login.setAddr(dto.getAddr());
+		
+		session.setAttribute("login", login);
 		
 		return "redirect:/myPage.action";
 	}

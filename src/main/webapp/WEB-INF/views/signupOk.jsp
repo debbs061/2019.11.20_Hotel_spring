@@ -58,7 +58,7 @@ function sendIt(){
 	
 	var f = document.myForm;
 	
-	f.action = "<%=cp %>/";
+	f.action = "<%=cp %>/login.action";
 	f.submit();
 }
 
@@ -160,7 +160,6 @@ function sendIt(){
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -228,7 +227,7 @@ function sendIt(){
 						<p class="section-subtitle">가입하신 '아이디' 와 '비밀번호' 로 로그인이 가능합니다.</p>
 					</div>
 					<div class="row justify-content-center">
-						<input type="submit" class="btn btn-main" onclick="sendIt();" value="메 인 페 이 지 " >
+						<input type="submit" class="btn btn-main" onclick="sendIt();" value="로 그 인 " >
 					</div>
 				</form>
 			</div>

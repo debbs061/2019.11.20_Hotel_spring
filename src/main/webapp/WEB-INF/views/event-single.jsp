@@ -151,7 +151,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -238,6 +237,7 @@
 					<div class="post-comments p-5">
 						<h3 class="post-sub-heading">이벤트 관련 후기 (총:${countReview }개)</h3>
 						<ul class="media-list comments-list m-bot-50 clearlist">
+						
 							<!-- Comment Item start-->
 							<c:forEach items="${lists }" var="reviewDto">
 							<li class="media mt-4">

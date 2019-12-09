@@ -359,7 +359,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -683,61 +682,69 @@
 
 		<div class="row">
 			<div class="col-lg-8">
-				<div class="room-details-review p-4 mt-5 ">
+				<div class="room-details-review p-4 mt-5 " style="background-color: #FFFFFF;">
 
-                    <h4 class="mb-4">(${countReview }) 투숙객 후기 :-</h4>
-                  
-					
-                    <c:forEach items="${lists }" var="dto">
-                    <div class="room-details-review-item d-flex mb-5">
-                        <div class="item-content ml-3">
-                            <h3 class="mb-3">${dto.name } - <span>${dto.created }</span>
-                            
-                            <c:if test="${userDTO.userId eq dto.userId }">
-                            <input style="float: right;" type="button" value=" 삭 제 " class="btn btn-solid-border btn-small"
-							onclick="javascript:location.href=
-							'<%=cp%>/review-delete.action?roomIndex=${roomIndex }&reviewNum=${dto.reviewNum }';"/>
-							</c:if>
+                    
+					<c:if test="${countReview !=0}">
+						<div class="post-comments p-5">
+							<h3 class="post-sub-heading">이벤트 관련 후기 (총:${countReview }개)</h3>
+							<ul class="media-list comments-list m-bot-50 clearlist">
 							
-						</h3>
-                            <p>${dto.content }</p>
-                        
-					<hr width="500px;" style="border: solid 1px #EAEAEA;">
-                        </div>
-                    </div>
-					</c:forEach>
-					
-                    <!-- Reveiw END -->
-
-
-                    <div class="room-review-comment mt-5 pt-5">
-	                    <h4 class="mb-4">후기 남기기 :- </h4>
-						
-							<form action="review.action?roomIndex=${roomIndex }" method="post">	                     
-							 <div class="form-group">
-	                                <input type="text" name="name" placeholder="이름" class="form-control" value="${sessionScope.login.userName }">
-	                        </div>
-	                        <div class="form-group">
-	                                <input type="text" name="email" placeholder="이메일" class="form-control" value="${userDTO.email }">
-	                        </div>
-	                        <div class="form-group">
-	                                <textarea class="form-control" name="content" placeholder="Message" rows="5"></textarea>
-	                        </div>
-	                        
-	                        <input type="hidden" name="userId" value="${userDTO.userId }">
-
-	                        <div class="form-group">
-	                            <div class="btn-submit">
-	                                   <button type="submit" class="btn btn-main">작성하기</button>
-	                                   
-	                            </div>
-	                        </div>
-	                    </form>
-	                </div>
+								<!-- Comment Item start-->
+								<c:forEach items="${lists }" var="dto">
+								<li class="media mt-4">
+									
+									<div class="media-body">
+										<div class="comment-info">
+											<h4 class="comment-author m-0">
+												<a href="#">${dto.name }</a>
+											</h4>
+											<div class="time"><span>${dto.created }</span></div>
+											<a class="comment-button" href="javascript:location.href=
+											'<%=cp%>/review-delete.action?roomIndex=${roomIndex }&reviewNum=${dto.reviewNum }';">
+										<i class="tf-ion-chatbubbles"></i>삭제</a>
+										</div>
+										<p>
+											${dto.content }
+										</p>
+									</div>
+								</li>
+								</c:forEach>
+								<!-- End Comment Item -->
+							</ul>
+						</div>
+						</c:if>
+						<div class="post-comments-form mt-5">
+							<h3 class="pb-3 mb-3 text-capitalize">소중한 후기를 남겨주세요</h3>
+							<form action="review.action?roomIndex=${roomIndex }" method="post">
+								<div class="row">
+									<div class="col-lg-6 form-group">
+				                    	<input type="text" name="name" placeholder="이름" class="form-control" value="${sessionScope.login.userName }">
+				                    </div>
+				                    <div class="col-lg-6 form-group">
+				                    	<input type="text" name="email" placeholder="이메일" class="form-control" value="${userDTO.email }">
+				                    </div>
+				                    <div class="form-group col-lg-12">
+				                    	<textarea class="form-control" name="content" placeholder="Message" rows="5"></textarea>
+				                    </div>
+				                    
+				                    <input type="hidden" name="userId" value="${userDTO.userId }">
+			
+				                    <div class="form-group col-lg-12">
+				                        <div class="btn-submit">
+				                        	<button type="submit" class="btn btn-main">작성하기</button>
+				                        </div>
+				                    </div>
+								</div>
+							</form>
+						</div>
+		
 	                <!-- REVIEW COMMENT END -->
 				</div>
             </div>
 		</div>
+		
+		
 	</div>
 </section>
 

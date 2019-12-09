@@ -276,7 +276,6 @@ function inputIdChk() {
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -321,13 +320,13 @@ function inputIdChk() {
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">아 이 디 </p>
-								<input name="userId" type="text" class="form-control">
+								<input name="userId" type="text" class="form-control" autocomplete="off">
 							</div>
 						</div>
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">이    름</p>
-								<input name="userName" type="text" class="form-control">
+								<input name="userName" type="text" class="form-control" autocomplete="off">
 							</div>
 						</div>
 						<div class="col-lg-10">
@@ -339,20 +338,20 @@ function inputIdChk() {
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">이 메 일</p>
-								<input name="email" type="text" class="form-control" placeholder="">
+								<input name="email" type="text" class="form-control" placeholder="" autocomplete="off">
 							</div>
 						</div>
 
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">생 년 월 일</p>
-								<input name="birth" type="text" class="form-control" placeholder="YYYY-MM-DD">
+								<input name="birth" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off">
 							</div>
 						</div>
 						<div class="col-lg-7">
 							<div class="form-group">
 							<p class="section-subtitle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주    소</p>
-								<input name="addr" id="address" type="text" class="form-control" placeholder="주소를 입력해주세요">
+								<input name="addr" id="address" type="text" class="form-control" placeholder="주소를 입력해주세요" autocomplete="off">
 							</div>
 						</div>
 						<div class="col-lg-3">
@@ -364,7 +363,7 @@ function inputIdChk() {
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">휴 대 전 화</p>
-								<input name="tel" type="text" class="form-control"	placeholder="전화번호 입력">
+								<input name="tel" type="text" class="form-control"	placeholder="전화번호 입력" autocomplete="off">
 							</div>
 						</div>
 							<input type="submit" class="btn btn-main" value="회 원 가 입" >

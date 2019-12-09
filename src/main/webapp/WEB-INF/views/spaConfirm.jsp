@@ -148,7 +148,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -190,7 +189,7 @@
                                     <div class="row ">
                                         <div class="col-lg-6 col-md-6 col-sm-6">
                                             <div class="ed-cinfirm-detail ">
-                                                <ul class="list-unstyled">
+                                                <ul class="list-unstyled" style="line-height: 2.5;">
                                                     <li>
                                                         <span>예약번호:
                                                         </span>
@@ -216,7 +215,7 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6" style="width: 300px;">
                                             <div class="ed-cinfirm-detail">
-                                                <ul class="list-unstyled">
+                                                <ul class="list-unstyled" style="line-height: 2.5;">
                                                     <li>
                                                         <span>연락처:
                                                         </span>
@@ -255,10 +254,11 @@
                                     <p>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
                                 </div>
                                 <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                                <a href="/hotel/" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
-                                <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
-                                <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
-                                <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
+                       			<a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
+                       			<a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
+                     			<a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
+                   			    <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
+                     			<a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
                             </div>
                         </c:if>
                         <c:choose>

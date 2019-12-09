@@ -152,7 +152,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -175,10 +174,9 @@
 <div class="main-wrapper ">
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
+<!-- 
 <section class="overly bg-2">
-<!-- 검정 배경 시작 -->
-   
-   <!-- 하나의 컨테이너 시작-->
+
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -200,9 +198,9 @@
   </div>
 </section>
 
+ -->
 
-
-
+<%-- 
  <!-- MAIN CONTENT -->
     <section class="main-content section clearfix">
       <div class="container">
@@ -291,7 +289,7 @@
                 <!-- 1개의 이벤트 내역 출력 종료 -->
               </div>
                <div class="total-amount" style="padding-left: 40px; padding-bottom: 50px;">
-       				<button type="button" id="btnOK" class="btn btn-solid-border" value="${dto.eventBookingNum}" >예약취소하기</button>
+       				<button type="button" id="btnOK" class="btn btn-solid-border" value="${dto.eventBookingNum}" >예약 취소하기</button>
                 </div>
               
           </div>
@@ -319,16 +317,146 @@
                        <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
                        <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
                        <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
-                       <!-- <a href="#" class="btn btn-main">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                       <a href="#" class="btn btn-main">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
-                       <a href="#" class="btn btn-main">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
-                       <a href="#" class="btn btn-main">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a> -->
                        
                        
                   </div>
 
       </div>
     </section>
+    
+     --%>
+    
+    
+    <section class="main-content section clearfix">
+      <div class="container">
+        <div class="border payment-confirm position-relative">
+        
+        	<div align="center"><h2 class="headline">이벤트 예약정보</h2></div>
+        
+          <c:if test="${elists!=null }"> 
+          
+          <div class="row justify-content-center align-items-center ">
+          
+          
+               <!-- 반복문시작 -->
+            <c:forEach items="${elists }" var="dto">
+               <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0" style="padding-right: 30px; height: 350px;">
+               <br/><br/>
+                <img src="/hotel/resources/images/event/${dto.savefileName }" 
+                class="img-fluid w-100" alt="confirm img" style="width: 450px; height: 200px;"/>
+				<h4 class="text-dark mt-3 mb-4" style="text-align: center;">${dto.eventTitle }</h4>
+              
+              </div>
+              
+              
+               <!-- 안에 글씨 묶음 시작 -->
+
+                    <div class="row ">
+                    
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="ed-cinfirm-detail">
+                            <ul class="list-unstyled">
+                              <li>
+                                <span>성함:</span>
+                               ${sessionScope.login.userName }
+                              </li>
+                              <li>
+                                <span>동행인원:</span>
+                             	${dto.companionNumber }
+                              </li>
+                               <li>
+                                <span>예약일자: </span>
+                          	   ${dto.userSelectedDate }
+                              
+                              </li>
+                              <li>
+                                <span>장소: </span>
+                                ${dto.location }
+                              </li>
+                              <li>
+                              </li>
+                              <li>
+                              </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                     <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="ed-cinfirm-detail">
+                          <ul class="list-unstyled"  style="width: 300px;">
+                            <li>
+                                <span>연락처:  </span>
+                              ${sessionScope.login.tel }
+                            </li>
+                             <li>
+                                <span>이메일:  </span>
+                               ${sessionScope.login.userEmail }
+                            </li>
+                             <li>
+                                <span>가격:  </span>
+                                ${dto.price}
+                            </li>
+                             <li style="display: inline-block; width: 270px;
+                            	white-space: normal; line-height: 1.2; height: 3.6em; 
+                            	word-wrap: break-word;">
+                                <span>요청사항:  </span>
+                               	 ${dto.userRequest }
+                            </li>
+                            
+                            <li>
+                            </li>
+                             <li>
+                            </li>
+                           
+                          </ul>
+                        </div>
+                    </div>
+                    
+           </div>
+                
+                       <div class="total-amount" style="padding-left: 20px; padding-bottom: 50px;">
+       					<button type="button" id="btnOK" class="btn btn-solid-border" value="${dto.eventBookingNum}" >예약 취소하기</button>
+              		  </div>
+                       
+                </c:forEach>
+                </div>
+               
+               </c:if>
+               <c:choose>
+               <c:when test="${empty elists }">
+                 <div class="col-lg-12 text-center">
+                      <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
+                       	<h5>예약된 정보가 없습니다</h5>
+                      </div>
+                      <a href="myPage.action" class="btn btn-solid-border">뒤&nbsp;로&nbsp;가&nbsp;기</a>
+                  </div>
+               </c:when>
+               <c:when test="${!empty elists }">
+               	
+               <div class="col-lg-12 text-center">
+                    <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
+                        <h2>더 다양한 아이티윌 호텔의 서비스를 즐기세요.</h2>
+                        <br/>
+                    	<p>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
+                    </div>
+
+                    <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
+                    <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
+                    <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
+                    <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
+                    <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
+               		<a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
+                       
+               </div>
+               </c:when>
+               </c:choose>
+              </div>
+          </div>
+      </div>
+    </section>
+    
+    
+    
 
   
 
@@ -502,9 +630,7 @@
 					alert(e.responseText); 
 				}
 			});
-			
 		});
-		
 	});
 	
 	</script>

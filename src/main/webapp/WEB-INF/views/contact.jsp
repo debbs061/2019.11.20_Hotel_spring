@@ -150,7 +150,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -216,17 +215,17 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input name="userName" type="text" class="form-control" placeholder="이름" value="${sessionScope.login.userName }">
+                                <input name="userName" type="text" class="form-control" placeholder="이름" value="${sessionScope.login.userName }" autocomplete="off">
                             </div>
                         </div>
                         <div class="col-lg-6">
                              <div class="form-group">
-                                <input name="userSubject" type="text" class="form-control" placeholder="제목">
+                                <input name="userSubject" type="text" class="form-control" placeholder="제목" autocomplete="off">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <input name="userEmail" type="text" class="form-control" placeholder="이메일 주소" value="${sessionScope.login.userEmail }">
+                                <input name="userEmail" type="text" class="form-control" placeholder="이메일 주소" value="${sessionScope.login.userEmail }" autocomplete="off">
                             </div>
                         </div>
                         <div class="col-lg-12">
