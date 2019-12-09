@@ -477,7 +477,7 @@ public class HotelController {
 
 		//이벤트 관련 리뷰 처리
 		int countReview = eventReviewDAO.countReview(eventIndex);
-		
+
 		List<EventReviewDTO> lists = eventReviewDAO.getReviewList(eventIndex);
 
 		mav.addObject("lists",lists);
@@ -568,12 +568,12 @@ public class HotelController {
 		System.out.println("getEmail:"+dto.getEmail());
 		System.out.println("getCreated:"+dto.getCreated());
 		System.out.println("getContent:"+dto.getContent());
-		*/
+		 */
 		dto.setEventReviewNum(eventReviewDAO.reviewMaxNum()+1); //EventReviewNum 순서대로 증가시키기
-		
+
 
 		eventReviewDAO.insertReviewData(dto);
-		
+
 		return "redirect:event-single.action?eventIndex="+dto.getEventIndex();
 	}
 
@@ -596,20 +596,18 @@ public class HotelController {
 			method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView eventRequestOk(HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		
+
 		ModelAndView mav = new ModelAndView();
- 
+
 		String userId = request.getParameter("eventUserId");
 		int eventIndex =Integer.parseInt(request.getParameter("eventIndex"));	
 		String userRequest  = request.getParameter("eventUserRequest");
-		System.out.println("userRequest:"+userRequest);
 
 		//아이디+이벤트인덱스로 예약된 내역이 있는지 조회
 		EventBookingDTO dto = eventDao.getReadEventBookingData(userId, eventIndex);
-		
+
 		//1.유저가 이미 예약한 예약건이 있는경우
 		if(dto!=null&&!dto.equals(" ")) {
-			System.out.println("11111");
 			EventDTO edto = eventDao.getReadEventData(eventIndex);
 
 			mav.setViewName("event-request-confirmed");
@@ -621,41 +619,39 @@ public class HotelController {
 
 		}else if((dto==null||dto.equals(""))
 				&&(userRequest==null||userRequest.equals(""))){
-			System.out.println("2222");
 			return null;	
-			
+
 		}else {
-			System.out.println("3333");
-		//기존 예약건이 없는 경우 ==신규로 예약을 만들고자 하는 경우
-		String userName = request.getParameter("eventUserName");
+			//기존 예약건이 없는 경우 ==신규로 예약을 만들고자 하는 경우
+			String userName = request.getParameter("eventUserName");
 
-		String companionNumber = request.getParameter("companionNumber");
-		String userSelectedDate = request.getParameter("userSelectedDate");
+			String companionNumber = request.getParameter("companionNumber");
+			String userSelectedDate = request.getParameter("userSelectedDate");
 
-		String dates[] = userSelectedDate.split("/"); 
-		userSelectedDate = dates[2]+"/"+dates[0]+"/"+dates[1]; 
+			String dates[] = userSelectedDate.split("/"); 
+			userSelectedDate = dates[2]+"/"+dates[0]+"/"+dates[1]; 
 
-		//2.유저가 해당 이벤트를 처음 예약을 할 경우
-		EventBookingDTO ebdto = new EventBookingDTO();
+			//2.유저가 해당 이벤트를 처음 예약을 할 경우
+			EventBookingDTO ebdto = new EventBookingDTO();
 
-		ebdto.setEventBookingNum(eventDao.getBookingMaxNum()+1);
-		ebdto.setUserId(userId);
-		ebdto.setUserName(userName);
-		ebdto.setUserRequest(userRequest);
-		ebdto.setEventIndex(eventIndex);
-		ebdto.setCompanionNumber(companionNumber);
-		ebdto.setUserSelectedDate(userSelectedDate);
-		eventDao.insertEventBooking(ebdto);
+			ebdto.setEventBookingNum(eventDao.getBookingMaxNum()+1);
+			ebdto.setUserId(userId);
+			ebdto.setUserName(userName);
+			ebdto.setUserRequest(userRequest);
+			ebdto.setEventIndex(eventIndex);
+			ebdto.setCompanionNumber(companionNumber);
+			ebdto.setUserSelectedDate(userSelectedDate);
+			eventDao.insertEventBooking(ebdto);
 
-		EventBookingDTO dto2 = eventDao.getReadEventBookingData(userId, eventIndex);
+			EventBookingDTO dto2 = eventDao.getReadEventBookingData(userId, eventIndex);
 
-		//eventIndex 기반으로 이벤트 정보 불러오고
-		EventDTO edto = eventDao.getReadEventData(eventIndex);
+			//eventIndex 기반으로 이벤트 정보 불러오고
+			EventDTO edto = eventDao.getReadEventData(eventIndex);
 
-		mav.setViewName("event-request-confirmed");
-		mav.addObject("dto",dto2);
-		mav.addObject("edto",edto);
-		return mav;			
+			mav.setViewName("event-request-confirmed");
+			mav.addObject("dto",dto2);
+			mav.addObject("edto",edto);
+			return mav;			
 		}
 	}
 
@@ -718,7 +714,7 @@ public class HotelController {
 				//2-1. event 테이블 접근
 				List<EventDTO> availableEventLists =	
 						eventDao.getEventLists(params); //start ~end 기준으로 예약가능한 이벤트 뽑아오기
-				
+
 				mav.addObject("startDate",startDate);
 				mav.addObject("endDate",endDate);
 				mav.addObject("availableEventLists", availableEventLists);
@@ -748,7 +744,7 @@ public class HotelController {
 			mav.setViewName("login");
 			return mav;
 		}
-		
+
 		//2.로그인성공 + userId 기반으로 이벤트 정보 불러오고
 		LoginDTO login = (LoginDTO)session.getAttribute("login");
 		String userId = login.getUserId();
@@ -1068,7 +1064,7 @@ public class HotelController {
 		return "myPage";
 	}
 
-	
+
 
 
 }
