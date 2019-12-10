@@ -380,17 +380,17 @@
                     <div class="form-row 	align-items-center" style="margin-left: 0px!important;">
                         <div class="form-group">
                             <label for="exampleInputEmail1"><b>신청자 아이디</b></label>
-                            <input type="text" class="form-control" name="eventUserId" id="eventUserId" value="${sessionScope.login.userId}" disabled="disabled"/>
+                            <input type="text" class="form-control" name="eventUserId" id="eventUserId" value="${sessionScope.login.userId}" readonly="readonly" style="background-color: #ffffff;"/>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-group">
                             <label for="exampleInputEmail1"><b>이름</b></label>
-                            <input type="text" class="form-control" name="eventUserName" id="eventUserName" value="${sessionScope.login.userName}" aria-describedby="emailHelp" placeholder="Enter email" disabled="disabled"/>
+                            <input type="text" class="form-control" name="eventUserName" id="eventUserName" value="${sessionScope.login.userName}" aria-describedby="emailHelp" placeholder="Enter email" readonly="readonly" style="background-color: #ffffff;"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">
-                            <b>이벤트 기간:<${dto.startDate }일="}일" ~${dto.endDate="~${dto.endDate" }일="}일"></b>
+                            <b>이벤트 기간:<${dto.startDate }일 ~${dto.endDate}일></b>
                             </label>
                             <div class="input-group tp-datepicker date">
                                 <!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
@@ -416,7 +416,7 @@
                                 </div>
                                 <div class="col-auto my-1">
                                     <div class="custom-control custom-checkbox mr-sm-2">
-                                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="companionCheckbox" checked="checked"/>
                                             <label class="custom-control-label" for="customControlAutosizing">추가비용 발생에 대한 결제를 동의합니다.</label>
                                         </div>
                                     </div>
@@ -426,7 +426,7 @@
                                 <!-- 요청사항 -->
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">요청사항</label>
-                                    <textarea class="form-control" rows="3" name="eventUserRequest" id="eventUserRequest" placeholder="요청사항을 50자내로 입력해주세요"></textarea>
+                                    <textarea class="form-control" rows="3" name="eventUserRequest" id="eventUserRequest" placeholder="요청사항을 50자내로 입력해주세요" onblur="if(this.value==''){this.value='요청사항없음';}" onclick="{this.value='';}">요청사항 없음</textarea>
                                 </div>
                                 <div align="center">
                                     <button type="submit" class="btn btn-main" id="btnok">신청하기</button>
@@ -496,10 +496,11 @@
 	</script>
 
 <script type="text/javascript">
+
 $(document).ready(function () {
     $("#reviewName,#eventEmail,#eventText,#reviewSubmit").click(function () {
         if ('${sessionScope.login.userName}'.length == 0) {
-            var answer = window.confirm("로그인 후 사용가능합니다. \n로그인창으로 이동하시겠습니까?")
+            var answer = window.confirm("\n로그인 후 사용가능합니다. \n로그인창으로 이동하시겠습니까?")
             if (answer) {
                 location.href = 'login.action';
                 event.preventDefault();
@@ -524,12 +525,11 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#myBtn").click(function () {
         if ('${sessionScope.login.userName}'.length == 0) {
-            var answer = window.confirm("로그인 후 사용가능합니다. \n로그인창으로 이동하시겠습니까?")
+            var answer = window.confirm("\n로그인 후 사용가능합니다. \n로그인창으로 이동하시겠습니까?")
             if (answer) {
                 location.href = 'login.action';
             }
         } else {
-            alert("else문 들어옴")
             var params = "eventUserId=" + "${sessionScope.login.userId}" 
             			+ "&eventIndex=" + "${eventIndex}"
             $.ajax({
@@ -538,10 +538,8 @@ $(document).ready(function () {
                 data: params,
                 success: function (args) {
                     if (args.length == 0) {
-                        alert("modalShow1 실행")
                         modalShow(1);
                     } else {
-                        alert("modalShow2실행")
                         modalShow(2);
                         $("#listData2").html(args);
                     }
@@ -558,10 +556,8 @@ $(document).ready(function () {
 function modalShow(num) {
     var num = num;
     if (num == 1) {
-        alert("num" + num)
         $("#myModal").modal();
     } else {
-        alert("num" + num)
         $("#myModal2").modal();
     }
 }
@@ -589,7 +585,7 @@ $(document).ready(function () {
             },
             beforeSend: showRequest2,
             error: function (e) {
-                alert(e.responseText);
+                alert("모든 사항을 입력해주세요");
             }
         });
     });
@@ -599,6 +595,8 @@ function showRequest2() {
     var eventUserRequest = $.trim($("#eventUserRequest").val());
     var companionNumber = $.trim($("#companionNumber").val());
     var userSelectedDate = $.trim($("#userSelectedDate").val());
+    var checkV = $.trim($("#companionNumber option:selected").val());
+    
     if (! eventUserRequest) {
         alert("\n요청사항을 입력하세요");
         $("#eventUserRequest").focus;
@@ -608,6 +606,14 @@ function showRequest2() {
         alert("\n동행인을 선택하세요");
         $("#companionNumber").focus;
         return false;
+    }
+    
+    if(checkV!='없음'){
+	if(!$('input:checkbox[name="companionCheckbox"]').is(":checked")==true){
+		 alert("\n추가금액에 동의해 주십시오");
+		 $('input:checkbox[name="companionCheckbox"]').focus;
+		 return false;
+	}
     }
     if (! userSelectedDate) {
         alert("\n날짜를 선택하세요");

@@ -13,7 +13,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>IT WILL | Hotel</title>
+  <title>IT WILL | Hotel </title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,6 +41,9 @@
   
   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
+
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
 	<style type="text/css">
 	
@@ -49,6 +52,9 @@
 	}
 	
 	</style>
+
+	
+
 
 </head>
 
@@ -63,12 +69,18 @@
 			<div class="col-lg-8">
 				<div class="top-header-left text-muted">
 					<b>IT WILL HOTEL</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="currentDate" style="font-size:12px;"></span>
+					<span style="font-size:12px;">서초구</span>
+					<span id="icon"></span>
+					<span id="todayTemp" style="font-size:12px;"></span>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
+							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
 									<span class="text-color">
@@ -80,7 +92,16 @@
 								<c:otherwise>
 									<span class="text-color">${sessionScope.login.userName }님 안녕하세요:)
 									</span>
-										<a href="logout.action">&nbsp;&nbsp;로그아웃</a>
+										<a href="logout.action">&nbsp;&nbsp;로그아웃</a> / 
+										
+										<c:if test="${sessionScope.login.userId ne 'admin'}">
+											<a href="myPage.action">마이페이지</a>
+										</c:if>
+										
+										<c:if test="${sessionScope.login.userId eq 'admin'}">
+											<a href="admin.action">관리자</a>
+										</c:if>
+										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -129,6 +150,16 @@
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
 			  </li>
 			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown03">
+				  <li><a class="dropdown-item" href="gym">Gym</a></li>
+				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
+				  <li><a class="dropdown-item" href="#">Shopping</a></li>
+				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
+				</ul>
+			  </li>
+			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="contact.action">Contact Us <span class="sr-only">(current)</span></a>
 			  </li>
@@ -163,9 +194,9 @@
     <div class="row ">
       <div class="col-lg-12 text-center">
           <div class="page-breadcumb py-2">
-            <a href="#" class="text-white">Home</a>
+            <a href="/hotel" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="#" class="text-white">Event</a>
+            <a href="eventCheck.action" class="text-white">Event</a>
         </div>
       </div>
     </div>
@@ -263,7 +294,7 @@
                 <!-- 1개의 이벤트 내역 출력 종료 -->
               </div>
                <div class="total-amount" style="padding-left: 40px; padding-bottom: 50px;">
-       				<button type="button" id="btnOK" class="btn btn-solid-border" value="${dto.eventBookingNum}" >예약취소하기</button>
+       				<button type="button" class="btn btn-solid-border"  name="${dto.eventBookingNum}" >예약취소하기</button>
                 </div>
               
           </div>
@@ -274,7 +305,7 @@
  				<div class="col-lg-12 text-center">
  				<c:if test="${fn:length(elists) > 0 }">
                       <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
-                        <h2>예약이 완료되었습니다.</h2>
+                        <h2>더 다양한 아이티윌 호텔의 서비스를 즐기세요.</h2>
                         <br/>
                 </c:if>
                 <c:if test="${fn:length(elists) == 0 }">
@@ -282,22 +313,22 @@
                         <h2>예약이 존재하지 않습니다.</h2>
                         <br/>
                 </c:if>
-                        <p>더 다양한 아이티윌 호텔의 서비스를 즐기세요.
-                        <br/>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
+                        <p>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
                       </div>
 
                        <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
                        <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
                        <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
-                       <a href="#" class="btn btn-solid-border">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a>
-                       <a href="/hotel/event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
+                       <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
+                       <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
+                       <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
                        <!-- <a href="#" class="btn btn-main">레&nbsp;스&nbsp;토&nbsp;랑</a>
                        <a href="#" class="btn btn-main">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
                        <a href="#" class="btn btn-main">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
                        <a href="#" class="btn btn-main">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a> -->
                        
                        
-                  </div>          
+                  </div>
 
       </div>
     </section>
@@ -443,28 +474,19 @@
 	//]]>
 	
 	</script>
+	
 	<script type="text/javascript">
 	
-	
-	
-	
-	
-	$(document).ready(function(){
-		
-		$("#btnOK").click(function(){
-			
+	$(document).ready(function() {    
+		$('button').click(function(){
 			var currentLocation = window.location;
-			
-			var eventBookingNum ="eventBookingNum="+ $("#btnOK").val();
-				
+			var eventBookingNum ="eventBookingNum="+ $(this).attr('name');
 			$.ajax({
-				
 				type:"POST",  
 				url:"<%=cp%>/event-booking-delete.action", 
 				data:eventBookingNum,
 				success:function(args){
 						
-					alert("이벤트가 취소되었습니다.")
 					
 					location.reload();
 					
@@ -479,22 +501,12 @@
 		});
 		
 	});
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	</script>
+	
+	
+	<script src="/hotel/resources/js/weather.js"></script>
+	
 
   </body>
   </html>
