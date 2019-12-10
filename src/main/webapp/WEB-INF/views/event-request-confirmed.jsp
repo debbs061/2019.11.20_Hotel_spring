@@ -65,7 +65,6 @@ h6 {
 </c:otherwise>
 </c:choose>
 	
-
 </div>
  
 <div align="center">
