@@ -622,7 +622,6 @@ public class HotelController {
 
 		ModelAndView mav = new ModelAndView();
 		
-		
 		try {
 
 			int eventIndex =Integer.parseInt(request.getParameter("eventIndex"));	
