@@ -41,20 +41,34 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 <select id="bookingMaxNum" resultType="int">
  	select nvl(max(spaBookingNum),0) from spaBooking
 </select>
-
 	
 <insert id="insertBooking" parameterType="com.exe.dto.SpaDTO">
-	insert into spaBooking (spaBookingNum,spaType,spaDate,time,spaUserId,spaUserName,spaUserRequest,spaBookingDate)
-	values (#{spaBookingNum},#{spaType},#{spaDate},#{time},#{spaUserId},#{spaUserName},#{spaUserRequest},sysdate)
+	insert into spaBooking (spaBookingNum,spaType,spaDate,time,adult,phone,email,spaUserId,spaUserName,spaUserRequest,savefileName,spaBookingDate)
+	values (#{spaBookingNum},#{spaType},#{spaDate},#{time},#{adult},#{phone},#{email},#{spaUserId},#{spaUserName},#{spaUserRequest},#{savefileName},sysdate)
 </insert>
+
+<select id="getSpaBookingLists" resultType="com.exe.dto.SpaDTO">
+	select spaBookingNum,spaType,spaDate,time,adult,phone,email,spaUserId,spaUserName,spaUserRequest,savefileName,spaBookingDate from spaBooking
+	where spaUserId=#{spaUserId}
+</select>
 
 <delete id="deletespaBookingData" parameterType="int">
 	delete spaBooking where spaBookingNum=#{spaBookingNum} 
 </delete>
 
 <select id="readspaBookingData" parameterType="hashMap" resultType="com.exe.dto.SpaDTO">
-	select spaBookingNum,spaType,spaDate,time,spaUserId,spaUserName,spaUserRequest,spaBookingDate from spaBooking 
-	where spaUserId=#{spaUserId} and spaBookingNum=#{spaBookingNum}
+	select spaBookingNum,spaType,spaDate,time,adult,phone,email,spaUserId,spaUserName,spaUserRequest,spaBookingDate from spaBooking 
+	where spaUserId=#{spaUserId} 
+</select>
+
+<select id="readSaveFileName" resultType="String">
+	select savefileName from spa where spaType=#{spaType}
+
+</select>
+
+<select id="readPrice" resultType="com.exe.dto.SpaDTO">
+	select a.price from spa a inner join spaBooking b 
+	on a.spaType=b.spaType
 </select>
 
 </mapper>
