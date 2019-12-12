@@ -174,9 +174,11 @@
 <div class="main-wrapper ">
 <div id="kakao-talk-channel-chat-button" style="position:fixed; right:10px; bottom:0px; z-index:1000;"></div>
 
-<!-- 
-<section class="overly bg-2">
 
+<section class="overly bg-2">
+<!-- 검정 배경 시작 -->
+   
+  <!-- 하나의 컨테이너 시작-->
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -198,134 +200,7 @@
   </div>
 </section>
 
- -->
-
-<%-- 
  <!-- MAIN CONTENT -->
-    <section class="main-content section clearfix">
-      <div class="container">
-        
-       <c:forEach items="${elists }" var="dto">
-        <div class="border payment-confirm position-relative">
-          <div class="row justify-content-center align-items-center ">
-              <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0">
-                <img src="/hotel/resources/images/event/${dto.savefileName }" 
-                class="img-fluid w-100" style="width: 289px; height: 193px;" alt="confirm img"/>
-
-              <!--    <a href="room-details"><h2 class="text-dark mt-3 mb-4">Delux couple</h2></a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita</p>
-          -->   </div>
-
-              <div class="col-md-12 col-sm-12 col-xs-12 col-lg-8">
-              		<div class="row">
-              		<div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: 85px;">
-                        <div class="ed-cinfirm-detail" style="width: 300px;">
-                            <h3 class="headline">${dto.eventTitle }</h3>
-                        </div>
-                    </div>
-              		
-              		</div>
-                    <div class="row ">
-                    
-                      <div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: 85px;">
-                        <div class="ed-cinfirm-detail" style="width: 300px;">
-                            <ul class="list-unstyled">
-                              <li>
-                                <span>성함:</span>
-                               ${sessionScope.login.userName }
-                              </li>
-                              <li>
-                                <span>동행인원:</span>
-                             	${dto.companionNumber }
-                              </li>
-                               <li>
-                                <span>예약일자: </span>
-                          	   ${dto.userSelectedDate }
-                              
-                              </li>
-                              <li>
-                                <span>장소: </span>
-                                ${dto.location }
-                              </li>
-                              <li>
-                              </li>
-                              <li>
-                              </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="ed-cinfirm-detail">
-                          <ul class="list-unstyled">
-                            <li>
-                                <span>연락처:  </span>
-                              ${sessionScope.login.tel }
-                            </li>
-                             <li>
-                                <span>이메일:  </span>
-                               ${sessionScope.login.userEmail }
-                            </li>
-                             <li>
-                                <span>가격:  </span>
-                                ${dto.price}
-                            </li>
-                             <li>
-                                <span>요청사항:  </span>
-                               	 ${dto.userRequest }
-                            </li>
-                            
-                            <li>
-                            </li>
-                             <li>
-                            </li>
-                           
-                          </ul>
-                        </div>
-                    </div>
-                    
-           </div>
-                   
-                <!-- 1개의 이벤트 내역 출력 종료 -->
-              </div>
-               <div class="total-amount" style="padding-left: 40px; padding-bottom: 50px;">
-       				<button type="button" id="btnOK" class="btn btn-solid-border" value="${dto.eventBookingNum}" >예약 취소하기</button>
-                </div>
-              
-          </div>
-          </div>
-          
-          </c:forEach>
-          		
- 				<div class="col-lg-12 text-center">
- 				<c:if test="${fn:length(elists) > 0 }">
-                    <div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
-                        <h2>더 다양한 아이티윌 호텔의 서비스를 즐기세요.</h2>
-                        <br/>
-                </c:if>
-                <c:if test="${fn:length(elists) == 0 }">
-                	<div class="total-amount border-top border-bottom py-4 mt-4 mb-4">
-                        <h2>예약이 존재하지 않습니다.</h2>
-                        <br/>
-                </c:if>
-                        <p>아래를 클릭하시면 원하시는 서비스로 이동이 가능합니다.</p>
-                    </div>
-
-                       <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                       <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
-                       <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
-                       <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
-                       <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
-                       <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
-                       
-                       
-                  </div>
-
-      </div>
-    </section>
-    
-     --%>
-    
     
     <section class="main-content section clearfix">
       <div class="container">
@@ -343,7 +218,7 @@
                <div class="col-md-12 col-sm-12 col-12 col-lg-4 mb-4 mb-lg-0" style="padding-right: 30px; height: 350px;">
                <br/><br/>
                 <img src="/hotel/resources/images/event/${dto.savefileName }" 
-                class="img-fluid w-100" alt="confirm img" style="width: 450px; height: 200px;"/>
+                class="img-fluid w-100" alt="confirm img" style="width: 400px; height: 200px;"/>
 				<h4 class="text-dark mt-3 mb-4" style="text-align: center;">${dto.eventTitle }</h4>
               
               </div>
@@ -355,7 +230,7 @@
                     
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="ed-cinfirm-detail">
-                            <ul class="list-unstyled">
+                            <ul class="list-unstyled" style="width: 220px;">
                               <li>
                                 <span>성함:</span>
                                ${sessionScope.login.userName }
@@ -383,7 +258,7 @@
 
                      <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="ed-cinfirm-detail">
-                          <ul class="list-unstyled"  style="width: 300px;">
+                          <ul class="list-unstyled" style="width: 300px;">
                             <li>
                                 <span>연락처:  </span>
                               ${sessionScope.login.tel }
@@ -415,7 +290,7 @@
            </div>
                 
                        <div class="total-amount" style="padding-left: 20px; padding-bottom: 50px;">
-       					<button type="button" id="btnOK" class="btn btn-solid-border" value="${dto.eventBookingNum}" >예약 취소하기</button>
+       					<button type="button" class="btn btn-solid-border" name="${dto.eventBookingNum}" >예약 취소하기</button>
               		  </div>
                        
                 </c:forEach>
@@ -455,9 +330,6 @@
       </div>
     </section>
     
-    
-    
-
   
 
 <!-- footer Start -->
@@ -600,29 +472,19 @@
 	
 	</script>
 	
-	<script src="/hotel/resources/js/weather.js"></script>
-	
 	<script type="text/javascript">
 	
-	$(document).ready(function(){
-		
-		$("#btnOK").click(function(){
-			
+	$(document).ready(function() {    
+		$('button').click(function(){
 			var currentLocation = window.location;
-			
-			var eventBookingNum ="eventBookingNum="+ $("#btnOK").val();
-				
+			var eventBookingNum ="eventBookingNum="+ $(this).attr('name');
 			$.ajax({
-				
 				type:"POST",  
 				url:"<%=cp%>/event-booking-delete.action", 
 				data:eventBookingNum,
 				success:function(args){
-						
-					alert("삭제완료");
-					
-					location.reload();
-					
+				
+					location.reload();		
 				},
 				beforeSend:false, 
 				error:function(e) {
@@ -630,10 +492,14 @@
 					alert(e.responseText); 
 				}
 			});
+			
 		});
+		
 	});
-	
 	</script>
+	
+	
+	<script src="/hotel/resources/js/weather.js"></script>
 
   </body>
   </html>

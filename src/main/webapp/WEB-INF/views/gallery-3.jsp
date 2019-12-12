@@ -230,7 +230,7 @@
         	 
         </c:forEach>
         </div>
-      
+
         <!-- 
         <div>
         	<button class="btn btn-main" type="button" onclick="location.href='galleryUpload.action';">등록하기</button>

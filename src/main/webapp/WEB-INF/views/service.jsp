@@ -187,7 +187,7 @@
           <div class="page-breadcumb py-2">
             <a href="/hotel" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a href="/service.action" class="text-white">Services</a>
+            <a href="service.action" class="text-white">Services</a>
         </div>
       </div>
     </div>

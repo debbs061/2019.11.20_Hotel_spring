@@ -70,13 +70,13 @@
 					<span style="font-size:12px;">서초구</span>
 					<span id="icon"></span>
 					<span id="todayTemp" style="font-size:12px;"></span>
+
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="top-header-right float-right">
 					<ul class="list-unstyled mb-0">
 						<li class="top-contact">
-							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
 									<span class="text-color">

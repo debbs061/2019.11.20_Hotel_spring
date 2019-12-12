@@ -48,19 +48,12 @@
   <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.css" />
   <link rel="stylesheet" type="text/css" href="/hotel/resources/css/glider.min.css" />
   
-  
-	<style type="text/css">
-	
-	*:not(i){
-		font-family: 'Noto Serif KR', serif!important;
-	}
-	
-	</style>
-  
-  
+
+  <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   <style type="text/css">
-      * {
-          box-sizing: border-box
+      *:not(i) {
+          box-sizing: border-box;
+          font-family: 'Noto Serif KR', serif!important;
       }
       html, body {
           width: 100%;
@@ -127,6 +120,7 @@
 	}
 </script>
 
+
 </head>
 
 <body>
@@ -184,9 +178,15 @@
 	</div>
 </div>
 
+<div id="image_container" style="display: none;">
+<!-- TEST -->
+<p>테스트</p>
+</div>
+
+
 	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
 		<div class="container">
-		  <a class="navbar-brand" href="/hotel"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
+		  <a class="navbar-brand" href="/hotel" ><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid" ></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="fa fa-bars"></span>
 		  </button>
@@ -251,6 +251,7 @@
 
 <!-- slider -->
 <section>
+
   <div class="hero-slider">
     
     <!-- slider item -->
@@ -397,7 +398,9 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
             	<div class="event-box mb-5 position-relative">
+            	<div id="testSlide"></div>
 					<img src="/hotel/resources/images/gym/gym3.jpg" alt="" class="img-fluid" onclick="location.href='gym';">
+					
 					<div class="event-content mt-3">
 						<div class="event-date p-3 text-white">
 							<span class="date font-weight-bold d-block">Members</span> <span>O n l y</span>
@@ -456,6 +459,7 @@
 <!-- Wrapper Start -->
 <section class="about section">
 	<div class="container">
+	
 		<div class="row justify-content-center">
 			<div class="col-lg-8 text-center">
 				<div class="section-title">
@@ -512,6 +516,7 @@
 		</div>
 
 		<div class="row">
+		
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="card text-center border-0 rounded-0 mb-4 mb-lg-0">
 					<a href="room-details.action?roomIndex=1"><img src="/hotel/resources/images/rooms/img1.jpg" alt="" class="img-fluid card-img-top rounded-0"></a>
@@ -771,6 +776,10 @@
   
 <!-- 이미지 슬라이드 끝 -->
 
+
+
+
+
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
@@ -871,7 +880,7 @@
 
 
    
-    </div>
+   
 
     <!-- 
     Essential Scripts
@@ -987,8 +996,53 @@
     </script>
     
     <script src="/hotel/resources/js/weather.js"></script>
-  
-  
+
+   <!--  <script type="text/javascript">
+    window.onload = function () { 
+    	startLoadFile(); 
+   	}; 
+    	
+    	function startLoadFile(){ 
+    		$.ajax({ 
+    			url: 'indexImage', 
+    			type: 'GET', 
+    			dataType : 'json', 
+    			success : function (data) { 
+    				createImages(data) 
+    				} 
+    		}); 
+   		} 
+    	// JSON 포멧 데이터 처리 
+    	function createImages(objImageInfo) { 
+    		var images = objImageInfo.images; 
+    		var strDOM = "";
+    		
+    		for (var i = 0; i < images.length; i++) { 
+    			// N번째 이미지 정보를 구하기 
+    			var image = images[i]; 
+    			// N번째 이미지 패널을 생성 
+    			strDOM += '<div class="image_panel">';
+    			strDOM += '<img src="' + image.url + '" class="img-fluid" onclick="'+'location.href="gym"'+';">'; 
+    			strDOM += '</div>';
+    			
+   			} 
+    		 
+    		// 이미지 컨테이너에 생성한 이미지 패널들을 추가하기 
+    		var $imageContainer = $("#image_container"); 
+    		$imageContainer.append(strDOM); 
+   		}
+    	$(document).ready(function(){
+    		setInterval(function(){
+    			$("#testSlide").append($('.image_panel').first());
+    			$('.image_panel').last().hide();
+    			$('.image_panel').first().show();
+    		}, 2000);
+    	});
+    	
+
+    </script> -->
+	<script src="/hotel/resources/js/weather.js"></script>
+	
   </body>
   </html>
    

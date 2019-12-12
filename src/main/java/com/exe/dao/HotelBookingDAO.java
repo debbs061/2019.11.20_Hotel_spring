@@ -84,7 +84,6 @@ public class HotelBookingDAO {
 	}
 	
 	
-	
 	public void deleteData(int bookingId){
 		
 		sessionTemplate

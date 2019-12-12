@@ -79,10 +79,8 @@
 							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
-									<span class="text-color">
-										<a href="login.action">로그인</a> / 
-										<a href="signup.action">회원가입</a>
-									</span>
+									<a href="login.action">로그인</a> / 
+									<a href="signup.action">회원가입</a><br/>
 								</c:when>
 							
 								<c:otherwise>
@@ -97,7 +95,6 @@
 										<c:if test="${sessionScope.login.userId eq 'admin'}">
 											<a href="admin.action">관리자</a>
 										</c:if>
-										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -224,7 +221,6 @@
 						<p> ${dto.content1 }</p>
 						<blockquote class="quote-post position-relative">
 							<p>
-
 							${dto.content2 }	
 							</p>
 						</blockquote>
@@ -238,7 +234,6 @@
 					<div class="post-comments p-5">
 						<h3 class="post-sub-heading">이벤트 관련 후기 (총:${countReview }개)</h3>
 						<ul class="media-list comments-list m-bot-50 clearlist">
-						
 							<!-- Comment Item start-->
 							<c:forEach items="${lists }" var="reviewDto">
 							<li class="media mt-4">
@@ -249,9 +244,11 @@
 											<a href="#">${reviewDto.name }</a>
 										</h4>
 										<div class="time"><span>${reviewDto.created }</span></div>
-										<a class="comment-button" href="javascript:location.href=
-									'<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }&eventReviewNum=${reviewDto.eventReviewNum }'">
-									<i class="tf-ion-chatbubbles"></i>삭제</a>
+										<c:set var="userId" value="${reviewDto.userId }"/>
+										<c:if test="${sessionScope.login.userId eq userId}">
+										<a class="comment-button" href="javascript:location.href='<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }
+										&eventReviewNum=${reviewDto.eventReviewNum }'" onclick="return confirm('후기를 삭제하시겠습니까?')"><i class="tf-ion-chatbubbles" ></i>삭제</a>
+										</c:if>
 									</div>
 									<p>
 									${reviewDto.content }
@@ -263,26 +260,29 @@
 						</ul>
 					</div>
 					</c:if>
+					
+					<!-- 후기 작성 -->
 					<div class="post-comments-form mt-5">
 						<h3 class="pb-3 mb-3 text-capitalize">소중한 후기를 남겨주세요</h3>
 						<form action="eventReview.action?eventIndex=${eventIndex }" method="post">	
 							<div class="row">
 								<div class="col-lg-6 form-group">
 									<!-- Name -->
-									<input type="text" name="name" id="name" class=" form-control" placeholder="이름" maxlength="100" value="${sessionScope.login.userName }">
+									<input type="text" name="name" id="reviewName" class=" form-control" placeholder="이름" maxlength="100" value="${sessionScope.login.userName }"  style="background-color: #ffffff;" readonly="readonly"/>
 								</div>
 								<div class="col-lg-6 form-group">
 									<!-- Email -->
-									<input type="email" name="email" id="email" class=" form-control" placeholder="이메일" maxlength="100"
-									 value="${sessionScope.login.userEmail }">
+									<input type="text" name="email" id="eventEmail" class=" form-control" placeholder="이메일" maxlength="100"
+									 value="${sessionScope.login.userEmail }"  style=" background-color: #ffffff;" readonly="readonly"/>
+									<input type="hidden" name="userId" value="${sessionScope.login.userId }"/>
 								</div>
 								<!-- Comment -->
 								<div class="form-group col-lg-12">
-									<textarea name="content" id="text" class=" form-control" rows="6" placeholder="소중한 후기를 남겨주세요" maxlength="400"></textarea>
+									<textarea name="content" id="eventText" class=" form-control" rows="6" placeholder="소중한 후기를 남겨주세요" maxlength="400"></textarea>
 								</div>
 								<!-- Send Button -->
 								<div class="form-group col-lg-12">
-									<button type="submit" class="btn btn-main ">
+									<button type="submit" class="btn btn-main" id="reviewSubmit">
 										작성하기
 									</button>
 								</div>
@@ -290,12 +290,10 @@
 						</form>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 	</div>
 </div>
-
 
 
 <!-- footer Start -->
@@ -382,7 +380,6 @@
 	</div>
 </footer>
 
-
 <section class="footer-btm secondary-bg py-4" >
 	<div class="container">
 		<div class="row">
@@ -395,107 +392,104 @@
 	</div>
 </section>
 
+		
     </div>
 <div>
 
   <!-- 신청 페이지 -->
   <!-- Modal------------ Modal-------------Modal-------------------     -->
   
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+<div class="modal fade" id="myModal" role="dialog">
+    <div
+        class="modal-dialog">
+        <!-- Modal content 시작-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">이벤트 신청하기</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalview2">
+                    <!--이벤트 신청서 폼 -->
+                    <div class="form-row 	align-items-center" style="margin-left: 0px!important;">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1"><b>신청자 아이디</b></label>
+                            <input type="text" class="form-control" name="eventUserId" id="eventUserId" value="${sessionScope.login.userId}" readonly="readonly" style="background-color: #ffffff;"/>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group">
+                            <label for="exampleInputEmail1"><b>이름</b></label>
+                            <input type="text" class="form-control" name="eventUserName" id="eventUserName" value="${sessionScope.login.userName}" aria-describedby="emailHelp" placeholder="Enter email" readonly="readonly" style="background-color: #ffffff;"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">
+                            <b>이벤트 기간:<${dto.startDate }일 ~ ${dto.endDate}일></b>
+                            </label>
+                            <div class="input-group tp-datepicker date">
+                                <!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
+                                <input type="text" class="form-control" placeholder="신청일" value="날짜선택" id="userSelectedDate">
+                                    <div class="input-group-addon">
+                                        <span class="ion-android-calendar"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 인원선택 -->
+                            <label for="exampleInputEmail1"><b>동행인원</b></label>
+                            <div class="form-row align-items-center">
+                                <div class="col-auto my-1">
+                                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                                    <select class="custom-select mr-sm-2" id="companionNumber">
+                                        <option selected="selected" value="없음">없음</option>
+                                        <option value="1">1명</option>
+                                        <option value="2">2명</option>
+                                        <option value="3">3명</option>
+                                        <option value="4">4명</option>
+                                        <option value="미정">미정</option>
+                                    </select>
+                                </div>
+                                <div class="col-auto my-1">
+                                    <div class="custom-control custom-checkbox mr-sm-2">
+                                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="companionCheckbox" checked="checked"/>
+                                            <label class="custom-control-label" for="customControlAutosizing">추가비용 발생에 대한 결제를 동의합니다.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto my-1">
+                                    </div>
+                                </div>
+                                <!-- 요청사항 -->
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">요청사항</label>
+                                    <textarea class="form-control" rows="3" name="eventUserRequest" id="eventUserRequest" placeholder="요청사항을 50자내로 입력해주세요" onblur="if(this.value==''){this.value='요청사항없음';}" onclick="{this.value='';}">요청사항 없음</textarea>
+                                </div>
+                                <div align="center">
+                                    <button type="submit" class="btn btn-main" id="btnok">신청하기</button>
+                                    <button type="button" class="btn btn-main" data-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="listData"></div>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
     
-      <!-- Modal content 시작-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">이벤트 신청하기</h4>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-        
-        <div class="modal-body">
-        
-       <div id="modalview2">
-        <!--이벤트 신청서 폼 -->
-          <div class="form-row 	align-items-center" style="margin-left: 0px!important;">
-         	 <div class="form-group">
-    			<label for="exampleInputEmail1"><b>신청자 아이디</b></label>
-    			<input type="text" class="form-control" name="eventUserId" id="eventUserId" value="${sessionScope.login.userId}" disabled />
-  			 </div>
-  			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       	 	 <div class="form-group">
-    			<label for="exampleInputEmail1"><b>이름</b></label>
-    			<input type="text" class="form-control" name="eventUserName" id="eventUserName" value="${sessionScope.login.userName}" aria-describedby="emailHelp" placeholder="Enter email" disabled/>
-  			</div>
-        </div>
-   
-  	 	<div class="form-group">
-  			<label for="exampleInputEmail1"><b>이벤트 기간: <${dto.startDate }일 ~ ${dto.endDate }일></b></label>
-  			<div class="input-group tp-datepicker date">
-        	 	<!-- 투숙기간중(checK in ~ out date 가지고 와서 받아놓기  -->
-        		 <input type="text" class="form-control" placeholder="신청일" value="날짜선택" id="userSelectedDate">
-        			 <div class="input-group-addon">
-           				 <span class="ion-android-calendar"></span>
-           			</div>
-       	   </div>
-  		</div>
-  		 
-  	<!-- 인원선택 -->
-  	<label for="exampleInputEmail1"><b>동행인원</b></label>
-       <div class="form-row align-items-center">
-    		<div class="col-auto my-1">
-   	  	 	<label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-     		 <select class="custom-select mr-sm-2" id="companionNumber">
-       		 	<option selected value="없음">없음</option>
-       		 	<option value="1">1명</option>
-       			 <option value="2">2명</option>
-       			 <option value="3">3명</option>
-       			  <option value="4">4명</option>
-       			   <option value="미정">미정</option>
-       			   
-     		 </select>
-    		</div>
-   			<div class="col-auto my-1">
-      			<div class="custom-control custom-checkbox mr-sm-2">
-       			 <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-        			<label class="custom-control-label" for="customControlAutosizing">추가비용 발생에 대한 결제를 동의합니다.</label>
-      			</div>
-   			 </div>
-    		<div class="col-auto my-1">
-     			<!--  <button type="submit" class="btn btn-primary"></button> -->
-    		</div>
-  		</div>
-  		<!-- 요청사항 -->
-  		<div class="form-group">
-    		<label for="exampleInputPassword1">요청사항</label>
-    		<textarea class="form-control" rows="3" name="eventUserRequest" id="eventUserRequest" placeholder="요청사항을 50자내로 입력해주세요"></textarea>
-  		</div>
-  		
-  		
-		<div align="center">
-  			<button type="submit" class="btn btn-main" id="btnok">신청하기</button>
- 	 		<button type="button" class="btn btn-main" data-dismiss="modal">닫기</button>
- 	 	</div>
-		
- 	 	
-		</div>
-		
-	
-        <!-- 신청성 양식 끝 -->
-       </div>
-        
-        <!-- 여기까지 숨겨지는 부분 -->
-        <!-- 테스트 -->
-        <!-- 뿌려지는 부분 -->
-        
-        <div id="listData"></div>
-        
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-      
-    </div>
-  </div>
-
+	<!-- modal version 2 -->
+	<div class="modal fade" id="myModal2" role="dialog">
+	    <div
+	        class="modal-dialog">
+	        <!-- Modal content 시작-->
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal">×</button>
+	            </div>
+	            <div class="modal-body"></div>
+	            <div id="listData2"></div>
+	        </div>
+	        <div class="modal-footer"></div>
+	    </div>
+	</div>
+</div>
     <!-- 
     Essential Scripts
     =====================================-->
@@ -536,84 +530,133 @@
 	</script>
 	
 	<script src="/hotel/resources/js/weather.js"></script>
-	
 
 <script type="text/javascript">
 
+$(document).ready(function () {
+    $("#reviewName,#eventEmail,#eventText,#reviewSubmit").click(function () {
+        if ('${sessionScope.login.userName}'.length == 0) {
+            var answer = window.confirm("\n로그인 후 사용가능합니다. \n로그인창으로 이동하시겠습니까?")
+            if (answer) {
+                location.href = 'login.action';
+                event.preventDefault();
+            } else {
+                event.preventDefault();
+            }
+        }
+    })
+});
 
-$(document).ready(function(){
-	
-    $("#myBtn").click(function(){
-    	
-    	if('${sessionScope.login.userName}'.length==0) {
-    		
-    		alert("로그인 후 사용가능합니다")
-    		location.href = "<%=cp%>/login.action";
-    	}else{
-    		
-    		 $("#myModal").modal();
-    	}
+$(document).ready(function () {
+    $("#reviewSubmit").click(function () {
+        if ('${sessionScope.login.userName}'.length > 0) {
+            if ($.trim($("#eventText").val()) == "") {
+                alert("내용을 입력해 주세요")
+                event.preventDefault();
+            }
+        }
+    })
+});
+
+$(document).ready(function () {
+    $("#myBtn").click(function () {
+        if ('${sessionScope.login.userName}'.length == 0) {
+            var answer = window.confirm("\n로그인 후 사용가능합니다. \n로그인창으로 이동하시겠습니까?")
+            if (answer) {
+                location.href = 'login.action';
+            }
+        } else {
+            var params = "eventUserId=" + "${sessionScope.login.userId}" 
+            			+ "&eventIndex=" + "${eventIndex}"
+            $.ajax({
+                type: "POST",
+                url:"<%=cp%>/event-request.action",
+                data: params,
+                success: function (args) {
+                    if (args.length == 0) {
+                        modalShow(1);
+                    } else {
+                        modalShow(2);
+                        $("#listData2").html(args);
+                    }
+                },
+                beforeSend: showRequest1,
+                error: function (e) {
+                    alert(e.responseText);
+                }
+            });
+        }
     });
 });
 
+function modalShow(num) {
+    var num = num;
+    if (num == 1) {
+        $("#myModal").modal();
+    } else {
+        $("#myModal2").modal();
+    }
+}
 
-$(document).ready(function(){
-	
-		$("#btnok").click(function(){ 
-				var params = "eventUserId=" + $("#eventUserId").val()
-				+ "&eventUserName=" + $("#eventUserName").val()
-				+ "&eventUserRequest=" + $("#eventUserRequest").val()
-				+ "&companionNumber=" +$("#companionNumber").val()
-				+ "&userSelectedDate=" +$("#userSelectedDate").val()
-				+ "&eventIndex=" +"${eventIndex}"
-				
-				$.ajax({
-					
-					type:"POST",  
-					url:"<%=cp%>/event-request.action", 
-					data:params,
-					success:function(args){
-						
-							$("#modalview2").hide(function() {
-									$("#listData").html(args);	
-							});
-						
-					},
-				beforeSend:showRequest,
-				error:function(e) {
-				
-				alert(e.responseText); 
-			}
-		});
-	});
+function showRequest1() {
+    return true;
+}
+
+$(document).ready(function () {
+    $("#btnok").click(function () {
+        var params = "eventUserId=" + $("#eventUserId").val() 
+        + "&eventUserName="+ $("#eventUserName").val() 
+        + "&eventUserRequest=" + $("#eventUserRequest").val() 
+        + "&companionNumber=" + $("#companionNumber").val() 
+        + "&userSelectedDate=" + $("#userSelectedDate").val() 
+        + "&eventIndex=" + "${eventIndex}"
+        $.ajax({
+            type: "POST",
+            url:"<%=cp%>/event-request.action",
+            data: params,
+            success: function (args) {
+                $("#modalview2").hide(function () {
+                    $("#listData").html(args);
+                });
+            },
+            beforeSend: showRequest2,
+            error: function (e) {
+                alert("모든 사항을 입력해주세요");
+            }
+        });
+    });
 });
-	     
-function showRequest(){
-		
-	var eventUserRequest = $.trim($("#eventUserRequest").val());
-	var companionNumber = $.trim($("#companionNumber").val());
-	var userSelectedDate = $.trim($("#userSelectedDate").val());
-	
-	if(!eventUserRequest) {
-		alert("\n요청사항을 입력하세요");
-		$("#eventUserRequest").focus;
-		return false;
-	}
 
-	if (!companionNumber) {
-		alert("\n동행인을 선택하세요");
-		$("#companionNumber").focus;
-		return false;
+function showRequest2() {
+    var eventUserRequest = $.trim($("#eventUserRequest").val());
+    var companionNumber = $.trim($("#companionNumber").val());
+    var userSelectedDate = $.trim($("#userSelectedDate").val());
+    var checkV = $.trim($("#companionNumber option:selected").val());
+    
+    if (! eventUserRequest) {
+        alert("\n요청사항을 입력하세요");
+        $("#eventUserRequest").focus;
+        return false;
+    }
+    if (! companionNumber) {
+        alert("\n동행인을 선택하세요");
+        $("#companionNumber").focus;
+        return false;
+    }
+    
+    if(checkV!='없음'){
+	if(!$('input:checkbox[name="companionCheckbox"]').is(":checked")==true){
+		 alert("\n추가금액에 동의해 주십시오");
+		 $('input:checkbox[name="companionCheckbox"]').focus;
+		 return false;
 	}
-	
-	if (!userSelectedDate) {
-		alert("\n날짜를 선택하세요");
-		$("#userSelectedDate").focus;
-		return false;
-	}
-	
-	return true;
-
+    }
+    if (! userSelectedDate) {
+        alert("\n날짜를 선택하세요");
+        $("#userSelectedDate").focus;
+        return false;
+    }
+    return true;
 }
 
 </script>

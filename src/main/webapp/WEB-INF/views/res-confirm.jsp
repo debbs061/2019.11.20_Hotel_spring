@@ -226,7 +226,7 @@
           <div class="page-breadcumb py-2">
             <a href="/hotel" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a class="text-white">About Restaurant</a>
+            <a href="res-confirm.action?resBookNo=${dto.resBookNo }" class="text-white">About Restaurant</a>
         </div>
       </div>
     </div>

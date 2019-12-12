@@ -12,54 +12,69 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
+<style type="text/css">
 
+.bgcolor{
+	background-color: #ffffff;
+	}
+	
+h6 {	
+	padding: 5px;
+}
+
+
+
+</style>
 
 </head>
 <body>
-
 <div class="container">
 
  <c:choose>
  <c:when test="${not empty message}">
-	
+
 	<div>
 	<ul class="list-group">
  	 <h4 style="text-align: center;">중복된 예약이 있습니다</h4>
   	 <h6>&nbsp;이벤트 이름</h6>
-  	 <li class="list-group-item" style="background-color: #faf2d7;">${edto.eventTitle }</li>
-     <h6 style="padding: 5px;">장소 및 시간</h6>
-     <li class="list-group-item" style="background-color: #faf2d7;">${edto.location } /${edto.time } </li>
-     <h6 style="padding: 5px;">동행인원</h6>
-     <li class="list-group-item" style="background-color: #faf2d7;">${dto.companionNumber }</li>
-     <h6 style="padding: 5px;">요청사항</h6>
-     <li class="list-group-item" style="background-color: #faf2d7;">${dto.userRequest }</li>
+
+  	 <li class="list-group-item" id="bgcolor">${edto.eventTitle }</li>
+     <h6> 장소 및 시간</h6>
+     <li class="list-group-item" id="bgcolor">${edto.location } /${edto.time } </li>
+      <h6>동행인원</h6>
+     <li class="list-group-item" id="bgcolor">${dto.companionNumber }</li>
+      <h6>요청사항</h6>
+     <li class="list-group-item" id="bgcolor">${dto.userRequest }</li>
      </ul>
      </div>  
      <br/>
- 
 </c:when>
 <c:otherwise>
 	<div>
 		<ul class="list-group">
  		 <h4 style="text-align: center;">예약이 확정되었습니다.</h4>
   	 	 <h6>&nbsp;이벤트 이름</h6>
-  	 	 <li class="list-group-item" style="background-color: #faf2d7;">${edto.eventTitle }</li>
-    	 <h6 style="padding: 5px;">장소 및 시간</h6>
-   		 <li class="list-group-item" style="background-color: #faf2d7;">${edto.location } /${edto.time } </li>
-         <h6 style="padding: 5px;">동행인원</h6>
-         <li class="list-group-item" style="background-color: #faf2d7;">${dto.companionNumber }</li>
-         <h6 style="padding: 5px;">요청사항</h6>
-         <li class="list-group-item" style="background-color: #faf2d7;">${dto.userRequest }</li>
+
+  	 	<li class="list-group-item" id="bgcolor">${edto.eventTitle }</li>
+    	  <h6>장소 및 시간</h6>
+   		 <li class="list-group-item" id="bgcolor">${edto.location } /${edto.time } </li>
+          <h6>동행인원</h6>
+         <li class="list-group-item" id="bgcolor">${dto.companionNumber }</li>
+          <h6>요청사항</h6>
+         <li class="list-group-item" id="bgcolor">${dto.userRequest }</li>
+
         </ul>
      </div>  
      <br/>
 </c:otherwise>
 </c:choose>
-
-
+	
 </div>
  
 <div align="center">
+	<a class="btn btn-main" href="eventCheck.action" role="button">예약 확인</a>
+	<!--  <a class="btn btn-main" href="javascript:location.href='<%=cp %>/event-request.action?userId=${sessionScope.login.userId }
+	&eventIndex=${eventIndex }'"  role="button">다른 예약</a> -->
 	<a class="btn btn-main" href="event-booking-delete.action?eventBookingNum=${dto.eventBookingNum }" role="button">예약 취소</a>
 	<button type="button" class="btn btn-main" data-dismiss="modal">닫기</button>
 </div>	

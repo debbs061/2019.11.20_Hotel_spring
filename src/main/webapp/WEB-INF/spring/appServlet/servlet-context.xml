@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.exe.hotel" />
-	
+		
 	<beans:bean id="hotelUserDAO" class="com.exe.dao.HotelUserDAO">
 		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
 	</beans:bean>

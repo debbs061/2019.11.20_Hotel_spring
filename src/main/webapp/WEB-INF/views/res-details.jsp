@@ -219,9 +219,9 @@
     <div class="row ">
       <div class="col-lg-12 text-center">
           <div class="page-breadcumb py-2">
-            <a href="/hotel" class="text-white">Home</a>
+            <a href="restaurantMain.action" class="text-white">Home</a>
             <span><i class="fa fa-angle-right text-white mx-1" aria-hidden="true"></i></span>
-            <a class="text-white">About Restaurant</a>
+            <a href="res-details.action?resName=${dto.resName }" class="text-white">About Restaurant</a>
         </div>
       </div>
     </div>

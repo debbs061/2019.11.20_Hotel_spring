@@ -191,10 +191,8 @@ function inputIdChk() {
 							
 							<c:choose>
 								<c:when test="${empty sessionScope.login.userId }">
-									<span class="text-color">
-										<a href="login.action">로그인</a> / 
-										<a href="signup.action">회원가입</a>
-									</span>
+									<a href="login.action">로그인</a> / 
+									<a href="signup.action">회원가입</a><br/>
 								</c:when>
 							
 								<c:otherwise>
@@ -209,7 +207,6 @@ function inputIdChk() {
 										<c:if test="${sessionScope.login.userId eq 'admin'}">
 											<a href="admin.action">관리자</a>
 										</c:if>
-										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -246,6 +243,7 @@ function inputIdChk() {
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rooms</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdown02">
 				  <li><a class="dropdown-item" href="pricing.action">Pricing</a></li>
+				  <li><a class="dropdown-item" href="room-list.action">Room-List</a></li>
 				  <li><a class="dropdown-item" href="room-grid.action">Room-Grid</a></li>
 				</ul>
 			  </li>
@@ -411,12 +409,8 @@ function inputIdChk() {
 						<div class="col-lg-10">
 							<div class="form-group">
 								<p class="section-subtitle">
-<<<<<<< HEAD
-									<input type="submit" class="btn btn-main" onclick="sendIt();" value="글올리기" placeholder="540 * 394 사이즈">	
-=======
 									<input type="submit" class="btn btn-main" onclick="sendIt();" value="글 올 리 기 " placeholder="540 * 394 사이즈">
 									<a href="admin.action" class="btn btn-main">뒤&nbsp;로&nbsp;가&nbsp;기</a>
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 								</p>						
 							</div>
 						</div>
@@ -476,7 +470,7 @@ function inputIdChk() {
 						</li>
 	
 						<li>
-							<a href="booking-step1.action"><i class="fa fa-angle-right"></i>Reservation</a>
+							<a href="#"><i class="fa fa-angle-right"></i>Reservation</a>
 						</li>
 						
 						<li>

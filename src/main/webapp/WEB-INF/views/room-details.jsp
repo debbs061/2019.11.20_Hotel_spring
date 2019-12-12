@@ -702,9 +702,13 @@
 												<a href="#">${dto.name }</a>
 											</h4>
 											<div class="time"><span>${dto.created }</span></div>
+											
+											<c:if test="${sessionScope.login.userId eq dto.userId}">
 											<a class="comment-button" href="javascript:location.href=
-											'<%=cp%>/review-delete.action?roomIndex=${roomIndex }&reviewNum=${dto.reviewNum }';">
-										<i class="tf-ion-chatbubbles"></i>삭제</a>
+											'<%=cp%>/review-delete.action?roomIndex=${roomIndex }&reviewNum=${dto.reviewNum }';"
+											 onclick="return confirm('후기를 삭제하시겠습니까?');">
+											<i class="tf-ion-chatbubbles"></i>삭제</a>
+											</c:if>
 										</div>
 										<p>
 											${dto.content }
@@ -721,20 +725,20 @@
 							<form action="review.action?roomIndex=${roomIndex }" method="post">
 								<div class="row">
 									<div class="col-lg-6 form-group">
-				                    	<input type="text" name="name" placeholder="이름" class="form-control" value="${sessionScope.login.userName }">
+				                    	<input type="text" name="name" id="reviewName" placeholder="이름" class="form-control" value="${sessionScope.login.userName }" readonly="readonly" style=" background-color: #ffffff;">
 				                    </div>
 				                    <div class="col-lg-6 form-group">
-				                    	<input type="text" name="email" placeholder="이메일" class="form-control" value="${userDTO.email }">
+				                    	<input type="text" name="email" id="reviewEmail" placeholder="이메일" class="form-control" value="${userDTO.email }" readonly="readonly" style=" background-color: #ffffff;">
 				                    </div>
 				                    <div class="form-group col-lg-12">
-				                    	<textarea class="form-control" name="content" placeholder="Message" rows="5"></textarea>
+				                    	<textarea class="form-control" name="content" placeholder="Message" rows="5" id="reviewText"></textarea>
 				                    </div>
 				                    
 				                    <input type="hidden" name="userId" value="${userDTO.userId }">
 			
 				                    <div class="form-group col-lg-12">
 				                        <div class="btn-submit">
-				                        	<button type="submit" class="btn btn-main">작성하기</button>
+				                        	<button type="submit" class="btn btn-main" id="reviewSubmit">작성하기</button>
 				                        </div>
 				                    </div>
 								</div>
@@ -887,6 +891,24 @@
 			channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
 		});
 	//]]>
+	
+	</script>
+	
+	<script type="text/javascript">
+	
+	$(document).ready(function () {
+	    $("#reviewName,#reviewEmail,#reviewText,#reviewSubmit").click(function () {
+	        if ('${sessionScope.login.userName}'.length == 0) {
+	            var answer = window.confirm("\n로그인 후 사용가능합니다. \n로그인창으로 이동하시겠습니까?")
+	            if (answer) {
+	                location.href = 'login.action';
+	                event.preventDefault();
+	            } else {
+	                event.preventDefault();
+	            }
+	        }
+	    })
+	});
 	
 	</script>
 	

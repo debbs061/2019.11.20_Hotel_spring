@@ -60,7 +60,6 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 	delete event where eventIndex=#{eventIndex}
 </delete>
 
-
 <!-- Event Review -->
 <select id="reviewMaxNum" resultType="int">
  	select nvl(max(eventReviewNum),0) from eventReview
@@ -72,12 +71,12 @@ PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN"
 </select>
 	
 <insert id="insertReview" parameterType="com.exe.dto.EventReviewDTO">
-	insert into eventReview (eventReviewNum,name,email,content,created,eventIndex)
-	values (#{eventReviewNum},#{name},#{email},#{content},sysdate,#{eventIndex})
+	insert into eventReview (eventReviewNum,userId,name,email,content,created,eventIndex)
+	values (#{eventReviewNum},#{userId},#{name},#{email},#{content},sysdate,#{eventIndex})
 </insert>
 	
 <select id="getReviewList" parameterType="int" resultType="com.exe.dto.EventReviewDTO">
-	select * from eventReview where eventIndex=#{eventIndex} 
+	select * from eventReview where eventIndex=#{eventIndex} order by created desc
 </select>
 
 <delete id="deleteReviewData" parameterType="int">

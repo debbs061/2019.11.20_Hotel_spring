@@ -103,7 +103,6 @@
 										<c:if test="${sessionScope.login.userId eq 'admin'}">
 											<a href="admin.action">관리자</a>
 										</c:if>
-										
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -122,7 +121,7 @@
 
 	<nav class="navbar navbar-expand-lg bg-white w-100 p-0" id="navbar">
 		<div class="container">
-		  <a class="navbar-brand" href="/hotel"><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid"></a>
+		  <a class="navbar-brand" href="/hotel" ><img src="/hotel/resources/images/logo.png" alt="Eden" class="img-fluid" ></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="fa fa-bars"></span>
 		  </button>
@@ -198,7 +197,6 @@
             <span class="letter-spacing text-white">Hotel Event</span>
             <h1 class="mb-3 text-capitalize">신나는 이벤트</h1>
             <p class="mb-5">모두가 참여할 수 있는 이벤트</p>
-            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
           </div>
         </div>
       </div>
@@ -211,7 +209,6 @@
             <span class="letter-spacing text-white">Hotel Event</span>
             <h1 class="mb-3 text-capitalize">낭만적인 모임</h1>
             <p class="mb-5">잊지 못 할 추억을 만드세요.</p>
-            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
           </div>
         </div>
       </div>
@@ -224,7 +221,6 @@
              <span class="letter-spacing text-white">Hotel Event</span>
             <h1 class="mb-3 text-capitalize">최고의 서비스</h1>
             <p class="mb-5">최고의 음식과 서비스를 제공해드립니다.</p>
-            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
           </div>
         </div>
       </div>
@@ -237,7 +233,6 @@
              <span class="letter-spacing text-white">Hotel Event</span>
             <h1 class="mb-3 text-capitalize">다양한 이벤트</h1>
             <p class="mb-5">다양한 이벤트를 제공해드립니다. </p>
-            <a href="event-grid.action" class="btn btn-main" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".4">more details</a>
           </div>
         </div>
       </div>
@@ -289,7 +284,6 @@
 		</div>
 	</div>
 </section>	
-
 
 <section id="about" class="section secondary-bg">
     <div class="container">
@@ -422,8 +416,8 @@
 		
 	</div>
 </section>	
-
  -->
+ 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
 	<div class="container">
@@ -431,7 +425,8 @@
 			<div class="col-lg-3 col-md-6 col-sm-6">
 				<div class="widget footer-widget">
 					<div class="footer-logo footer-title mb-4"><h3>IT Will</h3></div>
-					<p>한국의 전통미와 현대적인 감각을 겸비하고 있는 세계속의 명문호텔, <br/>아이티윌 호텔은 세계 최고의 어번(urban) 라이프 스타일 호텔로 고객들에게 최고급 서비스를 제공합니다.</p>
+					<p>한국의 전통미와 현대적인 감각을 겸비하고 있는 세계속의 명문호텔, 
+					<br/>아이티윌 호텔은 세계 최고의 어번(urban) 라이프 스타일 호텔로 고객들에게 최고급 서비스를 제공합니다.</p>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-6 mb-md-4 mb-sm-4">
@@ -521,6 +516,8 @@
 	</div>
 </section>
 
+   </div>
+   
    
     <!-- 
     Essential Scripts
@@ -547,22 +544,7 @@
 
     <script src="/hotel/resources/js/script.js"></script>
     
-    <!-- Kakao 톡상담 -->
-	<script type='text/javascript'>
-	
-	//<![CDATA[
-		// 사용할 앱의 JavaScript 키를 설정해 주세요.
-		Kakao.init('a876d408c7cc2ab22428d910b1de57af');
-		// 카카오톡 채널 1:1채팅 버튼을 생성합니다.
-		Kakao.Channel.createChatButton({
-			container: '#kakao-talk-channel-chat-button',
-			channelPublicId: '_rRxdxgT' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
-		});
-	//]]>
-	
-	</script>
-	
-	<script src="/hotel/resources/js/weather.js"></script>
+    <script src="/hotel/resources/js/weather.js"></script>
     
 <script type="text/javascript">
 
@@ -655,7 +637,9 @@ function showRequest(){
 	if(startD[2]!==endD[2] && startD[2] > endD[2]){
 		if(startD[0]>endD[0]) {
 	   		alert("\n시작일 날짜보다 이전 날짜를 선택할 수 없습니다2");
+
 	   		$("#endDate").focus();
+
 	   		return false;
 	   	}
 	}
@@ -666,7 +650,9 @@ function showRequest(){
 		if(!startD[0]<endD[0])
 			if(startD[1]>endD[1])  {
 					alert("\n시작일 날짜보다 이전 날짜를 선택할 수 없습니다3");
+
 					$("#endDate").focus();
+
 					return false;
 			}
 	}
