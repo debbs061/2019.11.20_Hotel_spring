@@ -290,7 +290,6 @@ var f = document.resBookingForm;
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -364,7 +363,7 @@ var f = document.resBookingForm;
 								<div class="form-row">
 								    <div class="form-group col-md-3 col-sm-4">
 								    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-										    <input type="text" class="form-control" placeholder="체크인" id="checkin" name="checkin" value="${res.checkin }">
+										    <input type="text" class="form-control" placeholder="체크인" id="checkin" name="checkin" value="${res.checkin }" autocomplete="off">
 										    <div class="input-group-addon">
 										       <span class="ion-android-calendar"></span>
 										    </div>

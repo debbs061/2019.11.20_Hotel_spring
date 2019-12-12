@@ -227,7 +227,6 @@ function sendIt(){
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -348,7 +347,7 @@ function sendIt(){
 		
 				<div class="input-group mb-3">
 				    	<div class="input-group tp-datepicker date" data-provide="datepicker">
-		  	<input type="text" name="lessonUserDay" class="form-control" placeholder="YYYY-MM-DD" aria-label="YYYY-MM-DD" aria-describedby="basic-addon2"  autocomplete="off">
+		  	<input type="text" name="lessonUserDay" class="form-control" placeholder="신 청 날 짜 " aria-label="YYYY-MM-DD" aria-describedby="basic-addon2"  autocomplete="off">
 						    <div class="input-group-addon">
 						       <span class="ion-android-calendar"></span>
 						    </div>

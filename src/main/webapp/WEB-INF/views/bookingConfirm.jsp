@@ -159,7 +159,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -254,7 +253,7 @@
                               ${sessionScope.login.tel }
                             </li>
 
-                             <li>
+                             <li style="width: 270px;">
                                 <span>이메일:  </span>
                                ${sessionScope.login.userEmail }
                             </li>
@@ -316,10 +315,11 @@
                       </div>
 
                        <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                       <a href="/hotel/" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
+                       <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
                        <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
                        <a href="#" class="btn btn-solid-border">쇼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;핑</a>
                        <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
+                       <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
                        <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
                        
                        <!-- <a href="#" class="btn btn-main">레&nbsp;스&nbsp;토&nbsp;랑</a>
@@ -334,7 +334,7 @@
                </c:if>
                
                <c:choose>
-             <c:when test="${empty lists }">
+               <c:when test="${empty lists }">
                
                
                  <div class="col-lg-12 text-center">

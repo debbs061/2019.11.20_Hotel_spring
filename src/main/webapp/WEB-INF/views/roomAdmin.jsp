@@ -139,6 +139,15 @@
 				<a class="nav-link" href="event-grid.action">Events <span class="sr-only">(current)</span></a>
 			  </li>
 			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Life</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdown03">
+				  <li><a class="dropdown-item" href="gym">Gym</a></li>
+				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
+				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
+				</ul>
+			  </li>
+			  
 			  <li class="nav-item active">
 				<a class="nav-link" href="contact.action">Contact Us <span class="sr-only">(current)</span></a>
 			  </li>

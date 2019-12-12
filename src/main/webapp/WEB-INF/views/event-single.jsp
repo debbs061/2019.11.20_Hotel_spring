@@ -151,7 +151,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -225,17 +224,11 @@
 						<p> ${dto.content1 }</p>
 						<blockquote class="quote-post position-relative">
 							<p>
-<<<<<<< HEAD
-							${dto.content3 }	
-							</p>
-						</blockquote>
-						<p>${dto.content2 }</p>
-=======
+
 							${dto.content2 }	
 							</p>
 						</blockquote>
 						<p>${dto.content3 }</p>
->>>>>>> 4c19c39fea9d1b1860e2e5796e73b7806df29779
 					</div>
 					<!-- 이벤트 신청 개인 모달 버튼 -->
 				<div style="padding-bottom: 10px;">
@@ -245,6 +238,7 @@
 					<div class="post-comments p-5">
 						<h3 class="post-sub-heading">이벤트 관련 후기 (총:${countReview }개)</h3>
 						<ul class="media-list comments-list m-bot-50 clearlist">
+						
 							<!-- Comment Item start-->
 							<c:forEach items="${lists }" var="reviewDto">
 							<li class="media mt-4">
@@ -256,7 +250,8 @@
 										</h4>
 										<div class="time"><span>${reviewDto.created }</span></div>
 										<a class="comment-button" href="javascript:location.href=
-					'<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }&eventReviewNum=${reviewDto.eventReviewNum }'"><i class="tf-ion-chatbubbles"></i>삭제</a>
+									'<%=cp%>/eventReview-delete.action?eventIndex=${eventIndex }&eventReviewNum=${reviewDto.eventReviewNum }'">
+									<i class="tf-ion-chatbubbles"></i>삭제</a>
 									</div>
 									<p>
 									${reviewDto.content }

@@ -182,7 +182,6 @@ function sendIt(){
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -226,13 +225,13 @@ function sendIt(){
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">게시물 이름 </p>
-								<input name="galleryName" type="text" class="form-control">
+								<input name="galleryName" type="text" class="form-control" autocomplete="off">
 							</div>
 						</div>
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">설   명</p>
-								<input name="content" type="text" class="form-control">
+								<input name="content" type="text" class="form-control" autocomplete="off">
 							</div>
 						</div>
 						

@@ -227,7 +227,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -471,9 +470,9 @@
 		<div class="row">
 			<div class="col-lg-8 col-md-6">
 				<div class="about-block">
-					<img src="/hotel/resources/images/rooms/img1.jpg" alt="" class="img-fluid shadow-sm">
+					<img src="/hotel/resources/images/rooms/img4.jpg" alt="" class="img-fluid shadow-sm">
 					<div class="about-img">
-						<img src="/hotel/resources/images/rooms/img.jpg" alt="" class="img-fluid">
+						<img src="/hotel/resources/images/rooms/img1.jpg" alt="" class="img-fluid">
 					</div>
 				</div>
 			</div>

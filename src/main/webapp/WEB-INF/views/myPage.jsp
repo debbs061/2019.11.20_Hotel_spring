@@ -150,7 +150,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -248,7 +247,7 @@
             </div>
 
             <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="service-box text-center border px-4 py-5" onclick="location.href='/hotel';">
+                <div class="service-box text-center border px-4 py-5" onclick="location.href='spaConfirm.action';">
                     <i class="flaticon-menu text-color"></i>
                     <h3 class="my-3">SPA 예약 확인</h3>
                 </div>

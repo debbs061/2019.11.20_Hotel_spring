@@ -38,6 +38,9 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="/hotel/resources/css/style.css">
   
+  <!-- Kakao 톡상담 -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  
   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100|Noto+Serif+KR:200&display=swap&subset=korean" rel="stylesheet">
   
@@ -213,7 +216,47 @@
 		transition: all 0.3s cubic-bezier(1,.01,.32,1);	
 	}
   </style>
-
+  
+  
+  <style type="text/css">
+	/* The Modal (background) */
+	.modal {
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow: auto; /* Enable scroll if needed */
+		background-color: rgb(0, 0, 0); /* Fallback color */
+		background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+	}
+	
+	/* Modal Content/Box */
+	.modal-content {
+		background-color: #fefefe;
+		margin: 15% auto; /* 15% from the top and centered */
+		padding: 20px;
+		border: 1px solid #888;
+		width: 50%; /* Could be more or less, depending on screen size */
+		height: 90%;
+	}
+	/* The Close Button */
+	.close {
+		color: #aaa;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+	}
+	
+	.close:hover, .close:focus {
+		color: black;
+		text-decoration: none;
+		cursor: pointer;
+	}
+</style>
+  
 </head>
 
 <body>
@@ -312,7 +355,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -457,7 +499,7 @@
   
    </div>
 
-<div class="page-wrapper event-page">
+					<div class="page-wrapper event-page">
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
@@ -466,7 +508,6 @@
                                             <b>
                                                 <h2>아이티윌 에비앙스파</h2>
                                             </b>
-                                        </a>
                                         <div class="event-post-meta mt-2 mb-3" style="padding-top: 30px;">
                                             <span>
                                                 <i class="ion-clock"></i>운영시간 : 9.00 Am - 9.00 Pm</span>
@@ -477,7 +518,7 @@
                                             고급스럽고 감각적인 소재, 자연채광과 환상적인 서울의 전망이 어우러진 에비앙스파는 심신의 재충전을 위한 기대 이상의 여행으로 고객님을 초대합니다.</p>
                                     </div>
                                     <br/><br/>
-                                    <hr style="border: 2px solid silver;" width="100%">
+                                    <hr color="silver" width="100%">
                                     <div class="row align-items-center" style="padding-top: 50px;">
                                         <div class="col-lg-6">
                                             <img src="/hotel/resources/images/spa/spa7.JPG" alt="" class="img-fluid" style="width:100%; height: 100%;">
@@ -485,7 +526,7 @@
                                         <div class="col-lg-6">
                                             <div class="about-content mt-4 mt-lg-0">
                                                 <h4 class="mb-3">
-                                                    <span>바쁜 도시의 일상을 떠난 온전한 힐링</span>
+                                                    <span>바쁜 도시의 일상을 떠난 완전한 힐링</span>
                                                 </h4>
                                                 <p style="line-height: 200%;">오롯이 심신의 건강을 고려한 활력 있는 다중감각 공간으로서, 에비앙스파 서울은 편안하고 여유로운 환경에서 프리미엄 수분공급이라는 독특한 경험을 제공해 드립니다.
                                                     
@@ -496,11 +537,17 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <br/><br/>
+                                     <br/><br/>
+                                    <div class="event-content mt-3">
+                                    <h2>트리트먼트 코스</h2>
+                                    </div>
                                     <!-- 스파타입정보  -->
                                     <div class="row align-items-center" style="padding-top: 50px;" align="left">
                                         <c:forEach items="${lists }" var="dto">
+                                            <hr color="silver" width="100%">
                                             <div class="col-lg-6" style="padding-top: 10px;">
-                                                <img src="/hotel/resources/images/spa/${dto.savefileName}" alt="" class="img-fluid" style="width:80%; height: 80%;">
+                                                <img src="/hotel/resources/images/spa/${dto.savefileName}" alt="" class="img-fluid" style="width:100%; height: 100%;">
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="about-content mt-4 mt-lg-0">
@@ -516,10 +563,38 @@
                                             </div>
                                         </c:forEach>
                                     </div>
+                                    <br/><br/>
                                     <div align="center" style="padding-top: 30px;">
-                                        <a href="Giftcard_KOR.pdf" class="btn btn-small">선 불 카 드 </a>
-                                        <a href="spa-booking.action"  class="btn btn-small"  >예 약 하 기 </a></div>
+                                    
+                                    
+                                    <!-- Trigger/Open The Modal -->
+								    <button id="myBtn" class="btn btn-small">선불카드</button>
+								 
+								    <!-- The Modal -->
+								    <div id="myModal" class="modal">
+								 
+								      <!-- Modal content -->
+								      <div class="modal-content">
+								        <span class="close">&times;</span><br/>
+								        <img src="/hotel/resources/images/spa/Giftcard_KOR.jpg" width="80%" height="90%">
+								      </div>
+								 
+								    </div>
+                                    
+                                        <!-- <a href="Giftcard_KOR.pdf" class="btn btn-small">선불카드</a> -->
+                                        <a href="spa-booking.action"  class="btn btn-small"  >예약하기</a></div>
                                     </div>
+                                    
+                                    <div id="myModal" class="modal">
+										<span class="close">&times;</span>
+										<img class="modal-content">
+										<div class="caption"></div>
+									</div>
+                                    
+                                    
+                                      <br/><br/>
+                                    <hr color="silver" width="100%">
+                                     
                                     <!-- 스파타입정보끝 -->
                                     <div class="row align-items-center" style="padding-top: 50px;">
                                         <div class="col-lg-6">
@@ -534,7 +609,7 @@
                                                 <li>
                                                     <p>
                                                         <i class="fa fa-bullseye" aria-hidden="true"></i>
-                                                      	개인 자쿠지를 갖춘 1개의 VIP커플 스위트룸</p>
+                                                        개인 자쿠지를 갖춘 1개의 VIP커플 스위트룸</p>
                                                 </li>
                                                 <li>
                                                     <p>
@@ -559,16 +634,14 @@
                                     </div>
                                     <div style="padding-top: 20px;"></div>
                                     <br/><br/>
-                                    <hr style="border: 2px solid silver;" width="100%">
+                                    <hr color="silver" width="100%">
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-			</div>
 </section>
-
-
 
 <!-- footer Start -->
 <footer class="footer pb-md-5 pb-sm-5 secondary-bg pb-0">
@@ -723,9 +796,7 @@
 	//get the slide width
 	var sliderWidth = $('#slider-wrap').width();
 
-
 	$(document).ready(function(){
-		
 		
 		/*****************
 		 BUILD THE SLIDER
@@ -742,8 +813,6 @@
 		$('#previous').click(function(){
 			slideLeft();
 		});
-		
-		
 		
 		/*************************
 		 //*> OPTIONAL SETTINGS
@@ -774,13 +843,8 @@
 		  function(){ $(this).addClass('active'); clearInterval(autoSlider); }, 
 		  function(){ $(this).removeClass('active'); autoSlider = setInterval(slideRight, 3000); }
 		);
-		
-		
-
 	});//DOCUMENT READY
-		
-
-
+	
 	/***********
 	 SLIDE LEFT
 	************/
@@ -793,8 +857,6 @@
 		countSlides();
 		pagination();
 	}
-
-
 	/************
 	 SLIDE RIGHT
 	*************/
@@ -807,10 +869,6 @@
 		countSlides();
 		pagination();
 	}
-
-
-
-		
 	/************************
 	 //*> OPTIONAL SETTINGS
 	************************/
@@ -822,11 +880,35 @@
 		$('#pagination-wrap ul li').removeClass('active');
 		$('#pagination-wrap ul li:eq('+pos+')').addClass('active');
 	}
-			
-		
-	
 	</script>
 	
-
+	<script type="text/javascript">
+		 // Get the modal
+	    var modal = document.getElementById('myModal');
+	
+	    // Get the button that opens the modal
+	    var btn = document.getElementById("myBtn");
+	
+	    // Get the <span> element that closes the modal
+	    var span = document.getElementsByClassName("close")[0];                                          
+	
+	    // When the user clicks on the button, open the modal 
+	    btn.onclick = function() {
+	        modal.style.display = "block";
+	    }
+	
+	    // When the user clicks on <span> (x), close the modal
+	    span.onclick = function() {
+	        modal.style.display = "none";
+	    }
+	
+	    // When the user clicks anywhere outside of the modal, close it
+	    window.onclick = function(event) {
+	        if (event.target == modal) {
+	            modal.style.display = "none";
+	        }
+	    }
+	</script>
+	
   </body>
   </html>

@@ -263,7 +263,6 @@ function inputIdChk() {
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -309,7 +308,7 @@ function inputIdChk() {
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">제 목</p>
-								<input name="eventTitle" type="text" class="form-control">
+								<input name="eventTitle" type="text" class="form-control" autocomplete="off">
 							</div>
 						</div>
 					
@@ -385,25 +384,19 @@ function inputIdChk() {
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">요약 설명 1</p>
-								<textarea rows="2" name="content1" class="form-control"	placeholder="내용을 입력하세요"> 
-								
-								</textarea>
+								<textarea rows="2" name="content1" class="form-control"	placeholder="내용을 입력하세요"></textarea>
 							</div>
 						</div>
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">내 용2</p>
-								<textarea rows="4" name="content2" class="form-control"	placeholder="내용을 입력하세요">
-								
-								</textarea>
+								<textarea rows="4" name="content2" class="form-control"	placeholder="내용을 입력하세요"></textarea>
 							</div>
 						</div>
 						<div class="col-lg-10">
 							<div class="form-group">
 							<p class="section-subtitle">내 용3</p>
-								<textarea rows="4" name="content3" class="form-control"	placeholder="내용을 입력하세요">
-								
-								</textarea>
+								<textarea rows="4" name="content3" class="form-control"	placeholder="내용을 입력하세요"></textarea>
 							</div>
 						</div>
 						

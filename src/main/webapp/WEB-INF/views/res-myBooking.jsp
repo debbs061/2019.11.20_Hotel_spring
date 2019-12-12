@@ -162,7 +162,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -191,7 +190,7 @@
       <div class="container">
         <div class="border payment-confirm position-relative">
 	        <div class="col-lg-12 text-center " >
-	        	<div align="center"><h2 class="headline">레스토랑 예약정보<br/></h2></div>
+	        	<div align="center"><h2 class="headline">레스토랑 예약정보<br/><br/></h2></div>
 			</div>
 			
 			
@@ -262,7 +261,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom: 30px; padding-top: 70px;">
-       					 <a class="btn btn-main mt-20"  href="res-delete.action?resBookNo=${dto.resBookNo }">예 약 취 소</a>
+       					 <a class="btn btn-solid-border mt-20"  href="res-delete.action?resBookNo=${dto.resBookNo }">예 약 취 소</a>
                 	</div>
                
                     <div class="col-lg-12 text-center">
@@ -280,9 +279,10 @@
                       </div>
 
                        <a href="restaurantMain.action" class="btn btn-solid-border">레&nbsp;스&nbsp;토&nbsp;랑</a>
-                       <a href="/hotel/" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
+                       <a href="/hotel" class="btn btn-solid-border">호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;텔</a>
                        <a href="gym" class="btn btn-solid-border">헬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;스</a>
                        <a href="life-spa.action" class="btn btn-solid-border">스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파</a>
+                       <a href="event-grid.action" class="btn btn-solid-border">이&nbsp;&nbsp;&nbsp;벤&nbsp;&nbsp;&nbsp;트</a>
                        <a href="myPage.action" class="btn btn-solid-border">마&nbsp;이&nbsp;페&nbsp;이&nbsp;지</a>
                   </div>
                </c:if>

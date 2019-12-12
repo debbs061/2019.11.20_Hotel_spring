@@ -163,7 +163,6 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdown03">
 				  <li><a class="dropdown-item" href="gym">Gym</a></li>
 				  <li><a class="dropdown-item" href="restaurantMain.action">Restaurant</a></li>
-				  <li><a class="dropdown-item" href="#">Shopping</a></li>
 				  <li><a class="dropdown-item" href="life-spa.action">Spa</a></li>
 				</ul>
 			  </li>
@@ -630,13 +629,13 @@ function showRequest(){
 	
 	if(!startDate) {
 		alert("\n시작일 날짜를 선택하세요");
-		$("#startDate").focus;
+		$("#startDate").focus();
 		return false;
 	}
 
 	if (!endDate) {
 		alert("\n종료일 날짜를 선택하세요");
-		$("#endDate").focus;
+		$("#endDate").focus();
 		return false;
 	}
 	
@@ -647,7 +646,7 @@ function showRequest(){
 	
 	if(startD[2]>endD[2]) { 
 		alert("\n시작일 날짜보다 이전 날짜를 선택할 수 없습니다1");
-		$("#endDate").focus;
+		$("#endDate").focus();
 		return false;
 	}
 	//월 비교
@@ -656,7 +655,7 @@ function showRequest(){
 	if(startD[2]!==endD[2] && startD[2] > endD[2]){
 		if(startD[0]>endD[0]) {
 	   		alert("\n시작일 날짜보다 이전 날짜를 선택할 수 없습니다2");
-	   		$("#endDate").focus;
+	   		$("#endDate").focus();
 	   		return false;
 	   	}
 	}
@@ -667,7 +666,7 @@ function showRequest(){
 		if(!startD[0]<endD[0])
 			if(startD[1]>endD[1])  {
 					alert("\n시작일 날짜보다 이전 날짜를 선택할 수 없습니다3");
-					$("#endDate").focus;
+					$("#endDate").focus();
 					return false;
 			}
 	}
