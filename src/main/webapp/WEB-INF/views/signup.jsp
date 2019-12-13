@@ -357,7 +357,7 @@ function inputIdChk() {
 						<div class="col-lg-3">
 							<div class="form-group">
 								<p class="section-subtitle">&nbsp;</p>
-								<input type="button" class="btn btn-main" value="주소찾기" onclick="openDaumZipAddress();">
+								<input type="button" class="btn btn-main btn-block" value="주 소 찾 기 " onclick="openDaumZipAddress();">
 							</div>
 						</div>
 						<div class="col-lg-10">
@@ -366,9 +366,11 @@ function inputIdChk() {
 								<input name="tel" type="text" class="form-control"	placeholder="전화번호 입력" autocomplete="off">
 							</div>
 						</div>
-							<input type="submit" class="btn btn-main" value="회 원 가 입" >
+						<div class="col-lg-10">
+							<br/>
+							<input type="submit" class="btn btn-main btn-block" value="회 원 가 입" >
 							<!-- <button class="btn btn-main" type="submit" onclick="sendIt();">회 원 가 입</button> -->
-					
+						</div>
 					</div>
 
 				</form>

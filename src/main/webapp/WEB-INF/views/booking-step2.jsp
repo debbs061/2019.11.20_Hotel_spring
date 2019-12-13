@@ -404,24 +404,24 @@
                         <div class="col-md-6 col-lg-6">
                           <div class="form-group">
                           이름:
-                            <input type="text" class="form-control" value= "${sessionScope.login.userName }" name="name" required >
+                            <input type="text" class="form-control" value= "${sessionScope.login.userName }" name="name" required id="bookingUserName" autocomplete="off">
                           </div>
                           <div class="form-group">
                           주소:
-                            <input type="text" class="form-control" value="${sessionScope.login.addr }" name="address" required>
+                            <input type="text" class="form-control" value="${sessionScope.login.addr }" name="address" required id="bookingAddr" autocomplete="off">
                           </div>
                           <div class="form-group">
                           휴대폰 번호:
-                            <input type="text" class="form-control" value="${sessionScope.login.tel }" name="tel" required>
+                            <input type="text" class="form-control" value="${sessionScope.login.tel }" name="tel" required id="bookingTel" autocomplete="off">
                           </div>
                           <div class="form-group">
                           이메일:
-                            <input type="email" class="form-control" value="${sessionScope.login.userEmail }" name="email" required>
+                            <input type="email" class="form-control" value="${sessionScope.login.userEmail }" name="email" required id="bookingUserEmail" autocomplete="off">
                           </div>
                         </div>
                         
                         <div class="col-lg-12">
-                          <textarea class="form-control" placeholder="추가 요청사항을 입력해주세요" rows="5"  name="booking-message" required></textarea>
+                          <textarea class="form-control" placeholder="추가 요청사항을 입력해주세요" rows="5"  name="booking-message" required id="bookingMessage"></textarea>
                           <div class="mt-4">
        ．전망은 체크인 당일 사정에 따라 달라질 수 있습니다.<br/>
 	   ．전 객실은 금연실로 운영중입니다.
@@ -583,6 +583,24 @@
 	</script>
 	
     <!-- <script src="/hotel/resources/js/weather.js"></script> -->
+    
+    <script type="text/javascript">
+    
+    $(document).ready(function () {
+	    $("#bookingUserName,#bookingAddr,#bookingTel,#bookingUserEmail,#bookingMessage").click(function () {
+	        if ('${sessionScope.login.userName}'.length == 0) {
+	            var answer = window.confirm("\n로그인 후 사용가능합니다. \n로그인창으로 이동하시겠습니까?")
+	            if (answer) {
+	                location.href = 'login.action';
+	                event.preventDefault();
+	            } else {
+	                event.preventDefault();
+	            }
+	        }
+	    })
+	});
+    
+    </script>
 
   </body>
   </html>

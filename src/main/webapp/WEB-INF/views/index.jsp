@@ -434,7 +434,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
             	<div class="event-box mb-5 position-relative">
-					<img src="/hotel/resources/images/about/about2.jpg" alt="" class="img-fluid w-100" onclick="location.href='life-spa.action';">
+					<img src="/hotel/resources/images/indexSpa.jpg" alt="" class="img-fluid w-100" onclick="location.href='life-spa.action';">
 					<div class="event-content mt-3">
 						<div class="event-date p-3 text-white">
 							<span class="date font-weight-bold d-block">Members</span> <span>O n l y</span>
